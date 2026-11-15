@@ -37,6 +37,16 @@ Skill được Antigravity tự động phát hiện qua `.agents/skills/crm-ba-
 - **Cú pháp chờ theo phụ thuộc:**
   > `Tách song song M14, M19, M20, M01; M03 và M02 giữ chờ tới khi có Public Contract của M01 và M19 mới chạy tiếp.`
 
+### F. Xuất Phiếu hỏi Stakeholder (`/to-questionnaire`)
+- **Cú pháp chuẩn:**
+  > `Dùng skill crm-ba-spec chế độ review-change (Luồng C) gom các [OPEN-GAP] của M09, M10, M17 thành phiếu câu hỏi cho phòng Tài chính/Kế toán duyệt.`
+
+### G. Rà soát độc lập & Đóng gói bàn giao phiên (`Fresh-Context Review` + `Handoff`)
+- **Rà soát bằng subagent context sạch:**
+  > `Dùng skill crm-ba-spec chế độ review-change (Luồng A) chạy subagent context sạch đối chiếu M01-CUSTOMER-IDENTITY-MERGE.md với INVARIANTS.md.`
+- **Bàn giao cuối phiên dài:**
+  > `Tổng hợp handoff cuối phiên vào PROGRESS.md (đã khóa gì, contract nào mới, GAP nào đang chờ, lệnh chạy phiên tiếp theo).`
+
 ---
 
 ## 2. Điều gì diễn ra trong 1 phiên bóc tách Module chuẩn?

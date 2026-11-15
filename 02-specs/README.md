@@ -17,6 +17,8 @@ Mục tiêu giai đoạn hiện tại là hoàn thiện đặc tả chi tiết c
 ### Hợp đồng Liên Module Đã Khóa (`contracts/`)
 
 - [M14-PRINCIPAL-ACCESS-DECISION.md](contracts/M14-PRINCIPAL-ACCESS-DECISION.md) — Hợp đồng Kép kiểm tra quyền thực thi (`EvaluateAccessDecision` + `CompileScopeFilter`) và 4 Domain Events thu hồi/bàn giao của `M14`.
+- [M20-SUPPRESSION-PRIVACY-GATE.md](contracts/M20-SUPPRESSION-PRIVACY-GATE.md) — Hợp đồng Kép kiểm duyệt chặn gửi thời gian thực (`EvaluateOutboundCompliance`), kiểm soát chuyển dữ liệu sang AI/Vendor (`EvaluateVendorAndAiTransfer`), đối soát sổ xóa sau Restore (`VerifyPostRestoreComplianceGate`) và 4 Domain Events của `M20`.
+- [M19-DURABLE-INGEST-OUTBOX.md](contracts/M19-DURABLE-INGEST-OUTBOX.md) — Hợp đồng 3 trụ cột Ingest bền vững trước ACK (`Durable-Before-ACK`), Backfill/Replay an toàn TTL (`Safe Backfill & Replay`), tải media Zero-Trust (`SEC04`) và 4 Domain Events của `M19`.
 
 ---
 
@@ -44,8 +46,8 @@ Nguồn định nghĩa: [Master 3.0](../00-master/CRM_MASTER_BRD_SRS_HOP_NHAT.md
 | M16 | Quản lý công việc cá nhân, đội nhóm, tổ chức, dự án và nguồn lực | `Task/assignment/review/recurrence/project/deliverable/acceptance` | Chờ tách file module *(đã có pilot SL01)* | — |
 | M17 | Ngân sách, chi phí, nguồn tiền media và rủi ro hiệu quả | `Budget/commitment/cost/funding authorization` | Chờ phân tích & tách file | — |
 | M18 | Từ điển chỉ số, báo cáo điều hành và attribution *(kèm đề xuất F08–11)* | `KPI definition/metric facts/report snapshot/P&L/ad-hoc` | Baseline v1.9 chờ tách đầy đủ *(đã có đề xuất mở rộng F08–11)* | [M18-BI-REPORTING-EXPANSION.md](modules/M18-BI-REPORTING-EXPANSION.md) |
-| M19 | Kết nối bên ngoài, nhận/phát sự kiện và phục hồi | `Connection/capability/inbox/outbox/checkpoint` | Chờ phân tích & tách file | — |
-| M20 | Consent, yêu cầu dữ liệu, retention và quản trị mục đích | `Processing/consent/suppression/privacy/retention` | Chờ phân tích & tách file | — |
+| M19 | Kết nối bên ngoài, nhận/phát sự kiện và phục hồi | `Connection/capability/inbox/outbox/checkpoint` | Đã tách & chốt thiết kế (`Reviewed` — `24/24` IDs) | [M19-INTEGRATION-ADAPTERS-OUTBOX.md](modules/M19-INTEGRATION-ADAPTERS-OUTBOX.md) |
+| M20 | Consent, yêu cầu dữ liệu, retention và quản trị mục đích | `Processing/consent/suppression/privacy/retention` | Đã tách & chốt thiết kế (`Reviewed` — `14/14` IDs) | [M20-PRIVACY-CONSENT-RETENTION.md](modules/M20-PRIVACY-CONSENT-RETENTION.md) |
 | M21 | Kết quả kinh doanh đối tác và chia sẻ dữ liệu theo mức | `Sharing profile/source binding/dataset/import/reconciliation/report/exception` | Đã tách & rà soát thiết kế | [M21-PARTNER-BUSINESS-RESULTS.md](modules/M21-PARTNER-BUSINESS-RESULTS.md) |
 | M22 | Quản trị nhân sự, công và lương | `Employee/employment/contract/leave/attendance/payroll/import` | Đã tách & rà soát thiết kế | [M22-HUMAN-RESOURCES.md](modules/M22-HUMAN-RESOURCES.md) |
 

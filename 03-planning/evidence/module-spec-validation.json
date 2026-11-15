@@ -1,11 +1,11 @@
 {
-  "run_at": "2026-11-15T17:40:47.929799+00:00",
+  "run_at": "2026-11-15T18:24:42.459441+00:00",
   "kind": "spec-analyze-and-traceability validation only",
   "baseline_sha256": "b6a3279f328e96e1e97d845e209be7a326516a0dba5e3a033d88e1f2162e421c",
   "all_passed": true,
-  "modules_checked": 6,
+  "modules_checked": 8,
   "slices_checked": 3,
-  "contracts_checked": 1,
+  "contracts_checked": 3,
   "changes_checked": 0,
   "skills_checked": 8,
   "partial_trace_warnings": {
@@ -44,6 +44,34 @@
         "M18-AC04",
         "UC16"
       ],
+      "passed": true
+    },
+    {
+      "file": "02-specs\\modules\\M19-INTEGRATION-ADAPTERS-OUTBOX.md",
+      "mode": "standard_module_spec",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "missing_sections": [],
+      "has_provenance_tags": true,
+      "has_baseline_ref": true,
+      "trace_ids_complete": true,
+      "missing_ids_count": 0,
+      "missing_ids_sample": [],
+      "passed": true
+    },
+    {
+      "file": "02-specs\\modules\\M20-PRIVACY-CONSENT-RETENTION.md",
+      "mode": "standard_module_spec",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "missing_sections": [],
+      "has_provenance_tags": true,
+      "has_baseline_ref": true,
+      "trace_ids_complete": true,
+      "missing_ids_count": 0,
+      "missing_ids_sample": [],
       "passed": true
     },
     {
@@ -138,6 +166,22 @@
   "contract_results": [
     {
       "file": "02-specs\\contracts\\M14-PRINCIPAL-ACCESS-DECISION.md",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "missing_contract_parts": [],
+      "passed": true
+    },
+    {
+      "file": "02-specs\\contracts\\M19-DURABLE-INGEST-OUTBOX.md",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "missing_contract_parts": [],
+      "passed": true
+    },
+    {
+      "file": "02-specs\\contracts\\M20-SUPPRESSION-PRIVACY-GATE.md",
       "fences_balanced": true,
       "bad_links": [],
       "no_fake_pass": true,
@@ -344,18 +388,24 @@
       "status": "partial_id_mentions"
     },
     "M19": {
-      "spec_files": [],
+      "spec_files": [
+        "02-specs\\modules\\M19-INTEGRATION-ADAPTERS-OUTBOX.md"
+      ],
       "total_owned_ids": 24,
-      "covered_ids": 0,
-      "missing_ids_count": 24,
-      "status": "not_decomposed_yet"
+      "covered_ids": 24,
+      "missing_ids_count": 0,
+      "missing_ids_sample": [],
+      "status": "complete_id_mentions"
     },
     "M20": {
-      "spec_files": [],
+      "spec_files": [
+        "02-specs\\modules\\M20-PRIVACY-CONSENT-RETENTION.md"
+      ],
       "total_owned_ids": 14,
-      "covered_ids": 0,
-      "missing_ids_count": 14,
-      "status": "not_decomposed_yet"
+      "covered_ids": 14,
+      "missing_ids_count": 0,
+      "missing_ids_sample": [],
+      "status": "complete_id_mentions"
     },
     "M21": {
       "spec_files": [

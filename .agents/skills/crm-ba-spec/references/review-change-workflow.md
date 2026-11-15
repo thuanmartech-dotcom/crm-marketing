@@ -13,13 +13,25 @@ Kết hợp 2 tinh hoa:
    ```powershell
    python 05-tools/verify_module_spec.py
    ```
-3. Đọc đối chiếu thủ công 5 điểm nóng:
+3. *(Khuyến nghị từ ECC)* Dùng 1 subagent `research` **context sạch (read-only)** đọc độc lập các file spec vừa viết + [INVARIANTS.md](../../../../01-architecture/INVARIANTS.md) để tránh lỗi "người viết tự chấm bài mình".
+4. Đọc đối chiếu thủ công 5 điểm nóng:
    - **Data Ownership Conflict:** Hai module có cùng tự nhận là nguồn ghi cho 1 entity không?
    - **Contract Mismatch:** Producer công bố event/schema A nhưng Consumer ở module khác kỳ vọng field B?
    - **Invariant Violation:** Có luồng nào vi phạm `INVARIANTS.md` (ví dụ: `Done` tự kích `Paid`, ghi thẳng sang `M22` payroll, bypass `M14`/`M20`, `PATCH status` tự do không qua command)?
    - **Silent Assumptions:** Có rule `[PROPOSED]` nào chưa được chủ dự án duyệt nhưng lại viết như `[MASTER]` không?
    - **GAP Drift:** Có GAP mới nhắc trong spec nhưng chưa đăng ký vào [GAPS.md](../../../../03-planning/GAPS.md)?
-4. Xuất báo cáo kiểm tra gồm các nhóm `CRITICAL / HIGH / MEDIUM / INFO` và hỏi người dùng chốt hướng xử lý trước khi sửa.
+5. Xuất báo cáo kiểm tra gồm các nhóm `CRITICAL / HIGH / MEDIUM / INFO` và hỏi người dùng chốt hướng xử lý trước khi sửa.
+
+---
+
+## Luồng C — Xuất Phiếu hỏi Stakeholder (`/to-questionnaire` style)
+
+Dùng khi trong [GAPS.md](../../../../03-planning/GAPS.md) hoặc trong các file `Mxx-*.md` tích tụ nhiều `[OPEN-GAP]` cần **người thật ở các phòng ban khác nhau** chốt (Finance, Legal/Privacy, Ops, Đối tác Pancake, Tech Lead):
+
+1. Quét toàn bộ `[OPEN-GAP]` theo phạm vi người dùng yêu cầu (1 module, 1 sóng, hoặc toàn bộ `GAPS.md`).
+2. Gom nhóm câu hỏi theo **Owner vai trò** (mỗi vai trò 1 mục riêng, viết bằng ngôn ngữ nghiệp vụ dễ hiểu — tránh thuật ngữ code nặng).
+3. Với mỗi câu hỏi, trình bày đủ 4 cột: `Mã GAP` | `Câu hỏi cần chốt` | `Phương án gợi ý mặc định` | `Chặn chức năng/slice nào`.
+4. Sau khi người dùng nhận được câu trả lời từ Stakeholder và gửi lại, cập nhật đồng bộ vào `GAPS.md` (đóng GAP), `02-specs/modules/Mxx-*.md` và chạy lại `05-tools/verify_module_spec.py`.
 
 ---
 

@@ -20,16 +20,16 @@ Chắt lọc quy trình 4 pha từ **BMAD Analyst** (đào sâu nghiệp vụ), 
 
 ---
 
-## Pha 1 — Grounding & Trace Harvest (Đọc tối thiểu, đúng nguồn)
+## Pha 1 — Grounding & Trace Harvest (`search-first`, đọc tối thiểu đúng nguồn)
 
-Mục tiêu: Gom toàn bộ sự thật đã có trong Master v1.9 trước khi đặt câu hỏi hay viết bất kỳ dòng spec nào.
+Mục tiêu: Gom toàn bộ sự thật đã có trong Master v1.9 trước khi đặt câu hỏi hay viết bất kỳ dòng spec nào. **Tìm sự thật trong kho tài liệu là việc của Agent — tuyệt đối không hỏi người dùng những gì đã tra được từ Master/trace/research.**
 
 1. Đọc bối cảnh kiến trúc cốt lõi:
    - [active-task.json](../../../../03-planning/agent/active-task.json) và [PROGRESS.md](../../../../03-planning/agent/PROGRESS.md)
-   - [INVARIANTS.md](../../../../01-architecture/INVARIANTS.md) và [INDEX.md](../../../../01-architecture/INDEX.md)
-2. Trích xuất toàn bộ dữ kiện thuộc module `Mxx`:
+   - [INVARIANTS.md](../../../../01-architecture/INVARIANTS.md), [INDEX.md](../../../../01-architecture/INDEX.md) và các ADR liên quan trong `01-architecture/decisions/` (như [ADR-001-BASELINE-AND-STACK.md](../../../../01-architecture/decisions/ADR-001-BASELINE-AND-STACK.md)).
+2. Trích xuất toàn bộ dữ kiện thuộc module `Mxx` (`search-first` để tránh đặt trùng tên entity/command giữa 22 module):
    - Tìm dòng nguồn của `Mxx` trong [modules.json](../../../../03-planning/trace/modules.json) và các mục liên quan trong [source-sections.json](../../../../03-planning/trace/source-sections.json).
-   - Lọc các requirement có `"owner": "Mxx"` hoặc `"Mxx"` trong `"consumers"` tại [requirements.json](../../../../03-planning/trace/requirements.json).
+   - Lọc các requirement có `"owner": "Mxx"` hoặc `"Mxx"` trong `"consumers"` tại [requirements.json](../../../../03-planning/trace/requirements.json), và đối chiếu entity/contract đã khai báo trong [entities-contracts.json](../../../../03-planning/trace/entities-contracts.json) cùng các file có sẵn ở `02-specs/contracts/`.
    - Đọc các đoạn chức năng của `Mxx` trong [FUNCTION-CATALOG.md](../../../../02-specs/FUNCTION-CATALOG.md).
    - Dùng `read_file` (theo `StartLine`/`EndLine`) đọc đúng các phần Master v1.9 trong [CRM_MASTER_BRD_SRS_HOP_NHAT.md](../../../../00-master/CRM_MASTER_BRD_SRS_HOP_NHAT.md).
    - Đối chiếu `04-research/` nếu Master có tham chiếu mở rộng chưa rõ ngữ cảnh.
@@ -50,7 +50,7 @@ Tuyệt đối **không nhảy thẳng vào viết file `Mxx-*.md`** khi vừa �
 - Nguồn chân lý (Single Source of Truth) khi có nhiều kênh/nguồn ghi đè nhau.
 - Hợp đồng công khai (`public command/event`) ảnh hưởng sang module khác.
 
-> **Cách hỏi chuẩn:** Sử dụng công cụ `ask_question`, hỏi **từng quyết định một** theo thứ tự phụ thuộc (hoặc gộp 1 câu ngắn nếu độc lập), **luôn đặt phương án `(Recommended)` lên đầu** kèm lý giải ngắn theo `INVARIANTS.md`.
+> **Cách hỏi chuẩn:** Sử dụng công cụ `ask_question`, hỏi **từng quyết định một** theo thứ tự phụ thuộc (hoặc gộp 1 câu ngắn nếu độc lập), **luôn đặt phương án `(Recommended)` lên đầu** kèm lý giải ngắn theo `INVARIANTS.md`. Nếu quyết định đó chốt một ranh giới kiến trúc hoặc đánh đổi quan trọng xuyên module, ghi thêm ADR mới vào `01-architecture/decisions/ADR-NNN-TEN-NGAN.md` theo mẫu [ADR-001-BASELINE-AND-STACK.md](../../../../01-architecture/decisions/ADR-001-BASELINE-AND-STACK.md).
 
 ### Tầng 2 — Non-Blocking Gaps (Ghi nhận `[OPEN-GAP]`, không làm tắc luồng)
 Áp dụng cho tham số vận hành hoặc chi tiết chưa thể chốt ngay ở bước thiết kế:
@@ -90,13 +90,14 @@ Tạo tệp tại `02-specs/modules/Mxx-TEN-MODULE.md` (tên ASCII viết hoa, k
 
 Trước khi báo hoàn thành cho người dùng, tự kiểm tra chéo và chạy tool:
 
-1. **Checklist tự kiểm (`/analyze`):**
+1. **Checklist tự kiểm (`/analyze`) & Fresh-Context Review:**
    - Mọi ID thuộc `Mxx` trong `requirements.json` đều đã xuất hiện trong bảng `Requirement trace` chưa?
    - Có mâu thuẫn nào với `INVARIANTS.md` (ví dụ: ghi đè projection thành nguồn ghi, gộp tenant/workspace, vượt quyền `M14`/`M20`, bỏ qua `M19` outbox)?
    - Có từ ngữ mơ hồ kiểu *"hệ thống xử lý phù hợp"*, *"tùy chỉnh linh hoạt"* mà chưa chuyển thành điều kiện EARS hoặc `[OPEN-GAP]` không?
    - Có chữ `Pass` / `Passed` / `Verified` nào lọt vào cột `Evidence` không? (Phải là `Not Run`).
-2. **Cập nhật điều hướng & nhật ký:**
-   - *(Nếu chạy đơn lẻ / hoặc vai Coordinator):* Cập nhật dòng `Mxx` trong [02-specs/README.md](../../../../02-specs/README.md) (trạng thái + link tệp), ghi tóm tắt vào [03-planning/agent/PROGRESS.md](../../../../03-planning/agent/PROGRESS.md) và các GAP mới vào [GAPS.md](../../../../03-planning/GAPS.md).
+   - *(Trước khi nâng từ `Draft` → `Reviewed` hoặc cuối một Sóng song song):* Khuyến nghị phóng 1 subagent `research` (context sạch, read-only) đối chiếu độc lập `Mxx-*.md` với `INVARIANTS.md` + Master v1.9 để tránh thiên kiến tự chấm.
+2. **Cập nhật điều hướng & nhật ký (`Handoff`):**
+   - *(Nếu chạy đơn lẻ / hoặc vai Coordinator):* Cập nhật dòng `Mxx` trong [02-specs/README.md](../../../../02-specs/README.md) (trạng thái + link tệp), ghi nhật ký bàn giao chuẩn `Handoff` vào [03-planning/agent/PROGRESS.md](../../../../03-planning/agent/PROGRESS.md) (gồm: *Đã khóa / Contract mới / Blocking GAP chờ chốt / Lệnh gợi ý phiên sau*) và các GAP mới vào [GAPS.md](../../../../03-planning/GAPS.md).
    - *(Nếu đang là Worker trong sóng song song):* **Không sửa** `README.md`, `PROGRESS.md`, `GAPS.md`; trả về danh sách GAP & tóm tắt để Coordinator hợp nhất.
    - *(Lưu ý chuyển tiếp `M18`):* Khi hoàn thiện phần baseline `M18-F01–07` vào [M18-BI-REPORTING-EXPANSION.md](../../../../02-specs/modules/M18-BI-REPORTING-EXPANSION.md), gỡ tên tệp này khỏi `LEGACY_EXEMPT_MODULES` trong `05-tools/verify_module_spec.py`.
 3. **Chạy lệnh kiểm chứng:**

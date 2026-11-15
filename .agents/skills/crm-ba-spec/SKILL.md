@@ -33,7 +33,7 @@ Xác định đúng chế độ và **chỉ đọc playbook tương ứng** tron
 |---|---|---|
 | **`module`** | Tách mới hoặc hoàn thiện đặc tả một module (`M01–M20`) kèm contract liên module | [references/module-workflow.md](references/module-workflow.md) |
 | **`slice`** | Lập đặc tả lát cắt triển khai (`SL00`, `SL02–SL07`) từ các module đã có | [references/slice-workflow.md](references/slice-workflow.md) |
-| **`review-change`** | Rà chéo chống lệch spec (`/analyze`) hoặc sửa đổi spec đã `Reviewed`/`Ready` (`OpenSpec`) | [references/review-change-workflow.md](references/review-change-workflow.md) |
+| **`review-change`** | Rà chéo chống lệch spec (`/analyze`, `Fresh-Context Review`), xuất Phiếu hỏi Stakeholder, hoặc sửa spec đã `Reviewed`/`Ready` (`OpenSpec`) | [references/review-change-workflow.md](references/review-change-workflow.md) |
 
 Ngoài ra:
 - Đối chiếu nhanh mẫu câu EARS và checklist 7 điểm chung tại [references/ears-and-checklists.md](references/ears-and-checklists.md) khi viết mục hành vi.

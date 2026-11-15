@@ -1,10 +1,10 @@
 {
   "task_id": "CRM-SPECS-SYNC-20261115",
-  "status": "Wave 1 decomposition in progress: locked 4 Pre-Flight Rules and completed M14 (M14-ORG-ACCESS-DELEGATION.md + M14-PRINCIPAL-ACCESS-DECISION.md, 18/18 owned IDs + 25 extended IDs); next module in Wave 1 is M20; application not implemented",
+  "status": "Wave 1 decomposition in progress: completed and reviewed M14 (18/18 IDs), M20 (14/14 IDs) and M19 (24/24 IDs) with full step-by-step operational flows, EARS rules, unbundled ERD and public contracts; next module in Wave 1 is M16; application not implemented",
   "baseline_version": "1.9",
   "baseline_sha256": "b6a3279f328e96e1e97d845e209be7a326516a0dba5e3a033d88e1f2162e421c",
   "baseline_path": "../../00-master/CRM_MASTER_BRD_SRS_HOP_NHAT.md",
-  "proposed_next_slice": "Wave 1 — Module 2: M20 (Consent, Suppression & Privacy) per ../DECOMPOSITION-PLAN.md",
+  "proposed_next_slice": "Wave 1 — Module 4: M16 (Công việc, Dự án & Task Core) per ../DECOMPOSITION-PLAN.md",
   "read_first": [
     "../../README.md",
     "../../AGENTS.md",
@@ -17,6 +17,10 @@
     "../../02-specs/FUNCTION-CATALOG.md",
     "../../02-specs/modules/M14-ORG-ACCESS-DELEGATION.md",
     "../../02-specs/contracts/M14-PRINCIPAL-ACCESS-DECISION.md",
+    "../../02-specs/modules/M20-PRIVACY-CONSENT-RETENTION.md",
+    "../../02-specs/contracts/M20-SUPPRESSION-PRIVACY-GATE.md",
+    "../../02-specs/modules/M19-INTEGRATION-ADAPTERS-OUTBOX.md",
+    "../../02-specs/contracts/M19-DURABLE-INGEST-OUTBOX.md",
     "../../02-specs/modules/M21-PARTNER-BUSINESS-RESULTS.md",
     "../../02-specs/slices/SL08-PARTNER-RESULTS.md",
     "PROGRESS.md",
