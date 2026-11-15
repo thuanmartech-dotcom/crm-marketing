@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-18",
+  "run_at_utc": "2026-10-18T09:05:39.198706+00:00",
+  "kind": "BA document integration and trace validation only",
+  "checks": {
+    "baseline_1_8": true,
+    "hashes_synchronized": true,
+    "archive_1_7_exact": true,
+    "eight_canonical_blocks_integrated_exactly": true,
+    "all_new_ids_defined_owned": true,
+    "FR41_owned_and_covered": true,
+    "features_14_have_uc_rule_test": true,
+    "all_uc_rules_have_trace_test": true,
+    "all_tests_covered_by_feature": true,
+    "all_new_references_resolve": true,
+    "new_test_definitions_once": true,
+    "application_tests_still_not_run": true,
+    "partner_schema_and_API_extracted": true,
+    "m21_mode_values_present": true,
+    "module_anchor_unique": true,
+    "fixture_expected_arithmetic": true,
+    "fixture_unavailable_not_zero": true,
+    "fixture_agency_finance_separate": true,
+    "fixture_overlap_not_double_counted": true
+  },
+  "m21_entity_declarations": 12,
+  "m21_contract_declarations": 22,
+  "application_test_status": "Not Run",
+  "provider_capability_status": "Not verified on partner account",
+  "mermaid_rendering": "Not Run"
+}

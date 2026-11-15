@@ -1,0 +1,678 @@
+<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+<head>
+<meta charset="utf-8">
+<title>Báo Cáo Kiểm Định Chốt Chặn Cuối Cùng - CRM Master BRD & SRS v1.3</title>
+<!--[if gte mso 9]>
+<xml>
+  <w:WordDocument>
+    <w:View>Print</w:View>
+    <w:Zoom>100</w:Zoom>
+    <w:DoNotOptimizeForBrowser/>
+  </w:WordDocument>
+</xml>
+<![endif]-->
+<style>
+  @page Section1 {
+    size: 595.3pt 841.9pt; /* Khổ giấy A4 dọc */
+    margin: 2.0cm 2.0cm 2.0cm 2.5cm;
+    mso-header-margin: 35.4pt;
+    mso-footer-margin: 35.4pt;
+  }
+  div.Section1 { page: Section1; }
+  body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    line-height: 1.4;
+    color: #000000;
+  }
+  h1 {
+    font-size: 16pt;
+    font-weight: bold;
+    text-align: center;
+    color: #1F4E79;
+    margin-top: 12pt;
+    margin-bottom: 6pt;
+    text-transform: uppercase;
+  }
+  h2 {
+    font-size: 14pt;
+    font-weight: bold;
+    color: #1F4E79;
+    border-bottom: 1.5pt solid #1F4E79;
+    padding-bottom: 3pt;
+    margin-top: 18pt;
+    margin-bottom: 8pt;
+    page-break-after: avoid;
+  }
+  h3 {
+    font-size: 12.5pt;
+    font-weight: bold;
+    color: #2E75B5;
+    margin-top: 12pt;
+    margin-bottom: 6pt;
+    page-break-after: avoid;
+  }
+  p, li {
+    font-size: 12pt;
+    margin-top: 4pt;
+    margin-bottom: 4pt;
+    text-align: justify;
+  }
+  ul, ol {
+    margin-top: 4pt;
+    margin-bottom: 6pt;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8pt;
+    margin-bottom: 12pt;
+    font-size: 11pt;
+  }
+  th {
+    background-color: #D9E1F2;
+    color: #000000;
+    font-weight: bold;
+    text-align: left;
+    border: 1pt solid #000000;
+    padding: 6pt;
+  }
+  td {
+    border: 1pt solid #000000;
+    padding: 6pt;
+    vertical-align: top;
+    text-align: left;
+  }
+  .meta-box {
+    border: 1pt solid #1F4E79;
+    background-color: #F2F4F8;
+    padding: 10pt;
+    margin-bottom: 14pt;
+  }
+  .patch-box {
+    border: 1.5pt solid #2E75B5;
+    background-color: #F9FBFD;
+    padding: 8pt;
+    margin-top: 8pt;
+    margin-bottom: 14pt;
+  }
+  .code-inline {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 10.5pt;
+    background-color: #EFEFEF;
+    padding: 1pt 3pt;
+  }
+  .badge-blocker { color: #C00000; font-weight: bold; }
+  .badge-major { color: #C55A11; font-weight: bold; }
+  .badge-minor { color: #2E75B5; font-weight: bold; }
+</style>
+</head>
+<body>
+<div class="Section1">
+
+<h1>BÁO CÁO KIỂM ĐỊNH CHỐT CHẶN CUỐI CÙNG (FINAL SIGN-OFF AUDIT)<br>VÀ BẢN VÁ TRỰC TIẾP CHO TÀI LIỆU MASTER BRD &amp; SRS</h1>
+
+<div class="meta-box">
+  <p><b>Tài liệu được kiểm định:</b> <span class="code-inline">CRM_MASTER_BRD_SRS_HOP_NHAT.md</span> — Phiên bản 1.3 (Ngày 15/10/2026)</p>
+  <p><b>Mô hình &amp; Quy mô:</b> Dịch vụ Marketing Agency (B2B &amp; B2C), kiến trúc Core + Industry Pack; vận hành cá nhân ban đầu (Pilot) mở rộng lên ~45 tài khoản (30 Sales, 10 Marketing, Quản lý, Kế toán, AM/Delivery) trên 2 chi nhánh; ~100 leads và 50 khách hàng/tháng.</p>
+  <p><b>Hội đồng Kiểm định (ARB):</b> Principal CRM Solutions Architect, Lead Agency BA, Staff Backend &amp; DB Engineer, Principal QA &amp; Security Auditor.</p>
+  <p><b>Điểm chất lượng hồ sơ:</b> <b>91 / 100</b> — <b>Phán quyết: CONDITIONAL GO</b> (Đóng băng Baseline v1.3.1 ngay sau khi dán 6 Bản vá ở Phần 6 vào tệp Master).</p>
+</div>
+
+<h2>PHẦN 1: KIỂM ĐỊNH ĐỒNG BỘ CHÉO &amp; LỖI HỒI QUY (CROSS-CHAPTER CONSISTENCY &amp; REGRESSION AUDIT)</h2>
+
+<h3>1.1. Lệch pha giữa Yêu cầu chức năng (FR) ↔ Luồng nghiệp vụ (UC) ↔ Cơ sở dữ liệu (Chương 5)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:12%">Mã lỗi</th>
+      <th style="width:28%">Vị trí đối chiếu</th>
+      <th style="width:60%">Chi tiết lệch pha &amp; Tác động kỹ thuật / nghiệp vụ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>CC-01</b></td>
+      <td>Mục 3.7.1 (FR18), 3.12.10 (FR39), 4.22 (UC22) ↔ Mục 5.16 (<span class="code-inline">SLA_Episodes</span>), 5.18 (<span class="code-inline">Business_Subjects</span>)</td>
+      <td><b>FR39</b> và <b>UC22</b> yêu cầu liên kết <span class="code-inline">Conversation</span> với <span class="code-inline">Lead / Deal / Ticket / Deliverable</span> và chạy đồng hồ SLA theo từng đối tượng đích. Tuy nhiên, bảng <span class="code-inline">Business_Subjects</span> (Mục 5.18) mới chỉ có 3 khóa ngoại (<span class="code-inline">lead_id, ticket_id, conversation_id</span>) và chưa có bảng link typed nào nối tới <span class="code-inline">Deals</span>, <span class="code-inline">Projects</span> hay <span class="code-inline">Deliverables</span>. Hệ quả: Dev không thể tạo khóa ngoại từ <span class="code-inline">SLA_Episodes</span> hoặc <span class="code-inline">Conversation_Subject_Links</span> tới <span class="code-inline">Deals</span> và <span class="code-inline">Deliverables</span>.</td>
+    </tr>
+    <tr>
+      <td><b>CC-02</b></td>
+      <td>Mục 3.2.1 (FR04) ↔ Mục 5.5 (Bảng <span class="code-inline">Deals</span>)</td>
+      <td><b>FR04</b> quy định Deal có trạng thái <span class="code-inline">OnHold</span> kèm lý do, ngày review và tách bạch <span class="code-inline">total age / active time / hold time</span>. Nhưng bảng <span class="code-inline">Deals</span> (Mục 5.5) chỉ có <span class="code-inline">stage_id</span> mà <b>thiếu cột <span class="code-inline">status</span> (<span class="code-inline">Open / OnHold / Won / Lost</span>) và <span class="code-inline">accumulated_hold_seconds</span></b>. Nếu biến <span class="code-inline">OnHold</span> thành một <span class="code-inline">stage_id</span>, hệ thống sẽ làm mất dấu bước bán hàng hiện tại (<span class="code-inline">Proposal</span> hay <span class="code-inline">Negotiation</span>) khi khách quay lại.</td>
+    </tr>
+    <tr>
+      <td><b>CC-03</b></td>
+      <td>Mục 1.3 (BR05), 3.4.1 (FR09), 3.6.2 (FR15), 4.10 (UC10) ↔ Mục 5.13 (<span class="code-inline">Contracts</span>)</td>
+      <td><b>BR05, FR09, FR15, UC10</b> (và ca kiểm thử <span class="code-inline">INT30</span>, <span class="code-inline">CX-U18</span>) yêu cầu nhắc tái ký/gia hạn theo <span class="code-inline">notice deadline</span> (báo trước 60 ngày hoặc 45/30/15 ngày) và kỳ hiệu lực. Thế nhưng bảng <span class="code-inline">Contracts</span> tại Mục 5.13 <b>thiếu hoàn toàn các cột <span class="code-inline">effective_from</span>, <span class="code-inline">effective_to</span>, <span class="code-inline">notice_period_days</span>, <span class="code-inline">notice_deadline_date</span> và <span class="code-inline">auto_renew_mode</span></b>.</td>
+    </tr>
+    <tr>
+      <td><b>CC-04</b></td>
+      <td>Mục 3.8.1 (FR20), 9.12 (<span class="code-inline">CEO-U21 P0</span>) ↔ Chương 5</td>
+      <td><b>FR20 (P0)</b> và ca kiểm thử <b><span class="code-inline">CEO-U21 P0</span></b> yêu cầu đặt lịch hẹn (discovery, kickoff, quay chụp), khóa giữ chỗ ekip độc quyền, chống trùng lịch (double-booking) và check-in GPS/bằng chứng thay thế. Tuy nhiên, toàn bộ <b>Chương 5 chưa có bảng <span class="code-inline">Appointments</span> và <span class="code-inline">Resource_Bookings</span></b> (bảng <span class="code-inline">Activities</span> ở Mục 5.7 chỉ lưu sự kiện đã xảy ra với 1 mốc <span class="code-inline">occurred_at</span>).</td>
+    </tr>
+    <tr>
+      <td><b>CC-05</b></td>
+      <td>Mục 2.7, 3.12.5 (FR34), 9.9 (<span class="code-inline">OC16</span>) ↔ Mục 5.16 (<span class="code-inline">Conversations</span>)</td>
+      <td><b>FR34</b> và <b>OC16</b> bắt buộc kiểm tra cửa sổ gửi tin hợp lệ (như 24h của Facebook Page Messenger / Zalo OA) tính từ tin nhắn cuối của khách hàng. Nhưng bảng <span class="code-inline">Conversations</span> (Mục 5.16) chỉ có <span class="code-inline">last_message_at</span> (cập nhật cho cả tin nhắn đi lẫn đến) mà <b>thiếu cột <span class="code-inline">last_inbound_at</span></b>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>1.2. Tàn dư của các tính năng/bảng đã cắt giảm (Ghost References)</h3>
+<ol>
+  <li><b>Hợp đồng API phân bổ thanh toán tại Mục 2.5 lệch với CR04/FR16:</b> Bảng API mẫu tại <b>Mục 2.5</b> vẫn ghi điều kiện của <span class="code-inline">POST /v1/payments/{id}/allocate</span> là kiểm tra <i>"hóa đơn cùng tenant"</i>. Trong khi đó, <b>Mục 3.6.3 (FR16)</b> và <b>Mục 5.11 (<span class="code-inline">Payment_Allocations</span>)</b> đã chốt phân bổ vào <b><span class="code-inline">Payment_Obligations</span> (nghĩa vụ thu theo kỳ/dòng hợp đồng)</b> để không bị kẹt khi hóa đơn ERP đồng bộ trễ.</li>
+  <li><b>Thuật ngữ <span class="code-inline">client_workspace</span> cũ:</b> <b>Mục 5.1</b> đã chốt hợp nhất vào cột <span class="code-inline">workspace_id</span> (với <span class="code-inline">workspace_type = AGENCY / CLIENT</span>), nhưng <b>Mục 3.1.2 (FR02)</b> và <b>Mục 6.1</b> vẫn còn gọi tên <span class="code-inline">client_workspace</span> như một trường tách biệt.</li>
+  <li><b>Tham chiếu <span class="code-inline">Loyalty_Ledger</span> trong tiêu chuẩn P0:</b> Tính năng tích điểm Loyalty trên Mini App đã hoãn sang <b>P2</b> tại <b>Mục 1.6</b> và <b>Mục 3.4.2 (FR10)</b>, nhưng <b>Mục 7.1 (NFR08)</b> và <b>Phụ lục B</b> vẫn liệt kê kiểm thử <i>"nhân điểm"</i> và bảng <span class="code-inline">Loyalty_Ledger</span> trong nhóm truy vết mặc định.</li>
+</ol>
+
+<h3>1.3. Đứt gãy Ma trận truy vết (Traceability Gaps)</h3>
+<ol>
+  <li><b>Phụ lục B bỏ sót hoàn toàn FR30–FR40, UC17–UC22 và các bộ UAT mới:</b> Trang bìa và <b>Phụ lục E</b> khẳng định bản 1.3 gồm <b>40 FR và 22 UC</b>. Tuy nhiên, bảng <b>Ma trận truy vết tại Phụ lục B</b> chỉ dừng lại ở <b>FR01–FR29</b> và <b>UC01–UC16</b>. Toàn bộ phân hệ Omnichannel mở rộng (<b>FR30–FR40</b> tại Mục 3.12), 6 luồng nghiệp vụ (<b>UC17–UC22</b> tại Mục 4.17–4.22) và 54 kịch bản kiểm thử (<b>OC01–OC24</b> tại Mục 9.9, <b>INT01–INT30</b> tại Mục 9.10) chưa được nối vào Phụ lục B.</li>
+  <li><b>Hạ nhầm mức ưu tiên UAT của hàng rào bảo mật AI (<span class="code-inline">U22</span>):</b> Tại <b>Mục 3.5.3 (FR13)</b>, cơ chế chống Prompt Injection và chặn Agent tự ý export/đổi quyền được quy định là <b><span class="code-inline">P0 guard</span></b>. Nhưng tại bảng UAT tối thiểu (<b>Mục 9.5</b>), ca kiểm thử <b><span class="code-inline">U22</span></b> lại bị gắn nhãn <b><span class="code-inline">P1</span></b> thay vì <b><span class="code-inline">P0</span></b>.</li>
+</ol>
+
+<h2>PHẦN 2: TRA TẤN MA TRẬN TRẠNG THÁI &amp; ĐIỀU KIỆN BIÊN (STATE MACHINE &amp; SLA AUDIT)</h2>
+
+<h3>2.1. Điểm kẹt trạng thái (Deadlock / Zombie State) theo từng đối tượng cốt lõi</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:18%">Đối tượng</th>
+      <th style="width:37%">Tình huống biên (Edge Case)</th>
+      <th style="width:45%">Điểm kẹt phát hiện &amp; Quy tắc thoát kẹt cần bổ sung</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b><span class="code-inline">Lead</span></b><br>(Mục 3.2.1, 5.2)</td>
+      <td>1. Khách không nghe máy sau nhiều lần gọi ở trạng thái <span class="code-inline">Contacting</span>.<br>2. Sales bấm <span class="code-inline">handover_status = Rejected (NoCapacity)</span>.</td>
+      <td>1. Chốt ngưỡng mặc định: Sau 5 lần liên hệ thất bại ở ít nhất 2 khung giờ trong tối thiểu 7 ngày làm việc, cho phép chuyển <span class="code-inline">Contacting -> Dormant / Nurture</span>.<br>2. Khi <span class="code-inline">handover_status = Rejected (NoCapacity)</span>, bắt buộc trong cùng transaction phải đưa <span class="code-inline">Leads.status = New</span>, gỡ <span class="code-inline">owner_id = NULL</span> và đẩy về <span class="code-inline">queue_id</span> điều phối.</td>
+    </tr>
+    <tr>
+      <td><b><span class="code-inline">Deal</span></b><br>(Mục 3.2.1, 1.4, 5.5)</td>
+      <td>Sales đẩy các Deal khó chốt sang <span class="code-inline">OnHold</span> vô thời hạn để tránh bị tính <span class="code-inline">Lost</span> trong công thức <span class="code-inline">Win rate = Won / (Won + Lost)</span>.</td>
+      <td>Khóa giới hạn: Mỗi lần đặt <span class="code-inline">OnHold</span> không hẹn <span class="code-inline">review_at</span> quá 30 ngày; tổng thời gian <span class="code-inline">accumulated_hold_seconds</span> quá 60 ngày phải có Manager duyệt ngoại lệ hoặc ép chuyển <span class="code-inline">Lost (Stalled_NoDecision)</span>.</td>
+    </tr>
+    <tr>
+      <td><b><span class="code-inline">Quote</span></b><br>(Mục 3.6.1, 5.13)</td>
+      <td>Báo giá đã gửi khách nhưng quá ngày <span class="code-inline">expires_at</span> khách mới phản hồi.</td>
+      <td>Bổ sung cột <span class="code-inline">status</span> chuẩn cho bảng <span class="code-inline">Quotes</span> và cronjob hằng ngày tự động chuyển các báo giá <span class="code-inline">Approved / Sent</span> quá hạn sang <span class="code-inline">Expired</span>, chặn tạo Hợp đồng từ báo giá hết hạn.</td>
+    </tr>
+    <tr>
+      <td><b><span class="code-inline">Contract &amp; Order</span></b><br>(Mục 3.6.2, 5.6, 5.13)</td>
+      <td>Hợp đồng Retainer 6 tháng bị thanh lý sớm (<span class="code-inline">Terminated</span>) ở tháng thứ 2.</td>
+      <td>Khi <span class="code-inline">Contract / Order</span> chuyển sang <span class="code-inline">Cancelled</span> hoặc <span class="code-inline">Terminated</span>, bắt buộc chuyển toàn bộ <span class="code-inline">Payment_Obligations</span> của các kỳ chưa thực hiện (tháng 3–6) sang <span class="code-inline">Voided</span> để không sinh công nợ quá hạn ảo làm sai lệch <span class="code-inline">DSO</span>.</td>
+    </tr>
+    <tr>
+      <td><b><span class="code-inline">Project &amp; Deliverable</span></b><br>(Mục 3.6.2, 4.8, 5.13)</td>
+      <td>Agency đã nộp bài chờ khách duyệt (<span class="code-inline">InReview</span>), nhưng khách im lặng trên 15 ngày làm việc không phản hồi.</td>
+      <td>Bổ sung trạng thái thoát <span class="code-inline">Stalled_Client_Unresponsive</span> (khi hợp đồng không có điều khoản tự động nghiệm thu) để giải phóng capacity nhân sự và chuyển sang quyết toán theo khối lượng thực tế.</td>
+    </tr>
+    <tr>
+      <td><b><span class="code-inline">Ticket S1/S2</span></b><br>(Mục 3.7.1, 5.8)</td>
+      <td>Ticket <span class="code-inline">S1</span> đã khắc phục xong sự cố và chuyển sang <span class="code-inline">WaitingCustomer</span>, nhưng khách im lặng hoàn toàn (FR18 cấm đóng S1 mù).</td>
+      <td>Cho phép CX Lead/Manager chuyển sang trạng thái <span class="code-inline">Resolved_Unverified</span> (và đóng với mã <span class="code-inline">Closed_Mitigated_Customer_NoResponse</span>) sau 3 lần liên hệ ở tối thiểu 2 kênh trong 5 ngày làm việc có đính kèm bằng chứng khắc phục kỹ thuật.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>2.2. Xung đột đồng hồ SLA &amp; Kẽ hở để nhân viên "lách" SLA</h3>
+<ol>
+  <li><b>Chặn kẽ hở "Trả lời chiếu lệ 1 câu để tắt đồng hồ FRT/NRT rồi ngâm việc":</b> Tại <b>FR36 (Mục 3.12.7)</b>, đồng hồ <span class="code-inline">FRT/NRT</span> dừng ngay khi nhân viên gửi tin trả lời công khai. Để ngăn nhân viên nhắn câu giữ chỗ (<i>"Dạ anh chờ em kiểm tra nhé"</i>) rồi bỏ quên khách, trên Composer gửi tin bắt buộc nhân viên chọn trạng thái chờ tiếp theo:
+    <ul>
+      <li><b>Chờ khách phản hồi (<span class="code-inline">waiting_party = customer</span>):</b> Hoàn tất đồng hồ <span class="code-inline">FRT/NRT</span> hiện tại.</li>
+      <li><b>Đang xử lý nội bộ (<span class="code-inline">waiting_party = internal</span>):</b> Hoàn tất <span class="code-inline">FRT/NRT</span> nhưng <b>bắt buộc phải nhập thời점 hẹn báo lại (<span class="code-inline">next_customer_update_at</span>)</b> để hệ thống khởi chạy ngay đồng hồ <span class="code-inline">promised_update</span>, đồng thời đồng hồ <span class="code-inline">resolution</span> vẫn tiếp tục chạy.</li>
+    </ul>
+  </li>
+  <li><b>Tách cơ sở thời gian giữa <span class="code-inline">Lịch làm việc</span> và <span class="code-inline">Giờ hẹn thực tế</span>:</b> Trong bảng <span class="code-inline">SLA_Episodes</span> (<b>Mục 5.16</b>), các đồng hồ <span class="code-inline">claim, attempt, FRT, NRT, resolution</span> tính theo <b>Giờ làm việc hành chính (<span class="code-inline">BUSINESS_CALENDAR</span>)</b>; riêng đồng hồ <span class="code-inline">promised_update</span> (ví dụ hẹn khách 15:00 chiều nay cập nhật) bắt buộc tính theo <b>Giờ đồng hồ thực tuyệt đối (<span class="code-inline">WALL_CLOCK</span>)</b>.</li>
+  <li><b>Chống "Đá bóng trách nhiệm" ở phút cuối của SLA:</b> Khi chuyển giao sát hạn, đồng hồ hướng khách hàng không reset; nếu xảy ra vi phạm (<span class="code-inline">Breach</span>), cột <span class="code-inline">breached_by_user_id</span> trên <span class="code-inline">SLA_Episodes</span> tự động ghi nhận lỗi thuộc về nhân sự đã giữ bản ghi <b>chiếm trên 50% thời gian làm việc</b> của episode trước thời điểm vi phạm.</li>
+</ol>
+
+<h2>PHẦN 3: KIỂM ĐỊNH KIẾN TRÚC DỮ LIỆU, TOÀN VẸN TÀI CHÍNH &amp; XUNG ĐỘT ĐỒNG THỜI</h2>
+
+<h3>3.1. Ràng buộc Khóa ngoại &amp; NULL/Unique nguy hiểm tại Chương 5</h3>
+<ul>
+  <li><span class="badge-blocker">[Blocker BL-DB-01]</span> <b>Xung đột Khóa ngoại ghép <span class="code-inline">(tenant_id, workspace_id, id)</span> với các quan hệ xuyên Workspace (<span class="code-inline">AGENCY ↔ CLIENT</span>):</b> <b>Mục 5.1</b> yêu cầu mọi FK nghiệp vụ phải kiểm cùng <span class="code-inline">tenant_id</span> và <span class="code-inline">workspace_id</span>. Tuy nhiên theo <b>Mục 2.3</b>, hồ sơ <span class="code-inline">Accounts</span> và <span class="code-inline">Contracts</span> nằm ở <span class="code-inline">AGENCY</span> workspace, còn dữ liệu chạy chiến dịch thuê (<span class="code-inline">Workspaces.client_account_id</span>, <span class="code-inline">Projects</span>, <span class="code-inline">Campaigns</span>, <span class="code-inline">Tickets</span>) nằm ở <span class="code-inline">CLIENT</span> workspace. Vì hai bên có <span class="code-inline">workspace_id</span> khác nhau, nếu dùng FK ghép có <span class="code-inline">workspace_id</span> sẽ gây lỗi <span class="code-inline">Foreign Key Violation</span> 100%! <i>Giải pháp:</i> Tách rõ <b>Intra-Workspace FK</b> <span class="code-inline">(tenant_id, workspace_id, id)</span> và <b>Cross-Workspace FK được cấp phép</b> <span class="code-inline">(tenant_id, id)</span> kèm hàm kiểm tra chủ sở hữu.</li>
+  <li><span class="badge-major">[Major MJ-DB-02]</span> <b>Ràng buộc <span class="code-inline">UNIQUE</span> trên <span class="code-inline">Accounts.tax_id</span> chặn mô hình Tập đoàn nhiều nhãn hàng:</b> Tại Việt Nam, một tập đoàn B2B có nhiều Nhãn hàng (nhiều <span class="code-inline">Accounts</span> con có <span class="code-inline">parent_account_id</span>) ký hợp đồng riêng nhưng xuất hóa đơn VAT về chung 1 Mã số thuế của công ty mẹ. Do đó chỉ đánh Partial Unique Index cho pháp nhân gốc chưa archive: <span class="code-inline">WHERE parent_account_id IS NULL AND archived_at IS NULL AND tax_id IS NOT NULL</span>.</li>
+  <li><span class="badge-major">[Major MJ-DB-03]</span> <b>Mâu thuẫn <span class="code-inline">contact_id NULL</span> trên <span class="code-inline">Channel_Identities</span> với <span class="code-inline">NOT NULL</span> trên <span class="code-inline">Tickets / Consent_Logs</span>:</b> Chuẩn hóa quy tắc: Mọi danh tính vượt qua bước kiểm tra chữ ký vào tầng nghiệp vụ đều tự động tạo ngay một bản ghi <span class="code-inline">Contacts (identity_status = 'Provisional')</span> trong cùng transaction và đặt <span class="code-inline">Channel_Identities.contact_id NOT NULL</span>.</li>
+</ul>
+
+<h3>3.2. Toàn vẹn Sổ cái Tài chính &amp; Hoa hồng (Financial &amp; Ledger Integrity)</h3>
+<ul>
+  <li><span class="badge-blocker">[Blocker BL-FIN-01]</span> <b>Thiếu công thức quy đổi dòng <span class="code-inline">PRODUCTION</span> sang cơ sở tính hoa hồng (<span class="code-inline">eligible_service_net</span>):</b> Tại <b>Mục 5.11</b>, bảng <span class="code-inline">Payment_Allocations</span> có <span class="code-inline">service_net, production_net, media_net, tax_component</span> và <span class="code-inline">eligible_service_net</span>. Với các hợp đồng sản xuất TVC/Sự kiện (<span class="code-inline">PRODUCTION</span>), chi phí thuê nhà thầu phụ chiếm tới 70–90% giá bán. Nếu cộng thẳng 100% <span class="code-inline">production_net</span> vào <span class="code-inline">eligible_service_net</span> như <span class="code-inline">SERVICE</span>, Agency sẽ trả hoa hồng lẹm vào tiền vốn trả nhà thầu! Công thức bắt buộc:
+    <p class="code-inline" style="margin:6pt 0; padding:6pt;">eligible_service_net = service_net + (production_net * locked_margin_ratio * production_commission_factor)</p>
+  </li>
+  <li><span class="badge-major">[Major MJ-FIN-02]</span> <b>Xử lý thanh toán thiếu do phí ngân hàng (Short-payment) và hoàn tiền chuyển thừa chưa phân bổ (Overpayment Refund):</b> Bổ sung bảng <span class="code-inline">Obligation_Adjustments</span> để hạch toán phí ngân hàng (mặc định &le; 100.000 VND và &le; 0,5% giá trị kỳ thu) giúp đóng <span class="code-inline">Payment_Obligation</span> mà không tạo tiền thực thu ảo hay hoa hồng ảo (<span class="code-inline">CEO-U14</span>). Đồng thời tại <b>UC13</b>, tách nhánh hoàn trả trực tiếp từ số dư tiền thừa chưa phân bổ (<span class="code-inline">unallocated_amount</span>) mà không cần đảo <span class="code-inline">Payment_Allocations</span>.</li>
+  <li><span class="badge-major">[Major MJ-FIN-03]</span> <b>Thứ tự phân bổ mặc định (<span class="code-inline">Allocation Waterfall</span>):</b> Khi khách thanh toán một phần cho kỳ thu gộp nhiều loại phí mà không chỉ định rõ, áp dụng mặc định chế độ <span class="code-inline">PASS_THROUGH_FIRST</span>: Ưu tiên lấp đầy <span class="code-inline">MEDIA_PASS_THROUGH</span> (kèm thuế) &rarr; <span class="code-inline">PRODUCTION</span> (kèm thuế) &rarr; <span class="code-inline">SERVICE</span> (kèm thuế).</li>
+</ul>
+
+<h3>3.3. Xung đột đồng thời (Race Conditions &amp; Idempotency)</h3>
+<ul>
+  <li><span class="badge-major">[Major MJ-CON-01]</span> <b>Bảo vệ tin nhắn đang gửi (<span class="code-inline">In-Flight Guard</span>):</b> Khi <span class="code-inline">SLA Sweeper Worker</span> quét thu hồi Lead/Conversation quá hạn, bắt buộc dùng <span class="code-inline">SELECT ... FOR UPDATE SKIP LOCKED</span> và kiểm tra bảng <span class="code-inline">Outbound_Intents</span>: nếu có lệnh gửi được tạo trước hạn SLA đang ở trạng thái <span class="code-inline">pending</span> hoặc <span class="code-inline">in_flight</span>, tạm hoãn thu hồi <b>60 giây</b> để chờ phản hồi từ Zalo/Meta, tránh thu hồi nhầm trong lúc tin nhắn đang đi trên mạng.</li>
+  <li><span class="badge-major">[Major MJ-CON-02]</span> <b>Thứ tự khóa chống Deadlock khi Merge:</b> Mọi giao dịch <span class="code-inline">Merge Contacts</span> bắt buộc khóa bản ghi theo thứ tự tăng dần của UUID (<span class="code-inline">ORDER BY id ASC FOR UPDATE</span>) và tự động chuyển hướng mọi sự kiện Webhook mới về <span class="code-inline">survivor_id</span>.</li>
+</ul>
+
+<h2>PHẦN 4: KIỂM ĐỊNH BẢO MẬT, PHÂN QUYỀN ĐỘI NHÓM &amp; TUÂN THỦ PHÁP LÝ</h2>
+
+<ol>
+  <li><b>Chặn rò rỉ lịch sử <span class="code-inline">Activities</span> khi 1 Contact đại diện nhiều công ty (Mục 5.7 &amp; <span class="code-inline">CX-U01</span>):</b> Áp dụng kiểm tra quyền kép (ABAC): Để đọc một bản ghi <span class="code-inline">Activities</span> trên Timeline của Contact, nhân sự phải có quyền trên <span class="code-inline">Contact</span> <b>VÀ</b> có quyền trên <span class="code-inline">branch_id / account_id / deal_id</span> của chính <span class="code-inline">Activity</span> đó.</li>
+  <li><b>Bắt buộc dùng <span class="code-inline">SET LOCAL</span> cho PostgreSQL RLS (Mục 5.14 &amp; Mục 6.1):</b> Khi dùng Connection Pool, bắt buộc thiết lập biến ngữ cảnh bảo mật bên trong transaction bằng lệnh <span class="code-inline">SET LOCAL app.current_tenant_id = ...</span> để PostgreSQL tự động hủy ngữ cảnh ngay khi <span class="code-inline">COMMIT / ROLLBACK</span>, tuyệt đối cấm dùng lệnh <span class="code-inline">SET</span> cấp session.</li>
+  <li><b>Tháo gỡ 3 điểm nghẽn phân quyền vận hành giữa Sales ↔ AM ↔ Delivery ↔ Kế toán tại Bảng 6.1:</b>
+    <ul>
+      <li><b>Account Manager (AM):</b> Cấp quyền <span class="code-inline">C/R/U</span> trên <span class="code-inline">Renewal/Upsell Deals &amp; Quotes</span> của Account được giao quản lý và quyền <span class="code-inline">R</span> trên trạng thái công nợ (<span class="code-inline">Payment_Obligations</span>) để thực hiện được luồng tái ký <b>UC10</b>.</li>
+      <li><b>Kế toán:</b> Cấp quyền <span class="code-inline">R</span> trên <span class="code-inline">Approved Quotes, Acceptances</span> (biên bản nghiệm thu) và quyền <span class="code-inline">C/R/U</span> trên <span class="code-inline">Orders, Payment_Schedules, Payment_Obligations, Obligation_Adjustments, Commission_Entries</span> để vận hành được <b>UC06, UC07, UC08</b>.</li>
+      <li><b>Sales:</b> Cấp quyền chỉ đọc (<span class="code-inline">R</span>) trên trạng thái thanh toán của <span class="code-inline">Orders / Payment_Obligations</span>, <span class="code-inline">Tickets (summary/status)</span> của khách mình phụ trách và <span class="code-inline">Commission_Entries</span> của bản thân.</li>
+    </ul>
+  </li>
+  <li><b>Định lượng SLA tuân thủ Luật Bảo vệ dữ liệu cá nhân 91/2025/QH15 &amp; Nghị định 356/2025/NĐ-CP (Mục 6.3):</b>
+    <ul>
+      <li>Thu hồi sự đồng ý (<span class="code-inline">Consent Revoke</span>): Chặn gửi tin marketing mới trong <b>0 giây</b> (ngay trong transaction nhận yêu cầu); hủy các lịch gửi đang chờ trong <b>&le; 15 phút</b>.</li>
+      <li>Xử lý yêu cầu chủ thể dữ liệu (<span class="code-inline">Privacy_Requests.due_at</span>): Tự động gán hạn xử lý <b>72 giờ</b> kể từ khi xác minh chủ thể.</li>
+      <li>Hồ sơ thông báo vi phạm dữ liệu cá nhân: Khởi chạy đồng hồ đếm ngược <b>72 giờ</b> ngay khi xác nhận sự cố rò rỉ.</li>
+    </ul>
+  </li>
+</ol>
+
+<h2>PHẦN 5: ĐÁNH GIÁ ĐỘ SẴN SÀNG ĐỂ CODE &amp; CỔNG PHẠM VI MVP 90 NGÀY</h2>
+
+<ol>
+  <li><b>Khóa toàn bộ các điểm mờ định tính bằng công thức toán học và bảng <span class="code-inline">System_Configs Seed Baseline</span>:</b> Đã định nghĩa tường minh công thức tính <span class="code-inline">Account Service Health Score (0–100)</span> kèm quy tắc Điểm liệt (&le; 40 điểm nếu có Ticket S1 hoặc nợ quá hạn &gt; 30 ngày) và 23 tham số mặc định tại <b>Bản vá 5</b>.</li>
+  <li><b>Phân kỳ triển khai vật lý 75 bảng dữ liệu tại Chương 5 (Chống Over-engineering):</b> Đã chia rõ danh sách bảng bắt buộc tạo trong 90 ngày đầu (<b>P0 DDL Scope</b>) tách biệt với <b>P1</b> và <b>P2</b> tại <b>Bản vá 4</b>.</li>
+</ol>
+
+<h2>PHẦN 6: BẢN VÁ TRỰC TIẾP (DROP-IN PATCHES ĐỂ COPY &amp; PASTE VÀO FILE SRS)</h2>
+
+<h3>BẢN VÁ 1: Cập nhật Mục 2.5 và Bổ sung Mục 3.13.4 (Quy tắc Thoát kẹt Trạng thái, Chống lách SLA &amp; Công thức Tài chính)</h3>
+
+<div class="patch-box">
+  <p><b>Hướng dẫn 1A:</b> <i>Thay thế dòng <span class="code-inline">POST /v1/payments/{id}/allocate</span> trong Bảng tại <b>Mục 2.5</b> bằng dòng sau:</i></p>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:28%">API nội bộ mẫu</th>
+        <th style="width:42%">Kiểm tra bắt buộc</th>
+        <th style="width:30%">Kết quả và lỗi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="code-inline">POST /v1/payments/{id}/allocate</span></td>
+        <td>Kế toán, số dư chưa phân bổ của Payment, nghĩa vụ thu (<span class="code-inline">Payment_Obligations</span>) cùng tenant/workspace/legal_entity/currency</td>
+        <td>Transaction atomic; 409 nếu giao dịch hoặc số dư nghĩa vụ đã thay đổi.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><b>Hướng dẫn 1B:</b> <i>Dán nối tiếp mục <b>3.13.4</b> dưới đây vào cuối <b>Mục 3.13 (Chương 3)</b>:</i></p>
+  <p><b>3.13.4 Quy tắc thoát kẹt trạng thái, chống lách SLA và bất biến tài chính – đồng thời</b></p>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:25%">Nhóm quy tắc</th>
+        <th style="width:75%">Đặc tả logic và công thức bắt buộc để lập trình (Deterministic Rules)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>1. Thoát kẹt <span class="code-inline">Lead</span> &amp; <span class="code-inline">Handover</span></b></td>
+        <td>- Khi <span class="code-inline">Leads.status = Contacting</span>, nếu sau <span class="code-inline">max_contact_attempts</span> (mặc định: 5 lần thử có chứng cứ ở ít nhất 2 khung giờ khác nhau trong tối thiểu 7 ngày làm việc) mà khách vẫn không phản hồi (<span class="code-inline">NoAnswer/Unreachable</span>), cho phép chuyển <span class="code-inline">status -&gt; Dormant</span> (hoặc <span class="code-inline">Nurture</span> nếu có consent) kèm mã lý do.<br>- Ràng buộc đồng bộ <span class="code-inline">handover_status</span>: Khi Sales chuyển <span class="code-inline">handover_status -&gt; Rejected</span> với lý do <span class="code-inline">NoCapacity</span>, hệ thống thực hiện trong cùng transaction: cập nhật <span class="code-inline">Leads.status = New</span>, giải phóng <span class="code-inline">owner_id = NULL</span>, gán <span class="code-inline">queue_id = fallback_queue_id</span> và phát sự kiện định tuyến lại, không giữ Lead ở trạng thái <span class="code-inline">Assigned/Contacting</span> của người đã từ chối.</td>
+      </tr>
+      <tr>
+        <td><b>2. Thoát kẹt <span class="code-inline">Deal OnHold</span> &amp; <span class="code-inline">Quote Expired</span></b></td>
+        <td>- <span class="code-inline">Deals</span> ở trạng thái <span class="code-inline">OnHold</span> bắt buộc giữ nguyên <span class="code-inline">stage_id</span> thương mại trước khi hoãn; mỗi lần đặt <span class="code-inline">OnHold</span> không được hẹn <span class="code-inline">review_at</span> xa quá 30 ngày. Khi tổng thời gian <span class="code-inline">accumulated_hold_seconds</span> vượt quá 60 ngày, hệ thống khóa quyền tự gia hạn của Sales, buộc Sales Manager phê duyệt ngoại lệ hoặc chuyển <span class="code-inline">status -&gt; Lost (lost_reason = Stalled_NoDecision)</span>.<br>- Job định kỳ hằng ngày tự động chuyển các <span class="code-inline">Quotes</span> đang ở trạng thái <span class="code-inline">Approved</span> hoặc <span class="code-inline">Sent</span> có <span class="code-inline">expires_at &lt; CURRENT_DATE</span> sang trạng thái <span class="code-inline">Expired</span>; chặn API tạo <span class="code-inline">Contracts</span> từ <span class="code-inline">Quote</span> có trạng thái <span class="code-inline">Expired / Rejected / Superseded</span>.</td>
+      </tr>
+      <tr>
+        <td><b>3. Thoát kẹt <span class="code-inline">Contract / Order / Deliverable</span></b></td>
+        <td>- Khi <span class="code-inline">Contracts</span> hoặc <span class="code-inline">Orders</span> chuyển sang <span class="code-inline">Cancelled</span> (hủy trước dịch vụ) hoặc <span class="code-inline">Terminated</span> (thanh lý sớm giữa kỳ), transaction bắt buộc chuyển toàn bộ các <span class="code-inline">Payment_Obligations</span> của các kỳ chưa thực hiện sang trạng thái <span class="code-inline">Voided</span> (loại khỏi mẫu số tính DSO và tuổi nợ) và tạo bản ghi quyết toán (<span class="code-inline">Settlement Obligation</span>) nếu có phí phạt hoặc khối lượng dở dang.<br>- Nếu <span class="code-inline">Deliverables</span> đang ở trạng thái <span class="code-inline">InReview</span> (chờ khách nghiệm thu) và <span class="code-inline">Client_Wait_Intervals</span> kéo dài quá 15 ngày làm việc sau 3 lần nhắc có chứng cứ: nếu hợp đồng có điều khoản tự động nghiệm thu (<span class="code-inline">deemed_acceptance_allowed = true</span>), AM trình Manager kích hoạt nghiệm thu theo điều khoản; nếu hợp đồng không cho phép, chuyển <span class="code-inline">Deliverables.status -&gt; Stalled_Client_Unresponsive</span> để tạm dừng dự án hợp lệ và đối soát công nợ theo khối lượng thực tế.</td>
+      </tr>
+      <tr>
+        <td><b>4. Thoát kẹt <span class="code-inline">Ticket S1/S2</span> &amp; <span class="code-inline">Commission Quality</span></b></td>
+        <td>- Với <span class="code-inline">Tickets</span> mức <span class="code-inline">S1/S2</span> đã hoàn tất khắc phục kỹ thuật (có <span class="code-inline">resolution_evidence</span>) và chuyển sang <span class="code-inline">WaitingCustomer</span>, nếu khách im lặng sau 3 lần liên hệ ở tối thiểu 2 kênh trong 5 ngày làm việc, CX Lead/Manager được quyền chuyển trạng thái sang <span class="code-inline">Resolved_Unverified</span> (và đóng sau 7 ngày với mã <span class="code-inline">Closed_Mitigated_Customer_NoResponse</span>), giữ nguyên toàn bộ bằng chứng và lịch sử.<br>- Với phần hoa hồng gắn điều kiện chất lượng (<span class="code-inline">quality bonus/adjustment</span> tại FR17): nếu sau 14 ngày kể từ khi <span class="code-inline">Deliverable Accepted</span> hoặc <span class="code-inline">Order Completed</span> mà khách hàng không phản hồi khảo sát CSAT/NPS nhưng không có <span class="code-inline">Ticket S1/S2</span> hay <span class="code-inline">Defect</span> chưa giải quyết, Delivery Lead được quyền xác nhận hoàn tất để giải phóng trạng thái khỏi <span class="code-inline">Pending</span>.</td>
+      </tr>
+      <tr>
+        <td><b>5. Chống lách SLA &amp; Bảo vệ tin đang gửi (<span class="code-inline">In-Flight</span>)</b></td>
+        <td>- <b>Chống trả lời giữ chỗ (Placeholder Reply):</b> Khi nhân viên gửi tin nhắn/email công khai từ CRM, bắt buộc chọn ý định chuyển trạng thái hội thoại: (a) <span class="code-inline">Send &amp; Waiting Customer</span> (<span class="code-inline">waiting_party = customer</span> — hoàn tất episode <span class="code-inline">FRT/NRT</span> hiện tại); hoặc (b) <span class="code-inline">Send &amp; Keep Working Internally</span> (<span class="code-inline">waiting_party = internal</span> — hoàn tất <span class="code-inline">FRT/NRT</span> nhưng <b>bắt buộc nhập <span class="code-inline">next_customer_update_at</span></b> để khởi chạy ngay đồng hồ <span class="code-inline">promised_update</span>, đồng thời đồng hồ <span class="code-inline">resolution</span> tiếp tục chạy).<br>- <b>Tách cơ sở thời gian:</b> Đồng hồ <span class="code-inline">claim / attempt / FRT / NRT / resolution</span> tính theo thời gian làm việc tích lũy (<span class="code-inline">BUSINESS_CALENDAR</span>). Đồng hồ <span class="code-inline">promised_update</span> tính theo thời gian thực tuyệt đối (<span class="code-inline">WALL_CLOCK</span>).<br>- <b>Quy trách nhiệm khi chuyển giao sát hạn:</b> Đồng hồ hướng khách hàng không reset khi đổi người nhận; nếu xảy ra <span class="code-inline">SLA Breach</span>, trường <span class="code-inline">breached_by_user_id</span> ghi nhận nhân sự đã giữ bản ghi chiếm <span class="code-inline">&gt; 50%</span> thời gian làm việc của episode trước thời điểm vi phạm.<br>- <b>Bảo vệ tin đang gửi (<span class="code-inline">In-Flight Guard</span>):</b> Khi <span class="code-inline">SLA Sweeper Worker</span> quét thu hồi Lead/Conversation, bắt buộc khóa dòng (<span class="code-inline">SELECT ... FOR UPDATE SKIP LOCKED</span>) và kiểm tra bảng <span class="code-inline">Outbound_Intents</span>: nếu có bản ghi thuộc đối tượng đó được tạo trước <span class="code-inline">sla_due_at</span> đang ở trạng thái <span class="code-inline">pending</span> hoặc <span class="code-inline">in_flight</span>, tạm hoãn thu hồi trong <span class="code-inline">60 giây</span> để chờ kết quả từ provider.</td>
+      </tr>
+      <tr>
+        <td><b>6. Công thức Tài chính, Làm tròn &amp; Hoa hồng <span class="code-inline">PRODUCTION</span></b></td>
+        <td>- <b>Cơ sở tính hoa hồng (<span class="code-inline">eligible_service_net</span>):</b> Loại trừ hoàn toàn <span class="code-inline">MEDIA_PASS_THROUGH</span>, <span class="code-inline">tax_component (VAT)</span> và các khoản <span class="code-inline">WRITE_OFF</span>. Với dòng <span class="code-inline">SERVICE</span>: tính 100% trên <span class="code-inline">service_net</span> thực thu. Với dòng <span class="code-inline">PRODUCTION</span> (sản xuất có chi phí nhà thầu/ekip): tính theo tỷ lệ biên lợi nhuận gộp đã khóa trên báo giá:<br><span class="code-inline">eligible_service_net = service_net + (production_net * locked_margin_ratio * production_commission_factor)</span><br>- <b>Xử lý thanh toán thiếu do phí ngân hàng (<span class="code-inline">Bank Fee Tolerance</span>):</b> Khi tiền thực nhận nhỏ hơn nghĩa vụ thu do phí ngân hàng (nằm trong ngưỡng mặc định <span class="code-inline">&lt;= 100.000 VND</span> và <span class="code-inline">&lt;= 0,5%</span> giá trị kỳ thu, hoặc có chứng từ phí ngân hàng), Kế toán ghi nhận <span class="code-inline">Payment_Allocations</span> đúng bằng số tiền thực nhận và tạo bút toán <span class="code-inline">Obligation_Adjustments (adjustment_type = 'BANK_FEE_TOLERANCE')</span> cho phần chênh lệch để tất toán <span class="code-inline">Payment_Obligation</span> mà không làm tăng thực thu hay hoa hồng.<br>- <b>Thứ tự phân bổ mặc định (<span class="code-inline">Allocation Waterfall</span>):</b> Nếu hợp đồng không chỉ định khác và khách thanh toán một phần cho kỳ gộp nhiều loại phí, áp dụng chế độ mặc định <span class="code-inline">PASS_THROUGH_FIRST</span> (ưu tiên <span class="code-inline">MEDIA_PASS_THROUGH</span> + thuế tương ứng -&gt; <span class="code-inline">PRODUCTION</span> + thuế -&gt; <span class="code-inline">SERVICE</span> + thuế; hoặc <span class="code-inline">PRO_RATA_BY_OBLIGATION</span> khi được Finance chọn).<br>- <b>Quy tắc làm tròn tiền tệ (<span class="code-inline">ROUND_HALF_UP</span> &amp; Bù phần dư):</b> Với <span class="code-inline">VND</span>, làm tròn <span class="code-inline">ROUND_HALF_UP</span> đến <span class="code-inline">0</span> chữ số thập phân cho <span class="code-inline">(n - 1)</span> cấu phần đầu tiên; cấu phần lớn nhất nhận phần bù <span class="code-inline">amount - SUM(part_1 .. part_n-1)</span> để tổng các cấu phần bằng tuyệt đối <span class="code-inline">amount</span>.<br>- <b>Hoàn trả tiền chuyển thừa chưa phân bổ (<span class="code-inline">Unallocated Overpayment Refund</span> tại UC13):</b> Nếu hoàn trả từ phần tiền dư chưa từng phân bổ vào <span class="code-inline">Payment_Obligations</span> (<span class="code-inline">unallocated_amount &gt; 0</span>), hệ thống tạo bản ghi <span class="code-inline">Payments (direction = 'Refund', original_payment_id = ...)</span> giảm trực tiếp số dư chưa phân bổ mà không yêu cầu đảo <span class="code-inline">Payment_Allocations</span> hay sinh bút toán âm trên <span class="code-inline">Commission_Entries</span>.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>BẢN VÁ 2: Hiệu chỉnh Khóa ngoại Xuyên Scope, Bổ sung Cột và Bảng Appointments (Chương 5)</h3>
+
+<div class="patch-box">
+  <p><b>Hướng dẫn 2A:</b> <i>Dán đoạn quy định <b>Ràng buộc FK cùng Scope vs. Xuyên Scope</b> vào cuối <b>Mục 5.1</b>:</i></p>
+  <p><b>Quy tắc Khóa ngoại (FK) cùng Workspace và xuyên Workspace (<span class="code-inline">AGENCY ↔ CLIENT</span>):</b></p>
+  <ol>
+    <li><b>Intra-Workspace FK (Cùng phạm vi):</b> Các bảng hoạt động trong cùng một workspace (như <span class="code-inline">Messages -&gt; Conversations</span>, <span class="code-inline">Channel_Identities -&gt; Contacts</span>, <span class="code-inline">Marketing_Plans -&gt; Strategy_Briefs</span>, <span class="code-inline">Deliverables -&gt; Projects</span>) bắt buộc dùng khóa ngoại ghép <span class="code-inline">(tenant_id, workspace_id, &lt;target&gt;_id)</span> tham chiếu tới <span class="code-inline">UNIQUE (tenant_id, workspace_id, id)</span> của bảng đích.</li>
+    <li><b>Cross-Workspace FK được cấp phép (Giữa <span class="code-inline">CLIENT</span> workspace và <span class="code-inline">AGENCY</span> workspace):</b> Vì hồ sơ thương mại gốc (<span class="code-inline">Accounts, Deals, Quotes, Contracts, Orders, Payments, Commission_Entries</span>) luôn thuộc <span class="code-inline">AGENCY</span> workspace, trong khi dữ liệu triển khai chiến dịch (<span class="code-inline">Workspaces.client_account_id, Projects, Campaigns, Tickets</span>) có thể nằm ở <span class="code-inline">CLIENT</span> workspace của khách hàng đó, các cột liên kết xuyên scope hợp lệ sử dụng khóa ngoại vật lý <span class="code-inline">(tenant_id, &lt;target&gt;_id)</span> tham chiếu tới <span class="code-inline">UNIQUE (tenant_id, id)</span> kèm hàm kiểm tra toàn vẹn xác nhận <span class="code-inline">CLIENT</span> workspace đó thuộc đúng <span class="code-inline">account_id</span> của hợp đồng.</li>
+    <li><b>Thứ tự khóa chống Deadlock khi Merge:</b> Mọi giao dịch <span class="code-inline">Merge / Unmerge</span> trên <span class="code-inline">Contacts</span> hoặc <span class="code-inline">Accounts</span> bắt buộc thực hiện <span class="code-inline">SELECT ... FOR UPDATE</span> theo thứ tự sắp xếp tăng dần của UUID (<span class="code-inline">ORDER BY id ASC</span>), đồng thời cập nhật con trỏ <span class="code-inline">Channel_Identities.contact_id</span> sang <span class="code-inline">survivor_id</span> ngay trong cùng transaction. Các luồng ghi dữ liệu (<span class="code-inline">Inbound Worker, Activities, Consent_Logs</span>) nếu gặp bản ghi có <span class="code-inline">merged_into_id IS NOT NULL</span> phải tự động chuyển hướng về <span class="code-inline">survivor_id</span> đang hoạt động.</li>
+  </ol>
+
+  <p><b>Hướng dẫn 2B:</b> <i>Dán bảng <b>Bổ sung và hiệu chỉnh từ điển dữ liệu Chương 5</b> vào cuối <b>Mục 5.18</b>:</i></p>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:18%">Bảng (Mục)</th>
+        <th style="width:22%">Trường bổ sung / Hiệu chỉnh</th>
+        <th style="width:30%">Kiểu, Khóa &amp; Ràng buộc chuẩn hóa</th>
+        <th style="width:30%">Ý nghĩa nghiệp vụ &amp; Kỹ thuật</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Accounts</b> (5.4)</td>
+        <td><span class="code-inline">tax_id</span></td>
+        <td><span class="code-inline">varchar(40) NULL</span>; Partial Unique: <span class="code-inline">UNIQUE (tenant_id, workspace_id, tax_id) WHERE parent_account_id IS NULL AND archived_at IS NULL AND tax_id IS NOT NULL</span></td>
+        <td>Cho phép các Account nhãn hàng/chi nhánh con (<span class="code-inline">parent_account_id IS NOT NULL</span>) kế thừa chung MST của pháp nhân mẹ mà không bị lỗi trùng khóa.</td>
+      </tr>
+      <tr>
+        <td><b>Deals</b> (5.5)</td>
+        <td><span class="code-inline">status, on_hold_since, accumulated_hold_seconds</span></td>
+        <td><span class="code-inline">status varchar(20) NN</span> (<span class="code-inline">Open/OnHold/Won/Lost</span>); <span class="code-inline">on_hold_since timestamptz NULL</span>; <span class="code-inline">accumulated_hold_seconds bigint NN default 0</span></td>
+        <td>Tách trạng thái vận hành của Deal khỏi <span class="code-inline">stage_id</span> để khi đặt <span class="code-inline">OnHold</span> không làm mất dấu bước bán hàng hiện tại và tính chính xác <span class="code-inline">active_time</span>.</td>
+      </tr>
+      <tr>
+        <td><b>Orders</b> (5.6)</td>
+        <td><span class="code-inline">order_no</span></td>
+        <td><span class="code-inline">varchar(50) NN</span>; Partial Unique: <span class="code-inline">UNIQUE (tenant_id, legal_entity_id, order_no) WHERE archived_at IS NULL</span></td>
+        <td>Chống trùng mã đơn hàng trong phạm vi pháp nhân đang hoạt động, cho phép lưu trữ bản nháp bị hủy.</td>
+      </tr>
+      <tr>
+        <td><b>Activities</b> (5.7)</td>
+        <td><span class="code-inline">visibility_scope</span></td>
+        <td><span class="code-inline">varchar(20) NN default 'SCOPED'</span> (<span class="code-inline">SCOPED / PRIVATE_BRANCH / PUBLIC_ACCOUNT</span>)</td>
+        <td>Cưỡng chế ABAC: Khi một <span class="code-inline">Contact</span> đại diện nhiều <span class="code-inline">Accounts</span> ở các chi nhánh khác nhau, <span class="code-inline">Activity</span> chỉ hiển thị cho người có quyền trên cả <span class="code-inline">Contact</span> VÀ (<span class="code-inline">account_id / deal_id / branch_id</span>) của <span class="code-inline">Activity</span> đó.</td>
+      </tr>
+      <tr>
+        <td><b>Quotes</b> (5.13)</td>
+        <td><span class="code-inline">status, cost_total, margin_amount, margin_ratio</span></td>
+        <td><span class="code-inline">status varchar(24) NN</span> (<span class="code-inline">Draft/PendingApproval/Approved/Sent/Accepted/Rejected/Expired/Superseded</span>); <span class="code-inline">cost_total numeric(18,2) NULL</span></td>
+        <td>Quản lý vòng đời báo giá tường minh; <span class="code-inline">cost_total IS NULL</span> thể hiện <span class="code-inline">Unknown</span> (không mặc định bằng 0); khóa <span class="code-inline">margin_ratio</span> khi <span class="code-inline">Approved</span>.</td>
+      </tr>
+      <tr>
+        <td><b>Contracts</b> (5.13)</td>
+        <td><span class="code-inline">effective_from, effective_to, notice_period_days, notice_deadline_date, auto_renew_mode, allocation_waterfall_mode</span></td>
+        <td><span class="code-inline">effective_from date NN</span>; <span class="code-inline">effective_to date NULL</span>; <span class="code-inline">notice_period_days int NULL</span>; <span class="code-inline">notice_deadline_date date NULL</span>; <span class="code-inline">auto_renew_mode varchar(20) NN default 'MANUAL_REVIEW'</span>; <span class="code-inline">allocation_waterfall_mode varchar(30) NN default 'PASS_THROUGH_FIRST'</span></td>
+        <td>Cung cấp trường dữ liệu định lượng cho bộ nhắc tái ký/gia hạn (BR05, FR09, UC10) và quy tắc thứ tự phân bổ thanh toán mặc định (FR16).</td>
+      </tr>
+      <tr>
+        <td><b>Projects, Deliverables</b> (5.13)</td>
+        <td><span class="code-inline">status, handoff_key, deemed_acceptance_days</span></td>
+        <td><span class="code-inline">status varchar(30) NN</span> (<span class="code-inline">Draft/PendingStart/InDelivery/InReview/Stalled_Client_Unresponsive/Accepted/Completed/Terminated</span>); <span class="code-inline">UNIQUE (tenant_id, workspace_id, sow_version_id, handoff_key)</span></td>
+        <td>Chặn tạo trùng Project khi replay handoff; có trạng thái thoát khi khách im lặng không nghiệm thu hoặc thanh lý sớm hợp đồng.</td>
+      </tr>
+      <tr>
+        <td><b>Appointments, Resource_Bookings</b> (5.13 - Mới)</td>
+        <td><span class="code-inline">appointment_id, title, appointment_type, start_at, end_at, timezone, status, hold_expires_at, resource_id, checkin_at, checkin_lat/lng, checkin_fallback_reason, checkin_evidence_asset_id</span></td>
+        <td><span class="code-inline">CHECK (end_at &gt; start_at)</span>; Ràng buộc PostgreSQL <span class="code-inline">EXCLUDE USING gist (tenant_id WITH =, resource_id WITH =, tstzrange(start_at, end_at) WITH &amp;&amp;) WHERE (status IN ('Hold', 'Confirmed', 'CheckedIn'))</span></td>
+        <td>Đáp ứng đầy đủ <b>FR20 (P0)</b> và <b>CEO-U21 (P0)</b>: Quản lý lịch hẹn, khóa giữ chỗ tạm thời (<span class="code-inline">Hold</span> có <span class="code-inline">hold_expires_at</span>), chặn tuyệt đối double-booking tài nguyên/ekip ở tầng DB và lưu bằng chứng check-in.</td>
+      </tr>
+      <tr>
+        <td><b>Channel_Identities</b> (5.16)</td>
+        <td><span class="code-inline">contact_id</span></td>
+        <td><span class="code-inline">uuid FK Contacts NOT NULL</span></td>
+        <td>Khi sự kiện vượt qua bước kiểm tra chữ ký mà chưa xác minh được người, tạo ngay <span class="code-inline">Contacts (identity_status = 'Provisional')</span> trong cùng transaction để không gây lỗi <span class="code-inline">NOT NULL</span> trên <span class="code-inline">Leads, Tickets</span> và <span class="code-inline">Consent_Logs</span>.</td>
+      </tr>
+      <tr>
+        <td><b>Conversations</b> (5.16)</td>
+        <td><span class="code-inline">last_inbound_at, messaging_window_expires_at</span></td>
+        <td><span class="code-inline">timestamptz NULL</span></td>
+        <td>Ghi nhận thời điểm tin nhắn cuối cùng từ <b>khách hàng</b> (<span class="code-inline">direction = 'inbound'</span>) để kiểm tra chính xác cửa sổ 24h của Meta Messenger / Zalo OA (FR34, OC16).</td>
+      </tr>
+      <tr>
+        <td><b>SLA_Episodes</b> (5.16)</td>
+        <td><span class="code-inline">time_basis, remaining_business_seconds, breached_by_user_id</span></td>
+        <td><span class="code-inline">time_basis varchar(20) NN</span> (<span class="code-inline">BUSINESS_CALENDAR / WALL_CLOCK</span>); <span class="code-inline">remaining_business_seconds int NULL</span>; <span class="code-inline">breached_by_user_id uuid FK Users NULL</span></td>
+        <td>Tách đồng hồ tính theo lịch làm việc (<span class="code-inline">FRT/NRT/Resolution</span>) và đồng hồ giờ thực tuyệt đối (<span class="code-inline">Promised_Update</span>); lưu số giây còn lại khi Pause/Reopen và quy rõ người chịu trách nhiệm khi vi phạm.</td>
+      </tr>
+      <tr>
+        <td><b>Business_Subjects</b> (5.18)</td>
+        <td><span class="code-inline">lead_id, deal_id, ticket_id, conversation_id, project_id, deliverable_id, subject_type</span></td>
+        <td><span class="code-inline">CHECK (num_nonnulls(lead_id, deal_id, ticket_id, conversation_id, project_id, deliverable_id) = 1)</span>; Unique scoped theo từng FK</td>
+        <td>Mở rộng đầy đủ cho <span class="code-inline">Deal, Project</span> và <span class="code-inline">Deliverable</span> để <span class="code-inline">Conversation_Subject_Links</span> (FR39, UC22) và <span class="code-inline">SLA_Episodes</span> (FR15, FR36) liên kết nhất quán bằng khóa ngoại thật.</td>
+      </tr>
+      <tr>
+        <td><b>Obligation_Adjustments</b> (5.18 - Mới)</td>
+        <td><span class="code-inline">obligation_id, adjustment_type, amount, reason, evidence_asset_id, approved_by</span></td>
+        <td>Append-only; <span class="code-inline">adjustment_type</span> (<span class="code-inline">BANK_FEE_TOLERANCE / COMMERCIAL_DISCOUNT / WRITE_OFF / CREDIT_MEMO</span>); tổng <span class="code-inline">Allocated Cash + Approved Adjustments &lt;= Obligation Gross</span></td>
+        <td>Giải quyết bài toán thanh toán thiếu do phí ngân hàng (short-payment) hoặc xóa nợ nhỏ lẻ (write-off) để đóng <span class="code-inline">Payment_Obligation</span> mà không sinh tiền mặt ảo hay hoa hồng ảo (<span class="code-inline">CEO-U14</span>).</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>BẢN VÁ 3: Hoàn thiện Ma trận Phân quyền Vận hành, Bảo mật RLS và SLA Pháp lý (Chương 6)</h3>
+
+<div class="patch-box">
+  <p><b>Hướng dẫn 3A:</b> <i>Thay thế 3 dòng vai trò <span class="code-inline">Sales</span>, <span class="code-inline">AM/CSKH/Delivery</span> và <span class="code-inline">Kế toán</span> trong Bảng tại <b>Mục 6.1</b> bằng 4 dòng chi tiết dưới đây:</i></p>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:18%">Vai trò</th>
+        <th style="width:24%">Phạm vi</th>
+        <th style="width:36%">CRM C/R/U/D</th>
+        <th style="width:22%">Export / Import</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Sales</b></td>
+        <td>Owner và hồ sơ được grant trong phạm vi</td>
+        <td>C/R/U Lead, Deal, Quote, Activity được giao; R trạng thái <span class="code-inline">Orders.payment_state, Payment_Obligations, Tickets (summary/status)</span> của khách mình sở hữu và <span class="code-inline">Commission_Entries</span> của bản thân; không D chính thức</td>
+        <td>Không X danh sách; không I hàng loạt mặc định</td>
+      </tr>
+      <tr>
+        <td><b>Account Manager (AM) / CSKH</b></td>
+        <td>Khách hàng, hợp đồng và dự án được phân công quản lý</td>
+        <td>C/R/U Ticket, Onboarding, Success Plan, Renewal/Upsell Deal &amp; Quote của Account phụ trách; R Contract, SOW, Deliverable, Acceptance và trạng thái công nợ (<span class="code-inline">Payment_Obligations</span>) liên quan</td>
+        <td>X tài liệu/báo cáo được phép gửi cho đúng khách hàng; không X danh sách khách hàng toàn hệ thống</td>
+      </tr>
+      <tr>
+        <td><b>Delivery / Chuyên môn thực thi</b></td>
+        <td>Dự án, chiến dịch và đầu việc được giao</td>
+        <td>C/R/U Task, Deliverable, Asset, Time Entry được giao; R Brief, SOW, Plan liên quan; không đọc hoa hồng hoặc sổ cái kế toán nội bộ</td>
+        <td>Không X PII; I asset/tài liệu nghiệm thu theo quyền dự án</td>
+      </tr>
+      <tr>
+        <td><b>Kế toán (Finance)</b></td>
+        <td>Chứng từ, hợp đồng và giao dịch tài chính trong tenant/legal entity được gán</td>
+        <td>R Account/Contact (thông tin pháp nhân/MST/thanh toán), Approved Quote, Contract, SOW, Acceptance; C/R/U Order, Payment_Schedule, Payment_Obligation, Obligation_Adjustment, Payment, Payment_Allocation, Commission_Entry, Finance_Period; không U Lead/Deal</td>
+        <td>X sổ đối soát, công nợ, bảng kê hoa hồng được duyệt; I sao kê ngân hàng/mapping ERP có kiểm soát</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><b>Hướng dẫn 3B:</b> <i>Dán đoạn quy định kỹ thuật bắt buộc dưới đây vào cuối <b>Mục 6.3 (Khung pháp lý Việt Nam)</b>:</i></p>
+  <p><b>Quy tắc kỹ thuật bắt buộc cho RLS, AI Privacy và SLA Pháp lý (Luật 91/2025/QH15 &amp; Nghị định 356/2025/NĐ-CP):</b></p>
+  <ol>
+    <li><b>Transaction-Scoped RLS Context (<span class="code-inline">SET LOCAL</span>):</b> Khi kết nối PostgreSQL qua Connection Pool, ứng dụng bắt buộc thiết lập ngữ cảnh bảo mật bên trong khối giao dịch bằng lệnh <span class="code-inline">SET LOCAL app.current_tenant_id = '&lt;uuid&gt;'; SET LOCAL app.current_workspace_id = '&lt;uuid&gt;'; SET LOCAL app.current_user_id = '&lt;uuid&gt;';</span>. Tuyệt đối cấm sử dụng lệnh <span class="code-inline">SET</span> cấp session nhằm triệt tiêu nguy cơ rò rỉ ngữ cảnh sang kết nối kế tiếp khi xảy ra ngoại lệ.</li>
+    <li><b>SLA Xử lý Quyền của Chủ thể Dữ liệu &amp; Sự cố (<span class="code-inline">Privacy_Requests</span> &amp; <span class="code-inline">Incident Register</span>):</b>
+      <ul>
+        <li><i>Rút lại sự đồng ý (<span class="code-inline">Consent Revoke</span>):</i> Cập nhật <span class="code-inline">Consent_State</span> và chặn các lệnh gửi marketing mới trong <span class="code-inline">0 giây</span> (đồng bộ ngay trong transaction nhận yêu cầu); hủy toàn bộ <span class="code-inline">Outbound_Intents</span> và <span class="code-inline">Journey_Instances</span> marketing đang chờ trong vòng <span class="code-inline">&lt;= 15 phút</span>.</li>
+        <li><i>Yêu cầu xóa, hạn chế xử lý hoặc cung cấp dữ liệu (<span class="code-inline">Privacy_Requests</span>):</i> Khi yêu cầu được xác minh chủ thể hợp lệ (<span class="code-inline">verified_at</span>), hệ thống tự động gán hạn xử lý <span class="code-inline">due_at = verified_at + 72 giờ</span>, phát cảnh báo ở mốc 24 giờ và 48 giờ cho Privacy Owner.</li>
+        <li><i>Thông báo vi phạm dữ liệu cá nhân:</i> Ngay khi sự cố bảo mật liên quan đến dữ liệu cá nhân được xác nhận ở mức <span class="code-inline">Confirmed Breach</span>, hệ thống kích hoạt đồng hồ đếm ngược pháp lý <span class="code-inline">72 giờ</span> để Privacy Owner và CEO hoàn tất hồ sơ thông báo theo Nghị định 356/2025/NĐ-CP.</li>
+      </ul>
+    </li>
+    <li><b>Bảo vệ dữ liệu qua AI Gateway:</b> Trước khi gửi bất kỳ đoạn văn bản hội thoại hoặc transcript nào sang mô hình AI bên ngoài, AI Gateway phải thực hiện che ẩn danh (PII Redaction) các trường định danh nhạy cảm (Số điện thoại, Email, MST/CCCD, Số tài khoản) bằng thẻ đại diện (<span class="code-inline">[PHONE_1], [EMAIL_1]</span>) và chỉ gọi API nhà cung cấp đã bật chế độ không lưu trữ dữ liệu để huấn luyện mô hình (<span class="code-inline">Zero Data Retention / Training Opt-out</span>).</li>
+  </ol>
+</div>
+
+<h3>BẢN VÁ 4: Phân kỳ Triển khai Vật lý các Bảng Dữ liệu P0 / P1 / P2 (Mục 5.19)</h3>
+
+<div class="patch-box">
+  <p><b>Hướng dẫn 4:</b> <i>Dán mục <b>5.19</b> dưới đây vào cuối <b>Chương 5</b>:</i></p>
+  <p><b>5.19 Phân kỳ triển khai vật lý các bảng dữ liệu (DDL Scope Gate P0 / P1 / P2)</b></p>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:18%">Phân kỳ</th>
+        <th style="width:57%">Danh sách bảng bắt buộc khởi tạo (Physical DDL Scope)</th>
+        <th style="width:25%">Điều kiện mở cổng</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>P0 (MVP 90 ngày)</b></td>
+        <td><b>1. Tổ chức &amp; Quyền:</b> <span class="code-inline">Tenants, Branches, Legal_Entities, Workspaces, Users, Memberships, Role_Bindings, Entity_Team_Grants, Audit_Logs, System_Configs</span>.<br><b>2. Hồ sơ &amp; Tuân thủ:</b> <span class="code-inline">Contacts, Accounts, Contact_Account_Roles, Contact_Points, Identity_Merge_Journal, Consent_Logs, Consent_State, Privacy_Requests, Assets, Asset_Versions, Approvals</span>.<br><b>3. Bán hàng &amp; Lịch hẹn:</b> <span class="code-inline">Pipelines, Pipeline_Stages, Queues, Leads, Lead_Transitions, Assignments, Deals, Deal_Stage_History, Activities, Appointments, Resource_Bookings, Quotes, Quote_Lines</span>.<br><b>4. Hợp đồng &amp; Tài chính:</b> <span class="code-inline">Contracts, SOW_Versions, Orders, Order_Lines, Payment_Schedules, Payment_Obligations, Obligation_Adjustments, Bank_Accounts, Payments, Payment_Evidence, Reconciliation_Cases, Payment_Allocations, Commission_Pools, Policy_Snapshots, Commission_Entries, Commission_Status_Events, Finance_Periods</span>.<br><b>5. Giao hàng &amp; CSKH cơ bản:</b> <span class="code-inline">Strategy_Briefs, Projects, Deliverables, Acceptances, Client_Wait_Intervals, Revision_Batches, Change_Requests, Tickets, Entitlement_Snapshots, Customer_Promises, Recovery_Cases</span>.<br><b>6. Omnichannel Core:</b> <span class="code-inline">Channel_Connections, Channel_Identities, Inboxes, Conversations, Conversation_Participants, Conversation_Assignments, Messages, Message_Attachments, Message_Status_Events, Inbound_Events, Outbound_Intents, Send_Attempts, Business_Subjects, Conversation_Subject_Links, SLA_Episodes, Sync_Checkpoints, Outbox, KPI_Definitions, Metric_Facts</span>.</td>
+        <td>Triển khai ngay từ Sprint 1–4 để đóng kín vòng lặp <span class="code-inline">Lead -&gt; Cash -&gt; Delivery -&gt; Renewal</span>.</td>
+      </tr>
+      <tr>
+        <td><b>P1 (Mở rộng sau khi lõi P0 ổn định)</b></td>
+        <td><span class="code-inline">Invoice_Lines, Invoice_Allocation_Links, Connector_Mappings</span> (khi nối API MISA/ERP); <span class="code-inline">Payout_Batches, Payout_Links, Commission_Adjustments</span>; <span class="code-inline">Marketing_Plans, Campaigns, Budget_Lines, Budget_Adjustments, Media_Funding_Authorizations</span>; <span class="code-inline">Tasks, Availability</span> (khi quản lý capacity chi tiết trong CRM); <span class="code-inline">Success_Plans, Feedback, Corrective_Actions</span> (khi bật khảo sát CSAT/NPS tự động); <span class="code-inline">Journeys, Journey_Instances</span>; <span class="code-inline">Referrals</span>; <span class="code-inline">Touchpoints, Attribution_Credits, Outcome_Events, Platform_Export_Intents</span> (khi bật CAPI/Meta closed-loop); <span class="code-inline">Processing_Records, Retention_Policies</span>.</td>
+        <td>Chỉ chạy migration mở bảng khi tính năng P1 tương ứng được kích hoạt theo Gate tại Chương 9.</td>
+      </tr>
+      <tr>
+        <td><b>P2 (Khi có quy mô &amp; Business Case)</b></td>
+        <td><span class="code-inline">Business_Lines</span> (khi mở gói ngành thứ hai ngoài <span class="code-inline">marketing_services</span>); <span class="code-inline">IMC_Plans, Experiments, Learning_Items</span>; <span class="code-inline">Time_Entries</span> (khi bật timesheet chi tiết); <span class="code-inline">Loyalty_Ledger</span> (khi bật tích điểm/Mini App).</td>
+        <td>Chỉ mở khi có phê duyệt CR riêng của CEO sau giai đoạn MVP.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>BẢN VÁ 5: Công thức Toán học cho Health Score (Mục 8.2) và Bảng Tham số Mặc định (Phụ lục A.6)</h3>
+
+<div class="patch-box">
+  <p><b>Hướng dẫn 5A:</b> <i>Dán công thức <b>Account Service Health Score (0–100)</b> dưới đây vào cuối <b>Mục 8.2 (Chương 8)</b>:</i></p>
+  <p><b>Công thức định lượng <span class="code-inline">Account Service Health Score</span> (0–100) và Quy tắc Điểm liệt (Critical Override):</b></p>
+  <p>Điểm sức khỏe khách hàng (<span class="code-inline">Accounts.service_health</span>) được tính từ 4 thành phần chuẩn hóa về thang <span class="code-inline">0..100</span> (trọng số cơ sở: Tài chính <span class="code-inline">w_fin = 0,30</span>; Giao hàng <span class="code-inline">w_del = 0,30</span>; Quan hệ &amp; CSKH <span class="code-inline">w_rel = 0,20</span>; Hiệu quả <span class="code-inline">w_out = 0,20</span>):</p>
+  <ol>
+    <li><b>Điểm Tài chính (<span class="code-inline">S_fin</span> từ 0 đến 100):</b> Không có nợ quá hạn = <span class="code-inline">100 điểm</span>. Có nghĩa vụ quá hạn (không thuộc diện đang tranh chấp hợp lệ <span class="code-inline">Disputed</span>): Quá hạn 1–15 ngày = <span class="code-inline">70 điểm</span>; Quá hạn 16–30 ngày = <span class="code-inline">40 điểm</span>; Quá hạn trên 30 ngày = <span class="code-inline">0 điểm</span>.</li>
+    <li><b>Điểm Giao hàng (<span class="code-inline">S_del</span> từ 0 đến 100):</b> <span class="code-inline">S_del = 100 * (0,7 * [Tỷ lệ Deliverables đúng hạn trong 90 ngày, trừ thời gian chờ khách] + 0,3 * [Tỷ lệ Deliverables nghiệm thu đạt trong số vòng sửa của SOW])</span>. Nếu chưa có Deliverable nào đến hạn, trạng thái thành phần là <span class="code-inline">UNKNOWN</span>.</li>
+    <li><b>Điểm Quan hệ &amp; Hỗ trợ (<span class="code-inline">S_rel</span> từ 0 đến 100):</b> Khởi điểm <span class="code-inline">100 điểm</span>; trừ <span class="code-inline">40 điểm</span> cho mỗi <span class="code-inline">Ticket S1</span> đang mở; trừ <span class="code-inline">20 điểm</span> cho mỗi <span class="code-inline">Ticket S2</span> đang mở; trừ <span class="code-inline">30 điểm</span> nếu khảo sát gần nhất trong 90 ngày rơi vào nhóm không hài lòng (<span class="code-inline">NPS &lt;= 6</span> hoặc <span class="code-inline">CSAT &lt;= 2</span>) mà <span class="code-inline">Recovery_Case</span> chưa đạt trạng thái <span class="code-inline">Verified</span> (Giới hạn dưới là <span class="code-inline">0 điểm</span>).</li>
+    <li><b>Điểm Hiệu quả Chiến dịch (<span class="code-inline">S_out</span> từ 0 đến 100):</b> Tính theo tỷ lệ hoàn thành KPI cam kết trong kỳ báo cáo gần nhất (dữ liệu không cũ quá 7 ngày): Đạt <span class="code-inline">&gt;= 90%</span> mục tiêu = <span class="code-inline">100 điểm</span>; Đạt <span class="code-inline">70–89%</span> = <span class="code-inline">70 điểm</span>; Đạt <span class="code-inline">50–69%</span> = <span class="code-inline">40 điểm</span>; Dưới <span class="code-inline">50%</span> = <span class="code-inline">10 điểm</span>. Nếu gói dịch vụ không cam kết KPI định lượng hoặc dữ liệu bị trễ (<span class="code-inline">stale</span>), gán trạng thái <span class="code-inline">UNKNOWN</span>.</li>
+    <li><b>Công thức tổng hợp và Quy tắc Điểm liệt (Critical Cap):</b>
+      <ul>
+        <li>Nếu có dưới 2 thành phần có dữ liệu hợp lệ (khác <span class="code-inline">UNKNOWN</span>), cột <span class="code-inline">service_health</span> để <span class="code-inline">NULL</span> (hiển thị nhãn <span class="code-inline">Unknown / Chưa đủ dữ liệu</span>).</li>
+        <li>Nếu có từ 2 thành phần hợp lệ trở lên: <span class="code-inline">S_raw = ROUND_HALF_UP( SUM(w_k * S_k) / SUM(w_k) )</span>.</li>
+        <li><b>Quy tắc Điểm liệt:</b> Nếu đang có <span class="code-inline">Ticket S1 Open</span> HOẶC nợ quá hạn trên 30 ngày không tranh chấp (<span class="code-inline">S_fin = 0</span>), điểm cuối cùng bị chặn trần ở mức 40: <span class="code-inline">service_health = MIN(S_raw, 40)</span>.</li>
+        <li><b>Phân tầng hành động:</b> <span class="code-inline">80–100: Healthy (Xanh)</span>; <span class="code-inline">50–79: Watch (Vàng)</span>; <span class="code-inline">0–49: At Risk (Đỏ - Chặn tự động gửi Upsell, bắt buộc mở kế hoạch chăm sóc khẩn)</span>.</li>
+      </ul>
+    </li>
+  </ol>
+
+  <p><b>Hướng dẫn 5B:</b> <i>Dán bảng <b>Giá trị cấu hình mặc định khởi tạo hệ thống (System_Configs Seed Baseline)</b> vào cuối <b>Phụ lục A.6</b>:</i></p>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:32%">Khóa cấu hình (<span class="code-inline">config_key</span>)</th>
+        <th style="width:38%">Giá trị mặc định (<span class="code-inline">default_value</span>)</th>
+        <th style="width:14%">Đơn vị / Kiểu</th>
+        <th style="width:16%">Áp dụng tại</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="code-inline">business_calendar.default_tz</span></td><td><span class="code-inline">Asia/Ho_Chi_Minh</span></td><td>Timezone</td><td>FR05, FR18, FR36</td></tr>
+      <tr><td><span class="code-inline">business_calendar.working_hours</span></td><td><span class="code-inline">Mon-Fri: 08:30-12:00, 13:30-17:30; Sat: 08:30-12:00</span></td><td>Schedule JSON</td><td>FR05, FR18, FR36</td></tr>
+      <tr><td><span class="code-inline">sla.lead.claim_timeout_minutes</span></td><td><span class="code-inline">15</span> (kênh chat trực) / <span class="code-inline">60</span> (form/email)</td><td>Phút làm việc</td><td>FR05, UC02</td></tr>
+      <tr><td><span class="code-inline">sla.lead.first_human_response_minutes</span></td><td><span class="code-inline">30</span> (B2C/Chat) / <span class="code-inline">120</span> (B2B chuyên sâu)</td><td>Phút làm việc</td><td>FR05, FR36, UC02</td></tr>
+      <tr><td><span class="code-inline">sla.lead.max_auto_reassignments</span></td><td><span class="code-inline">2</span> (sau 2 lần chuyển tự động sẽ vào Queue Quản lý)</td><td>Số lần</td><td>FR05, UC02, U04</td></tr>
+      <tr><td><span class="code-inline">sla.inflight_send_grace_seconds</span></td><td><span class="code-inline">60</span></td><td>Giây thực</td><td>FR05, FR34, FR36</td></tr>
+      <tr><td><span class="code-inline">lead.contacting.max_failed_attempts</span></td><td><span class="code-inline">5</span> lần thử trong tối thiểu <span class="code-inline">7</span> ngày làm việc</td><td>Số lần / Ngày</td><td>FR04, UC02</td></tr>
+      <tr><td><span class="code-inline">deal.on_hold.max_interval_days</span></td><td><span class="code-inline">30</span> ngày/lần; tối đa tích lũy <span class="code-inline">60</span> ngày</td><td>Ngày</td><td>FR04, UC03</td></tr>
+      <tr><td><span class="code-inline">quote.default_validity_days</span></td><td><span class="code-inline">15</span></td><td>Ngày</td><td>FR14, UC05</td></tr>
+      <tr><td><span class="code-inline">quote.approval.max_self_discount_pct</span></td><td><span class="code-inline">5.0</span> (Giảm giá &gt; 5% cần Manager/CEO duyệt)</td><td>%</td><td>FR14, UC05, U07</td></tr>
+      <tr><td><span class="code-inline">quote.approval.min_service_margin_pct</span></td><td><span class="code-inline">30.0</span> (Biên đóng góp &lt; 30% cần duyệt ngoại lệ)</td><td>%</td><td>FR14, UC05</td></tr>
+      <tr><td><span class="code-inline">contract.renewal.reminder_offsets_days</span></td><td><span class="code-inline">[45, 30, 15]</span> tính lùi từ <span class="code-inline">notice_deadline_date</span></td><td>Mảng ngày</td><td>BR05, FR09, FR15, UC10</td></tr>
+      <tr><td><span class="code-inline">deliverable.max_client_wait_days</span></td><td><span class="code-inline">15</span> ngày làm việc</td><td>Ngày làm việc</td><td>FR15, UC08</td></tr>
+      <tr><td><span class="code-inline">finance.bank_fee_tolerance_vnd</span></td><td><span class="code-inline">100000</span> (và &lt;= 0.5% giá trị nghĩa vụ thu)</td><td>VND</td><td>FR16, UC07</td></tr>
+      <tr><td><span class="code-inline">finance.allocation.default_waterfall</span></td><td><span class="code-inline">PASS_THROUGH_FIRST</span> (<span class="code-inline">MEDIA -&gt; PRODUCTION -&gt; SERVICE</span>)</td><td>Enum</td><td>FR16, FR17, UC07</td></tr>
+      <tr><td><span class="code-inline">commission.preview_sla_seconds</span></td><td><span class="code-inline">60</span></td><td>Giây</td><td>FR17, UC07</td></tr>
+      <tr><td><span class="code-inline">commission.quality_eval_fallback_days</span></td><td><span class="code-inline">14</span> ngày sau nghiệm thu nếu không có Ticket S1/S2</td><td>Ngày</td><td>FR17, CEO-U16</td></tr>
+      <tr><td><span class="code-inline">ticket.sla.s1_response_resolve_minutes</span></td><td>Phản hồi: <span class="code-inline">30</span> phút; Giảm thiểu/Phương án: <span class="code-inline">240</span> phút</td><td>Phút có trực</td><td>FR18, FR36, UC09</td></tr>
+      <tr><td><span class="code-inline">ticket.sla.s2_response_resolve_minutes</span></td><td>Phản hồi: <span class="code-inline">240</span> phút; Phương án: <span class="code-inline">480</span> phút</td><td>Phút làm việc</td><td>FR18, FR36, UC09</td></tr>
+      <tr><td><span class="code-inline">ticket.sla.s3_response_resolve_minutes</span></td><td>Phản hồi: <span class="code-inline">480</span> phút; Giải quyết: <span class="code-inline">1440</span> phút</td><td>Phút làm việc</td><td>FR18, FR36, UC09</td></tr>
+      <tr><td><span class="code-inline">ticket.reopen_window_days</span></td><td><span class="code-inline">7</span></td><td>Ngày</td><td>FR18, UC09</td></tr>
+      <tr><td><span class="code-inline">marketing.quiet_hours</span></td><td><span class="code-inline">20:00-08:00</span></td><td>Khung giờ</td><td>FR09</td></tr>
+      <tr><td><span class="code-inline">marketing.frequency_cap_per_7d</span></td><td><span class="code-inline">2</span> tin nhắn marketing / 7 ngày / mỗi scope</td><td>Số tin</td><td>FR09, M07</td></tr>
+      <tr><td><span class="code-inline">privacy.dsar_processing_sla_hours</span></td><td><span class="code-inline">72</span> giờ từ khi xác minh chủ thể; <span class="code-inline">0</span> giây chặn marketing</td><td>Giờ</td><td>FR01, FR09, UC11, 6.3</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>BẢN VÁ 6: Đồng bộ Mức Ưu tiên UAT (Mục 9.5) và Bổ sung Ma trận Truy vết Đầy đủ 40 FR – 22 UC (Phụ lục B)</h3>
+
+<div class="patch-box">
+  <p><b>Hướng dẫn 6A:</b> <i>Tại Bảng <b>Mục 9.5 (Bộ UAT tối thiểu)</b>, cập nhật dòng <span class="code-inline">U22</span> từ mức ưu tiên <span class="code-inline">P1</span> sang <b><span class="code-inline">P0</span></b>:</i></p>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:10%">Test</th>
+        <th style="width:15%">Liên kết</th>
+        <th style="width:30%">Dữ liệu hoặc hành động</th>
+        <th style="width:35%">Kết quả mong đợi</th>
+        <th style="width:10%">Ưu tiên</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>U22</b></td>
+        <td>FR13</td>
+        <td>Prompt injection trong tệp khách</td>
+        <td>Không export/đổi quyền/gửi tin tự động</td>
+        <td><b>P0</b></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><b>Hướng dẫn 6B:</b> <i>Dán bổ sung 6 dòng dưới đây vào cuối Bảng <b>Ma trận truy vết tại Phụ lục B</b>:</i></p>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:26%">Nhóm yêu cầu</th>
+        <th style="width:14%">Luồng</th>
+        <th style="width:36%">Dữ liệu và quyền</th>
+        <th style="width:24%">Nghiệm thu</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>FR30–32 Connections, Identity &amp; Unified Thread</b></td>
+        <td>UC17/18/19/22</td>
+        <td><span class="code-inline">Channel_Connections, Channel_Identities, Inboxes, Conversations, Conversation_Participants, Identity_Merge_Journal</span>; scope &amp; capability</td>
+        <td>OC01–OC03, OC11–OC13, OC15, OC23, INT02</td>
+      </tr>
+      <tr>
+        <td><b>FR33–34 Inbound &amp; Outbound Reliability</b></td>
+        <td>UC17/19/21</td>
+        <td><span class="code-inline">Inbound_Events, Messages, Message_Status_Events, Outbound_Intents, Send_Attempts, Outbox</span>; idempotency &amp; send policy gate</td>
+        <td>OC01, OC05–OC09, OC16–OC17, OC19, INT01, INT25</td>
+      </tr>
+      <tr>
+        <td><b>FR35–36 Assignment &amp; Service Timers</b></td>
+        <td>UC02/09/20</td>
+        <td><span class="code-inline">Conversation_Assignments, Business_Subjects, SLA_Episodes</span>; CAS lock, business calendar &amp; NRT/Promised Update</td>
+        <td>U02–U04, OC04, OC10, OC18, INT04–INT05, CX-U03–U09</td>
+      </tr>
+      <tr>
+        <td><b>FR37 Search, File &amp; Data Protection</b></td>
+        <td>UC11/12/14/18</td>
+        <td><span class="code-inline">Contacts, Messages, Assets, Audit_Logs</span>; RLS (<span class="code-inline">SET LOCAL</span>), document ACL &amp; permission version</td>
+        <td>U16–U17, OC03, OC14, OC20, INT23, INT28–INT29</td>
+      </tr>
+      <tr>
+        <td><b>FR38 Sync Health &amp; Recovery</b></td>
+        <td>UC21</td>
+        <td><span class="code-inline">Sync_Checkpoints, Channel_Connections, Inbound_Events</span>; operator replay &amp; coverage gap</td>
+        <td>OC08–OC09, OC21, INT11, INT25–INT26</td>
+      </tr>
+      <tr>
+        <td><b>FR39–40 Business Links, Email &amp; File Hygiene</b></td>
+        <td>UC17/19/22</td>
+        <td><span class="code-inline">Business_Subjects, Conversation_Subject_Links, Message_Attachments</span>; MIME/malware scan &amp; typed links</td>
+        <td>OC13–OC14, INT04, INT24, CX-U05, CX-U23</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,382 @@
+{
+  "run_at": "2026-11-15T17:40:47.929799+00:00",
+  "kind": "spec-analyze-and-traceability validation only",
+  "baseline_sha256": "b6a3279f328e96e1e97d845e209be7a326516a0dba5e3a033d88e1f2162e421c",
+  "all_passed": true,
+  "modules_checked": 6,
+  "slices_checked": 3,
+  "contracts_checked": 1,
+  "changes_checked": 0,
+  "skills_checked": 8,
+  "partial_trace_warnings": {
+    "M18": 5
+  },
+  "module_results": [
+    {
+      "file": "02-specs\\modules\\M14-ORG-ACCESS-DELEGATION.md",
+      "mode": "standard_module_spec",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "missing_sections": [],
+      "has_provenance_tags": true,
+      "has_baseline_ref": true,
+      "trace_ids_complete": true,
+      "missing_ids_count": 0,
+      "missing_ids_sample": [],
+      "passed": true
+    },
+    {
+      "file": "02-specs\\modules\\M18-BI-REPORTING-EXPANSION.md",
+      "mode": "legacy_or_extension",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "missing_sections": [],
+      "has_provenance_tags": false,
+      "has_baseline_ref": true,
+      "trace_ids_complete": false,
+      "missing_ids_count": 5,
+      "missing_ids_sample": [
+        "M18-AC01",
+        "M18-AC02",
+        "M18-AC03",
+        "M18-AC04",
+        "UC16"
+      ],
+      "passed": true
+    },
+    {
+      "file": "02-specs\\modules\\M21-PARTNER-BUSINESS-RESULTS.md",
+      "mode": "legacy_or_extension",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "missing_sections": [],
+      "has_provenance_tags": false,
+      "has_baseline_ref": false,
+      "trace_ids_complete": true,
+      "missing_ids_count": 0,
+      "missing_ids_sample": [],
+      "passed": true
+    },
+    {
+      "file": "02-specs\\modules\\M22-HUMAN-RESOURCES.md",
+      "mode": "legacy_or_extension",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "missing_sections": [],
+      "has_provenance_tags": false,
+      "has_baseline_ref": true,
+      "trace_ids_complete": true,
+      "missing_ids_count": 0,
+      "missing_ids_sample": [],
+      "passed": true
+    },
+    {
+      "file": "02-specs\\modules\\M23-SYSTEM-ADMIN-SECURITY-OPS.md",
+      "mode": "legacy_or_extension",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "missing_sections": [],
+      "has_provenance_tags": false,
+      "has_baseline_ref": true,
+      "trace_ids_complete": true,
+      "missing_ids_count": 0,
+      "missing_ids_sample": [],
+      "passed": true
+    },
+    {
+      "file": "02-specs\\modules\\M24-PERFORMANCE-AND-PRODUCTIVITY.md",
+      "mode": "legacy_or_extension",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "missing_sections": [],
+      "has_provenance_tags": false,
+      "has_baseline_ref": true,
+      "trace_ids_complete": true,
+      "missing_ids_count": 0,
+      "missing_ids_sample": [],
+      "passed": true
+    }
+  ],
+  "slice_results": [
+    {
+      "file": "02-specs\\slices\\SL01-INTERNAL-WORK.md",
+      "mode": "legacy_slice",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "missing_sections": [],
+      "has_baseline_ref": true,
+      "passed": true
+    },
+    {
+      "file": "02-specs\\slices\\SL08-PARTNER-RESULTS.md",
+      "mode": "legacy_slice",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "missing_sections": [],
+      "has_baseline_ref": false,
+      "passed": true
+    },
+    {
+      "file": "02-specs\\slices\\SL09-11-HRM.md",
+      "mode": "legacy_slice",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "missing_sections": [],
+      "has_baseline_ref": true,
+      "passed": true
+    }
+  ],
+  "contract_results": [
+    {
+      "file": "02-specs\\contracts\\M14-PRINCIPAL-ACCESS-DECISION.md",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "missing_contract_parts": [],
+      "passed": true
+    }
+  ],
+  "change_results": [],
+  "skill_results": [
+    {
+      "file": ".agents\\skills\\crm-ba-spec\\references\\change-proposal-template.md",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "passed": true
+    },
+    {
+      "file": ".agents\\skills\\crm-ba-spec\\references\\domain-lenses.md",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "passed": true
+    },
+    {
+      "file": ".agents\\skills\\crm-ba-spec\\references\\ears-and-checklists.md",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "passed": true
+    },
+    {
+      "file": ".agents\\skills\\crm-ba-spec\\references\\module-workflow.md",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "passed": true
+    },
+    {
+      "file": ".agents\\skills\\crm-ba-spec\\references\\review-change-workflow.md",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "passed": true
+    },
+    {
+      "file": ".agents\\skills\\crm-ba-spec\\references\\slice-workflow.md",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "passed": true
+    },
+    {
+      "file": ".agents\\skills\\crm-ba-spec\\references\\usage-guide.md",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "passed": true
+    },
+    {
+      "file": ".agents\\skills\\crm-ba-spec\\SKILL.md",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "passed": true
+    }
+  ],
+  "trace_coverage": {
+    "M01": {
+      "spec_files": [],
+      "total_owned_ids": 15,
+      "covered_ids": 0,
+      "missing_ids_count": 15,
+      "status": "not_decomposed_yet"
+    },
+    "M02": {
+      "spec_files": [],
+      "total_owned_ids": 18,
+      "covered_ids": 0,
+      "missing_ids_count": 18,
+      "status": "not_decomposed_yet"
+    },
+    "M03": {
+      "spec_files": [],
+      "total_owned_ids": 38,
+      "covered_ids": 0,
+      "missing_ids_count": 38,
+      "status": "not_decomposed_yet"
+    },
+    "M04": {
+      "spec_files": [],
+      "total_owned_ids": 11,
+      "covered_ids": 0,
+      "missing_ids_count": 11,
+      "status": "not_decomposed_yet"
+    },
+    "M05": {
+      "spec_files": [],
+      "total_owned_ids": 12,
+      "covered_ids": 0,
+      "missing_ids_count": 12,
+      "status": "not_decomposed_yet"
+    },
+    "M06": {
+      "spec_files": [],
+      "total_owned_ids": 14,
+      "covered_ids": 0,
+      "missing_ids_count": 14,
+      "status": "not_decomposed_yet"
+    },
+    "M07": {
+      "spec_files": [],
+      "total_owned_ids": 14,
+      "covered_ids": 0,
+      "missing_ids_count": 14,
+      "status": "not_decomposed_yet"
+    },
+    "M08": {
+      "spec_files": [],
+      "total_owned_ids": 15,
+      "covered_ids": 0,
+      "missing_ids_count": 15,
+      "status": "not_decomposed_yet"
+    },
+    "M09": {
+      "spec_files": [],
+      "total_owned_ids": 21,
+      "covered_ids": 0,
+      "missing_ids_count": 21,
+      "status": "not_decomposed_yet"
+    },
+    "M10": {
+      "spec_files": [],
+      "total_owned_ids": 12,
+      "covered_ids": 0,
+      "missing_ids_count": 12,
+      "status": "not_decomposed_yet"
+    },
+    "M11": {
+      "spec_files": [],
+      "total_owned_ids": 13,
+      "covered_ids": 0,
+      "missing_ids_count": 13,
+      "status": "not_decomposed_yet"
+    },
+    "M12": {
+      "spec_files": [],
+      "total_owned_ids": 12,
+      "covered_ids": 0,
+      "missing_ids_count": 12,
+      "status": "not_decomposed_yet"
+    },
+    "M13": {
+      "spec_files": [],
+      "total_owned_ids": 12,
+      "covered_ids": 0,
+      "missing_ids_count": 12,
+      "status": "not_decomposed_yet"
+    },
+    "M14": {
+      "spec_files": [
+        "02-specs\\modules\\M14-ORG-ACCESS-DELEGATION.md"
+      ],
+      "total_owned_ids": 18,
+      "covered_ids": 18,
+      "missing_ids_count": 0,
+      "missing_ids_sample": [],
+      "status": "complete_id_mentions"
+    },
+    "M15": {
+      "spec_files": [],
+      "total_owned_ids": 15,
+      "covered_ids": 0,
+      "missing_ids_count": 15,
+      "status": "not_decomposed_yet"
+    },
+    "M16": {
+      "spec_files": [],
+      "total_owned_ids": 96,
+      "covered_ids": 0,
+      "missing_ids_count": 96,
+      "status": "not_decomposed_yet"
+    },
+    "M17": {
+      "spec_files": [],
+      "total_owned_ids": 12,
+      "covered_ids": 0,
+      "missing_ids_count": 12,
+      "status": "not_decomposed_yet"
+    },
+    "M18": {
+      "spec_files": [
+        "02-specs\\modules\\M18-BI-REPORTING-EXPANSION.md"
+      ],
+      "total_owned_ids": 14,
+      "covered_ids": 9,
+      "missing_ids_count": 5,
+      "missing_ids_sample": [
+        "M18-AC01",
+        "M18-AC02",
+        "M18-AC03",
+        "M18-AC04",
+        "UC16"
+      ],
+      "status": "partial_id_mentions"
+    },
+    "M19": {
+      "spec_files": [],
+      "total_owned_ids": 24,
+      "covered_ids": 0,
+      "missing_ids_count": 24,
+      "status": "not_decomposed_yet"
+    },
+    "M20": {
+      "spec_files": [],
+      "total_owned_ids": 14,
+      "covered_ids": 0,
+      "missing_ids_count": 14,
+      "status": "not_decomposed_yet"
+    },
+    "M21": {
+      "spec_files": [
+        "02-specs\\modules\\M21-PARTNER-BUSINESS-RESULTS.md"
+      ],
+      "total_owned_ids": 101,
+      "covered_ids": 101,
+      "missing_ids_count": 0,
+      "missing_ids_sample": [],
+      "status": "complete_id_mentions"
+    },
+    "M22": {
+      "spec_files": [
+        "02-specs\\modules\\M22-HUMAN-RESOURCES.md"
+      ],
+      "total_owned_ids": 135,
+      "covered_ids": 135,
+      "missing_ids_count": 0,
+      "missing_ids_sample": [],
+      "status": "complete_id_mentions"
+    }
+  },
+  "application_tests": "Not Run"
+}

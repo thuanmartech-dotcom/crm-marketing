@@ -1,0 +1,126 @@
+<a id="phu-luc-f"></a>
+
+## PHỤ LỤC F THẨM ĐỊNH BẢN PHẢN BIỆN HTML VÀ PHƯƠNG ÁN CHỐT THIẾT KẾ 1.4
+
+### F.1 Kết luận, phạm vi và phương pháp
+
+Nguồn phản biện: [gemini-code-1792078127639.html](<D:/AI Agent/CRM/gemini-code-1792078127639.html>), tiêu đề “Báo cáo kiểm định chốt chặn cuối cùng”, đánh giá Master1.3. Đã đọc toàn bộ phần nội dung, bảng và sáu bản vá, đối chiếu Master trước khi sửa. Các câu “dán”, “bắt buộc”, “đóng băng” trong HTML được xem là đề xuất để thẩm định; không tự trở thành lệnh của chủ dự án.
+
+**Kết luận:** phản biện có giá trị nhất ở phát hiện lệch API/schema/traceability và yêu cầu làm rõ ngoại lệ. Không chấp nhận kết luận “91/100, conditional go sau sáu bản vá” làm chứng nhận triển khai: thiếu rubric, DDL chạy thật, bằng chứng UAT, cấu hình tài khoản và người ký duyệt có trách nhiệm. Bản vá chứa cả quy tắc tốt, chính sách chưa xác nhận và lỗi mới.
+
+Master1.3 thực sự còn các lỗi cần nhận và sửa: API allocate còn phụ thuộc hóa đơn; dictionary chưa cụ thể hóa bookings, trạng thái hoãn và điều khoản notice; liên kết typed chưa đầy đủ; ma trận B thiếu FR30–40; guard AI bị để P1 trong U22. Đồng thời, không phải mọi điểm bị nêu là thiếu hoàn toàn: ngoại lệ cross-workspace đã có, hợp đồng đã nhắc notice/termination, contact tạm đã có đường vào và quyền đã có nguyên tắc. Thiếu ở độ cụ thể/đồng bộ, không thể suy là phần mềm đang crash “100%”.
+
+Phiên bản1.4 sửa trực tiếp các bất nhất đã xác minh, giữ nguyên tệp Master. Những ngưỡng và công thức trong HTML không được đưa vào production như mặc định bắt buộc. Chưa cài DB, chạy provider hay nghiệm thu production; các ví dụ số chỉ kiểm tra phép tính và logic tài liệu.
+
+### F.2 Lợi ích, rủi ro và quyết định với sáu bản vá
+
+| Bản vá HTML | Lợi ích có căn cứ | Rủi ro nếu dán nguyên văn | Phương án chấp nhận |
+| --- | --- | --- | --- |
+| 1. Trạng thái/SLA/tài chính | Làm rõ hết hạn quote, lời hứa cập nhật, tiền dư, rounding và đường thoát | Ép Lost/void nghĩa vụ, quy lỗi50%, pending send giữ lead, waterfall/commission bắt buộc, rounding có thể âm | Tách thành state machine, policy có phiên bản và bất biến tài chính; không hard-code các ngưỡng |
+| 2. FK/schema/bookings | Bổ sung field còn thiếu, typed relations, inbound timestamp, đặt lịch có ràng buộc | Unique tax_id theo parent không mô hình hóa brand; order_no tái dùng sau archive; NN Contact cho mọi signed event; một status chung Project/Deliverable | Hoàn thiện model đúng ý nghĩa; FK/grant bridge cụ thể; timestamps theo loại tương tác; booking có TTL và trạng thái riêng |
+| 3. Quyền/RLS/pháp lý | AM cần renewal, Finance cần evidence; transaction-scoped context giảm rò giữa request | C/R/U ledger quá rộng;72h DSAR và0giây tuyệt đối; đợi Confirmed Breach mới tính giờ; đồng nhất no-training/ZDR | Command permissions cho ledger; deadline theo loại nghĩa vụ; suppression tại commit/dispatch; vendor policy theo tính năng |
+| 4. P0/P1/P2 DDL | Yêu cầu chốt phạm vi vật lý trước phát triển là đúng | Danh sách P0 có81 tên, lại hoãn các kiểm soát retention/processing; phụ thuộc schema P1 có thể làm P0 không chạy | Gate theo lát cắt nghiệp vụ và dependency closure, giữ kiểm soát từ ngày đầu nhưng có thể thực hiện bằng cấu hình/quy trình |
+| 5. Health/config | Cần định nghĩa metric, units, owner, effective version và công thức tái lập được | Trọng số/ngưỡng không chứng minh đúng; thiếu dữ liệu thành xanh; CPL lower-is-better bị tính ngược; tự thêm ca thứ Bảy/self-discount | V1 dùng health từng chiều + evidence/coverage/risk flags; policy đề xuất ở trạng thái Draft, được duyệt mới activate |
+| 6. UAT/trace | Đúng: nối đủ40FR–22UC, AI guard trước bật AI | Thêm vài dòng trace không chứng minh test đã chạy hoặc tất cả trigger đã đủ | Bổ sung trace và UAT; chốt test scope theo feature flag, chạy kiểm thử DB/provider trước go-live |
+
+### F.3 Ma trận chi tiết 42 luận điểm
+
+Ký hiệu: **Nhận** = áp dụng nguyên tắc; **Sửa** = phát hiện có ích nhưng cách vá cần điều chỉnh; **Bác** = không dùng như rule mặc định; **Đã có một phần** = cần đồng bộ/chi tiết thêm. Từng quyết định dưới đây là kết quả phân tích, không là thống kê độ chính xác của người viết báo cáo.
+
+| ID / luận điểm HTML | Đánh giá | Lợi nếu làm đúng | Hại hoặc điểm thiếu | Quyết định thiết kế |
+| --- | --- | --- | --- | --- |
+| R01 Điểm91/100 và sign-off | Bác kết luận nghiệm thu | Buộc quan tâm readiness | Không có rubric/test evidence/chữ ký; danh xưng ARB không chứng minh đã có hội đồng thật | Chỉ cho tiếp thiết kế/PoC theo gate; không coi là quyền go-live |
+| R02 CC-01 typed links thiếu Deal/Project/Deliverable | Nhận khoảng trống | Link yêu cầu đúng đối tượng và FK | SRS đã nêu link typed riêng nhưng chưa định nghĩa; không phải mọi object tự cần SLA | Business_Subjects đủ sáu loại, đúng một FK/type; link N:M và policy quyết định clock |
+| R03 CC-02 Deal OnHold thiếu dimension | Nhận | Không mất Proposal/Negotiation khi hoãn | Hold seconds mutable và history cùng nguồn có thể lệch | Giữ commercial stage; work_state riêng; hold time tính từ history, cache có thể rebuild |
+| R04 CC-03 contract dates/notice | Nhận, sửa NN | Nhắc đúng hạn và điều khoản | Draft chưa biết ngày; evergreen không ngày cuối; notice có đơn vị/basis khác ngày thường | Ngày hiệu lực theo lifecycle; notice value/unit/basis, review plan và auto-renew theo hợp đồng |
+| R05 CC-04 Appointments/Resource_Bookings | Nhận | Giữ ekip/tài nguyên và chống overlap | GPS đang là tùy chọn, không phải toàn bộ P0; ràng buộc DB chưa xử lý hold hết hạn/pool capacity | Calendar cơ bản và resources nếu thực dùng; GPS hoãn; booking có TTL, confirm recheck |
+| R06 CC-05 last_inbound_at/window | Nhận field, bác24h chung | Outbound không tự gia hạn quyền gửi | User interaction hợp lệ không chỉ inbound text; API và OA Manager khác | Lưu inbound và qualifying interaction; eligibility theo provider/message class/version |
+| R07 API2.5 còn “hóa đơn cùng tenant” | Nhận lỗi hồi quy | Tiền trước invoice vẫn phân bổ được | Copy invoice check có thể kẹt ứng trước | Kiểm Payment_Obligations/đúng pháp nhân/tiền tệ/party/số dư; invoice mapping riêng |
+| R08 Thuật ngữ client_workspace | Đã có một phần | Glossary thống nhất | Tên khái niệm hoặc migration alias không là cột bị sót | Chỉ có cột workspace_id; giữ thuật ngữ workspace CLIENT và alias lịch sử rõ |
+| R09 Loyalty ghost reference ở NFR/B | Sửa | Không ép tạo bảng P2 trong MVP | NFR replay toàn sản phẩm không đồng nghĩa phải bật loyalty | Tính điểm chỉ kiểm khi mở FR10-points; scope P0 không cần ledger points |
+| R10 TraceB và U22 | Nhận | Yêu cầu có test và guard trước bật AI | P0 guard không ép triển khai model/STT P0 | B nối FR30–40/UC17–22/OC/INT; U22 P0 có điều kiện bật AI |
+| R11 Lead5lần/2khung/7ngày | Policy thử, không chuẩn | Có đường review/unreachable | Có thể làm phiền, sai hẹn/consent, trì hoãn closure hoặc thiếu cho bán B2B | Attempts/review date theo intent/kênh/quyền/hẹn; stop khi từ chối, không bắt gọi đủ quota |
+| R12 NoCapacity bắt Lead.status=New | Sửa | Không để việc vô chủ sau reject | Xóa tiến độ Contacting/Qualified về mặt nghĩa, có thể reset báo cáo và timer | Queue/assignment transition atomic giữ lifecycle/history/SLA; New chỉ khi nhu cầu chưa được xử lý |
+| R13 OnHold30/60 rồi Lost | Bác mặc định | Ngăn giấu pipeline | Chu kỳ mua dài bị Lost giả; quyền quản lý không chứng minh khách từ chối | Review/escalate, forecast bucket riêng; Lost/no-decision do quyết định có evidence |
+| R14 Cron Quote Expired | Nhận, bổ sung API | Quote cũ không thành cam kết ngầm | Cron ngày/lệch timezone có khoảng hở; accepted đúng hạn không tự mất hiệu lực | expires_at có timezone/basis; API revalidate khi accept/contract, cron là projection |
+| R15 Terminated tự void mọi kỳ chưa làm | Bác blanket | Không sinh nhắc nợ giả cho phần đã hủy thật | Có minimum commitment/cost đã commit/cancel fee; invoice ERP cần chứng từ điều chỉnh. DSO không lấy tổng nghĩa vụ chưa xuất hóa đơn làm mẫu số | Settlement phê duyệt phân loại từng nghĩa vụ; adjustment/credit đúng nguồn; không xóa khoản phải thu |
+| R16 Client im lặng15ngày→stalled/quyết toán | Sửa | Có trạng thái blocked và escalation | Đổi status không tự giải phóng lịch/nghĩa vụ hay tạo acceptance/quyền thu tiền | Block reason/review và resource replan; thanh toán/đổi cam kết theo hợp đồng |
+| R17 S1/S2 Resolved_Unverified | Nhận có điều kiện | Không giữ mãi case khi đã khắc phục có evidence | Ba lần/hai kênh có thể trái sở thích/quyền; mitigation khác resolution, incident pháp lý chưa hết | Technical verification, CX authority, no-response outcome, reopen và reporting còn hiệu lực |
+| R18 Quality14ngày không survey→release | Bác mặc định | Có owner xử lý pending | Không trả lời không chứng minh chất lượng, Delivery Lead có thể xung đột lợi ích | Tách base commission/bonus; fallback evidence và approver theo policy đã thỏa thuận |
+| R19 Composer chỉ hai lựa chọn | Sửa | Giữ việc nội bộ đi kèm lời hứa cập nhật | Người dùng chọn WaitingCustomer vẫn lách; thiếu Resolved/NoReplyNeeded, tăng click mỗi tin | State transition theo công việc, preserve default hợp lệ; promise khi cần; QA nội dung và automation guard |
+| R20 Tất cả clock business, promise wall | Nhận phân biệt, sửa tuyệt đối | Lời hứa15:00 không bị pause qua ca | FRT/resolution có hợp đồng24/7, legal clock khác; reminder ngoài giờ khác due | time_basis từng policy; promise timestamp tuyệt đối và history khi thỏa thuận đổi |
+| R21 >50%time tự ghi người có lỗi | Bác | Có dữ kiện xem xét bàn giao | Không ai>50% khi40/35/25; nhiều yếu tố ngoài kiểm soát; chiếm thời gian không chứng minh lỗi | Ownership intervals, owner_at_breach, cause/evidence và review; không auto phạt/xếp lỗi |
+| R22 Pending/inflight trước hạn giữ60giây | Sửa sâu | Tránh hai người trả lời khi mạng chậm | Pending không chứng minh gửi; tạo intent liên tục giữ việc; SKIP LOCKED không khóa intent mới | Bounded handoff coordination, dispatch state/version guard; không xóa breach hoặc kéo grace vô hạn |
+| R23 BL-DB-01 cross-workspace FK | Nhận cần cụ thể, đã có ngoại lệ | Chặn link nhầm khách mà vẫn cho delivery nối hợp đồng | FKtenant-only một mình bỏ ranh giới; hàm CHECK đọc bảng khác không đủ | Workspace/account/contract grant bridge, FK compound hoặc constraint trigger transaction, kiểm cả đổi đích |
+| R24 Partial unique tax_id theo parent | Bác cách chữa | Nhu cầu quản nhiều brand là thật | parent không có nghĩa brand; cho mọi account con trùng MST gây nhiều bản pháp nhân | Pháp nhân canonical; brand/business unit liên kết billing legal party, tax ID gắn đúng loại |
+| R25 Mọi identity ký hợp lệ→Contact NN | Bác blanket | Contact hợp lệ trước nghiệp vụ có FK | Chữ ký chứng minh nguồn, không chứng minh người/nội dung; status/anonymous/spam cũng là signed event | Quarantine/channel identity có thể NULL; tạo contact provisional khi promote Lead/Ticket/consent cần |
+| R26 Công thức production bắt buộc | Sửa, không universal | Tránh trả gross commission trên phần lớn cost nhà thầu | Margin khóa là dự toán; thiếu policy, rate/pool/cost recognition và biến động | Commission basis theo line/pool đã duyệt; production pending nếu chưa có rule; preview estimate khác settlement |
+| R27 Adjustment và unallocated refund | Nhận nguyên tắc | Thiếu tiền/credit xử lý không tạo cash giả | Không tự gọi shortfall là bank fee; tổng<=gross không đủ cho debit/credit/credit balance; refund race chưa giải | Signed adjustment ledger có authority/ERP ref; refund reservation và đối soát dưới lock |
+| R28 PASS_THROUGH_FIRST mặc định | Bác mặc định | Có thể bảo vệ funding nếu hợp đồng cho phép | Phân loại cash và quyền chi khác nhau; có thể trái chỉ định, làm sai service cash/commission | Thỏa thuận/kỳ→Finance xác nhận→fallback được duyệt; thiếu thì unallocated, funding theo dõi riêng |
+| R29 Round n−1, largest chịu dư | Bác như thuật toán tổng quát | Muốn bảo toàn tổng tiền là đúng | Có thể cấu phần âm; không bảo đảm caps/tax/remaining obligation | Integer minor units, largest remainder trong nhóm được phép và caps; thiếu cơ sở thì pending |
+| R30 Khóa UUID và redirect merge | Nhận một phần | Giảm deadlock trên các contact cùng thứ tự | Không loại mọi deadlock dependent rows; redirect mất origin làm sai consent/unmerge | Lock order toàn aggregate, retries có bound; canonical mapping và provenance bất biến |
+| R31 Activity double ACL | Nhận nguyên tắc | Contact chia sẻ không mở lịch sử mọi công ty | OR branch/account/deal quá rộng hoặc AND mù trên NULL gây lộ/khóa nhầm | ACL của activity + các resource restrictions áp dụng; fallback B2C/internal explicit; test snippet/file |
+| R32 order_no unique chỉ chưa archive | Bác | Cho phép numbering series theo pháp nhân là hợp lý | Archive khác Cancelled; tái dùng mã khiến tiền chuyển muộn match đơn mới | Mã đã phát hành không tái dùng; scope pháp nhân/series/kỳ nếu policy, draft ID riêng |
+| R33 AM/Finance/Sales rights | Nhận, giảm quyền | Người thực hiện UC có quyền đủ | C/R/U finance ledger/period như CRUD phá append-only/separation | AM renewal theo grant/authority; Finance commands post/reverse/reconcile/close riêng; Sales đọc tối thiểu |
+| R34 SET LOCAL | Nhận | Context hết transaction theo semantics DB | Ngoài transaction không tác dụng; stale session baseline, thiếu context hay SQL injection vẫn nguy hiểm | Explicit transaction, parameterized set_config true, server-derived context, default-deny/least role; không query scoped ngoài tx |
+| R35 DSAR72h từ verified_at | Bác pháp lý | Có deadline engine là đúng | Không đúng một hạn chung; đợi xác minh có thể dời mốc tùy ý | Deadline theo loại quyền/căn cứ/sự kiện đúng thủ tục; response/action/extension riêng |
+| R36 Breach72h từ Confirmed Breach | Bác trigger chung | Incident cần đồng hồ và owner | Có thể trì hoãn sau mốc phát hiện nghĩa vụ áp dụng; recipient/role khác nhau | detected_at/awareness/assessment/confirmed riêng; rule pháp lý theo loại vụ, không reset lúc confirm |
+| R37 Revoke0giây và cancel15phút | Sửa | Muốn chặn marketing ngay | 0s tuyệt đối không thể cam kết mạng/DB; cleanup queued không thay dispatch gate; gửi đã rời hệ thống không thu hồi chắc chắn | Suppression atomic khi xử lý request hợp lệ, read-after-commit/send recheck; cleanup SLO riêng, in-flight đối soát |
+| R38 Redaction và ZDR/training opt-out | Nhận minimization, bác tương đương | Giảm dữ liệu ra vendor | Placeholder có thể còn tái định danh; không dùng để train khác không lưu; regex không bắt mọi dữ liệu | Data-class policy, pseudonymization/access map, vendor/feature/region/retention audit; đường xử lý khôngAI khi chưa đủ điều kiện |
+| R39 P0 DDL75bảng/Sprint1–4 | Bác cổng cứng | Có dependency map tốt cho triển khai | Danh sách thật81tên P0; hợp đồng/schema/control còn phụ thuộc P1;4sprint chưa có team capacity | Triển khai vertical slice, physical mapping +dependency closure+effort; không chứng nhận90ngày từ số bảng |
+| R40 Health score/ngưỡng | Bác làm chuẩn, giữ thiết kế thử | Điểm tái lập/giải thích được | Missing nâng điểm; lower-is-better đảo nghĩa; survey im lặng khởi100; nhiều ticket cùngincident bị trừ lặp | Health vector +coverage+flags; score thử có version, direction/cỡ mẫu/window và validation |
+| R41 Seed configs23tham số | Bác autoactivate | Typed/versioned config giảm luật rải trong code | Có24dòng; lịch thứBảy chưa xác nhận,480phút khác ca7,5h, selfdiscount5% xung đột, SLA B2B/Chat lẫn response/discovery | DRAFT→review→active theo owner/scope/effective_at; không tự bật policy từ HTML |
+| R42 Đóng băng sau copy-paste | Bác | Cần một baseline kiểm soát | Append thêm bảng không sửa bản cũ tạo hai định nghĩa; chưa migration/invariants/runtime | Sửa ở đúng mục, một dictionary/trace, UAT và PoC; go/no-go có bằng chứng |
+
+### F.4 Bốn phản ví dụ chứng minh không thể dán nguyên văn
+
+**1. Làm tròn tạo tiền âm.** Tổng3đồng chia năm cấu phần bằng nhau, mỗi phần0,6đồng. Làm tròn bốn phần thành1đồng rồi để phần lớn nhất chịu dư cho kết quả `[-1,1,1,1,1]`. Tổng vẫn3 nhưng vi phạm amount>=0. Với các share bằng nhau, tie-break chọn phần nào chịu dư cũng gặp phản ví dụ này. Floor từng phần rồi phân bổ ba đơn vị dư theo remainder/key ổn định cho `[1,1,1,0,0]`. Còn phải kiểm caps/thuế/nghĩa vụ; không chuyển dư sang dòng khác loại chỉ để khớp số. Đây là phép kiểm số bằng Decimal, không phải kiểm thử code CRM.
+
+**2. Người có lỗi theo đa số thời gian không tồn tại.** A giữ40%, B35%, C25% thời gian episode trước breach; không ai vượt50%. Ngược lại, A giữ60% nhưng phải chờ provider trong phần lớn thời gian cũng chưa chứng minh A có lỗi. Lưu assignment intervals và trạng thái hệ thống là bằng chứng; trách nhiệm cần rule/review đúng vai, không một field kết tội tự động.
+
+**3. Health xanh vì chưa biết outcome.** Tài chính100, delivery100 và chưa có relationship/outcome: công thức tái chuẩn hóa cho100, dù chỉ60% tổng trọng số có dữ liệu. Khi outcome10 đến, score còn77,5. Điểm giảm do dữ liệu mới hé lộ, không chắc quan hệ vừa xấu đi. Cần hiển thị observed score +coverage +unknown components và không auto upsell khi thiếu chiều quan trọng.
+
+**4. KPI càng xấu lại càng xanh.** CPL mục tiêu100.000đ, thực tế150.000đ. Nếu hiểu “tỷ lệ hoàn thành” là actual/target thì150% được100điểm, trong khi CPL tăng là xấu. Metric contract phải có direction, target range, window và rule aggregation. Logo/branding không có revenue KPI không được chấm kém hoặc tự phân bổ trọng số như performance campaign.
+
+### F.5 Kiểm chứng nguồn chính thức
+
+**Pháp lý:** Điều5 Nghị định356 quy định thời hạn theo loại quyền: phản hồi2ngày làm việc; xem/sửa/cung cấp10ngày, rút/hạn chế/phản đối15ngày, xóa20ngày; có nhánh bên xử lý và gia hạn. Vì vậy không dùng72h từ verified_at làm luật chung. [Công báo NĐ356, Điều5](https://congbao.cdnchinhphu.vn/180507251028987904/2026/1/17/356signed-1768638052103952849513.pdf).
+
+Điều23 Luật91 đặt nghĩa vụ thông báo với điều kiện cụ thể, mốc72h từ phát hiện hành vi thuộc diện áp dụng; không đợi gắn nhãn Confirmed để bắt đầu. Người phụ trách xác định căn cứ, bên nhận và trigger chính xác. [Luật91 bản ký](https://datafiles.chinhphu.vn/cpp/files/vbpq/2025/7/91qh.signed.pdf), [Bộ Công an giải thích Điều23](https://mps.gov.vn/chinh-sach-phap-luat/bai-viet/canh-bao-nguy-co-vi-pham-phap-luat-ve-an-ninh-mang-doi-voi-doanh-nghiep-ho-kinh-doanh-trong-qua-trinh-chuyen-doi-so-1785806444). Các nguồn này không biến mọi incident hoặc mọi yêu cầu thành cùng một thủ tục72h.
+
+**Kênh gửi:** Zalo OA nêu Tin Tư vấn qua OpenAPI trong7ngày từ tương tác cuối; khung48giờ liên quan miễn phí; OA Manager có điều kiện khác. Các tương tác đủ điều kiện cũng không chỉ tin nhắn inbound. [Zalo Tin Tư vấn](https://oa.zalo.me/home/documents/guides/tin-tu-van). Meta có cửa sổ chuẩn24h và điều kiện khác cho ngoài cửa sổ. [Meta Messenger API chính thức](https://www.postman.com/meta/messenger-platform-api/documentation/iyp204x/messenger-platform-api). Đây là kết quả tài liệu tại ngày rà soát; connector phải pin rule/version/account được phép, không lấy một số làm chuẩn mọi kênh.
+
+**CSDL:** PostgreSQL xác nhận SET LOCAL chỉ có tác dụng trong transaction; hết transaction trở về session setting. [SET](https://www.postgresql.org/docs/current/sql-set.html). SKIP LOCKED phù hợp queue nhưng bỏ qua row bị khóa, không cung cấp ảnh chụp toàn bộ nhất quán. [SELECT](https://www.postgresql.org/docs/current/sql-select.html). Thứ tự lock nhất quán giúp phòng deadlock, vẫn cần xử lý transaction bị abort. [Explicit locking](https://www.postgresql.org/docs/current/explicit-locking.html).
+
+Exclusion constraints hỗ trợ non-overlap với range; scalar kết hợp range có thể cần btree_gist. [Range constraints](https://www.postgresql.org/docs/current/rangetypes.html), [btree_gist](https://www.postgresql.org/docs/current/btree-gist.html). CHECK gọi dữ liệu bảng khác không đảm bảo toàn vẹn liên tục như FK/constraint phù hợp. [Constraints](https://www.postgresql.org/docs/current/ddl-constraints.html). Những nguồn này chứng minh tính chất PostgreSQL, không chứng minh schema đề xuất đã chạy.
+
+**AI:** Tài liệu Google Cloud phân biệt training restriction với các điều kiện retention/logging/cache để đạt zero retention. Không được đồng nhất hai cam kết khi chọn vendor. [Google Cloud retention](https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/zero-data-retention). Đây là ví dụ chứng minh cần tách tiêu chí, không là khuyến nghị mua sản phẩm đó.
+
+### F.6 Phương án tốt nhất cho giai đoạn hiện tại
+
+Chọn **vá chọn lọc, triển khai theo luồng hoàn chỉnh và cấu hình có chủ sở hữu**. Giữ modular monolith hoặc CRM cấu hình/hybrid nhẹ; không tạo thêm phân hệ chỉ để đạt số bảng. Đi tiếp thiết kế/PoC phần đã chốt; chưa go-live tiền/quyền/kênh trước các test trọng yếu.
+
+**Luồng tối thiểu:** nhu cầu→owner/next action→qualification→quote/SOW→contract/kỳ thu→receipt/allocation→handoff/deliverable/acceptance→ticket/recovery→review/renewal. Nếu một ứng dụng có sẵn biểu diễn đủ và xuất dữ liệu được, dùng capability đó thay bảng tự xây. Lịch hẹn có thể tích hợp hệ lịch đã dùng; cần reservation thực chỉ khi agency quản ekip độc quyền.
+
+**Commission:** mỗi loại dòng/pool có basis đã duyệt. SERVICE có thể theo net cash; PRODUCTION có thể theo contribution dự toán hoặc thực tế theo quy chế, có cost source/holdback/true-up nếu cần. Không chốt công thức universal hoặc tỷ lệ70–90% cost chưa có dữ liệu. Nếu chưa có chính sách, production commission là PendingPolicy, không tự cho0 hoặc trả full. Tách tính khả dụng funding media khỏi phân loại tiền để trả hoa hồng.
+
+**Health:** MVP dùng bốn chiều tài chính/giao hàng/quan hệ/kết quả với reason, evidence, freshness, owner/action. Coverage và cỡ mẫu hiện rõ. Cờ incident/chậm thanh toán có đường xử lý nhưng không tự thành kết luận khách bất mãn. Khi đủ dữ liệu mới chạy score shadow có version và đối chiếu outcome; chỉ dùng auto suppression theo policy đã duyệt.
+
+**Config:** một giá trị có type/unit/scope/owner/source/effective_at/version, trạng thái Draft/Reviewed/Active, priority rule và validation. Các con số trong HTML là đề xuất pilot; lịch làm thứBảy, claim/FRT, quota sửa, discount/margin, tolerance, production basis, waterfall và quality fallback phải được chốt theo thực tế. Không coi chọn số bất kỳ là đã “xóa hết điểm mờ”.
+
+**Readiness:** một baseline đúng không đồng nghĩa đã đủ DDL/REST/provider contract/migration. Cần dependency closure, DDL/invariants dưới concurrency, fixtures quyền/tiền, kênh/tài khoản thực và người có trách nhiệm ký. Phạm vi90ngày theo năng lực đội triển khai; bốn sprint không có estimate chưa là kế hoạch đáng tin.
+
+### F.7 Những điều đã cập nhật vào Master1.4
+
+| Vị trí | Thay đổi đã hợp nhất | Điều không tự kích hoạt |
+| --- | --- | --- |
+| 2.5, 5.1 | Allocate theo obligation; cross-scope distinction rõ | Không cho FKtenant-only tự cấp quyền |
+| 5.5, 5.13, 5.18 | Deal hold riêng stage; quote/contract dates/lifecycle; appointments/resources; subject đủ loại | Không forced Lost, GPS đại trà hoặc tự gia hạn |
+| 5.16 | Inbound/qualifying interaction, policy time basis, history SLA | Không window24h chung hoặc quy lỗi50% |
+| 3.13.4, 5.18 | Settlement/adjustment/refund reservations/rounding và workflow ngoại lệ | Không xóa tiền/công nợ hoặc tự gọi shortfall là phí |
+| 5.19 | Gate vật lý và dependency closure theo lát cắt | Không seed81bảng P0 bắt buộc |
+| 6.1–6.3 | Tách AM/Delivery, quyền Finance bằng commands, SET LOCAL, legal timer policy và AI data policy | Không C/R/U amount ledger,72hchung,0s hay ZDR=opt-out |
+| 8.2, A.6 | Health vector/coverage và policy registry Draft | Không weight/threshold tự thành điều khoản |
+| B, 9.5, 9.13 | Trace đủ Omnichannel, U22 có conditionalP0, test mới RV01–RV20 | Không coi test được mô tả là test đã pass |
+
+HTML nguồn được giữ để truy vết; chỉ có tệp Master hiện hành. Snapshot1.3 và metadata kiểm tra ở thư mục archive; không tạo thêm một bản báo cáo chính thức cạnh tranh với Master.

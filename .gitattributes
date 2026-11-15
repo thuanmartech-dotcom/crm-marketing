@@ -1,0 +1,2 @@
+# Preserve exact bytes of checksum-verified Master v1.9 baseline across all OS/autocrlf settings
+00-master/CRM_MASTER_BRD_SRS_HOP_NHAT.md -text

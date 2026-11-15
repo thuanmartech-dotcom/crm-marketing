@@ -1,0 +1,167 @@
+Bộ Quy Trình Agency Marketing & CRM V3
+Bản bổ sung chuyên sâu: Chiến lược Marketing, Kế hoạch Marketing, Tư duy phễu và IMC Plan
+Bản V3 bổ sung phần còn thiếu trong V2: chiến lược và kế hoạch. Tài liệu tách rõ các lớp Business Objective -> Marketing Strategy -> Marketing Plan -> IMC/Campaign Plan -> Delivery/CRM Workflow, để CRM không chỉ quản lý việc mà còn quản trị tư duy marketing từ chiến lược đến thực thi.
+1. Sửa Lỗi Tư Duy Của Bản V2
+Vấn đề trong V2 | Cách sửa trong V3
+V2 trộn chiến lược, kế hoạch và vận hành vào một quy trình dài. | V3 tách 5 tầng: Business Objective -> Marketing Strategy -> Marketing Plan -> IMC/Campaign Plan -> Delivery/CRM Workflow.
+Chưa có module riêng cho tư duy phễu. | V3 bổ sung funnel theo toàn bộ hành trình: Awareness -> Education -> Consideration -> Conversion -> Onboarding -> Retention -> Referral/Upsell.
+Chưa có cấu trúc IMC plan. | V3 bổ sung IMC plan gồm objective, audience, insight, single-minded message, message house, channel role, media mix, timeline, budget, KPI và governance.
+Chưa phân biệt chiến lược và kế hoạch. | Chiến lược là lựa chọn thị trường/định vị/cách thắng; kế hoạch là bản phân bổ nguồn lực, timeline, kênh, ngân sách, task và KPI để thực hiện chiến lược.
+CRM mới thiên về quản lý dự án. | V3 bổ sung object CRM để lưu strategy brief, funnel map, IMC plan, channel plan, content matrix, experiment backlog và learning repository.
+
+2. Nền Tảng Marketing Áp Dụng
+Từ Kotler và tài liệu CRM nội bộ, marketing không bắt đầu bằng việc chọn kênh hay viết content. Marketing bắt đầu bằng hiểu nhu cầu, tạo giá trị, truyền thông giá trị, giao giá trị và thu nhận lại giá trị. Agency cần vận hành theo chuỗi: Research -> Diagnosis -> Strategy -> Plan -> IMC -> Execution -> Measurement -> Learning.
+AMA định nghĩa marketing là quá trình tạo, truyền thông, giao và trao đổi các đề xuất có giá trị cho khách hàng, đối tác và xã hội.
+Kotler nhấn mạnh quy trình marketing 5 bước: hiểu thị trường/nhu cầu, thiết kế chiến lược hướng khách hàng, xây chương trình marketing, xây quan hệ, thu nhận giá trị.
+Tài liệu CRM nội bộ nhấn mạnh mọi phân hệ phải đi theo Đầu vào -> Xử lý -> Đầu ra -> Lưu trữ -> Đo lường -> Cải tiến.
+HubSpot xem marketing plan như roadmap để tổ chức, thực thi và theo dõi chiến lược trong một giai đoạn, gồm research, target audience, SMART goals, tactics, budget và documentation.
+Asana nhấn mạnh campaign management phải có mục tiêu, audience, budget, timeline, channel, content/launch và measurement; campaign phải phục vụ chiến lược lớn hơn.
+IMC là cách phối hợp thông điệp, kênh, media, timing và stakeholder để tạo một tiếng nói nhất quán, không phải mỗi kênh nói một kiểu.
+3. Kiến Trúc 5 Tầng: Từ Chiến Lược Đến CRM
+Tầng | Câu hỏi phải trả lời | Đầu ra bắt buộc | Object nên có trong CRM
+Business Objective | Doanh nghiệp muốn tăng trưởng gì: doanh thu, thị phần, lợi nhuận, retention hay brand? | Business goal, revenue target, growth constraint, priority segment. | Client Goal, Business Context, Baseline Metric.
+Marketing Strategy | Chọn ai để phục vụ, khác biệt ở đâu, định vị thế nào, cách thắng là gì? | STP, value proposition, positioning, strategic pillars, KPI strategy. | Strategy Brief, Segment, Persona, Positioning, Value Proposition.
+Marketing Plan | Trong quý/tháng này làm gì, phân bổ ngân sách và nguồn lực thế nào? | Marketing roadmap, 7P/4P, funnel plan, channel mix, budget, timeline. | Marketing Plan, Funnel Map, Channel Plan, Budget Plan, KPI Dictionary.
+IMC/Campaign Plan | Thông điệp nào, nói với ai, qua kênh nào, theo lịch nào, đo bằng gì? | IMC brief, message house, content matrix, media plan, launch plan. | IMC Plan, Campaign, Content Pillar, Asset, Approval, UTM Plan.
+Delivery & Learning | Ai làm, làm khi nào, kết quả ra sao, học được gì? | Task, QA, launch log, dashboard, report, post-mortem, playbook. | Project, Task, Report, Experiment, Insight, Learning Repository.
+
+4. Quy Trình Lên Chiến Lược Marketing
+Chiến lược quyết định đánh trận nào, đánh với ai, dùng lợi thế gì và thắng bằng cách nào. Không có chiến lược thì IMC chỉ là lịch đăng bài và chạy quảng cáo.
+Bước | Tên bước | Việc phải làm | Câu hỏi phân tích | Deliverable
+1 | Business intake | Làm rõ mô hình kinh doanh, sản phẩm, biên lợi nhuận, năng lực vận hành, sales process, mục tiêu doanh thu. | Khách cần tăng doanh thu, lead, nhận biết, retention hay launch sản phẩm? | Business context brief.
+2 | Data baseline | Thu thập traffic, lead, conversion, CAC, AOV/LTV, sales cycle, retention, ngân sách cũ. | Hiện đang tốt/xấu ở nấc nào? Có đủ tracking không? | Baseline dashboard.
+3 | Market & category analysis | Phân tích ngành, quy mô, xu hướng, mùa vụ, quy định, lực kéo/lực cản thị trường. | Thị trường đang tăng, bão hòa hay bị thay thế? | Market insight report.
+4 | Customer research | Phân tích nhu cầu, mong muốn, nỗi đau, động cơ, rào cản, trigger, ngữ cảnh mua, tiêu chí chọn. | Khách hàng thực sự mua vì điều gì, sợ điều gì, tin điều gì? | Persona/ICP + pain/gain map.
+5 | Competitor analysis | So sánh đối thủ trực tiếp, gián tiếp, giải pháp thay thế, thông điệp, offer, giá, kênh. | Đối thủ chiếm vị trí nào trong tâm trí khách hàng? | Competitor matrix + positioning map.
+6 | Diagnosis | Tổng hợp vấn đề gốc: nhận biết, định vị, offer, traffic, trust, conversion, sales hay retention. | Nếu chỉ sửa một nút thắt, nút nào tạo tác động lớn nhất? | Strategic diagnosis.
+7 | Segmentation | Chia phân khúc theo nhu cầu, hành vi, ngành, giá trị, giai đoạn mua, khả năng tiếp cận. | Nhóm nào đáng phục vụ và có thể thắng? | Segment scorecard.
+8 | Targeting | Chọn segment ưu tiên, segment phụ, segment loại trừ. | Nguồn lực hiện tại có đủ phục vụ segment này tốt hơn đối thủ không? | Target market decision.
+9 | Positioning | Xác định khác biệt, lý do tin, tuyên bố định vị, category frame, enemy, proof. | Muốn khách nhớ mình bằng một ý gì? | Positioning statement.
+10 | Value proposition & offer | Thiết kế đề xuất giá trị, gói sản phẩm/dịch vụ, bảo chứng, bonus, guarantee, CTA. | Lời hứa nào đủ mạnh, đủ thật, đủ khác biệt? | Offer architecture.
+11 | Strategic pillars | Chọn 3-5 trụ cột: brand trust, demand gen, conversion, retention, community, partnership. | Mỗi trụ cột đóng góp gì vào mục tiêu kinh doanh? | Strategic pillar map.
+12 | Strategic KPI | Chọn KPI cấp chiến lược và ngưỡng cảnh báo. | Chỉ số nào chứng minh chiến lược đúng/sai? | KPI tree.
+
+5. Quy Trình Lên Kế Hoạch Marketing
+Kế hoạch marketing chuyển chiến lược thành việc có thể làm được: nguồn lực, lịch, ngân sách, kênh, nội dung, KPI, người chịu trách nhiệm và cơ chế kiểm soát.
+Bước | Thành phần kế hoạch | Nội dung cần có | CRM lưu gì
+1 | Planning scope | Kế hoạch theo quý/tháng/campaign; mục tiêu, phạm vi, giả định, ràng buộc, ngân sách trần. | Marketing Plan record, period, owner, approval.
+2 | Goal tree | Business goal -> marketing objective -> funnel KPI -> campaign KPI -> task KPI. | Goal tree, KPI dictionary, KPI owner.
+3 | Funnel plan | Vẽ phễu theo từng giai đoạn: Awareness, Education, Consideration, Conversion, Onboarding, Retention, Referral/Upsell. | Funnel Map, stage metric, bottleneck.
+4 | Audience plan | ICP/persona, audience source, segment priority, exclusion audience, remarketing pool. | Audience segment, consent, channel eligibility.
+5 | Message plan | Big idea, single-minded proposition, reason to believe, objection handling, CTA theo từng giai đoạn phễu. | Message house, copy angle library.
+6 | Channel plan | Vai trò từng kênh: reach, educate, convert, nurture, retain; kênh paid/owned/earned/shared. | Channel role, budget split, expected KPI.
+7 | Content plan | Content pillar, format, asset list, lịch xuất bản, adaptation theo kênh, reuse plan. | Content calendar, asset backlog.
+8 | Media & budget plan | Ngân sách media, production, tool, freelancer, agency fee; pacing theo tuần/tháng. | Budget line, spend cap, approval threshold.
+9 | Timeline & resource plan | Milestone, dependency, owner, reviewer, client approval, SLA, capacity. | Timeline, task template, workload.
+10 | Measurement plan | UTM, pixel/event, dashboard, attribution rule, report cadence, experiment setup. | Tracking plan, dashboard, experiment record.
+11 | Risk & governance | Rủi ro legal, brand, tracking, ngân sách, phản hồi tiêu cực, quá tải team. | Risk log, escalation rule, audit log.
+12 | Approval & kickoff | Duyệt kế hoạch, chốt scope, kickoff team/khách, chuyển sang execution. | Approved plan, kickoff note, task generation.
+
+6. Tư Duy Phễu Marketing Cho Agency
+Phễu không chỉ là Awareness -> Purchase. Với SME/cá nhân, agency phải quản trị cả trước mua và sau mua, vì khách hàng cần trust, bằng chứng, tư vấn và follow-up. CRM nên lưu từng lead ở một stage rõ ràng và biết stage đó cần nội dung/kênh/KPI nào.
+Giai đoạn phễu | Mục tiêu | Câu hỏi của khách hàng | Nội dung/Kênh phù hợp | KPI chính
+Awareness | Tạo nhận biết và nhu cầu | Tôi có vấn đề này không? Ai có thể giúp? | Video ngắn, social, PR, SEO top-funnel, KOL, cộng đồng, display. | Reach, impressions, traffic, branded search, video view, engagement.
+Problem/Education | Giúp khách hiểu vấn đề và chi phí của việc không giải quyết | Vì sao vấn đề này quan trọng? | Blog, checklist, webinar, ebook, diagnostic post, comparison content. | Time on page, content engagement, lead magnet conversion.
+Consideration | Tạo niềm tin và đưa vào shortlist | Giải pháp nào phù hợp nhất? | Case study, testimonial, demo, consultation, comparison, FAQ, remarketing. | MQL, consultation booking, return visit, email click.
+Conversion | Biến quan tâm thành lead/deal/đơn hàng | Tại sao tôi nên chọn bạn ngay bây giờ? | Landing page, offer, audit miễn phí, proposal, sales call, retargeting BOFU. | CVR, CPL/CPA, SQL, proposal rate, CAC.
+Onboarding | Đảm bảo khách mới thấy đúng giá trị nhanh | Tôi bắt đầu thế nào? Có an toàn không? | Welcome flow, kickoff, checklist, guide, setup email, customer portal. | Time-to-value, onboarding completion, activation.
+Retention | Giữ chân và tăng giá trị vòng đời | Kết quả có tốt không? Có nên tiếp tục? | Monthly report, insight, optimization note, success story, account review. | Retention, renewal, NPS/CSAT, churn risk, LTV.
+Referral/Upsell | Biến khách hài lòng thành tăng trưởng mới | Tôi có thể mở rộng gì hoặc giới thiệu ai? | Referral program, upsell proposal, case co-marketing, loyalty offer. | Referral lead, upsell revenue, expansion revenue.
+
+7. IMC Plan - Kế Hoạch Truyền Thông Marketing Tích Hợp
+IMC Plan đảm bảo tất cả kênh, thông điệp, creative, timing và stakeholder cùng phục vụ một mục tiêu, một định vị và một hành trình khách hàng. Nó khác content calendar: content calendar là lịch nội dung, còn IMC plan là chiến lược phối hợp toàn bộ truyền thông.
+Thành phần IMC | Nội dung phải chốt | Câu hỏi kiểm tra
+Campaign objective | Mục tiêu truyền thông gắn với mục tiêu marketing: awareness, consideration, conversion, retention, launch, repositioning. | Mục tiêu này đóng góp gì vào KPI kinh doanh?
+Target audience | Primary audience, secondary audience, influencer/decision maker/user, exclusion audience. | Ai là người mua, ai ảnh hưởng, ai cản trở?
+Customer insight | Sự thật ngầm hiểu, pain/gain, tension, context, trigger. | Insight có đủ sắc để tạo thông điệp không?
+Single-minded proposition | Một ý chính duy nhất chiến dịch muốn khách nhớ. | Nếu chỉ được nói một câu, câu đó là gì?
+Reason to believe | Bằng chứng: case, số liệu, chứng nhận, quy trình, chuyên gia, demo, review. | Tại sao khách nên tin?
+Message house | Core message, supporting messages, objection answers, CTA theo từng phễu. | Mọi kênh có nói cùng một định vị không?
+Channel role | Paid/Owned/Earned/Shared/Sales/Partner; mỗi kênh có vai trò trong phễu. | Kênh này tạo reach, educate, convert hay retain?
+Creative idea | Big idea, key visual, tone of voice, content angle, creative format. | Ý tưởng có nhất quán nhưng vẫn biến hóa theo kênh không?
+Media plan | Budget, targeting, placement, frequency, flighting, pacing, remarketing. | Ngân sách có đủ cho mục tiêu và learning không?
+Content matrix | Thông điệp x funnel stage x channel x format x CTA. | Có thiếu nội dung ở stage nào không?
+Timeline | Pre-launch, launch, sustain, optimize, report; dependency và approval. | Có đủ thời gian sản xuất, duyệt, học và tối ưu không?
+Measurement | KPI theo objective, tracking, UTM, dashboard, experiment, report cadence. | Đo bằng gì và ra quyết định khi lệch ngưỡng thế nào?
+
+8. Ma Trận Channel Role Theo Phễu
+Kênh | Vai trò chính | Phễu phù hợp | Nội dung nên dùng | KPI
+SEO/Blog | Bắt nhu cầu chủ động, giáo dục, xây trust dài hạn. | Awareness, Education, Consideration. | How-to, checklist, comparison, landing SEO, case study. | Organic traffic, ranking, lead magnet CVR.
+Paid Search | Bắt nhu cầu nóng, chuyển đổi nhanh. | Consideration, Conversion. | Landing page, offer, extension, retargeting search. | CPC, CVR, CPL, CPA, ROAS.
+Paid Social | Tạo demand, test angle, remarketing. | Awareness, Education, Conversion. | Short video, carousel, testimonial, lead form, offer. | CTR, CPL, frequency, creative fatigue.
+Organic Social | Xây quan hệ, bằng chứng năng lực, community. | Awareness, Education, Retention. | Founder content, case, behind-the-scenes, POV, FAQ. | Engagement, profile visit, DM, share.
+Email/Zalo/SMS | Nurture, follow-up, retention. | Consideration, Onboarding, Retention, Upsell. | Sequence, reminder, report, offer, reactivation. | Open/click, reply, booking, churn reduction.
+Webinar/Event | Giáo dục sâu, tạo authority, thu lead chất lượng. | Education, Consideration. | Workshop, demo, expert talk, Q&A. | Registration, attendance, SQL, cost per qualified attendee.
+PR/KOL/Partner | Tạo uy tín và reach mượn từ bên thứ ba. | Awareness, Consideration. | Story, review, co-marketing, partnership offer. | Mention, referral traffic, assisted conversion.
+Sales/Consultation | Chốt niềm tin và chuyển đổi deal. | Conversion. | Audit, diagnosis, proposal, ROI case. | SQL, win rate, sales cycle, deal value.
+
+9. Template Strategy Brief
+Business objective: mục tiêu kinh doanh, doanh thu/pipeline/retention, deadline, ràng buộc.
+Market context: ngành, xu hướng, mùa vụ, cơ hội/rủi ro, pháp lý nếu có.
+Customer insight: nhu cầu, mong muốn, pain, gain, trigger, objection, journey.
+Competitor context: đối thủ, định vị, message, offer, kênh, điểm mạnh/yếu.
+Strategic diagnosis: vấn đề gốc cần giải quyết và giả thuyết tăng trưởng.
+STP: segment, target, positioning, category frame, differentiation.
+Value proposition: lợi ích chính, proof, offer, guarantee, CTA.
+Strategic pillars: 3-5 trụ cột ưu tiên trong kỳ kế hoạch.
+KPI tree: business KPI -> marketing KPI -> funnel KPI -> campaign KPI.
+Decision: go/no-go, scope, risk, budget direction, approval owner.
+10. Template Marketing Plan
+Executive summary: mục tiêu, chiến lược chính, ngân sách, kết quả kỳ vọng.
+SWOT/TOWS: điểm mạnh-yếu-cơ hội-rủi ro và chiến lược rút ra từ phân tích.
+Audience & funnel: persona/ICP, stage, insight, content need, CTA từng stage.
+7P/4P: product/service, price/package, place/channel, promotion, people, process, physical evidence.
+Channel mix: vai trò, ngân sách, KPI, owner, lịch triển khai từng kênh.
+Content plan: pillar, topic, format, asset, reuse/adaptation, approval.
+Media plan: budget, targeting, placement, frequency, pacing, experiment.
+Timeline: pre-launch, launch, sustain, optimize, report.
+Budget: media, production, tool, freelancer, agency fee, contingency.
+Measurement: KPI, dashboard, attribution, report cadence, decision rule.
+11. Template IMC Plan
+Campaign name, period, owner, approval chain.
+Objective and funnel role: campaign phục vụ stage nào của phễu.
+Audience and insight: primary/secondary audience, tension, trigger.
+Single-minded message: một thông điệp chính.
+Message house: core message, support points, proof, objection answer, CTA.
+Creative platform: big idea, key visual direction, tone of voice, format system.
+Channel orchestration: paid, owned, earned, shared, sales, partner; vai trò từng kênh.
+Content matrix: stage x channel x asset x CTA x KPI.
+Media and budget: budget split, pacing, frequency, retargeting, exclusions.
+Launch calendar: asset deadline, QA, approval, publish, monitoring.
+Measurement and learning: dashboard, experiment, report, post-mortem.
+12. CRM Cần Bổ Sung Để Quản Trị Chiến Lược Và IMC
+Object/Module | Trường dữ liệu quan trọng | Tự động hóa nên có
+Strategy Brief | Client, period, business objective, diagnosis, STP, positioning, value proposition, strategic pillars, approval. | Khi approved thì tạo Marketing Plan draft.
+Funnel Map | Stage, audience, pain, content need, CTA, KPI, current conversion, bottleneck. | Nếu bottleneck cao thì tạo experiment backlog.
+Marketing Plan | Scope, goal tree, 7P, channel mix, budget, timeline, owner, KPI, risk. | Khi approved thì tạo IMC/Campaign Plan và task templates.
+IMC Plan | Objective, audience, insight, message house, channel role, content matrix, media plan, measurement. | Khi approved thì tạo asset/task/approval checklist.
+Experiment Backlog | Hypothesis, funnel stage, variable, success metric, budget, duration, result. | Tự nhắc review sau khi đủ dữ liệu.
+Learning Repository | Insight, what worked, what failed, evidence, reusable asset, next action. | Sau post-mortem tự đề xuất cập nhật SOP/playbook.
+
+13. Quy Trình Hoàn Chỉnh Sau Khi Bổ Sung
+Lead/Client Request
+  -> Business Intake
+  -> Research & Data Baseline
+  -> Diagnosis
+  -> Marketing Strategy Brief
+  -> Marketing Plan
+  -> Funnel Map
+  -> IMC Plan
+  -> Campaign Brief
+  -> Production & QA
+  -> Client Approval
+  -> Launch
+  -> Monitoring & Optimization
+  -> Lead/Nurture/Sales Handoff
+  -> Weekly/Monthly Reporting
+  -> Post-mortem & Learning
+  -> Renewal/Upsell/Closure
+14. Nguồn Tham Khảo Đã Dùng
+CRM_Tich_Nghiep_Vu.docx - khung Đầu vào -> Xử lý -> Đầu ra -> Lưu trữ, CRM Marketing, KPI, phân quyền, AI, governance.
+PHILIP KOTLER - vol 1.docx - quy trình marketing, STP, 4P/7P, nghiên cứu thị trường, hành vi khách hàng, giá trị khách hàng.
+PHILIP KOTLER - vol 2 3.docx - lợi thế cạnh tranh, chiến lược thị trường, cân bằng khách hàng/đối thủ, marketing bền vững.
+AMA - Definitions of Marketing: https://www.ama.org/the-definition-of-marketing-what-is-marketing/
+HubSpot - Marketing Plan: https://blog.hubspot.com/marketing/marketing-plan-template-generator
+Asana - Marketing campaign management: https://asana.com/resources/marketing-campaign-management
+Atlassian - Project Life Cycle: https://www.atlassian.com/work-management/project-management/project-life-cycle
+Phiên bản: V3 Strategy & IMC - 02/07/2026. Tạo file riêng, không ghi đè V2.

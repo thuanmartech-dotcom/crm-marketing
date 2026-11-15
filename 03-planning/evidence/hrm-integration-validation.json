@@ -1,0 +1,36 @@
+{
+  "checked_at": "2026-11-15T17:40:47.102766+00:00",
+  "baseline": "1.9",
+  "sha256": "b6a3279f328e96e1e97d845e209be7a326516a0dba5e3a033d88e1f2162e421c",
+  "kind": "documentation structural validation only",
+  "counts": {
+    "M22-F": 28,
+    "UC-H": 16,
+    "BR-H": 24,
+    "H-T": 48,
+    "H-NFR": 8,
+    "H-O": 10
+  },
+  "checks": {
+    "all_hrm_ids_defined_once": true,
+    "all_hrm_ids_owned_by_M22": true,
+    "feature_trace_covers_28": true,
+    "all_features_link_uc_rule_tests": true,
+    "trace_references_resolve": true,
+    "every_test_covered_by_feature": true,
+    "uc_rules_nfr_have_test_links": true,
+    "no_hrm_app_pass_claim": true,
+    "trace_hash_current": true,
+    "manifest_hash_current": true,
+    "readme_hash_current": true,
+    "archive_baseline_preserved": true,
+    "no_crcrlf": true,
+    "all_reviewed_sections_in_master_and_module": true,
+    "module_anchor_unique": true
+  },
+  "application_tests": "Not Run",
+  "limitations": [
+    "Policy parameters, actual Excel data and physical schema remain unconfirmed.",
+    "Legacy registry unresolved owners are preserved, not claimed fixed by M22."
+  ]
+}

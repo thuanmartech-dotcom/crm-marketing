@@ -1,0 +1,312 @@
+
+
+TÀI LIỆU PHÂN TÍCH NGHIỆP VỤ (BUSINESS ANALYSIS)
+HỆ THỐNG CRM MARKETING
+Dành cho CMO & Đội Marketing – Sales
+Phân rã chức năng · Phân quyền CMO / Manager / Nhân viên · Luồng Đầu vào → Xử lý → Đầu ra → Lưu trữ
+
+Bốn phân hệ trọng tâm: (1) Quản trị công việc & hiệu suất đội ngũ  ·  (2) Quản trị chiến dịch marketing  ·  (3) Khung KPI tổng + đặc thù ngành  ·  (4) Quản trị thông tin khách hàng
+Phiên bản | 1.0 — Bản phân tích nghiệp vụ tham chiếu
+Ngày phát hành | 02/07/2026
+Đối tượng chính | CMO; Marketing/Sales Manager; Nhân viên thực thi
+Phạm vi | Enterprise B2B & Dịch vụ (minh họa KPI đa ngành)
+
+
+Ghi chú phạm vi & cách đọc tài liệu
+Tài liệu này là bản phân tích nghiệp vụ (BA) mô tả CHỨC NĂNG và LUỒNG NGHIỆP VỤ của một hệ thống CRM Marketing chuẩn, viết cho người ra quyết định (CMO) và đội triển khai. Tài liệu trả lời bốn câu hỏi: hệ thống làm được gì, ai được làm gì (phân quyền), dữ liệu đi từ đâu đến đâu (đầu vào → xử lý → đầu ra), và tài liệu/dữ liệu được lưu ở đâu.
+Cách tiếp cận mỗi phân hệ
+Mục tiêu nghiệp vụ — vấn đề phân hệ giải quyết cho CMO.
+Chức năng chi tiết — danh sách tính năng và quy tắc nghiệp vụ.
+Vai trò của AI — nơi AI chấm điểm, cảnh báo, gợi ý hành động.
+Luồng I/O — đầu vào, bước xử lý, đầu ra, nơi lưu trữ.
+Phân quyền — CMO / Manager / Nhân viên nhìn thấy và thao tác gì.
+
+Tài liệu tách riêng với bản thiết kế kỹ thuật (kiến trúc & mô hình dữ liệu) đã lập trước đó; hai tài liệu bổ trợ nhau: bản này mô tả NGHIỆP VỤ, bản kia mô tả HỆ THỐNG.
+Mục lục
+Nhấn Ctrl+Click để cập nhật mục lục trong Word (References → Update Table).
+
+Tóm tắt điều hành cho CMO
+Hệ thống CRM Marketing này được thiết kế để trả lời ba câu hỏi thường trực của một CMO: đội của tôi đang làm gì và có hiệu quả không; các chiến dịch đang chạy ra sao và nên can thiệp ở đâu; đồng tiền marketing đang tạo ra kết quả gì. Toàn bộ chức năng được tổ chức quanh bốn phân hệ và một lớp AI cố vấn xuyên suốt.
+Phân hệ | Câu hỏi CMO được trả lời | Vai trò AI
+1. Quản trị công việc & hiệu suất | Từng người đang làm gì? Ai tốt/chưa tốt? Vì sao? | Chấm điểm hiệu suất, phát hiện rủi ro, đề xuất phân bổ
+2. Quản trị chiến dịch | Chiến dịch này vì sao chạy? Ngân sách/nhân sự? Đang ra sao? | Health score chiến dịch, cảnh báo, gợi ý bước xử lý
+3. Khung KPI | Đo bằng gì? Chuẩn chung và đặc thù ngành? | Dự báo đạt/không đạt, phát hiện bất thường
+4. Quản trị khách hàng | Khách là ai? Ở giai đoạn nào? Giá trị bao nhiêu? | Phân khúc, scoring, next-best-action
+
+Nguyên tắc thiết kế: (a) mọi số liệu truy vết được về nguồn (một đầu vào, một sự thật); (b) phân quyền ba cấp rõ ràng — CMO nhìn toàn cảnh, Manager quản đội/chiến dịch, Nhân viên thực thi và cập nhật; (c) AI đóng vai cố vấn — đề xuất chứ không tự quyết, người có thẩm quyền luôn phê duyệt.
+Ba cấp người dùng — một dòng tóm tắt
+CMO (điều hành) — toàn cảnh hiệu suất đội, sức khỏe mọi chiến dịch, ROI tổng; nhận đề xuất AI ở cấp chiến lược.
+Manager (quản lý) — quản đội và chiến dịch mình phụ trách; giao việc, duyệt, điều chỉnh ngân sách trong hạn mức.
+Nhân viên (thực thi) — nhận & cập nhật công việc, chạy tác vụ chiến dịch, nhập liệu khách hàng trong phạm vi được giao.
+
+Phần A — Tổng quan kiến trúc chức năng & Luồng CRM
+A.1. Bản đồ chức năng tổng thể
+Hệ thống gồm bốn phân hệ nghiệp vụ đặt trên một nền tảng dữ liệu khách hàng dùng chung, bao quanh bởi lớp phân quyền và lớp AI cố vấn. Mọi phân hệ đọc/ghi vào cùng một nguồn dữ liệu khách hàng để đảm bảo nhất quán.
+Lớp | Thành phần | Mô tả ngắn
+Trải nghiệm | Cổng CMO / Manager / Nhân viên | Giao diện và báo cáo theo vai trò
+Phân hệ nghiệp vụ | M1 Công việc · M2 Chiến dịch · M3 KPI · M4 Khách hàng | Bốn nhóm chức năng chính
+Lớp AI cố vấn | Scoring, cảnh báo, gợi ý hành động | Xuyên suốt cả bốn phân hệ
+Nền dữ liệu | Hồ sơ khách hàng, hoạt động, chiến dịch, công việc | Nguồn sự thật chung (single source of truth)
+Quản trị | Phân quyền (RBAC), audit, lưu trữ tài liệu | Kiểm soát ai làm gì & lưu ở đâu
+
+A.2. Luồng CRM chuẩn: Đầu vào → Xử lý → Đầu ra → Lưu trữ
+Đây là khung xuyên suốt tài liệu. Mỗi phân hệ ở các phần sau đều được mô tả theo đúng bốn nấc này.
+① ĐẦU VÀO (Inputs) — dữ liệu và sự kiện đi vào hệ thống:
+Nhóm đầu vào | Ví dụ cụ thể
+Khách hàng & lead | Form web, landing page, import danh sách, sự kiện/webinar, API, enrichment
+Tương tác/hành vi | Mở/click email, lượt truy cập web, tải tài liệu, phản hồi chiến dịch
+Công việc & vận hành | Task giao cho nhân viên, cập nhật tiến độ, log hoạt động sales
+Chiến dịch | Kế hoạch, ngân sách, phân bổ nhân sự, nội dung, lịch chạy
+Bên ngoài | Chi phí quảng cáo (ad platforms), doanh thu từ CRM sales/ERP
+
+② XỬ LÝ (Processing) — hệ thống làm sạch, làm giàu, tính toán:
+Bước xử lý | Nội dung
+Chuẩn hóa & dedup | Làm sạch, khử trùng lặp, gắn lead vào account (L2A)
+Làm giàu & hợp nhất | Enrichment firmographic, hợp nhất hồ sơ (golden record)
+Chấm điểm | Lead scoring, hiệu suất nhân viên, health score chiến dịch
+Phân khúc & định tuyến | Segmentation động, routing lead/việc tới đúng người
+AI phân tích | Dự báo, phát hiện bất thường, sinh đề xuất hành động
+
+③ ĐẦU RA (Outputs) — thứ người dùng và hệ thống khác nhận được:
+Nhóm đầu ra | Ví dụ cụ thể
+Dashboard & báo cáo | Bảng điều khiển CMO, báo cáo hiệu suất đội, KPI chiến dịch
+Cảnh báo & đề xuất | Alert chiến dịch chệch mục tiêu, đề xuất AI cho CMO/Manager
+Hành động tự động | Gửi email/journey, tạo task, đồng bộ audience sang quảng cáo
+Dữ liệu cho hệ khác | Đẩy lead/score sang CRM sales, số liệu sang BI/kế toán
+
+④ LƯU TRỮ (Storage) — nơi dữ liệu và tài liệu được giữ:
+Kho lưu trữ | Chứa gì | Ghi chú
+CSDL vận hành (OLTP) | Hồ sơ khách hàng, công việc, chiến dịch, consent | Nguồn ghi chính
+Kho phân tích (DWH) | Lịch sử, KPI, dữ liệu attribution | Báo cáo & AI
+Kho tài liệu (DAM/Docs) | Brief, hợp đồng, nội dung, tài sản sáng tạo | Có phân quyền + version
+Nhật ký kiểm toán | Ai làm gì, khi nào, với dữ liệu nào | Append-only
+
+Nơi lưu tài liệu (giải thích cho câu hỏi của CMO)
+Tài liệu chiến dịch (brief, kế hoạch, sáng tạo): kho tài liệu DAM/Docs có phân quyền theo vai trò và lưu lịch sử phiên bản.
+Dữ liệu khách hàng & tương tác: CSDL vận hành; bản sao phân tích trong kho DWH.
+Hợp đồng, chứng từ consent: kho tài liệu có mã hóa + nhật ký truy cập (phục vụ tuân thủ).
+Mọi thay đổi quan trọng: ghi vào nhật ký kiểm toán, không cho sửa/xóa.
+
+Phần B — Phân hệ 1: Quản trị công việc & hiệu suất đội ngũ
+B.1. Mục tiêu nghiệp vụ
+Phân hệ này trả lời câu hỏi cốt lõi của CMO: “Từng thành viên marketing và sales đang làm gì, làm tốt hay chưa tốt, và tôi nên can thiệp ở đâu?”. Nó biến hoạt động rời rạc của đội thành một bức tranh hiệu suất minh bạch, có thể so sánh và truy vết; AI chấm điểm và đề xuất cho CMO thay vì để CMO tự lục từng báo cáo.
+Ba giá trị chính cho CMO
+Minh bạch — thấy được khối lượng và tiến độ công việc thực của từng người, từng nhóm.
+Đánh giá công bằng — hiệu suất chấm theo dữ liệu (đầu ra + kết quả), không cảm tính.
+Ra quyết định — AI chỉ ra ai quá tải, ai chưa đạt, ai nên khen thưởng, đề xuất tái phân bổ.
+
+B.2. Chức năng chi tiết
+Nhóm chức năng quản trị công việc và đo hiệu suất được tổ chức như sau:
+Nhóm chức năng | Chức năng cụ thể
+Giao & theo dõi việc | Tạo task/định kỳ, gán người phụ trách, deadline, mức ưu tiên, phụ thuộc; bảng Kanban/lịch; nhật ký tiến độ
+Kế hoạch & năng lực | Kế hoạch tuần/tháng theo mục tiêu; theo dõi capacity (khối lượng so với năng lực); phát hiện quá tải
+Ghi nhận kết quả | Liên kết task với kết quả thực (lead tạo ra, chiến dịch hoàn thành, deal hỗ trợ); log hoạt động sales (gọi, gặp, gửi)
+Chấm điểm hiệu suất | Bộ tiêu chí đa chiều: sản lượng, chất lượng, đúng hạn, đóng góp kết quả; điểm tổng hợp theo trọng số
+Đánh giá & phản hồi | Chu kỳ review (1:1, hằng tháng/quý); mục tiêu cá nhân (OKR/MBO); ghi nhận & cảnh báo hiệu suất
+
+B.3. Bộ chỉ số & cách chấm điểm hiệu suất
+Hiệu suất mỗi nhân viên được đo trên bốn trục, mỗi trục có trọng số do CMO/Manager cấu hình. Điểm là công cụ hỗ trợ đối thoại, không thay thế đánh giá con người.
+Trục đánh giá | Ví dụ chỉ số | Trọng số gợi ý
+Sản lượng (Output) | Số task hoàn thành, nội dung sản xuất, cuộc gọi/cuộc gặp, lead xử lý | 25%
+Chất lượng (Quality) | Tỷ lệ task đạt yêu cầu, tỷ lệ lead được sales chấp nhận, lỗi/làm lại | 30%
+Đúng hạn (Timeliness) | % task đúng deadline, thời gian phản hồi lead (speed-to-lead) | 20%
+Đóng góp kết quả (Impact) | Pipeline/doanh thu có đóng góp, MQL→SQL, kết quả chiến dịch phụ trách | 25%
+
+Vai trò của AI trong chấm điểm & đề xuất
+Chuẩn hóa điểm — so sánh công bằng giữa người/nhóm có khối lượng và bối cảnh khác nhau.
+Phát hiện xu hướng — cảnh báo sớm hiệu suất đi xuống, dấu hiệu quá tải hoặc burnout.
+Đề xuất cho CMO — gợi ý tái phân bổ việc, người cần kèm cặp, người nên ghi nhận/thưởng.
+Giải thích được — mỗi điểm số kèm lý do (yếu tố đóng góp chính), tránh “hộp đen”.
+
+Nguyên tắc quan trọng: AI đề xuất — con người quyết định. Mọi đánh giá ảnh hưởng tới nhân sự đều cần Manager/CMO xác nhận; điểm AI là đầu vào tham khảo, có thể ghi đè kèm lý do.
+B.4. Luồng I/O của phân hệ
+Nấc | Nội dung
+① Đầu vào | Task được giao, cập nhật tiến độ, log hoạt động, kết quả liên kết (lead/deal/chiến dịch), mục tiêu cá nhân
+② Xử lý | Tổng hợp khối lượng & năng lực, tính điểm bốn trục, chuẩn hóa & so sánh, AI phát hiện bất thường + sinh đề xuất
+③ Đầu ra | Bảng hiệu suất cá nhân/nhóm, xếp hạng, cảnh báo quá tải/dưới chuẩn, đề xuất hành động cho CMO/Manager
+④ Lưu trữ | Task & log → CSDL vận hành; lịch sử điểm & đánh giá → kho phân tích; biên bản review → kho tài liệu; thay đổi → nhật ký kiểm toán
+
+Phần C — Phân hệ 2: Quản trị chiến dịch marketing
+C.1. Mục tiêu nghiệp vụ
+Phân hệ giúp CMO làm chủ toàn bộ vòng đời chiến dịch: vì sao chạy (mục tiêu & lý do kinh doanh), chạy thế nào (kế hoạch, kênh, nội dung, lịch), tốn bao nhiêu (ngân sách) và ai làm (nguồn lực). Trong khi chạy, chiến dịch được chấm điểm sức khỏe liên tục và AI gợi ý bước xử lý khi có dấu hiệu chệch mục tiêu.
+C.2. Hồ sơ chiến dịch — “vì sao chạy & chạy thế nào”
+Mỗi chiến dịch có một hồ sơ chuẩn hóa (campaign brief) CMO phê duyệt trước khi khởi chạy — chính là câu trả lời cho “tại sao chạy chiến dịch này”.
+Trường thông tin | Nội dung | Ai nhập / duyệt
+Lý do & mục tiêu | Vấn đề/cơ hội, mục tiêu SMART, giả định, kết quả kỳ vọng | Manager soạn — CMO duyệt
+Đối tượng mục tiêu | Phân khúc/khách/account nhắm tới, quy mô | Manager
+Chiến lược & kênh | Thông điệp, kênh (email, ads, event…), kế hoạch nội dung | Manager
+Ngân sách | Dự toán theo hạng mục, phân bổ theo kênh | Manager đề xuất — CMO duyệt
+Nguồn lực nhân sự | Người phụ trách, đội tham gia, vai trò & phân công | Manager
+Lịch chạy & mốc | Bắt đầu/kết thúc, các mốc kiểm tra (checkpoint) | Manager
+Bộ KPI áp dụng | KPI tổng chuẩn + KPI đặc thù ngành (xem Phần D) | CMO chốt
+
+C.3. Quản trị trong khi chạy — chấm điểm & can thiệp
+Chức năng | Mô tả
+Dashboard chiến dịch | Theo dõi thời gian thực: chi tiêu vs ngân sách, lead vs mục tiêu, CPL, tiến độ theo mốc
+Health score | Điểm 0–100 tổng hợp tiến độ mục tiêu, hiệu quả chi phí, tốc độ & chất lượng lead; đèn xanh/vàng/đỏ
+Cảnh báo tự động | Khi lệch ngưỡng (VD: CPL vượt 30%, tiến độ chậm) → cảnh báo Manager & CMO kèm mức nghiêm trọng
+Kiểm soát ngân sách | Chi thực + cam kết so với ngân sách duyệt; cảnh báo khi sắp/đã vượt; đề nghị điều chỉnh
+Nhật ký & tài liệu | Lưu brief, nội dung, phê duyệt, thay đổi; có phiên bản để truy vết
+
+C.4. Vai trò của AI
+Chấm điểm sức khỏe: tính và cập nhật health score, giải thích yếu tố đang kéo điểm xuống.
+Gợi ý bước xử lý: gợi ý bước xử lý cụ thể — VD “dừng kênh A có CPL cao, dồn ngân sách sang kênh B”, “đổi thông điệp cho phân khúc C”, “tăng nhắc lại nhóm đã mở nhưng chưa click”.
+Dự báo kết quả: dự báo kết quả cuối kỳ theo đà hiện tại (đạt/không đạt) để CMO can thiệp sớm.
+Tổng kết & học hỏi: sau chiến dịch, tổng hợp bài học: kênh nào hiệu quả, thông điệp nào tốt, đề xuất cho lần sau.
+C.5. Luồng I/O của phân hệ
+Nấc | Nội dung
+① Đầu vào | Brief chiến dịch, ngân sách, phân công nhân sự, dữ liệu chạy thực (chi phí, lead, phản hồi), chi phí từ ad platforms
+② Xử lý | Đối chiếu thực tế vs kế hoạch, tính health score, phát hiện lệch ngưỡng, AI dự báo & sinh gợi ý xử lý
+③ Đầu ra | Dashboard chiến dịch, health score & đèn màu, cảnh báo, đề xuất hành động, báo cáo tổng kết
+④ Lưu trữ | Brief & tài sản sáng tạo → kho tài liệu (có version); số liệu vận hành → CSDL & kho phân tích; phê duyệt ngân sách → nhật ký kiểm toán
+
+Phần D — Phân hệ 3: Khung KPI (tổng chuẩn + đặc thù ngành)
+D.1. Nguyên tắc thiết kế KPI
+Mỗi chiến dịch gắn với hai lớp KPI: (1) bộ KPI tổng chuẩn — áp dụng cho MỌI chiến dịch để so sánh đồng nhất; (2) bộ KPI đặc thù theo lĩnh vực — phản ánh bản chất kinh doanh của từng ngành. CMO chốt bộ KPI khi duyệt brief; hệ thống theo dõi và AI dự báo khả năng đạt.
+Cấu trúc một KPI chuẩn
+Định nghĩa & công thức — đo cái gì, tính thế nào (tránh mỗi người hiểu một kiểu).
+Mục tiêu (target) & ngưỡng — giá trị cần đạt và ngưỡng cảnh báo.
+Nguồn dữ liệu — lấy từ đâu, để truy vết một sự thật.
+Chủ sở hữu — ai chịu trách nhiệm cho chỉ số.
+
+D.2. Bộ KPI tổng chuẩn (áp dụng mọi chiến dịch)
+Nhóm | KPI tiêu biểu | Ý nghĩa với CMO
+Tiếp cận & thu hút | Reach, impressions, traffic, CTR | Chiến dịch có tiếp cận đúng & đủ không
+Chuyển đổi lead | Số lead, MQL, SQL, tỷ lệ chuyển đổi từng nấc | Phễu có chảy tốt không, tắc ở đâu
+Hiệu quả chi phí | CPL, CPA, CAC, chi tiêu vs ngân sách | Đồng tiền bỏ ra hiệu quả đến đâu
+Doanh thu & ROI | Pipeline tạo ra, doanh thu ảnh hưởng, ROI/ROMI | Marketing đóng góp gì cho doanh thu
+Tương tác | Open/click rate, engagement, tỷ lệ phản hồi | Nội dung & thông điệp có cộng hưởng không
+Tiến độ vận hành | % hoàn thành mốc, đúng hạn, health score | Chiến dịch chạy có đúng kế hoạch không
+
+D.3. Bộ KPI đặc thù theo lĩnh vực
+Minh họa cho các lĩnh vực phổ biến. Đây là ví dụ tham chiếu — CMO chọn và tinh chỉnh theo mô hình thực tế.
+D.3.1. SaaS / Công nghệ
+KPI đặc thù | Ý nghĩa
+MQL→SQL→PQL | Chất lượng lead theo cả hành vi dùng thử sản phẩm (Product Qualified Lead)
+Free-trial signup & activation rate | Tỷ lệ đăng ký dùng thử và kích hoạt giá trị lần đầu
+Trial→Paid conversion | Tỷ lệ chuyển từ dùng thử sang trả phí
+CAC payback (tháng) | Bao lâu thu hồi chi phí thu hút một khách
+LTV / LTV:CAC | Giá trị vòng đời so với chi phí thu hút
+MRR/ARR ảnh hưởng bởi marketing | Doanh thu định kỳ marketing góp phần tạo ra
+
+D.3.2. Dịch vụ chuyên nghiệp (Professional Services)
+KPI đặc thù | Ý nghĩa
+Số lượng & chất lượng lead theo ngành dọc | Phù hợp mô hình bán theo chuyên môn/vertical
+Cost per qualified consultation | Chi phí cho mỗi buổi tư vấn đạt chuẩn
+Tỷ lệ đề xuất→hợp đồng (proposal win rate) | Hiệu quả chuyển cơ hội thành hợp đồng
+Giá trị hợp đồng trung bình | Quy mô deal marketing góp phần tạo ra
+Chu kỳ bán trung bình (sales cycle) | Thời gian từ lead đến ký hợp đồng
+Tỷ lệ giới thiệu/referral | Sức khỏe thương hiệu & sự hài lòng khách
+
+D.3.3. Tài chính / BFSI
+KPI đặc thù | Ý nghĩa
+Lead theo sản phẩm (vay, thẻ, bảo hiểm…) | Đo hiệu quả từng dòng sản phẩm tài chính
+Tỷ lệ hồ sơ đạt duyệt (approval rate) | Chất lượng lead xét trên tiêu chí rủi ro
+Cost per funded account | Chi phí cho mỗi tài khoản/khoản vay được giải ngân
+Giá trị trung bình mỗi khách (AUM/khoản vay) | Quy mô giá trị khách mang lại
+Tỷ lệ tuân thủ (compliance) trong tiếp thị | Bắt buộc do quy định ngành nghiêm ngặt
+Retention/cross-sell rate | Giữ chân & bán chéo sản phẩm tài chính
+
+D.3.4. FMCG
+KPI đặc thù | Ý nghĩa
+Reach & thị phần tiếng nói (SOV) | Độ phủ thương hiệu trên thị trường đại chúng
+Brand awareness & recall | Mức độ nhận biết/ghi nhớ thương hiệu
+Chi phí trên nghìn tiếp cận (CPM) | Hiệu quả chi phí truyền thông diện rộng
+Tỷ lệ dùng thử & mua lặp lại | Chuyển từ nhận biết sang hành vi mua & trung thành
+Sales lift theo chiến dịch/khu vực | Tác động thực lên doanh số bán lẻ
+Hiệu quả khuyến mãi (promo ROI) | Lời/lỗ của chương trình khuyến mãi
+
+D.3.5. E-commerce / B2C
+KPI đặc thù | Ý nghĩa
+Conversion rate (phiên → đơn) | Tỷ lệ khách mua trên tổng truy cập
+Average Order Value (AOV) | Giá trị đơn hàng trung bình
+Cart abandonment rate | Tỷ lệ bỏ giỏ hàng — cơ hội thu hồi
+ROAS (return on ad spend) | Doanh thu trên mỗi đồng quảng cáo
+Repeat purchase rate & CLV | Tỷ lệ mua lại & giá trị vòng đời khách
+Cost per acquisition (CPA) | Chi phí thu hút mỗi khách mua
+
+D.4. Vai trò của AI với KPI
+Dự báo: dự báo khả năng đạt/không đạt từng KPI theo đà hiện tại, cảnh báo sớm.
+Phát hiện bất thường: phát hiện bất thường (số liệu tăng/giảm đột biến) và truy nguyên nguyên nhân khả dĩ.
+Đề xuất bộ KPI: gợi ý KPI phù hợp theo loại chiến dịch & ngành khi lập brief.
+Nhất quán số liệu: chuẩn hóa định nghĩa KPI (một định nghĩa dùng chung) để CMO và các cấp nhìn cùng một con số.
+Phần E — Phân hệ 4: Quản trị thông tin khách hàng
+E.1. Mục tiêu nghiệp vụ
+Đây là trái tim của CRM: một hồ sơ khách hàng thống nhất, đáng tin, để mọi phân hệ khác (công việc, chiến dịch, KPI) đều dựa vào. Phân hệ trả lời: khách/lead là ai, thuộc account nào, đang ở giai đoạn nào của hành trình, đã tương tác gì, giá trị bao nhiêu, và được phép liên hệ theo cách nào.
+E.2. Chức năng chi tiết
+Nhóm chức năng | Chức năng cụ thể
+Hồ sơ thống nhất (360°) | Contact & Account (B2B: nhiều liên hệ/công ty, cây mẹ–con); trường thông tin, chủ sở hữu, trạng thái
+Thu thập & làm giàu | Nhập đa nguồn (form, import, API, sự kiện); enrichment firmographic; hợp nhất trùng lặp → golden record
+Dòng thời gian tương tác | Toàn bộ tương tác đa kênh (email, web, gọi, chiến dịch tham gia) trên một timeline
+Phân khúc & chấm điểm | Segment động theo thuộc tính/hành vi; lead scoring (mức phù hợp + mức quan tâm)
+Vòng đời khách hàng | Theo dõi giai đoạn: tiềm năng → lead → cơ hội → khách hàng → trung thành
+Consent & quyền riêng tư | Quản lý đồng thuận theo kênh & mục đích; preference center; danh sách chặn gửi (suppression)
+
+E.3. Vai trò của AI
+Phân khúc thông minh: gợi ý phân khúc và tự gắn khách vào nhóm phù hợp.
+Scoring dự đoán: chấm điểm khả năng chuyển đổi/mua và điểm rủi ro rời bỏ (churn).
+Next-best-action: đề xuất hành động tiếp theo tốt nhất cho từng khách (nội dung gì, kênh nào, thời điểm nào).
+Chất lượng dữ liệu: phát hiện dữ liệu thiếu/mâu thuẫn/trùng và đề xuất làm sạch.
+E.4. Luồng I/O của phân hệ
+Nấc | Nội dung
+① Đầu vào | Form/landing page, import, API, sự kiện, dữ liệu enrichment, tương tác đa kênh, trạng thái consent
+② Xử lý | Chuẩn hóa, khử trùng, gắn lead vào account, hợp nhất golden record, phân khúc & scoring, kiểm tra consent
+③ Đầu ra | Hồ sơ 360°, phân khúc, điểm lead/churn, next-best-action, danh sách audience cho chiến dịch
+④ Lưu trữ | Hồ sơ & tương tác → CSDL vận hành; bản phân tích → kho DWH; consent & thay đổi nhạy cảm → nhật ký kiểm toán (append-only)
+
+Phần F — Phân quyền: CMO / Manager / Nhân viên
+F.1. Nguyên tắc phân quyền
+Hệ thống áp dụng phân quyền theo vai trò (RBAC) kết hợp phạm vi dữ liệu theo thuộc tính (ai sở hữu/phụ trách gì). Nguyên tắc: quyền tối thiểu cần thiết; người dùng chỉ thấy và thao tác trong phạm vi được giao; mọi hành động quan trọng đều ghi nhật ký. AI luôn ở vai cố vấn — đề xuất, còn quyền quyết định thuộc về đúng cấp có thẩm quyền.
+Ba cấp vai trò & phạm vi dữ liệu
+CMO (điều hành) — toàn bộ tổ chức: mọi đội, mọi chiến dịch, mọi khách hàng, mọi báo cáo tổng hợp.
+Manager (quản lý) — phạm vi đội/chiến dịch mình phụ trách; không thấy dữ liệu đội khác trừ khi được cấp.
+Nhân viên (thực thi) — phạm vi công việc/khách hàng được giao; thao tác trong quyền hạn hẹp.
+
+F.2. Ma trận phân quyền theo phân hệ
+Ký hiệu: Đầy đủ = xem + tạo + sửa + duyệt; Quản lý = trong phạm vi phụ trách; Thực thi = tạo/cập nhật phần được giao; Xem = chỉ đọc.
+Chức năng | CMO | Manager | Nhân viên
+Bảng điều khiển toàn cảnh | Đầy đủ | Đội mình | Cá nhân
+Chấm điểm hiệu suất đội | Toàn bộ | Đội mình | Chỉ điểm bản thân
+Tạo/duyệt chiến dịch & ngân sách | Đầy đủ | Đề xuất + duyệt trong hạn mức | Không
+Thực thi tác vụ chiến dịch | Xem | Giao & giám sát | Thực thi
+Xem KPI chiến dịch | Tất cả | Chiến dịch mình | Chiến dịch tham gia
+Hồ sơ khách hàng | Tất cả | Đội/lãnh thổ mình | Khách được giao
+Xuất dữ liệu khách hàng | Có (có kiểm soát) | Hạn chế | Không
+Cấu hình phân quyền & hệ thống | Có | Không | Không
+Nhận đề xuất AI | Cấp chiến lược | Cấp vận hành đội | Gợi ý tác vụ cá nhân
+
+F.3. Quyền trên tài liệu & lưu trữ
+Loại tài liệu | CMO | Manager | Nhân viên
+Brief & kế hoạch chiến dịch | Xem + duyệt tất cả | Tạo/sửa của đội mình | Xem phần liên quan
+Tài sản sáng tạo (nội dung, thiết kế) | Xem tất cả | Quản lý của đội | Tạo/tải lên phần được giao
+Hợp đồng, chứng từ consent | Xem (có kiểm soát) | Hạn chế theo nhu cầu | Không
+Báo cáo hiệu suất & KPI | Tất cả | Đội/chiến dịch mình | Cá nhân/chiến dịch tham gia
+Nhật ký kiểm toán | Xem | Không | Không
+
+Mọi tài liệu lưu trong kho tài liệu (DAM/Docs) có phiên bản; tài liệu nhạy cảm (hợp đồng, consent) được mã hóa và ghi nhật ký truy cập phục vụ tuân thủ.
+Phần G — Tổng hợp luồng toàn hệ thống & Kết luận
+G.1. Bức tranh luồng dữ liệu toàn hệ thống
+Bảng dưới tóm tắt cách dữ liệu chảy qua bốn phân hệ, từ đầu vào tới nơi lưu trữ — dùng chung một nền dữ liệu khách hàng:
+① Đầu vào | ② Xử lý | ③ Đầu ra | ④ Lưu trữ
+Lead, tương tác, công việc, brief chiến dịch, chi phí, doanh thu | Làm sạch, hợp nhất, chấm điểm (lead / nhân sự / chiến dịch), AI dự báo & gợi ý | Dashboard CMO, cảnh báo, đề xuất AI, hành động tự động, audience | CSDL vận hành, kho phân tích, kho tài liệu, nhật ký kiểm toán
+
+Điểm mấu chốt: cả bốn phân hệ dùng chung một nền dữ liệu khách hàng. Nhờ đó, điểm hiệu suất nhân viên (Phân hệ 1), kết quả chiến dịch (Phân hệ 2), KPI (Phân hệ 3) và hồ sơ khách hàng (Phân hệ 4) luôn nhất quán và truy vết được về cùng một nguồn — điều kiện để CMO tin vào con số khi ra quyết định.
+G.2. Vai trò lớp AI xuyên suốt
+Phân hệ | AI làm gì | Ai nhận kết quả
+1. Công việc | Chấm điểm hiệu suất, cảnh báo quá tải, đề xuất phân bổ | CMO, Manager
+2. Chiến dịch | Health score, dự báo kết quả, gợi ý bước xử lý | CMO, Manager
+3. KPI | Dự báo đạt/không đạt, phát hiện bất thường | CMO, Manager
+4. Khách hàng | Phân khúc, scoring, next-best-action | Manager, Nhân viên
+
+G.3. Khuyến nghị triển khai theo ưu tiên
+Bước 1: Dựng nền dữ liệu khách hàng (Phân hệ 4) trước — ba phân hệ còn lại đều dựa vào nó.
+Bước 2: Thêm quản trị chiến dịch (Phân hệ 2) và khung KPI (Phân hệ 3) để CMO nắm hiệu quả chi tiêu.
+Bước 3: Bổ sung quản trị công việc & hiệu suất (Phân hệ 1) để quản trị đội ngũ.
+Bước 4: Kích hoạt lớp AI cố vấn sau khi đã có đủ dữ liệu lịch sử để mô hình dự báo đáng tin.
+Xuyên suốt: Thiết lập phân quyền RBAC và nhật ký kiểm toán ngay từ đầu, không để sau.
+G.4. Kết luận
+Tài liệu đã phân rã một CRM Marketing hướng CMO thành bốn phân hệ nghiệp vụ rõ ràng, mỗi phân hệ mô tả theo luồng chuẩn đầu vào → xử lý → đầu ra → lưu trữ, kèm vai trò AI cố vấn và ma trận phân quyền ba cấp. Thiết kế đặt trọng tâm cho CMO một bức tranh minh bạch và có thể hành động: biết đội đang làm gì và tốt đến đâu, vì sao mỗi chiến dịch chạy và đang khỏe hay yếu, đo bằng bộ KPI chuẩn và đặc thù ngành, tất cả trên một nền dữ liệu khách hàng thống nhất. Đây là cơ sở nghiệp vụ để chuyển sang thiết kế chi tiết và xây dựng hệ thống.
+Ba điều CMO nên nhớ
+Một nguồn sự thật — mọi phân hệ dùng chung dữ liệu khách hàng; số liệu luôn truy vết được.
+AI cố vấn, người quyết — AI chấm điểm và gợi ý; thẩm quyền phê duyệt luôn thuộc con người.
+Phân quyền + kiểm toán — đúng người thấy đúng việc; hành động nhạy cảm đều được ghi lại.

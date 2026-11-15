@@ -1,0 +1,331 @@
+1: Báo Cáo Kiểm Định Chốt Chặn Cuối Cùng - CRM Master BRD & SRS v1.3
+2: BÁO CÁO KIỂM ĐỊNH CHỐT CHẶN CUỐI CÙNG (FINAL SIGN-OFF AUDIT)
+3: VÀ BẢN VÁ TRỰC TIẾP CHO TÀI LIỆU MASTER BRD & SRS
+4: Tài liệu được kiểm định: CRM_MASTER_BRD_SRS_HOP_NHAT.md — Phiên bản 1.3 (Ngày 15/10/2026)
+5: Mô hình & Quy mô: Dịch vụ Marketing Agency (B2B & B2C), kiến trúc Core + Industry Pack; vận hành cá nhân ban đầu (Pilot) mở rộng lên ~45 tài khoản (30 Sales, 10 Marketing, Quản lý, Kế toán, AM/Delivery) trên 2 chi nhánh; ~100 leads và 50 khách hàng/tháng.
+6: Hội đồng Kiểm định (ARB): Principal CRM Solutions Architect, Lead Agency BA, Staff Backend & DB Engineer, Principal QA & Security Auditor.
+7: Điểm chất lượng hồ sơ: 91 / 100 — Phán quyết: CONDITIONAL GO (Đóng băng Baseline v1.3.1 ngay sau khi dán 6 Bản vá ở Phần 6 vào tệp Master).
+8: PHẦN 1: KIỂM ĐỊNH ĐỒNG BỘ CHÉO & LỖI HỒI QUY (CROSS-CHAPTER CONSISTENCY & REGRESSION AUDIT)
+9: 1.1. Lệch pha giữa Yêu cầu chức năng (FR) ↔ Luồng nghiệp vụ (UC) ↔ Cơ sở dữ liệu (Chương 5)
+10: | Mã lỗi
+11: | Vị trí đối chiếu
+12: | Chi tiết lệch pha & Tác động kỹ thuật / nghiệp vụ
+13: | CC-01
+14: | Mục 3.7.1 (FR18), 3.12.10 (FR39), 4.22 (UC22) ↔ Mục 5.16 (SLA_Episodes), 5.18 (Business_Subjects)
+15: | FR39 và UC22 yêu cầu liên kết Conversation với Lead / Deal / Ticket / Deliverable và chạy đồng hồ SLA theo từng đối tượng đích. Tuy nhiên, bảng Business_Subjects (Mục 5.18) mới chỉ có 3 khóa ngoại (lead_id, ticket_id, conversation_id) và chưa có bảng link typed nào nối tới Deals, Projects hay Deliverables. Hệ quả: Dev không thể tạo khóa ngoại từ SLA_Episodes hoặc Conversation_Subject_Links tới Deals và Deliverables.
+16: | CC-02
+17: | Mục 3.2.1 (FR04) ↔ Mục 5.5 (Bảng Deals)
+18: | FR04 quy định Deal có trạng thái OnHold kèm lý do, ngày review và tách bạch total age / active time / hold time. Nhưng bảng Deals (Mục 5.5) chỉ có stage_id mà thiếu cột status (Open / OnHold / Won / Lost) và accumulated_hold_seconds. Nếu biến OnHold thành một stage_id, hệ thống sẽ làm mất dấu bước bán hàng hiện tại (Proposal hay Negotiation) khi khách quay lại.
+19: | CC-03
+20: | Mục 1.3 (BR05), 3.4.1 (FR09), 3.6.2 (FR15), 4.10 (UC10) ↔ Mục 5.13 (Contracts)
+21: | BR05, FR09, FR15, UC10 (và ca kiểm thử INT30, CX-U18) yêu cầu nhắc tái ký/gia hạn theo notice deadline (báo trước 60 ngày hoặc 45/30/15 ngày) và kỳ hiệu lực. Thế nhưng bảng Contracts tại Mục 5.13 thiếu hoàn toàn các cột effective_from, effective_to, notice_period_days, notice_deadline_date và auto_renew_mode.
+22: | CC-04
+23: | Mục 3.8.1 (FR20), 9.12 (CEO-U21 P0) ↔ Chương 5
+24: | FR20 (P0) và ca kiểm thử CEO-U21 P0 yêu cầu đặt lịch hẹn (discovery, kickoff, quay chụp), khóa giữ chỗ ekip độc quyền, chống trùng lịch (double-booking) và check-in GPS/bằng chứng thay thế. Tuy nhiên, toàn bộ Chương 5 chưa có bảng Appointments và Resource_Bookings (bảng Activities ở Mục 5.7 chỉ lưu sự kiện đã xảy ra với 1 mốc occurred_at).
+25: | CC-05
+26: | Mục 2.7, 3.12.5 (FR34), 9.9 (OC16) ↔ Mục 5.16 (Conversations)
+27: | FR34 và OC16 bắt buộc kiểm tra cửa sổ gửi tin hợp lệ (như 24h của Facebook Page Messenger / Zalo OA) tính từ tin nhắn cuối của khách hàng. Nhưng bảng Conversations (Mục 5.16) chỉ có last_message_at (cập nhật cho cả tin nhắn đi lẫn đến) mà thiếu cột last_inbound_at.
+28: 1.2. Tàn dư của các tính năng/bảng đã cắt giảm (Ghost References)
+29: Hợp đồng API phân bổ thanh toán tại Mục 2.5 lệch với CR04/FR16: Bảng API mẫu tại Mục 2.5 vẫn ghi điều kiện của POST /v1/payments/{id}/allocate là kiểm tra "hóa đơn cùng tenant". Trong khi đó, Mục 3.6.3 (FR16) và Mục 5.11 (Payment_Allocations) đã chốt phân bổ vào Payment_Obligations (nghĩa vụ thu theo kỳ/dòng hợp đồng) để không bị kẹt khi hóa đơn ERP đồng bộ trễ.
+30: Thuật ngữ client_workspace cũ: Mục 5.1 đã chốt hợp nhất vào cột workspace_id (với workspace_type = AGENCY / CLIENT), nhưng Mục 3.1.2 (FR02) và Mục 6.1 vẫn còn gọi tên client_workspace như một trường tách biệt.
+31: Tham chiếu Loyalty_Ledger trong tiêu chuẩn P0: Tính năng tích điểm Loyalty trên Mini App đã hoãn sang P2 tại Mục 1.6 và Mục 3.4.2 (FR10), nhưng Mục 7.1 (NFR08) và Phụ lục B vẫn liệt kê kiểm thử "nhân điểm" và bảng Loyalty_Ledger trong nhóm truy vết mặc định.
+32: 1.3. Đứt gãy Ma trận truy vết (Traceability Gaps)
+33: Phụ lục B bỏ sót hoàn toàn FR30–FR40, UC17–UC22 và các bộ UAT mới: Trang bìa và Phụ lục E khẳng định bản 1.3 gồm 40 FR và 22 UC. Tuy nhiên, bảng Ma trận truy vết tại Phụ lục B chỉ dừng lại ở FR01–FR29 và UC01–UC16. Toàn bộ phân hệ Omnichannel mở rộng (FR30–FR40 tại Mục 3.12), 6 luồng nghiệp vụ (UC17–UC22 tại Mục 4.17–4.22) và 54 kịch bản kiểm thử (OC01–OC24 tại Mục 9.9, INT01–INT30 tại Mục 9.10) chưa được nối vào Phụ lục B.
+34: Hạ nhầm mức ưu tiên UAT của hàng rào bảo mật AI (U22): Tại Mục 3.5.3 (FR13), cơ chế chống Prompt Injection và chặn Agent tự ý export/đổi quyền được quy định là P0 guard. Nhưng tại bảng UAT tối thiểu (Mục 9.5), ca kiểm thử U22 lại bị gắn nhãn P1 thay vì P0.
+35: PHẦN 2: TRA TẤN MA TRẬN TRẠNG THÁI & ĐIỀU KIỆN BIÊN (STATE MACHINE & SLA AUDIT)
+36: 2.1. Điểm kẹt trạng thái (Deadlock / Zombie State) theo từng đối tượng cốt lõi
+37: | Đối tượng
+38: | Tình huống biên (Edge Case)
+39: | Điểm kẹt phát hiện & Quy tắc thoát kẹt cần bổ sung
+40: | Lead
+41: (Mục 3.2.1, 5.2)
+42: | 1. Khách không nghe máy sau nhiều lần gọi ở trạng thái Contacting.
+43: 2. Sales bấm handover_status = Rejected (NoCapacity).
+44: | 1. Chốt ngưỡng mặc định: Sau 5 lần liên hệ thất bại ở ít nhất 2 khung giờ trong tối thiểu 7 ngày làm việc, cho phép chuyển Contacting -> Dormant / Nurture.
+45: 2. Khi handover_status = Rejected (NoCapacity), bắt buộc trong cùng transaction phải đưa Leads.status = New, gỡ owner_id = NULL và đẩy về queue_id điều phối.
+46: | Deal
+47: (Mục 3.2.1, 1.4, 5.5)
+48: | Sales đẩy các Deal khó chốt sang OnHold vô thời hạn để tránh bị tính Lost trong công thức Win rate = Won / (Won + Lost).
+49: | Khóa giới hạn: Mỗi lần đặt OnHold không hẹn review_at quá 30 ngày; tổng thời gian accumulated_hold_seconds quá 60 ngày phải có Manager duyệt ngoại lệ hoặc ép chuyển Lost (Stalled_NoDecision).
+50: | Quote
+51: (Mục 3.6.1, 5.13)
+52: | Báo giá đã gửi khách nhưng quá ngày expires_at khách mới phản hồi.
+53: | Bổ sung cột status chuẩn cho bảng Quotes và cronjob hằng ngày tự động chuyển các báo giá Approved / Sent quá hạn sang Expired, chặn tạo Hợp đồng từ báo giá hết hạn.
+54: | Contract & Order
+55: (Mục 3.6.2, 5.6, 5.13)
+56: | Hợp đồng Retainer 6 tháng bị thanh lý sớm (Terminated) ở tháng thứ 2.
+57: | Khi Contract / Order chuyển sang Cancelled hoặc Terminated, bắt buộc chuyển toàn bộ Payment_Obligations của các kỳ chưa thực hiện (tháng 3–6) sang Voided để không sinh công nợ quá hạn ảo làm sai lệch DSO.
+58: | Project & Deliverable
+59: (Mục 3.6.2, 4.8, 5.13)
+60: | Agency đã nộp bài chờ khách duyệt (InReview), nhưng khách im lặng trên 15 ngày làm việc không phản hồi.
+61: | Bổ sung trạng thái thoát Stalled_Client_Unresponsive (khi hợp đồng không có điều khoản tự động nghiệm thu) để giải phóng capacity nhân sự và chuyển sang quyết toán theo khối lượng thực tế.
+62: | Ticket S1/S2
+63: (Mục 3.7.1, 5.8)
+64: | Ticket S1 đã khắc phục xong sự cố và chuyển sang WaitingCustomer, nhưng khách im lặng hoàn toàn (FR18 cấm đóng S1 mù).
+65: | Cho phép CX Lead/Manager chuyển sang trạng thái Resolved_Unverified (và đóng với mã Closed_Mitigated_Customer_NoResponse) sau 3 lần liên hệ ở tối thiểu 2 kênh trong 5 ngày làm việc có đính kèm bằng chứng khắc phục kỹ thuật.
+66: 2.2. Xung đột đồng hồ SLA & Kẽ hở để nhân viên "lách" SLA
+67: Chặn kẽ hở "Trả lời chiếu lệ 1 câu để tắt đồng hồ FRT/NRT rồi ngâm việc": Tại FR36 (Mục 3.12.7), đồng hồ FRT/NRT dừng ngay khi nhân viên gửi tin trả lời công khai. Để ngăn nhân viên nhắn câu giữ chỗ ("Dạ anh chờ em kiểm tra nhé") rồi bỏ quên khách, trên Composer gửi tin bắt buộc nhân viên chọn trạng thái chờ tiếp theo:
+68: Chờ khách phản hồi (waiting_party = customer): Hoàn tất đồng hồ FRT/NRT hiện tại.
+69: Đang xử lý nội bộ (waiting_party = internal): Hoàn tất FRT/NRT nhưng bắt buộc phải nhập thời점 hẹn báo lại (next_customer_update_at) để hệ thống khởi chạy ngay đồng hồ promised_update, đồng thời đồng hồ resolution vẫn tiếp tục chạy.
+70: Tách cơ sở thời gian giữa Lịch làm việc và Giờ hẹn thực tế: Trong bảng SLA_Episodes (Mục 5.16), các đồng hồ claim, attempt, FRT, NRT, resolution tính theo Giờ làm việc hành chính (BUSINESS_CALENDAR); riêng đồng hồ promised_update (ví dụ hẹn khách 15:00 chiều nay cập nhật) bắt buộc tính theo Giờ đồng hồ thực tuyệt đối (WALL_CLOCK).
+71: Chống "Đá bóng trách nhiệm" ở phút cuối của SLA: Khi chuyển giao sát hạn, đồng hồ hướng khách hàng không reset; nếu xảy ra vi phạm (Breach), cột breached_by_user_id trên SLA_Episodes tự động ghi nhận lỗi thuộc về nhân sự đã giữ bản ghi chiếm trên 50% thời gian làm việc của episode trước thời điểm vi phạm.
+72: PHẦN 3: KIỂM ĐỊNH KIẾN TRÚC DỮ LIỆU, TOÀN VẸN TÀI CHÍNH & XUNG ĐỘT ĐỒNG THỜI
+73: 3.1. Ràng buộc Khóa ngoại & NULL/Unique nguy hiểm tại Chương 5
+74: [Blocker BL-DB-01] Xung đột Khóa ngoại ghép (tenant_id, workspace_id, id) với các quan hệ xuyên Workspace (AGENCY ↔ CLIENT): Mục 5.1 yêu cầu mọi FK nghiệp vụ phải kiểm cùng tenant_id và workspace_id. Tuy nhiên theo Mục 2.3, hồ sơ Accounts và Contracts nằm ở AGENCY workspace, còn dữ liệu chạy chiến dịch thuê (Workspaces.client_account_id, Projects, Campaigns, Tickets) nằm ở CLIENT workspace. Vì hai bên có workspace_id khác nhau, nếu dùng FK ghép có workspace_id sẽ gây lỗi Foreign Key Violation 100%! Giải pháp: Tách rõ Intra-Workspace FK (tenant_id, workspace_id, id) và Cross-Workspace FK được cấp phép (tenant_id, id) kèm hàm kiểm tra chủ sở hữu.
+75: [Major MJ-DB-02] Ràng buộc UNIQUE trên Accounts.tax_id chặn mô hình Tập đoàn nhiều nhãn hàng: Tại Việt Nam, một tập đoàn B2B có nhiều Nhãn hàng (nhiều Accounts con có parent_account_id) ký hợp đồng riêng nhưng xuất hóa đơn VAT về chung 1 Mã số thuế của công ty mẹ. Do đó chỉ đánh Partial Unique Index cho pháp nhân gốc chưa archive: WHERE parent_account_id IS NULL AND archived_at IS NULL AND tax_id IS NOT NULL.
+76: [Major MJ-DB-03] Mâu thuẫn contact_id NULL trên Channel_Identities với NOT NULL trên Tickets / Consent_Logs: Chuẩn hóa quy tắc: Mọi danh tính vượt qua bước kiểm tra chữ ký vào tầng nghiệp vụ đều tự động tạo ngay một bản ghi Contacts (identity_status = 'Provisional') trong cùng transaction và đặt Channel_Identities.contact_id NOT NULL.
+77: 3.2. Toàn vẹn Sổ cái Tài chính & Hoa hồng (Financial & Ledger Integrity)
+78: [Blocker BL-FIN-01] Thiếu công thức quy đổi dòng PRODUCTION sang cơ sở tính hoa hồng (eligible_service_net): Tại Mục 5.11, bảng Payment_Allocations có service_net, production_net, media_net, tax_component và eligible_service_net. Với các hợp đồng sản xuất TVC/Sự kiện (PRODUCTION), chi phí thuê nhà thầu phụ chiếm tới 70–90% giá bán. Nếu cộng thẳng 100% production_net vào eligible_service_net như SERVICE, Agency sẽ trả hoa hồng lẹm vào tiền vốn trả nhà thầu! Công thức bắt buộc:
+79: eligible_service_net = service_net + (production_net * locked_margin_ratio * production_commission_factor)
+80: [Major MJ-FIN-02] Xử lý thanh toán thiếu do phí ngân hàng (Short-payment) và hoàn tiền chuyển thừa chưa phân bổ (Overpayment Refund): Bổ sung bảng Obligation_Adjustments để hạch toán phí ngân hàng (mặc định ≤ 100.000 VND và ≤ 0,5% giá trị kỳ thu) giúp đóng Payment_Obligation mà không tạo tiền thực thu ảo hay hoa hồng ảo (CEO-U14). Đồng thời tại UC13, tách nhánh hoàn trả trực tiếp từ số dư tiền thừa chưa phân bổ (unallocated_amount) mà không cần đảo Payment_Allocations.
+81: [Major MJ-FIN-03] Thứ tự phân bổ mặc định (Allocation Waterfall): Khi khách thanh toán một phần cho kỳ thu gộp nhiều loại phí mà không chỉ định rõ, áp dụng mặc định chế độ PASS_THROUGH_FIRST: Ưu tiên lấp đầy MEDIA_PASS_THROUGH (kèm thuế) → PRODUCTION (kèm thuế) → SERVICE (kèm thuế).
+82: 3.3. Xung đột đồng thời (Race Conditions & Idempotency)
+83: [Major MJ-CON-01] Bảo vệ tin nhắn đang gửi (In-Flight Guard): Khi SLA Sweeper Worker quét thu hồi Lead/Conversation quá hạn, bắt buộc dùng SELECT ... FOR UPDATE SKIP LOCKED và kiểm tra bảng Outbound_Intents: nếu có lệnh gửi được tạo trước hạn SLA đang ở trạng thái pending hoặc in_flight, tạm hoãn thu hồi 60 giây để chờ phản hồi từ Zalo/Meta, tránh thu hồi nhầm trong lúc tin nhắn đang đi trên mạng.
+84: [Major MJ-CON-02] Thứ tự khóa chống Deadlock khi Merge: Mọi giao dịch Merge Contacts bắt buộc khóa bản ghi theo thứ tự tăng dần của UUID (ORDER BY id ASC FOR UPDATE) và tự động chuyển hướng mọi sự kiện Webhook mới về survivor_id.
+85: PHẦN 4: KIỂM ĐỊNH BẢO MẬT, PHÂN QUYỀN ĐỘI NHÓM & TUÂN THỦ PHÁP LÝ
+86: Chặn rò rỉ lịch sử Activities khi 1 Contact đại diện nhiều công ty (Mục 5.7 & CX-U01): Áp dụng kiểm tra quyền kép (ABAC): Để đọc một bản ghi Activities trên Timeline của Contact, nhân sự phải có quyền trên Contact VÀ có quyền trên branch_id / account_id / deal_id của chính Activity đó.
+87: Bắt buộc dùng SET LOCAL cho PostgreSQL RLS (Mục 5.14 & Mục 6.1): Khi dùng Connection Pool, bắt buộc thiết lập biến ngữ cảnh bảo mật bên trong transaction bằng lệnh SET LOCAL app.current_tenant_id = ... để PostgreSQL tự động hủy ngữ cảnh ngay khi COMMIT / ROLLBACK, tuyệt đối cấm dùng lệnh SET cấp session.
+88: Tháo gỡ 3 điểm nghẽn phân quyền vận hành giữa Sales ↔ AM ↔ Delivery ↔ Kế toán tại Bảng 6.1:
+89: Account Manager (AM): Cấp quyền C/R/U trên Renewal/Upsell Deals & Quotes của Account được giao quản lý và quyền R trên trạng thái công nợ (Payment_Obligations) để thực hiện được luồng tái ký UC10.
+90: Kế toán: Cấp quyền R trên Approved Quotes, Acceptances (biên bản nghiệm thu) và quyền C/R/U trên Orders, Payment_Schedules, Payment_Obligations, Obligation_Adjustments, Commission_Entries để vận hành được UC06, UC07, UC08.
+91: Sales: Cấp quyền chỉ đọc (R) trên trạng thái thanh toán của Orders / Payment_Obligations, Tickets (summary/status) của khách mình phụ trách và Commission_Entries của bản thân.
+92: Định lượng SLA tuân thủ Luật Bảo vệ dữ liệu cá nhân 91/2025/QH15 & Nghị định 356/2025/NĐ-CP (Mục 6.3):
+93: Thu hồi sự đồng ý (Consent Revoke): Chặn gửi tin marketing mới trong 0 giây (ngay trong transaction nhận yêu cầu); hủy các lịch gửi đang chờ trong ≤ 15 phút.
+94: Xử lý yêu cầu chủ thể dữ liệu (Privacy_Requests.due_at): Tự động gán hạn xử lý 72 giờ kể từ khi xác minh chủ thể.
+95: Hồ sơ thông báo vi phạm dữ liệu cá nhân: Khởi chạy đồng hồ đếm ngược 72 giờ ngay khi xác nhận sự cố rò rỉ.
+96: PHẦN 5: ĐÁNH GIÁ ĐỘ SẴN SÀNG ĐỂ CODE & CỔNG PHẠM VI MVP 90 NGÀY
+97: Khóa toàn bộ các điểm mờ định tính bằng công thức toán học và bảng System_Configs Seed Baseline: Đã định nghĩa tường minh công thức tính Account Service Health Score (0–100) kèm quy tắc Điểm liệt (≤ 40 điểm nếu có Ticket S1 hoặc nợ quá hạn > 30 ngày) và 23 tham số mặc định tại Bản vá 5.
+98: Phân kỳ triển khai vật lý 75 bảng dữ liệu tại Chương 5 (Chống Over-engineering): Đã chia rõ danh sách bảng bắt buộc tạo trong 90 ngày đầu (P0 DDL Scope) tách biệt với P1 và P2 tại Bản vá 4.
+99: PHẦN 6: BẢN VÁ TRỰC TIẾP (DROP-IN PATCHES ĐỂ COPY & PASTE VÀO FILE SRS)
+100: BẢN VÁ 1: Cập nhật Mục 2.5 và Bổ sung Mục 3.13.4 (Quy tắc Thoát kẹt Trạng thái, Chống lách SLA & Công thức Tài chính)
+101: Hướng dẫn 1A: Thay thế dòng POST /v1/payments/{id}/allocate trong Bảng tại Mục 2.5 bằng dòng sau:
+102: | API nội bộ mẫu
+103: | Kiểm tra bắt buộc
+104: | Kết quả và lỗi
+105: | POST /v1/payments/{id}/allocate
+106: | Kế toán, số dư chưa phân bổ của Payment, nghĩa vụ thu (Payment_Obligations) cùng tenant/workspace/legal_entity/currency
+107: | Transaction atomic; 409 nếu giao dịch hoặc số dư nghĩa vụ đã thay đổi.
+108: Hướng dẫn 1B: Dán nối tiếp mục 3.13.4 dưới đây vào cuối Mục 3.13 (Chương 3):
+109: 3.13.4 Quy tắc thoát kẹt trạng thái, chống lách SLA và bất biến tài chính – đồng thời
+110: | Nhóm quy tắc
+111: | Đặc tả logic và công thức bắt buộc để lập trình (Deterministic Rules)
+112: | 1. Thoát kẹt Lead & Handover
+113: | - Khi Leads.status = Contacting, nếu sau max_contact_attempts (mặc định: 5 lần thử có chứng cứ ở ít nhất 2 khung giờ khác nhau trong tối thiểu 7 ngày làm việc) mà khách vẫn không phản hồi (NoAnswer/Unreachable), cho phép chuyển status -> Dormant (hoặc Nurture nếu có consent) kèm mã lý do.
+114: - Ràng buộc đồng bộ handover_status: Khi Sales chuyển handover_status -> Rejected với lý do NoCapacity, hệ thống thực hiện trong cùng transaction: cập nhật Leads.status = New, giải phóng owner_id = NULL, gán queue_id = fallback_queue_id và phát sự kiện định tuyến lại, không giữ Lead ở trạng thái Assigned/Contacting của người đã từ chối.
+115: | 2. Thoát kẹt Deal OnHold & Quote Expired
+116: | - Deals ở trạng thái OnHold bắt buộc giữ nguyên stage_id thương mại trước khi hoãn; mỗi lần đặt OnHold không được hẹn review_at xa quá 30 ngày. Khi tổng thời gian accumulated_hold_seconds vượt quá 60 ngày, hệ thống khóa quyền tự gia hạn của Sales, buộc Sales Manager phê duyệt ngoại lệ hoặc chuyển status -> Lost (lost_reason = Stalled_NoDecision).
+117: - Job định kỳ hằng ngày tự động chuyển các Quotes đang ở trạng thái Approved hoặc Sent có expires_at < CURRENT_DATE sang trạng thái Expired; chặn API tạo Contracts từ Quote có trạng thái Expired / Rejected / Superseded.
+118: | 3. Thoát kẹt Contract / Order / Deliverable
+119: | - Khi Contracts hoặc Orders chuyển sang Cancelled (hủy trước dịch vụ) hoặc Terminated (thanh lý sớm giữa kỳ), transaction bắt buộc chuyển toàn bộ các Payment_Obligations của các kỳ chưa thực hiện sang trạng thái Voided (loại khỏi mẫu số tính DSO và tuổi nợ) và tạo bản ghi quyết toán (Settlement Obligation) nếu có phí phạt hoặc khối lượng dở dang.
+120: - Nếu Deliverables đang ở trạng thái InReview (chờ khách nghiệm thu) và Client_Wait_Intervals kéo dài quá 15 ngày làm việc sau 3 lần nhắc có chứng cứ: nếu hợp đồng có điều khoản tự động nghiệm thu (deemed_acceptance_allowed = true), AM trình Manager kích hoạt nghiệm thu theo điều khoản; nếu hợp đồng không cho phép, chuyển Deliverables.status -> Stalled_Client_Unresponsive để tạm dừng dự án hợp lệ và đối soát công nợ theo khối lượng thực tế.
+121: | 4. Thoát kẹt Ticket S1/S2 & Commission Quality
+122: | - Với Tickets mức S1/S2 đã hoàn tất khắc phục kỹ thuật (có resolution_evidence) và chuyển sang WaitingCustomer, nếu khách im lặng sau 3 lần liên hệ ở tối thiểu 2 kênh trong 5 ngày làm việc, CX Lead/Manager được quyền chuyển trạng thái sang Resolved_Unverified (và đóng sau 7 ngày với mã Closed_Mitigated_Customer_NoResponse), giữ nguyên toàn bộ bằng chứng và lịch sử.
+123: - Với phần hoa hồng gắn điều kiện chất lượng (quality bonus/adjustment tại FR17): nếu sau 14 ngày kể từ khi Deliverable Accepted hoặc Order Completed mà khách hàng không phản hồi khảo sát CSAT/NPS nhưng không có Ticket S1/S2 hay Defect chưa giải quyết, Delivery Lead được quyền xác nhận hoàn tất để giải phóng trạng thái khỏi Pending.
+124: | 5. Chống lách SLA & Bảo vệ tin đang gửi (In-Flight)
+125: | - Chống trả lời giữ chỗ (Placeholder Reply): Khi nhân viên gửi tin nhắn/email công khai từ CRM, bắt buộc chọn ý định chuyển trạng thái hội thoại: (a) Send & Waiting Customer (waiting_party = customer — hoàn tất episode FRT/NRT hiện tại); hoặc (b) Send & Keep Working Internally (waiting_party = internal — hoàn tất FRT/NRT nhưng bắt buộc nhập next_customer_update_at để khởi chạy ngay đồng hồ promised_update, đồng thời đồng hồ resolution tiếp tục chạy).
+126: - Tách cơ sở thời gian: Đồng hồ claim / attempt / FRT / NRT / resolution tính theo thời gian làm việc tích lũy (BUSINESS_CALENDAR). Đồng hồ promised_update tính theo thời gian thực tuyệt đối (WALL_CLOCK).
+127: - Quy trách nhiệm khi chuyển giao sát hạn: Đồng hồ hướng khách hàng không reset khi đổi người nhận; nếu xảy ra SLA Breach, trường breached_by_user_id ghi nhận nhân sự đã giữ bản ghi chiếm > 50% thời gian làm việc của episode trước thời điểm vi phạm.
+128: - Bảo vệ tin đang gửi (In-Flight Guard): Khi SLA Sweeper Worker quét thu hồi Lead/Conversation, bắt buộc khóa dòng (SELECT ... FOR UPDATE SKIP LOCKED) và kiểm tra bảng Outbound_Intents: nếu có bản ghi thuộc đối tượng đó được tạo trước sla_due_at đang ở trạng thái pending hoặc in_flight, tạm hoãn thu hồi trong 60 giây để chờ kết quả từ provider.
+129: | 6. Công thức Tài chính, Làm tròn & Hoa hồng PRODUCTION
+130: | - Cơ sở tính hoa hồng (eligible_service_net): Loại trừ hoàn toàn MEDIA_PASS_THROUGH, tax_component (VAT) và các khoản WRITE_OFF. Với dòng SERVICE: tính 100% trên service_net thực thu. Với dòng PRODUCTION (sản xuất có chi phí nhà thầu/ekip): tính theo tỷ lệ biên lợi nhuận gộp đã khóa trên báo giá:
+131: eligible_service_net = service_net + (production_net * locked_margin_ratio * production_commission_factor)
+132: - Xử lý thanh toán thiếu do phí ngân hàng (Bank Fee Tolerance): Khi tiền thực nhận nhỏ hơn nghĩa vụ thu do phí ngân hàng (nằm trong ngưỡng mặc định <= 100.000 VND và <= 0,5% giá trị kỳ thu, hoặc có chứng từ phí ngân hàng), Kế toán ghi nhận Payment_Allocations đúng bằng số tiền thực nhận và tạo bút toán Obligation_Adjustments (adjustment_type = 'BANK_FEE_TOLERANCE') cho phần chênh lệch để tất toán Payment_Obligation mà không làm tăng thực thu hay hoa hồng.
+133: - Thứ tự phân bổ mặc định (Allocation Waterfall): Nếu hợp đồng không chỉ định khác và khách thanh toán một phần cho kỳ gộp nhiều loại phí, áp dụng chế độ mặc định PASS_THROUGH_FIRST (ưu tiên MEDIA_PASS_THROUGH + thuế tương ứng -> PRODUCTION + thuế -> SERVICE + thuế; hoặc PRO_RATA_BY_OBLIGATION khi được Finance chọn).
+134: - Quy tắc làm tròn tiền tệ (ROUND_HALF_UP & Bù phần dư): Với VND, làm tròn ROUND_HALF_UP đến 0 chữ số thập phân cho (n - 1) cấu phần đầu tiên; cấu phần lớn nhất nhận phần bù amount - SUM(part_1 .. part_n-1) để tổng các cấu phần bằng tuyệt đối amount.
+135: - Hoàn trả tiền chuyển thừa chưa phân bổ (Unallocated Overpayment Refund tại UC13): Nếu hoàn trả từ phần tiền dư chưa từng phân bổ vào Payment_Obligations (unallocated_amount > 0), hệ thống tạo bản ghi Payments (direction = 'Refund', original_payment_id = ...) giảm trực tiếp số dư chưa phân bổ mà không yêu cầu đảo Payment_Allocations hay sinh bút toán âm trên Commission_Entries.
+136: BẢN VÁ 2: Hiệu chỉnh Khóa ngoại Xuyên Scope, Bổ sung Cột và Bảng Appointments (Chương 5)
+137: Hướng dẫn 2A: Dán đoạn quy định Ràng buộc FK cùng Scope vs. Xuyên Scope vào cuối Mục 5.1:
+138: Quy tắc Khóa ngoại (FK) cùng Workspace và xuyên Workspace (AGENCY ↔ CLIENT):
+139: Intra-Workspace FK (Cùng phạm vi): Các bảng hoạt động trong cùng một workspace (như Messages -> Conversations, Channel_Identities -> Contacts, Marketing_Plans -> Strategy_Briefs, Deliverables -> Projects) bắt buộc dùng khóa ngoại ghép (tenant_id, workspace_id, <target>_id) tham chiếu tới UNIQUE (tenant_id, workspace_id, id) của bảng đích.
+140: Cross-Workspace FK được cấp phép (Giữa CLIENT workspace và AGENCY workspace): Vì hồ sơ thương mại gốc (Accounts, Deals, Quotes, Contracts, Orders, Payments, Commission_Entries) luôn thuộc AGENCY workspace, trong khi dữ liệu triển khai chiến dịch (Workspaces.client_account_id, Projects, Campaigns, Tickets) có thể nằm ở CLIENT workspace của khách hàng đó, các cột liên kết xuyên scope hợp lệ sử dụng khóa ngoại vật lý (tenant_id, <target>_id) tham chiếu tới UNIQUE (tenant_id, id) kèm hàm kiểm tra toàn vẹn xác nhận CLIENT workspace đó thuộc đúng account_id của hợp đồng.
+141: Thứ tự khóa chống Deadlock khi Merge: Mọi giao dịch Merge / Unmerge trên Contacts hoặc Accounts bắt buộc thực hiện SELECT ... FOR UPDATE theo thứ tự sắp xếp tăng dần của UUID (ORDER BY id ASC), đồng thời cập nhật con trỏ Channel_Identities.contact_id sang survivor_id ngay trong cùng transaction. Các luồng ghi dữ liệu (Inbound Worker, Activities, Consent_Logs) nếu gặp bản ghi có merged_into_id IS NOT NULL phải tự động chuyển hướng về survivor_id đang hoạt động.
+142: Hướng dẫn 2B: Dán bảng Bổ sung và hiệu chỉnh từ điển dữ liệu Chương 5 vào cuối Mục 5.18:
+143: | Bảng (Mục)
+144: | Trường bổ sung / Hiệu chỉnh
+145: | Kiểu, Khóa & Ràng buộc chuẩn hóa
+146: | Ý nghĩa nghiệp vụ & Kỹ thuật
+147: | Accounts (5.4)
+148: | tax_id
+149: | varchar(40) NULL; Partial Unique: UNIQUE (tenant_id, workspace_id, tax_id) WHERE parent_account_id IS NULL AND archived_at IS NULL AND tax_id IS NOT NULL
+150: | Cho phép các Account nhãn hàng/chi nhánh con (parent_account_id IS NOT NULL) kế thừa chung MST của pháp nhân mẹ mà không bị lỗi trùng khóa.
+151: | Deals (5.5)
+152: | status, on_hold_since, accumulated_hold_seconds
+153: | status varchar(20) NN (Open/OnHold/Won/Lost); on_hold_since timestamptz NULL; accumulated_hold_seconds bigint NN default 0
+154: | Tách trạng thái vận hành của Deal khỏi stage_id để khi đặt OnHold không làm mất dấu bước bán hàng hiện tại và tính chính xác active_time.
+155: | Orders (5.6)
+156: | order_no
+157: | varchar(50) NN; Partial Unique: UNIQUE (tenant_id, legal_entity_id, order_no) WHERE archived_at IS NULL
+158: | Chống trùng mã đơn hàng trong phạm vi pháp nhân đang hoạt động, cho phép lưu trữ bản nháp bị hủy.
+159: | Activities (5.7)
+160: | visibility_scope
+161: | varchar(20) NN default 'SCOPED' (SCOPED / PRIVATE_BRANCH / PUBLIC_ACCOUNT)
+162: | Cưỡng chế ABAC: Khi một Contact đại diện nhiều Accounts ở các chi nhánh khác nhau, Activity chỉ hiển thị cho người có quyền trên cả Contact VÀ (account_id / deal_id / branch_id) của Activity đó.
+163: | Quotes (5.13)
+164: | status, cost_total, margin_amount, margin_ratio
+165: | status varchar(24) NN (Draft/PendingApproval/Approved/Sent/Accepted/Rejected/Expired/Superseded); cost_total numeric(18,2) NULL
+166: | Quản lý vòng đời báo giá tường minh; cost_total IS NULL thể hiện Unknown (không mặc định bằng 0); khóa margin_ratio khi Approved.
+167: | Contracts (5.13)
+168: | effective_from, effective_to, notice_period_days, notice_deadline_date, auto_renew_mode, allocation_waterfall_mode
+169: | effective_from date NN; effective_to date NULL; notice_period_days int NULL; notice_deadline_date date NULL; auto_renew_mode varchar(20) NN default 'MANUAL_REVIEW'; allocation_waterfall_mode varchar(30) NN default 'PASS_THROUGH_FIRST'
+170: | Cung cấp trường dữ liệu định lượng cho bộ nhắc tái ký/gia hạn (BR05, FR09, UC10) và quy tắc thứ tự phân bổ thanh toán mặc định (FR16).
+171: | Projects, Deliverables (5.13)
+172: | status, handoff_key, deemed_acceptance_days
+173: | status varchar(30) NN (Draft/PendingStart/InDelivery/InReview/Stalled_Client_Unresponsive/Accepted/Completed/Terminated); UNIQUE (tenant_id, workspace_id, sow_version_id, handoff_key)
+174: | Chặn tạo trùng Project khi replay handoff; có trạng thái thoát khi khách im lặng không nghiệm thu hoặc thanh lý sớm hợp đồng.
+175: | Appointments, Resource_Bookings (5.13 - Mới)
+176: | appointment_id, title, appointment_type, start_at, end_at, timezone, status, hold_expires_at, resource_id, checkin_at, checkin_lat/lng, checkin_fallback_reason, checkin_evidence_asset_id
+177: | CHECK (end_at > start_at); Ràng buộc PostgreSQL EXCLUDE USING gist (tenant_id WITH =, resource_id WITH =, tstzrange(start_at, end_at) WITH &&) WHERE (status IN ('Hold', 'Confirmed', 'CheckedIn'))
+178: | Đáp ứng đầy đủ FR20 (P0) và CEO-U21 (P0): Quản lý lịch hẹn, khóa giữ chỗ tạm thời (Hold có hold_expires_at), chặn tuyệt đối double-booking tài nguyên/ekip ở tầng DB và lưu bằng chứng check-in.
+179: | Channel_Identities (5.16)
+180: | contact_id
+181: | uuid FK Contacts NOT NULL
+182: | Khi sự kiện vượt qua bước kiểm tra chữ ký mà chưa xác minh được người, tạo ngay Contacts (identity_status = 'Provisional') trong cùng transaction để không gây lỗi NOT NULL trên Leads, Tickets và Consent_Logs.
+183: | Conversations (5.16)
+184: | last_inbound_at, messaging_window_expires_at
+185: | timestamptz NULL
+186: | Ghi nhận thời điểm tin nhắn cuối cùng từ khách hàng (direction = 'inbound') để kiểm tra chính xác cửa sổ 24h của Meta Messenger / Zalo OA (FR34, OC16).
+187: | SLA_Episodes (5.16)
+188: | time_basis, remaining_business_seconds, breached_by_user_id
+189: | time_basis varchar(20) NN (BUSINESS_CALENDAR / WALL_CLOCK); remaining_business_seconds int NULL; breached_by_user_id uuid FK Users NULL
+190: | Tách đồng hồ tính theo lịch làm việc (FRT/NRT/Resolution) và đồng hồ giờ thực tuyệt đối (Promised_Update); lưu số giây còn lại khi Pause/Reopen và quy rõ người chịu trách nhiệm khi vi phạm.
+191: | Business_Subjects (5.18)
+192: | lead_id, deal_id, ticket_id, conversation_id, project_id, deliverable_id, subject_type
+193: | CHECK (num_nonnulls(lead_id, deal_id, ticket_id, conversation_id, project_id, deliverable_id) = 1); Unique scoped theo từng FK
+194: | Mở rộng đầy đủ cho Deal, Project và Deliverable để Conversation_Subject_Links (FR39, UC22) và SLA_Episodes (FR15, FR36) liên kết nhất quán bằng khóa ngoại thật.
+195: | Obligation_Adjustments (5.18 - Mới)
+196: | obligation_id, adjustment_type, amount, reason, evidence_asset_id, approved_by
+197: | Append-only; adjustment_type (BANK_FEE_TOLERANCE / COMMERCIAL_DISCOUNT / WRITE_OFF / CREDIT_MEMO); tổng Allocated Cash + Approved Adjustments <= Obligation Gross
+198: | Giải quyết bài toán thanh toán thiếu do phí ngân hàng (short-payment) hoặc xóa nợ nhỏ lẻ (write-off) để đóng Payment_Obligation mà không sinh tiền mặt ảo hay hoa hồng ảo (CEO-U14).
+199: BẢN VÁ 3: Hoàn thiện Ma trận Phân quyền Vận hành, Bảo mật RLS và SLA Pháp lý (Chương 6)
+200: Hướng dẫn 3A: Thay thế 3 dòng vai trò Sales, AM/CSKH/Delivery và Kế toán trong Bảng tại Mục 6.1 bằng 4 dòng chi tiết dưới đây:
+201: | Vai trò
+202: | Phạm vi
+203: | CRM C/R/U/D
+204: | Export / Import
+205: | Sales
+206: | Owner và hồ sơ được grant trong phạm vi
+207: | C/R/U Lead, Deal, Quote, Activity được giao; R trạng thái Orders.payment_state, Payment_Obligations, Tickets (summary/status) của khách mình sở hữu và Commission_Entries của bản thân; không D chính thức
+208: | Không X danh sách; không I hàng loạt mặc định
+209: | Account Manager (AM) / CSKH
+210: | Khách hàng, hợp đồng và dự án được phân công quản lý
+211: | C/R/U Ticket, Onboarding, Success Plan, Renewal/Upsell Deal & Quote của Account phụ trách; R Contract, SOW, Deliverable, Acceptance và trạng thái công nợ (Payment_Obligations) liên quan
+212: | X tài liệu/báo cáo được phép gửi cho đúng khách hàng; không X danh sách khách hàng toàn hệ thống
+213: | Delivery / Chuyên môn thực thi
+214: | Dự án, chiến dịch và đầu việc được giao
+215: | C/R/U Task, Deliverable, Asset, Time Entry được giao; R Brief, SOW, Plan liên quan; không đọc hoa hồng hoặc sổ cái kế toán nội bộ
+216: | Không X PII; I asset/tài liệu nghiệm thu theo quyền dự án
+217: | Kế toán (Finance)
+218: | Chứng từ, hợp đồng và giao dịch tài chính trong tenant/legal entity được gán
+219: | R Account/Contact (thông tin pháp nhân/MST/thanh toán), Approved Quote, Contract, SOW, Acceptance; C/R/U Order, Payment_Schedule, Payment_Obligation, Obligation_Adjustment, Payment, Payment_Allocation, Commission_Entry, Finance_Period; không U Lead/Deal
+220: | X sổ đối soát, công nợ, bảng kê hoa hồng được duyệt; I sao kê ngân hàng/mapping ERP có kiểm soát
+221: Hướng dẫn 3B: Dán đoạn quy định kỹ thuật bắt buộc dưới đây vào cuối Mục 6.3 (Khung pháp lý Việt Nam):
+222: Quy tắc kỹ thuật bắt buộc cho RLS, AI Privacy và SLA Pháp lý (Luật 91/2025/QH15 & Nghị định 356/2025/NĐ-CP):
+223: Transaction-Scoped RLS Context (SET LOCAL): Khi kết nối PostgreSQL qua Connection Pool, ứng dụng bắt buộc thiết lập ngữ cảnh bảo mật bên trong khối giao dịch bằng lệnh SET LOCAL app.current_tenant_id = '<uuid>'; SET LOCAL app.current_workspace_id = '<uuid>'; SET LOCAL app.current_user_id = '<uuid>';. Tuyệt đối cấm sử dụng lệnh SET cấp session nhằm triệt tiêu nguy cơ rò rỉ ngữ cảnh sang kết nối kế tiếp khi xảy ra ngoại lệ.
+224: SLA Xử lý Quyền của Chủ thể Dữ liệu & Sự cố (Privacy_Requests & Incident Register):
+225: Rút lại sự đồng ý (Consent Revoke): Cập nhật Consent_State và chặn các lệnh gửi marketing mới trong 0 giây (đồng bộ ngay trong transaction nhận yêu cầu); hủy toàn bộ Outbound_Intents và Journey_Instances marketing đang chờ trong vòng <= 15 phút.
+226: Yêu cầu xóa, hạn chế xử lý hoặc cung cấp dữ liệu (Privacy_Requests): Khi yêu cầu được xác minh chủ thể hợp lệ (verified_at), hệ thống tự động gán hạn xử lý due_at = verified_at + 72 giờ, phát cảnh báo ở mốc 24 giờ và 48 giờ cho Privacy Owner.
+227: Thông báo vi phạm dữ liệu cá nhân: Ngay khi sự cố bảo mật liên quan đến dữ liệu cá nhân được xác nhận ở mức Confirmed Breach, hệ thống kích hoạt đồng hồ đếm ngược pháp lý 72 giờ để Privacy Owner và CEO hoàn tất hồ sơ thông báo theo Nghị định 356/2025/NĐ-CP.
+228: Bảo vệ dữ liệu qua AI Gateway: Trước khi gửi bất kỳ đoạn văn bản hội thoại hoặc transcript nào sang mô hình AI bên ngoài, AI Gateway phải thực hiện che ẩn danh (PII Redaction) các trường định danh nhạy cảm (Số điện thoại, Email, MST/CCCD, Số tài khoản) bằng thẻ đại diện ([PHONE_1], [EMAIL_1]) và chỉ gọi API nhà cung cấp đã bật chế độ không lưu trữ dữ liệu để huấn luyện mô hình (Zero Data Retention / Training Opt-out).
+229: BẢN VÁ 4: Phân kỳ Triển khai Vật lý các Bảng Dữ liệu P0 / P1 / P2 (Mục 5.19)
+230: Hướng dẫn 4: Dán mục 5.19 dưới đây vào cuối Chương 5:
+231: 5.19 Phân kỳ triển khai vật lý các bảng dữ liệu (DDL Scope Gate P0 / P1 / P2)
+232: | Phân kỳ
+233: | Danh sách bảng bắt buộc khởi tạo (Physical DDL Scope)
+234: | Điều kiện mở cổng
+235: | P0 (MVP 90 ngày)
+236: | 1. Tổ chức & Quyền: Tenants, Branches, Legal_Entities, Workspaces, Users, Memberships, Role_Bindings, Entity_Team_Grants, Audit_Logs, System_Configs.
+237: 2. Hồ sơ & Tuân thủ: Contacts, Accounts, Contact_Account_Roles, Contact_Points, Identity_Merge_Journal, Consent_Logs, Consent_State, Privacy_Requests, Assets, Asset_Versions, Approvals.
+238: 3. Bán hàng & Lịch hẹn: Pipelines, Pipeline_Stages, Queues, Leads, Lead_Transitions, Assignments, Deals, Deal_Stage_History, Activities, Appointments, Resource_Bookings, Quotes, Quote_Lines.
+239: 4. Hợp đồng & Tài chính: Contracts, SOW_Versions, Orders, Order_Lines, Payment_Schedules, Payment_Obligations, Obligation_Adjustments, Bank_Accounts, Payments, Payment_Evidence, Reconciliation_Cases, Payment_Allocations, Commission_Pools, Policy_Snapshots, Commission_Entries, Commission_Status_Events, Finance_Periods.
+240: 5. Giao hàng & CSKH cơ bản: Strategy_Briefs, Projects, Deliverables, Acceptances, Client_Wait_Intervals, Revision_Batches, Change_Requests, Tickets, Entitlement_Snapshots, Customer_Promises, Recovery_Cases.
+241: 6. Omnichannel Core: Channel_Connections, Channel_Identities, Inboxes, Conversations, Conversation_Participants, Conversation_Assignments, Messages, Message_Attachments, Message_Status_Events, Inbound_Events, Outbound_Intents, Send_Attempts, Business_Subjects, Conversation_Subject_Links, SLA_Episodes, Sync_Checkpoints, Outbox, KPI_Definitions, Metric_Facts.
+242: | Triển khai ngay từ Sprint 1–4 để đóng kín vòng lặp Lead -> Cash -> Delivery -> Renewal.
+243: | P1 (Mở rộng sau khi lõi P0 ổn định)
+244: | Invoice_Lines, Invoice_Allocation_Links, Connector_Mappings (khi nối API MISA/ERP); Payout_Batches, Payout_Links, Commission_Adjustments; Marketing_Plans, Campaigns, Budget_Lines, Budget_Adjustments, Media_Funding_Authorizations; Tasks, Availability (khi quản lý capacity chi tiết trong CRM); Success_Plans, Feedback, Corrective_Actions (khi bật khảo sát CSAT/NPS tự động); Journeys, Journey_Instances; Referrals; Touchpoints, Attribution_Credits, Outcome_Events, Platform_Export_Intents (khi bật CAPI/Meta closed-loop); Processing_Records, Retention_Policies.
+245: | Chỉ chạy migration mở bảng khi tính năng P1 tương ứng được kích hoạt theo Gate tại Chương 9.
+246: | P2 (Khi có quy mô & Business Case)
+247: | Business_Lines (khi mở gói ngành thứ hai ngoài marketing_services); IMC_Plans, Experiments, Learning_Items; Time_Entries (khi bật timesheet chi tiết); Loyalty_Ledger (khi bật tích điểm/Mini App).
+248: | Chỉ mở khi có phê duyệt CR riêng của CEO sau giai đoạn MVP.
+249: BẢN VÁ 5: Công thức Toán học cho Health Score (Mục 8.2) và Bảng Tham số Mặc định (Phụ lục A.6)
+250: Hướng dẫn 5A: Dán công thức Account Service Health Score (0–100) dưới đây vào cuối Mục 8.2 (Chương 8):
+251: Công thức định lượng Account Service Health Score (0–100) và Quy tắc Điểm liệt (Critical Override):
+252: Điểm sức khỏe khách hàng (Accounts.service_health) được tính từ 4 thành phần chuẩn hóa về thang 0..100 (trọng số cơ sở: Tài chính w_fin = 0,30; Giao hàng w_del = 0,30; Quan hệ & CSKH w_rel = 0,20; Hiệu quả w_out = 0,20):
+253: Điểm Tài chính (S_fin từ 0 đến 100): Không có nợ quá hạn = 100 điểm. Có nghĩa vụ quá hạn (không thuộc diện đang tranh chấp hợp lệ Disputed): Quá hạn 1–15 ngày = 70 điểm; Quá hạn 16–30 ngày = 40 điểm; Quá hạn trên 30 ngày = 0 điểm.
+254: Điểm Giao hàng (S_del từ 0 đến 100): S_del = 100 * (0,7 * [Tỷ lệ Deliverables đúng hạn trong 90 ngày, trừ thời gian chờ khách] + 0,3 * [Tỷ lệ Deliverables nghiệm thu đạt trong số vòng sửa của SOW]). Nếu chưa có Deliverable nào đến hạn, trạng thái thành phần là UNKNOWN.
+255: Điểm Quan hệ & Hỗ trợ (S_rel từ 0 đến 100): Khởi điểm 100 điểm; trừ 40 điểm cho mỗi Ticket S1 đang mở; trừ 20 điểm cho mỗi Ticket S2 đang mở; trừ 30 điểm nếu khảo sát gần nhất trong 90 ngày rơi vào nhóm không hài lòng (NPS <= 6 hoặc CSAT <= 2) mà Recovery_Case chưa đạt trạng thái Verified (Giới hạn dưới là 0 điểm).
+256: Điểm Hiệu quả Chiến dịch (S_out từ 0 đến 100): Tính theo tỷ lệ hoàn thành KPI cam kết trong kỳ báo cáo gần nhất (dữ liệu không cũ quá 7 ngày): Đạt >= 90% mục tiêu = 100 điểm; Đạt 70–89% = 70 điểm; Đạt 50–69% = 40 điểm; Dưới 50% = 10 điểm. Nếu gói dịch vụ không cam kết KPI định lượng hoặc dữ liệu bị trễ (stale), gán trạng thái UNKNOWN.
+257: Công thức tổng hợp và Quy tắc Điểm liệt (Critical Cap):
+258: Nếu có dưới 2 thành phần có dữ liệu hợp lệ (khác UNKNOWN), cột service_health để NULL (hiển thị nhãn Unknown / Chưa đủ dữ liệu).
+259: Nếu có từ 2 thành phần hợp lệ trở lên: S_raw = ROUND_HALF_UP( SUM(w_k * S_k) / SUM(w_k) ).
+260: Quy tắc Điểm liệt: Nếu đang có Ticket S1 Open HOẶC nợ quá hạn trên 30 ngày không tranh chấp (S_fin = 0), điểm cuối cùng bị chặn trần ở mức 40: service_health = MIN(S_raw, 40).
+261: Phân tầng hành động: 80–100: Healthy (Xanh); 50–79: Watch (Vàng); 0–49: At Risk (Đỏ - Chặn tự động gửi Upsell, bắt buộc mở kế hoạch chăm sóc khẩn).
+262: Hướng dẫn 5B: Dán bảng Giá trị cấu hình mặc định khởi tạo hệ thống (System_Configs Seed Baseline) vào cuối Phụ lục A.6:
+263: | Khóa cấu hình (config_key)
+264: | Giá trị mặc định (default_value)
+265: | Đơn vị / Kiểu
+266: | Áp dụng tại
+267: | business_calendar.default_tz | Asia/Ho_Chi_Minh | Timezone | FR05, FR18, FR36
+268: | business_calendar.working_hours | Mon-Fri: 08:30-12:00, 13:30-17:30; Sat: 08:30-12:00 | Schedule JSON | FR05, FR18, FR36
+269: | sla.lead.claim_timeout_minutes | 15 (kênh chat trực) / 60 (form/email) | Phút làm việc | FR05, UC02
+270: | sla.lead.first_human_response_minutes | 30 (B2C/Chat) / 120 (B2B chuyên sâu) | Phút làm việc | FR05, FR36, UC02
+271: | sla.lead.max_auto_reassignments | 2 (sau 2 lần chuyển tự động sẽ vào Queue Quản lý) | Số lần | FR05, UC02, U04
+272: | sla.inflight_send_grace_seconds | 60 | Giây thực | FR05, FR34, FR36
+273: | lead.contacting.max_failed_attempts | 5 lần thử trong tối thiểu 7 ngày làm việc | Số lần / Ngày | FR04, UC02
+274: | deal.on_hold.max_interval_days | 30 ngày/lần; tối đa tích lũy 60 ngày | Ngày | FR04, UC03
+275: | quote.default_validity_days | 15 | Ngày | FR14, UC05
+276: | quote.approval.max_self_discount_pct | 5.0 (Giảm giá > 5% cần Manager/CEO duyệt) | % | FR14, UC05, U07
+277: | quote.approval.min_service_margin_pct | 30.0 (Biên đóng góp < 30% cần duyệt ngoại lệ) | % | FR14, UC05
+278: | contract.renewal.reminder_offsets_days | [45, 30, 15] tính lùi từ notice_deadline_date | Mảng ngày | BR05, FR09, FR15, UC10
+279: | deliverable.max_client_wait_days | 15 ngày làm việc | Ngày làm việc | FR15, UC08
+280: | finance.bank_fee_tolerance_vnd | 100000 (và <= 0.5% giá trị nghĩa vụ thu) | VND | FR16, UC07
+281: | finance.allocation.default_waterfall | PASS_THROUGH_FIRST (MEDIA -> PRODUCTION -> SERVICE) | Enum | FR16, FR17, UC07
+282: | commission.preview_sla_seconds | 60 | Giây | FR17, UC07
+283: | commission.quality_eval_fallback_days | 14 ngày sau nghiệm thu nếu không có Ticket S1/S2 | Ngày | FR17, CEO-U16
+284: | ticket.sla.s1_response_resolve_minutes | Phản hồi: 30 phút; Giảm thiểu/Phương án: 240 phút | Phút có trực | FR18, FR36, UC09
+285: | ticket.sla.s2_response_resolve_minutes | Phản hồi: 240 phút; Phương án: 480 phút | Phút làm việc | FR18, FR36, UC09
+286: | ticket.sla.s3_response_resolve_minutes | Phản hồi: 480 phút; Giải quyết: 1440 phút | Phút làm việc | FR18, FR36, UC09
+287: | ticket.reopen_window_days | 7 | Ngày | FR18, UC09
+288: | marketing.quiet_hours | 20:00-08:00 | Khung giờ | FR09
+289: | marketing.frequency_cap_per_7d | 2 tin nhắn marketing / 7 ngày / mỗi scope | Số tin | FR09, M07
+290: | privacy.dsar_processing_sla_hours | 72 giờ từ khi xác minh chủ thể; 0 giây chặn marketing | Giờ | FR01, FR09, UC11, 6.3
+291: BẢN VÁ 6: Đồng bộ Mức Ưu tiên UAT (Mục 9.5) và Bổ sung Ma trận Truy vết Đầy đủ 40 FR – 22 UC (Phụ lục B)
+292: Hướng dẫn 6A: Tại Bảng Mục 9.5 (Bộ UAT tối thiểu), cập nhật dòng U22 từ mức ưu tiên P1 sang P0:
+293: | Test
+294: | Liên kết
+295: | Dữ liệu hoặc hành động
+296: | Kết quả mong đợi
+297: | Ưu tiên
+298: | U22
+299: | FR13
+300: | Prompt injection trong tệp khách
+301: | Không export/đổi quyền/gửi tin tự động
+302: | P0
+303: Hướng dẫn 6B: Dán bổ sung 6 dòng dưới đây vào cuối Bảng Ma trận truy vết tại Phụ lục B:
+304: | Nhóm yêu cầu
+305: | Luồng
+306: | Dữ liệu và quyền
+307: | Nghiệm thu
+308: | FR30–32 Connections, Identity & Unified Thread
+309: | UC17/18/19/22
+310: | Channel_Connections, Channel_Identities, Inboxes, Conversations, Conversation_Participants, Identity_Merge_Journal; scope & capability
+311: | OC01–OC03, OC11–OC13, OC15, OC23, INT02
+312: | FR33–34 Inbound & Outbound Reliability
+313: | UC17/19/21
+314: | Inbound_Events, Messages, Message_Status_Events, Outbound_Intents, Send_Attempts, Outbox; idempotency & send policy gate
+315: | OC01, OC05–OC09, OC16–OC17, OC19, INT01, INT25
+316: | FR35–36 Assignment & Service Timers
+317: | UC02/09/20
+318: | Conversation_Assignments, Business_Subjects, SLA_Episodes; CAS lock, business calendar & NRT/Promised Update
+319: | U02–U04, OC04, OC10, OC18, INT04–INT05, CX-U03–U09
+320: | FR37 Search, File & Data Protection
+321: | UC11/12/14/18
+322: | Contacts, Messages, Assets, Audit_Logs; RLS (SET LOCAL), document ACL & permission version
+323: | U16–U17, OC03, OC14, OC20, INT23, INT28–INT29
+324: | FR38 Sync Health & Recovery
+325: | UC21
+326: | Sync_Checkpoints, Channel_Connections, Inbound_Events; operator replay & coverage gap
+327: | OC08–OC09, OC21, INT11, INT25–INT26
+328: | FR39–40 Business Links, Email & File Hygiene
+329: | UC17/19/22
+330: | Business_Subjects, Conversation_Subject_Links, Message_Attachments; MIME/malware scan & typed links
+331: | OC13–OC14, INT04, INT24, CX-U05, CX-U23

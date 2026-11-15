@@ -1,0 +1,272 @@
+{
+  "baseline_version": "1.9",
+  "source_sha256": "b6a3279f328e96e1e97d845e209be7a326516a0dba5e3a033d88e1f2162e421c",
+  "feature_matrix": [
+    {
+      "feature": "M21-F01",
+      "use_cases": [
+        "UC-P01"
+      ],
+      "rules": [
+        "BR-P01",
+        "BR-P02"
+      ],
+      "tests": [
+        "P-T01",
+        "P-T02",
+        "P-T03"
+      ],
+      "source_lines": [
+        1841
+      ]
+    },
+    {
+      "feature": "M21-F02",
+      "use_cases": [
+        "UC-P01",
+        "UC-P08"
+      ],
+      "rules": [
+        "BR-P02",
+        "BR-P03"
+      ],
+      "tests": [
+        "P-T04",
+        "P-T05",
+        "P-T06"
+      ],
+      "source_lines": [
+        1842
+      ]
+    },
+    {
+      "feature": "M21-F03",
+      "use_cases": [
+        "UC-P02"
+      ],
+      "rules": [
+        "BR-P04"
+      ],
+      "tests": [
+        "P-T01",
+        "P-T07"
+      ],
+      "source_lines": [
+        1843
+      ]
+    },
+    {
+      "feature": "M21-F04",
+      "use_cases": [
+        "UC-P03"
+      ],
+      "rules": [
+        "BR-P05",
+        "BR-P06",
+        "BR-P07"
+      ],
+      "tests": [
+        "P-T08",
+        "P-T09",
+        "P-T10"
+      ],
+      "source_lines": [
+        1844
+      ]
+    },
+    {
+      "feature": "M21-F05",
+      "use_cases": [
+        "UC-P04"
+      ],
+      "rules": [
+        "BR-P08",
+        "BR-P09"
+      ],
+      "tests": [
+        "P-T11",
+        "P-T12",
+        "P-T13",
+        "P-T14",
+        "P-T15"
+      ],
+      "source_lines": [
+        1845
+      ]
+    },
+    {
+      "feature": "M21-F06",
+      "use_cases": [
+        "UC-P05"
+      ],
+      "rules": [
+        "BR-P03",
+        "BR-P08",
+        "BR-P10"
+      ],
+      "tests": [
+        "P-T16",
+        "P-T17",
+        "P-T18",
+        "P-T19",
+        "P-T20"
+      ],
+      "source_lines": [
+        1846
+      ]
+    },
+    {
+      "feature": "M21-F07",
+      "use_cases": [
+        "UC-P04",
+        "UC-P05"
+      ],
+      "rules": [
+        "BR-P08",
+        "BR-P11",
+        "BR-P12"
+      ],
+      "tests": [
+        "P-T13",
+        "P-T14",
+        "P-T21",
+        "P-T22"
+      ],
+      "source_lines": [
+        1847
+      ]
+    },
+    {
+      "feature": "M21-F08",
+      "use_cases": [
+        "UC-P06"
+      ],
+      "rules": [
+        "BR-P06",
+        "BR-P09",
+        "BR-P13"
+      ],
+      "tests": [
+        "P-T23",
+        "P-T24",
+        "P-T25"
+      ],
+      "source_lines": [
+        1848
+      ]
+    },
+    {
+      "feature": "M21-F09",
+      "use_cases": [
+        "UC-P06"
+      ],
+      "rules": [
+        "BR-P14"
+      ],
+      "tests": [
+        "P-T26",
+        "P-T27"
+      ],
+      "source_lines": [
+        1849
+      ]
+    },
+    {
+      "feature": "M21-F10",
+      "use_cases": [
+        "UC-P07"
+      ],
+      "rules": [
+        "BR-P04",
+        "BR-P07",
+        "BR-P15"
+      ],
+      "tests": [
+        "P-T28",
+        "P-T29",
+        "P-T30"
+      ],
+      "source_lines": [
+        1850
+      ]
+    },
+    {
+      "feature": "M21-F11",
+      "use_cases": [
+        "UC-P05",
+        "UC-P07"
+      ],
+      "rules": [
+        "BR-P01",
+        "BR-P02",
+        "BR-P11"
+      ],
+      "tests": [
+        "P-T02",
+        "P-T06",
+        "P-T31"
+      ],
+      "source_lines": [
+        1851
+      ]
+    },
+    {
+      "feature": "M21-F12",
+      "use_cases": [
+        "UC-P09"
+      ],
+      "rules": [
+        "BR-P16",
+        "BR-P17"
+      ],
+      "tests": [
+        "P-T32",
+        "P-T33",
+        "P-T34"
+      ],
+      "source_lines": [
+        1852
+      ]
+    },
+    {
+      "feature": "M21-F13",
+      "use_cases": [
+        "UC-P08"
+      ],
+      "rules": [
+        "BR-P03",
+        "BR-P18",
+        "BR-P19"
+      ],
+      "tests": [
+        "P-T05",
+        "P-T35",
+        "P-T36",
+        "P-T37"
+      ],
+      "source_lines": [
+        1853
+      ]
+    },
+    {
+      "feature": "M21-F14",
+      "use_cases": [
+        "UC-P10"
+      ],
+      "rules": [
+        "BR-P15",
+        "BR-P19",
+        "BR-P20"
+      ],
+      "tests": [
+        "P-T30",
+        "P-T38",
+        "P-T39",
+        "P-T40"
+      ],
+      "source_lines": [
+        1854
+      ]
+    }
+  ]
+}

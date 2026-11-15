@@ -1,0 +1,32 @@
+[
+  {
+    "source_file": "04-research/reports/Nghien-cuu-He-thong-CRM-Marketing-Enterprise-B2B.md",
+    "extracted_file": "04-research/sources/extracted/Nghien-cuu-He-thong-CRM-Marketing-Enterprise-B2B.txt",
+    "sha256": "24e613221ef74664408885f3be1f4e1a77bb48620799d3c4ff8d86fdf0701763",
+    "chars": 19922
+  },
+  {
+    "source_file": "04-research/sources/raw/slimcrm_crm_playbook_version_2.0.pdf",
+    "extracted_file": "04-research/sources/extracted/slimcrm_crm_playbook_version_2.0.txt",
+    "sha256": "61910ac9efad3c72cc5da1adf5f0aba65bbb0d105e77daba81e43160a0182af5",
+    "chars": 93555
+  },
+  {
+    "source_file": "04-research/sources/raw/CRM_Marketing_Phan_Tich_Nghiep_Vu_CMO.docx",
+    "extracted_file": "04-research/sources/extracted/CRM_Marketing_Phan_Tich_Nghiep_Vu_CMO.txt",
+    "sha256": "073a9e78a11455fcee573161cbfc60783b1559d9e038d0c8ba86e76dbaeed52f",
+    "chars": 23258
+  },
+  {
+    "source_file": "04-research/sources/raw/CRM_Tich_Nghiep_Vu.docx",
+    "extracted_file": "04-research/sources/extracted/CRM_Tich_Nghiep_Vu.txt",
+    "sha256": "36947a2c5979900345aa2f7cb23f356aec9b278a1828b32f0513b57270a5ae21",
+    "chars": 45655
+  },
+  {
+    "source_file": "04-research/sources/raw/Quy_trinh_Agency_Marketing_va_CRM_v3_Strategy_IMC.docx",
+    "extracted_file": "04-research/sources/extracted/Quy_trinh_Agency_Marketing_va_CRM_v3_Strategy_IMC.txt",
+    "sha256": "099ef06b91d03811beaf996ea33a00adb6ba473a0bbb48ff8e101d70d19ef364",
+    "chars": 18530
+  }
+]

@@ -1,0 +1,40 @@
+{
+  "kind": "Synthetic BA test oracle; not execution evidence",
+  "baseline_version": "1.8",
+  "application_test_status": "Not Run",
+  "fixture_policy": {
+    "currency": "VND",
+    "period": "2026-10-01 inclusive to 2026-11-01 exclusive",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "gross_created_value": "sum order_value for orders created in period; excludes shipping/tax in this synthetic fixture only",
+    "retained_value": "gross_created_value minus canceled order_value in same cohort at cutoff",
+    "attributed_value": "sum retained order_value times confirmed campaign credit",
+    "source_precedence": "verified detail dataset supersedes overlapping summary for identical scope; never add both"
+  },
+  "agency": {"own_unclassified_leads": 3, "converted_leads": null, "service_fee_receivable_vnd": "5000000"},
+  "client_a": {"workspace": "CLIENT_A", "sharing_mode": "NONE", "order_count": null, "outcome_reason": "NOT_SHARED"},
+  "client_b": {
+    "workspace": "CLIENT_B",
+    "sharing_mode": "FILE",
+    "shop": "SYNTHETIC_SHOP_B",
+    "summary": {"order_count": 2, "gross_created_vnd": "300000", "provenance": "PARTNER_REPORTED"},
+    "detail": [
+      {"source_order_id": "ORDER_A", "order_value_vnd": "100000", "status": "DELIVERED", "campaign": "CAMPAIGN_B", "attribution": "CONFIRMED", "credit": "1"},
+      {"source_order_id": "ORDER_B", "order_value_vnd": "200000", "status": "CANCELED", "campaign": null, "attribution": "UNKNOWN", "credit": "0"}
+    ],
+    "spend_vnd": "50000",
+    "correction_new_dataset": {"order_count": 2, "gross_created_vnd": "310000", "requires_new_report_revision": true}
+  },
+  "expected": {
+    "agency_lead_conversion_rate": null,
+    "client_a_orders": null,
+    "client_b_selected_order_count": 2,
+    "client_b_gross_created_vnd": "300000",
+    "client_b_canceled_count": 1,
+    "client_b_retained_vnd": "100000",
+    "client_b_attributable_roas": "2",
+    "old_report_gross_after_correction_vnd": "300000",
+    "agency_service_fee_receivable_vnd": "5000000",
+    "client_order_count_in_agency_lead_denominator": false
+  }
+}

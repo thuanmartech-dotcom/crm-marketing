@@ -1,0 +1,2085 @@
+
+## PDF PAGE 1
+CRM
+CRM PLAYBOOK
+Tất cả những gì bạn 
+cần biết về CRM
+Tổng hợp và biên dịch bởi SlimCRM.vn
+
+## PDF PAGE 2
+MỤC LỤC
+SlimCRM CRM Playbook
+NỘI DUNG
+Lời nói đầu
+TRANG
+Dẫn nhập
+PHẦN 1: CRM - Cần hiểu đúng và đủ
+Chương 1: Sự phát triển của CRM
+Chương 2: Cuối cùng thì CRM là gì?
+Chương 3: Giá trị và lợi ích của CRM
+Chương 4: Phân loại CRM
+Chương 5: Extending CRM - Không chỉ là “C”
+PHẦN 2: CRM tác động đến những bộ phận nào của doanh nghiệp?
+Chương 1: CRM và Marketing
+Chương 2: CRM và Sales
+Chương 3: CRM và Chăm sóc khách hàng
+Chương 4: CRM và Nhân sự
+Chương 5: CRM và Kế toán
+Chương 6: CRM và Lãnh đạo
+PHẦN 3: Ứng dụng của CRM trong một số ngành
+Chương 1: Ngành du lịch
+Chương 2: Ngành dịch vụ
+Chương 3: Ngành khách sạn
+Chương 4: Ngành bất động sản
+Chương 5: Ngành chăm sóc sức khỏe
+PHẦN 4: Lựa chọn CRM - Tưởng dễ mà khó
+Chương 1: Làm thế nào để chọn được phần mềm CRM phù hợp?
+Chương 2: Các phần mềm CRM phổ biến
+PHẦN 5: Triển khai phần mềm CRM trong thực tế
+Chương 1: Những yếu tố ảnh hưởng đến việc triển khai CRM
+Chương 2: Các bước triển khai CRM
+SlimCRM - Phần mềm CRM tốt nhất dành cho doanh nghiệp nhỏ
+Lời kết                                                                                                                              65
+Tư liệu tham khảo                                                                                                          70
+1
+2
+5
+13
+14
+16
+20
+24
+26
+29
+31
+34
+36
+41
+42
+43
+43
+44
+46
+56
+58
+61
+Phụ lục                                                                                                                             67
+
+## PDF PAGE 3
+CRM không còn là điều gì đó ở tương lai. Đã đến lúc bất cứ doanh nghiệp nào, dù
+to hay nhỏ, dù mới hay cũ, đều cần có hệ thống CRM của riêng mình nếu còn muốn
+tồn tại và phát triển. 
+Đáng tiếc là phần lớn doanh nghiệp Việt Nam hiện nay vẫn chưa ý thức được điều
+đó, hoặc đã nỗ lực không đúng cách và trở nên ngại thay đổi. Một số khác lại quá
+nóng vội trong việc lựa chọn và triển khai CRM, dẫn tới việc ứng dụng không
+thành công, thậm chí là phản tác dụng. 
+Ebook này sẽ tổng hợp và chỉ ra những lỗi sai không đáng có và lý do vì sao
+doanh nghiệp bạn đến bây giờ vẫn còn loay hoay trong việc ứng dụng công nghệ
+mới để tăng trưởng. 
+CRM Playbook cũng phác thảo chiến lược mà các doanh nghiệp SMEs nên áp
+dụng để phát huy sức mạnh của hệ thống CRM trong quản lý dữ liệu khách hàng,
+chuyển đổi quy trình kinh doanh lấy khách hàng làm trung tâm, nhằm mang lại
+những trải nghiệm khách hàng tối ưu nhất. 
+Trong quá trình tổng hợp và biên tập nếu có gì sai sót, rất mong nhận được phản
+hồi và góp ý của quý độc giả qua email: info@slimsoft.vn.
+LỜI NÓI ĐẦU
+SlimCRM CRM Playbook
+1
+
+## PDF PAGE 4
+01
+SlimCRM.vn
+CRM
+- HIỂU ĐÚNG VÀ ĐỦ
+
+## PDF PAGE 5
+SlimCRM CRM Playbook
+SỰ PHÁT TRIỂN CỦA CRM
+CHƯƠNG 1:
+Phần mềm CRM được phát minh vào năm 1993, tuy nhiên, để kết tinh thành một
+giải pháp hữu dụng như vậy, CRM đã trải qua một quá trình lịch sử khá dài. Mời
+bạn tìm hiểu trong phần dưới đây.
+Câu chuyện bắt đầu
+Một máy Rolodex được sử dụng
+vào những năm 1970
+Gần như không thể tưởng tượng được làm thế nào mà các doanh nghiệp - đặc biệt
+là các công ty lớn - có thể quản lý thông tin khách hàng của họ trước khi máy
+tính trở thành vật dụng phổ biến trên toàn cầu. Trước những năm 1950, thông tin
+khách hàng chỉ được ghi chép vào sổ tay hoặc các thư mục một cách thủ công.
+Bước ngoặt đầu tiên trong lịch sử ra đời của CRM là
+vào năm 1956, Rolodex được phát minh bởi kỹ sư
+người Đan Mạch Hildaur Neilson. Đây là một tệp thẻ
+xoay được sử dụng để lưu trữ thông tin liên hệ của
+doanh nghiệp.  1
+Thiết bị này vẫn yêu cầu các doanh nghiệp ghi lại
+thông tin khách hàng thủ công, nhưng nó giúp cho việc
+sắp xếp thông tin khách hàng và truy cập thông tin
+khi cần trở nên dễ dàng hơn nhiều. Bạn chỉ cần lướt
+qua Rolodex thay vì phải lật giở cả xấp trang giấy bị
+sắp xếp lộn xộn.
+Thời đại của các giải pháp máy tính lớn
+Vào những năm 1970, các máy tính lớn (mainframe) riêng lẻ đã được bán trên thị
+trường cho các doanh nghiệp. Những chiếc máy tính lớn đầu tiên được chế tạo bởi
+IBM, GE, Honeywell và một số công ty khác. Mặc dù có kích thước khổng lồ và
+khá đắt tiền vào thời điểm đó, nhưng chúng là những thiết bị đầu tiên cho phép
+nhân loại ghi lại thông tin khách hàng dưới dạng kỹ thuật số, bằng cách sử dụng
+danh sách và bảng tính dựa trên phần mềm.
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+-5- 5(1) Wikipedia, https://en.wikipedia.org/wiki/Rolodex
+
+## PDF PAGE 6
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+Bên cạnh đó, chúng cung cấp khả năng truy xuất dữ liệu khách hàng nhanh
+chóng và tự động hóa việc bán hàng thông qua việc tạo và quản lý cơ sở dữ liệu.
+Các hệ thống máy tính lớn này đã trở thành tiền thân của công cụ phần mềm
+CRM ngày nay.
+Chuyển từ Marketing trực tiếp sang Marketing trên cơ sở dữ liệu
+Vào những năm 1980, các doanh nghiệp bắt đầu sử dụng marketing trên cơ sở dữ
+liệu (database marketing). Trước đó, mọi người phụ thuộc chủ yếu vào marketing
+trực tiếp (direct marketing): các công ty cố gắng thu hút khách hàng một cách mù
+quáng mà không cần biết liệu họ có quan tâm đến sản phẩm hoặc dịch vụ của
+mình hay không. Gọi ngẫu nhiên (Cold Calling) là một ví dụ. Với chiến lược
+marketing trên cơ sở dữ liệu, các công ty có thể sử dụng số liệu thống kê để thu
+thập và phân tích dữ liệu khách hàng. Họ có thể tùy chỉnh thông tin liên lạc của
+mình theo cách này, từ đó cải thiện đáng kể cơ hội chuyển đổi người tiêu dùng.
+Công cụ quản lý thông tin liên lạc được triển khai
+ACT! (Activity Control Technology), công cụ quản lý liên hệ đầu tiên, được ra
+mắt vào năm 1987 bởi Conduct Software. ACT! cho phép các doanh nghiệp theo
+dõi thông tin khách hàng và khách hàng tiềm năng bằng một cơ sở dữ liệu duy
+nhất, có thể được chia sẻ bởi nhiều người dùng. Tuy nhiên, để triển khai ACT!, các
+doanh nghiệp đã phải đầu tư rất nhiều vào phần cứng và phần mềm đắt tiền cũng
+như nhân viên CNTT nội bộ.
+Tự động hóa lực lượng bán hàng
+Tiếp thị cơ sở dữ liệu đã được sử dụng trong suốt những năm 1980, nhưng đến
+đầu những năm 1990, nó đã phát triển thành Tự động hóa lực lượng bán hàng
+(SFA - Sales Force Automation). SFA đã tự động hóa các công việc của
+marketing trên cơ sở dữ liệu và kết hợp chúng với các công cụ quản lý thông tin
+liên hệ. Các doanh nghiệp áp dụng giải pháp SFA nhờ vậy đã cải thiện khả năng
+theo dõi các tương tác của khách hàng và kiểm soát hàng tồn kho của họ. Siebel
+Systems, được thành lập bởi Tom Siebel sau khi ông rời Oracle, là nhà cung cấp
+giải pháp SFA lớn nhất. Sau một vài năm, vào cuối những năm 1990, Siebel
+Systems “thống trị” thị trường cung cấp CRM, đạt đỉnh 45% thị phần vào năm
+2002.
+SlimCRM CRM Playbook
+6
+
+## PDF PAGE 7
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+Quản lý nguồn lực doanh nghiệp
+Vào giữa những năm 1990, các công cụ CRM đã dần “thoát” khỏi vai trò là các
+giải pháp dành cho khách hàng; thay vào đó chúng hướng tới hoạch định nguồn
+lực doanh nghiệp (ERP - Enterprise Resource Planning). Các giải pháp ERP cho
+phép các doanh nghiệp sử dụng một hệ thống các ứng dụng tích hợp để quản lý và
+tự động hóa một loạt các hoạt động, không chỉ bao gồm các chức năng bán hàng,
+tiếp thị và thanh toán mà còn cả các hoạt động như lập kế hoạch sản phẩm, sản
+xuất và vận chuyển hàng hóa
+Cuối cùng, CRM đã trở thành một thuật ngữ
+Ở giai đoạn giữa những năm 1990, các công cụ CRM bắt đầu giống với các giải
+pháp CRM mà chúng ta sử dụng ngày nay. Vào thời điểm đó, các giải pháp này
+được biết đến với nhiều thuật ngữ khác nhau, bao gồm hệ thống thông tin khách
+hàng (CIS - Customer Information System) và quản lý khách hàng doanh nghiệp
+(ECM - Enterprise Customer Management). Đến năm 1995, ngành công nghiệp
+cuối cùng đã sử dụng CRM, nhưng không rõ ai là người đặt ra thuật ngữ này. Một
+số người tin rằng đó có thể là Tom Siebel, trong khi những người khác cho rằng
+đó là Gartner, một công ty nghiên cứu công nghệ.
+Đến năm 1999, Siebel tung ra Siebel Sales
+Handheld, giải pháp CRM di động đầu tiên. Điều
+này nhanh chóng dẫn đến sự ra đời một số dịch vụ
+CRM di động khác từ Oracle, SAP, và PeopleSoft.
+Tuy nhiên, vì các thiết bị di động vẫn chưa phát
+triển vào thời điểm này nên việc áp dụng CRM
+trên di động còn bị hạn chế.
+Sự ra đời của CRM mã nguồn mở
+(Open Source CRM)
+Giao diện của ứng dụng
+Siebel Handheld trên di động
+Khi bong bóng dot-com bùng nổ vào năm 2001, nó gần như đã giết chết ngành
+CRM. Tuy nhiên, thay vì “tuyệt chủng”, CRM đã “tái sinh” trong một hình hài khác
+- CRM đám mây (on-cloud). Các giải pháp CRM dựa trên đám mây ngày càng trở
+nên phổ biến vì chúng là một giải pháp thay thế hợp lý cho việc phải cài đặt phần
+cứng và phần mềm đắt tiền tại chỗ (on-premise).
+7(2) Oracle,
+https://docs.oracle.com/cd/B40099_02/books/HHSales/HHSalesUseHHApps2.html
+2
+SlimCRM CRM Playbook
+
+## PDF PAGE 8
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+Mặc dù đã xuất hiện từ những năm 1960, nhưng thuật ngữ “điện toán đám mây”
+lần đầu được giới thiệu vào năm 2006 bởi Giám đốc điều hành của Google tại một
+hội nghị ngành. Tuy nhiên trước đó vào năm 2004, CRM mã nguồn mở dựa trên
+điện toán đám mây (open source cloud-based CRM) đã được giới thiệu bởi
+SugarCRM. Trong vòng ba tháng kể từ khi ra mắt, có hơn 25.000 người đã tải
+xuống SugarCRM. Họ tuyên bố hiện có khoảng 1,5 triệu người dùng cuối cùng.
+Sự khởi đầu của Social CRM (CRM 2.0)
+Trong một thời gian rất dài, điểm tương tác duy nhất mà các doanh nghiệp có với
+khách hàng là trong quá trình giao dịch. Nhưng điều đó đã thay đổi với sự ra đời
+của các phương tiện truyền thông xã hội. Phương tiện truyền thông xã hội (social
+media) đã xuất hiện từ cuối những năm 1990, nhưng chính sự ra đời của các nền
+tảng như MySpace, Facebook và Twitter mới thực sự đưa ngành công nghiệp này
+lên một tầm cao mới. Các doanh nghiệp nhanh chóng nhận ra rằng mạng xã hội là
+một kênh có thể hỗ trợ tương tác trực tiếp với khách hàng. Điều này dẫn đến việc
+tập trung vào quản lý quan hệ khách hàng tương tác thay vì quản lý quan hệ
+khách hàng giao dịch.
+Social CRM đã ra đời như là kết quả của quá trình chuyển đổi sang quản lý quan
+hệ khách hàng tương tác. CRM xã hội cho phép các doanh nghiệp cải thiện mức độ
+tương tác của họ với khách hàng trên mạng xã hội bằng cách cung cấp cho họ khả
+năng theo dõi, thu thập và phân tích dữ liệu xã hội, chẳng hạn như theo dõi các đề
+cập trên mạng xã hội về một công ty.
+Phát triển SaaS CRM và On-cloud CRM
+Năm 1999, Salesforce phát hành CRM SaaS (phần mềm dưới dạng dịch vụ) đầu
+tiên. SaaS CRM và các giải pháp On-cloud CRM rất giống nhau:
+Cả hai đều cung cấp phần mềm CRM mà người dùng có thể truy cập trực
+tuyến mọi lúc mọi nơi. 
+Chúng đều là dịch vụ đăng ký được cung cấp từ xa, có nghĩa là không cần
+phần cứng hoặc phần mềm tại chỗ. Trên thực tế, các giải pháp SaaS CRM
+được cung cấp qua điện toán đám mây.
+Vậy chúng khác nhau như thế nào?
+SlimCRM CRM Playbook
+8
+
+## PDF PAGE 9
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+Về cơ bản, các công ty sẽ có nhiều quyền kiểm soát hơn thông qua On-cloud
+CRM, vì được cung cấp các dịch vụ đi kèm, bao gồm các công cụ phần mềm bổ
+sung và quyền kiểm soát dữ liệu của bạn. SaaS chỉ cung cấp phần mềm CRM,
+nghĩa là doanh nghiệp có ít quyền kiểm soát hơn đối với việc quản lý và tùy chỉnh
+phần mềm; tuy nhiên, họ cũng sẽ không chịu trách nhiệm bảo trì phần mềm.
+Từ công ty khởi nghiệp đến công ty lớn
+Cả hai giải pháp SaaS CRM và On-cloud CRM đều cực kỳ hiệu quả đối với các
+công ty sử dụng chúng. Một trong những lý do giải thích cho sự phổ biến của hai
+loại CRM này không chỉ vì không cần đầu tư vào bộ nhớ hoặc phần mềm tại chỗ
+mà còn vì mức độ linh hoạt của chúng. Một số nhà cung cấp như Salesforce cho
+phép doanh nghiệp thêm các tính năng khi cần. Trên thực tế, các công ty đang
+phát triển sẽ không phải lo lắng về khả năng mở rộng, vì các giải pháp SaaS CRM
+và On-cloud CRM có khả năng mở rộng đáng kinh ngạc. Đó cũng là một lý do
+khác giúp doanh nghiệp có thể tiết kiệm được một khoản chi phí khá lớn.
+Một doanh nghiệp thành công là doanh nghiệp có khả năng xây dựng và duy trì
+mối quan hệ bền chặt với khách hàng của họ. CRM có thể giúp bạn thực hiện được
+điều này bằng cách thu thập, sắp xếp và phân tích tất cả dữ liệu khách hàng của
+bạn trên cùng một nơi mà bạn có thể truy cập dữ liệu đó ngay lập tức. Việc sử
+dụng CRM giúp cải thiện không chỉ các mối quan hệ với khách hàng mà còn cả
+hoạt động kinh doanh, bao gồm các quy trình bán hàng, marketing, và kế toán.
+Không có gì ngạc nhiên khi các công ty thuộc mọi quy mô, từ những công ty mới
+thành lập, doanh nghiệp nhỏ đến các tập đoàn lớn, đều dựa vào các giải pháp
+CRM để thành công.
+SlimCRM CRM Playbook
+9
+
+## PDF PAGE 10
+1 9 9 2
+1 9 9 3
+Thuật ngữ này ra đời vào những năm 1992 - 1993, khi các
+quy trình bán hàng tiêu chuẩn lần đầu tiên được tự động hóa,
+nhằm thúc đẩy hiệu quả theo dõi khách hàng tiềm năng và
+nắm bắt các cơ hội trong các kênh bán hàng.
+THUẬT NGỮ ”TỰ ĐỘNG HÓA LỰC LƯỢNG BÁN HÀNG”
+XUẤT HIỆN
+Được phát minh vào năm 1993, phần mềm CRM đã trải qua một quãng thời gian
+dài, dần dần hoàn thiện và có được những tính năng tuyệt vời như bây giờ. Hành
+trình ra đời và phát triển của CRM ra sao?
+CRM - THEO DÒNG THỜI GIAN
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+1 9 9 5
+1 9 9 9
+Hệ thống Siebel của Tom Siebel là công ty đã đầu tư nhiều
+nỗ lực nhất vào việc kết hợp các bộ phận tiếp thị và bán
+hàng. 5,5 tỷ đô là số tiền mà họ đã bỏ ra để phát triển
+chương trình CRM đầu tiên.
+SỰ NỖ LỰC CỦA CÔNG TY CUNG CẤP CRM SIEBEL
+Đây là mốc thời gian mà cụm từ "Quản lý mối quan hệ khách
+hàng” được đưa ra chính thức trên thế giới. Một số nguồn tin
+cho rằng Gartner, một công ty nghiên cứu công nghệ, là nơi
+sản sinh ra thuật ngữ này; trong khi một số khác lại cho rằng
+Tom Siebel mới là người phát minh ra nó.
+THUẬT NGỮ CRM CHUẨN RA ĐỜI
+Ứng dụng CRM dành cho thiết bị di động đầu tiên được phát
+triển vào năm 1999. Nó được gọi là Siebel Sales Handheld.
+Ngay sau đó, các ứng dụng tương tự đã được giới thiệu bởi
+SAP Oracle và PeopleSoft.
+CRM ĐƯỢC ỨNG DỤNG TRÊN MOBILE
+10
+
+## PDF PAGE 11
+1 9 9 9
+2 0 0 3
+Salesforce là nhà tiên phong của Software as a Service
+(SaaS - phần mềm dạng dịch vụ) CRM. Công ty đã cách mạng
+hóa việc quản lý quan hệ khách hàng bằng cách chuyển nó
+lên hệ thống điện toán đám mây và làm cho chức năng đó có
+thể truy cập được ngay cả đối với các công ty nhỏ.
+SỰ XUẤT HIỆN CỦA SALESFORCE
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+2 0 0 4
+Sự gia nhập của Microsoft vào thị trường CRM là một điều
+may mắn cho phần mềm này, khi họ mua lại Navision, tích
+hợp nó với các sản phẩm của mình để tạo ra hãng Microsoft
+Dynamics CRM ngày nay.
+MICROSOFT RA NHẬP THỊ TRƯỜNG CRM
+CRM mã nguồn mở đầu tiên được phát triển bởi SugarCRM -
+một nhóm nhỏ làm việc trong dự án Salesforce. Họ quyết
+định tự phát triển và cho ra đời các ứng dụng CRM dành cho
+các doanh nghiệp
+CRM MÃ NGUỒN MỞ RA ĐỜI
+Vai trò hàng đầu thuộc về Amazon và các nền tảng EC2 / S3
+của họ, cho phép các Startup và cá nhân chạy các ứng dụng
+của riêng họ trên các máy tính thuê.
+ĐIỆN TOÁN ĐÁM MÂY ĐƯỢC TRUY CẬP RỘNG RÃI
+2 0 0 8
+Sự phát triển của các phương tiện truyền thông xã hội đã
+đưa ngành công nghiệp CRM lên một tầm cao mới. Các nhà
+cung cấp CRM đã chuyển loại dịch vụ từ giao dịch sang
+tương tác. 2008 thực tế là năm của nhiều xu hướng CRM
+tiên tiến.
+CHÀO MỪNG SOCIAL CRM
+2 0 0 6
+11
+
+## PDF PAGE 12
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+2 0 0 9
+2 0 1 3
+Đây là năm mà các CRM phổ biến nhất ngày nay được thành
+lập, trong đó có hãng Nutshell và Base. Đây là năm của Hội
+nghị thượng đỉnh quản lý quan hệ khách hàng của Gartner,
+nơi tương lai CRM hoàn toàn định hình. 
+TĂNG TRƯỞNG
+2 0 1 4
+Trung tâm cuộc gọi là tính năng thông minh được bổ sung
+trong hệ thống CRM. Việc này làm giảm bớt những khó khăn
+của bộ phận bán hàng và tiếp thị gặp phải khi cần quản lý
+thông tin liên lạc khách hàng. 
+KẾT NỐI VỚI TRUNG TẤM CUỘC GỌI (CALL CENTER)
+CRM trở thành trái tim của doanh nghiệp, điều này biến
+chúng thành các hệ thống mang tính cạnh tranh, điều hướng
+mọi thay đổi trong tất cả các ngành công nghiệp. Thay vì một
+phần mềm CRM truyền thống phù hợp với tất cả doanh
+nghiệp thì giờ đây đã chia tách thành các ứng dụng CRM
+dành riêng cho từng ngành. 
+CRM TRỞ THÀNH HỆ THỐNG CỐT TỦY CỦA MỌI
+DOANH NGHIỆP
+CRM và các ứng dụng tương tự hướng đến khách hàng đã
+được làm giàu với các tính năng phân tích thông minh, hỗ trợ
+đắc lực cho cấp quản lý khi đưa ra những quyết định dựa
+trên dữ liệu.
+HỖ TRỢ MẠNH MẼ TRONG QUÁ TRÌNH KINH DOANH
+2 0 1 9
+Sự hoàn thiện của “Customer Service” ngày càng được nâng
+cao cho phép tương tác với toàn bộ doanh nghiệp và chuyển
+đổi liền mạch giữa các kênh truyền thông. Cloud-CRM độc
+quyền nơi có hơn 80% ứng dụng quản lý khách hàng sẽ hoạt
+động như SaaS. Cải thiện sự hợp tác của công ty, nơi các
+nhóm và đồng nghiệp hỗ trợ lẫn nhau để cung cấp dịch vụ
+khách hàng tốt nhất có thể
+CRM TRONG TƯƠNG LAI
+2 0 1 6
+12
+
+## PDF PAGE 13
+SlimCRM CRM Playbook
+CUỐI CÙNG THÌ CRM LÀ GÌ?
+Chương 2:
+Về mặt ngữ nghĩa, CRM là viết tắt của Customer Relationship Management, hay
+Quản lý Quan hệ Khách hàng. Đó là một chiến lược bao gồm một loạt các hoạt
+động và công nghệ hỗ trợ nhằm thúc đẩy các mối quan hệ hữu ích giữa doanh
+nghiệp với khách hàng. Hệ thống CRM giúp các công ty kết nối toàn diện với
+khách hàng, chuẩn hóa quy trình và kết quả là cải thiện lợi nhuận.
+Trong thực tế, khi mọi người nói về CRM, chúng ta thường đề cập tới 3 khía cạnh
+sau:
+CRM là một chiến lược: Đây là một triết lý kinh doanh xuyên suốt của doanh
+nghiệp về cách quản lý mối quan hệ và tương tác với khách hàng / khách
+hàng tiềm năng.
+CRM là hệ thống các quy trình: Các quy trình này được áp dụng để giúp
+doanh nghiệp quản lý, nuôi dưỡng và phát triển các mối quan hệ khách hàng
+ngày càng sâu sắc và lợi ích nhất.
+CRM là một hệ thống phần mềm: Đây là một sản phẩm công nghệ cho phép
+người dùng lưu trữ, báo cáo và phân tích các dữ liệu và tương tác với khách
+hàng. CRM theo nghĩa này còn có tên gọi khác là hệ thống CRM (CRM
+System) hoặc giải pháp CRM (CRM Solution).
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+-5-
+Trong 3 khía cạnh trên, cách hiểu CRM như một hệ thống phần mềm là phổ biến
+nhất. Theo đó CRM là công cụ để quản lý bán hàng, tăng hiệu suất làm việc và
+còn hơn thế nữa.
+CRM có thể được định nghĩa là sự kết hợp của chiến lược, quy trình và công nghệ đểquản lý khách hàng cũng như tất cả các bộ phận và đối tác tiếp xúc với khách hàng.Nói tóm lại, CRM là về việc quản lý các mối quan hệ khách hàng một cách hiệu quảvà có lợi trong toàn bộ vòng đời doanh nghiệp.
+Khái niệm
+13
+
+## PDF PAGE 14
+SlimCRM CRM Playbook
+GIÁ TRỊ VÀ LỢI ÍCH CỦA CRM
+Chương 3:
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+-5-
+GIÁ TRỊ CỦA CRM1
+Playbook CRM gần đây của Forrester chỉ ra rằng 61% những người ra quyết định
+về phần mềm toàn cầu đang triển khai, đã triển khai hoặc đang mở rộng quy mô
+triển khai phần mềm dịch vụ khách hàng. Trong khi đó, 58% những người ra
+quyết định về phần mềm có ý định làm điều tương tự đối với các ứng dụng tự
+động hóa lực lượng bán hàng (CRM); 17% những người ra quyết định có kế hoạch
+áp dụng phần mềm dịch vụ khách hàng trong năm tới; và 18% có ý định áp dụng
+tự động hóa lực lượng bán hàng.
+Khi được tích hợp đúng cách vào hệ thống của bạn, một CRM tốt sẽ tăng thêm giá
+trị cho doanh nghiệp của bạn theo hai cách quan trọng:
+Một chiến lược CRM hiệu quả giúp
+xác định và phát triển các mục tiêu
+kinh doanh, mang lại lợi ích cho các
+giao thức dịch vụ khách hàng, trình
+bày rõ ràng các tính năng và quy
+trình CRM cũng như giải quyết các
+nhu cầu chức năng. Chiến lược này
+nên bao gồm thông tin khách hàng,
+mục tiêu dịch vụ khách hàng, vai trò
+của nhân viên và các cơ hội chiến
+lược. Ngoài ra, một chiến lược CRM
+nên bao gồm các số liệu liên quan đến
+các sáng kiến     của công ty và các mục
+tiêu tổng thể.
+Khi nhiều nền tảng và giải pháp CRM
+di chuyển lên đám mây, quá trình tự
+động hóa quy trình làm việc và cơ sở
+hạ tầng mà các phần mềm hoạt động
+trên đó trở nên quan trọng hơn.
+Tăng cường chiến lược kinh doanh Tính linh hoạt và khả năng thích
+ứng của điện toán đám mây
+Ví dụ: Salesforce lựa chọn Amazon
+Web Services (AWS), trong khi
+Microsoft triển khai trên Azure. Mỗi
+nền tảng đám mây có một bộ phân
+tích và máy học (ML - Machine
+Learning) riêng biệt, có ảnh hưởng
+lớn đến thông tin chi tiết và xác định
+kết quả CRM.
+14
+
+## PDF PAGE 15
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+LỢI ÍCH CỦA CRM2
+SlimCRM CRM Playbook
+-5-
+Khi định lượng giá trị kinh doanh của CRM, lợi ích của nó sẽ giải quyết việc tạo
+doanh thu và tăng hiệu quả chi phí. Do đó, CRM của bạn nên hỗ trợ các quy trình
+kinh doanh và những khả năng công nghệ hiện có.
+Theo Forrester, các lợi ích của CRM được chia thành ba loại riêng biệt:
+Doanh thu cao hơn
+Thật vậy, áp dụng phần mềm CRM giúp doanh nghiệp chuẩn hóa quy trình bán
+hàng, nhân viên không bỏ sót cơ hội, chăm sóc khách hàng kịp thời và đúng lúc,
+tự động hoá các tác vụ định kỳ và phân tích dữ liệu bán hàng tức thì. Ngoài ra, áp
+dụng phần mềm còn giúp xây dựng thói quen làm việc tốt, từ đó thúc đẩy hiệu
+suất làm việc của cá nhân và nhóm.
+Giảm chi phí trực tiếp
+Phần mềm CRM giúp bạn giảm bớt thời gian tiếp xúc với những khách hàng
+không mang lại lợi nhuận và nâng cao hiệu quả hoạt động cũng như năng suất
+bán hàng. Hơn thế nữa, nhân viên bán hàng không còn mất nhiều thời gian thực
+hiện những công đoạn lặp đi lặp lại như: soạn nội dung email, soạn thảo đề xuất,
+hợp đồng, lập hóa đơn hay gọi điện cho khách hàng liên tục vì một khoản quá
+hạn,… Tất cả đã được CRM “lo”. Người bán hàng chỉ tập trung vào nhiệm vụ cốt
+lõi.
+Giảm chi phí gián tiếp
+Giúp cải thiện hợp đồng với nhà cung cấp và hỗ trợ công nghệ bằng cách hợp
+nhất các phiên bản CRM, giảm thiểu việc tùy chỉnh ứng dụng CRM, đồng thời
+tăng khả năng sử dụng, áp dụng công nghệ và giảm thời gian đào tạo người dùng
+cuối.
+Những lợi ích này giúp xây dựng giá trị trọn đời của khách hàng, điều này cuối
+cùng sẽ làm tăng tỷ lệ giữ chân khách hàng. Trên thực tế, chỉ riêng việc tự động
+hóa CRM đã giúp tăng tỷ lệ giữ chân khách hàng lên tới 15%.
+15
+
+## PDF PAGE 16
+SlimCRM CRM Playbook
+PHÂN LOẠI CRM
+Chương 4:
+Nhu cầu và khả năng sử dụng CRM của doanh nghiệp B2B rất khác doanh nghiệp
+B2C, vì nhu cầu và khả năng CRM của doanh nghiệp nhỏ khác với các tập đoàn
+lớn.
+-5-
+1QUY MÔ TỔ CHỨC SỬ DỤNG
+PHÂN LOẠI THEO
+Theo IBM, có bốn loại giải pháp CRM chính dành riêng cho các công ty lớn, doanh
+nghiệp vừa và nhỏ (SMB) và các công ty mới thành lập:
+Cung cấp các tính năng đầy đủ và có
+sẵn bằng nhiều ngôn ngữ cũng như
+nhiều địa điểm khác nhau cho 1.000
+nhân viên trở lên, các bộ phần mềm
+này bao gồm sự hỗ trợ và tài nguyên
+dành riêng cho các ngành khác nhau.
+Các tổ chức với quy mô trung bình
+cũng có thể sử dụng bộ giải pháp có
+sẵn với mức giá phải chăng.
+CRM dành cho các tổ chức lớn
+Cung cấp các tính năng hạn chế cho
+250-999 nhân viên, loại phần mềm
+này phục vụ cho các bộ phận khác
+nhau (ví dụ: nhóm bán hàng theo
+kênh, thưởng doanh số, dịch vụ tại
+chỗ). Các tổ chức lớn hơn cũng có thể
+sử dụng bộ giải pháp này với những
+tính năng được nâng cấp.
+CRM dành cho các tổ chức hoặc
+bộ phận quy mô trung bình
+Cung cấp các tính năng hạn chế cho
+tối đa 250 nhân viên, các bộ phần
+mềm này phục vụ cho các chủ doanh
+nghiệp cá nhân và các nhóm nhỏ (ví
+dụ: công cụ quản lý liên hệ, tương tác
+với kênh mạng xã hội, chiến dịch
+marketing qua email). Các nhà cung
+cấp cũng có thể cung cấp các giải
+pháp CRM đầu cuối (end-to-end CRM
+solutions) cho nhân viên bán hàng,
+đại diện dịch vụ khách hàng và nhóm
+tiếp thị.
+CRM dành cho các tổ chức nhỏ
+Cung cấp một số tính năng chung và
+bị hạn chế với khả năng tùy chỉnh sâu
+(ví dụ: marketing tự động hóa, dịch vụ
+khách hàng) cho khoảng 250 - hơn
+1000 nhân viên, các bộ phần mềm này
+phục vụ cho các ngành khác nhau (ví
+dụ: dịch vụ tài chính, khoa học đời
+sống, chăm sóc sức khỏe, chính phủ,
+tổ chức phi lợi nhuận).
+Giải pháp CRM chuyên biệt
+16
+
+## PDF PAGE 17
+Cloud CRM Self-hosted CRM
+Thuê dịch vụ theo tháng Mua đứt phần mềm
+Dữ liệu lưu trữ trên máy chủ nhà
+cung cấp
+Dữ liệu lưu trữ trên máy chủ công
+ty
+Triển khai nhanh, chi phí thấp Triển khai chậm, tốn chi phí
+Tự động cập nhật các công nghệ,
+tính năng mới Update công nghệ thủ công, tính phí
+Nhân sự không cần am hiểu về công
+nghệ Cần nhân sự am hiểu về công nghệ
+Không cần trang bị hệ thống máy
+chủ bảo mật và hiện đại
+Cần hệ thống máy chủ bảo mật và
+hiện đại
+Chi phí đầu tư thấp Chi phí đầu tư ban đầu và chi phí
+vận hành cao
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+SlimCRM CRM Playbook
+2PHƯƠNG THỨC TRIỂN KHAI
+PHÂN LOẠI THEO
+Theo cách này, hệ thống CRM có thể phân thành hai loại: Cloud CRM ( là dịch vụ
+cho thuê phần mềm CRM sử dụng trên nền tảng Internet) và Self-hosted CRM     
+ (tự cài đặt và triển khai). Hãy nhìn vào bảng mô tả dưới đây:
+17
+
+## PDF PAGE 18
+CRM mã nguồn mở CRM mã nguồn đóng
+Mã nguồn được công bố Mã nguồn kín
+Free download Phải mua bản quyền
+Tự do tùy chỉnh Tùy chỉnh thông qua nhà cung cấp
+Nhiều tính năng không thực sự cần
+thiết cho mọi doanh nghiệp
+Ít tính năng hơn nhưng được thiết
+kế tối ưu cho từng lĩnh vực
+Nhờ cộng đồng support Được nhà cung cấp support (có trả
+phí)
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+SlimCRM CRM Playbook
+3BẢN QUYỀN
+PHÂN LOẠI THEO
+Theo cách này, hệ thống CRM có thể phân thành hai loại: CRM mã nguồn mở và
+CRM mã nguồn đóng. Hãy nhìn vào bảng mô tả dưới đây:
+18
+
+## PDF PAGE 19
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+SlimCRM CRM Playbook
+4CHIẾN LƯỢC DOANH NGHIỆP
+PHÂN LOẠI THEO
+Theo cách này, hệ thống CRM có thể phân thành ba loại:
+0 1
+CRM vận hành (Operational CRM)
+Đây là loại phổ biến nhất và bao gồm nhiều chức năng nhất. Nó tập trung các
+tương tác của khách hàng, thông số bán hàng, quy trình marketing cũng như các
+nỗ lực dịch vụ và hỗ trợ ở cùng một nơi. Hơn nữa, CRM vận hành còn giúp lưu trữ
+thông tin về khách hàng, khách hàng tiềm năng và nhân viên bằng cách sử dụng
+chung một nền tảng để hỗ trợ khách hàng hiện tại và khách hàng tiềm năng tốt
+hơn.
+CRM phân tích (Analytical CRM)
+Loại phần mềm CRM này thu thập và tổng hợp những dữ liệu được về khách hàng
+và tương tác của họ với doanh nghiệp, giúp quản lý hiểu hơn về khách hàng và đề
+ra các phương pháp giúp cải thiện trải nghiệm của họ. Các hệ thống CRM phân
+tích có ưu thế vượt trội trong việc giúp các tổ chức phân tích một lượng lớn dữ
+liệu và phát triển các chiến lược để tăng tệp khách hàng tiềm năng mới, tăng tỷ
+lệ giữ chân khách hàng và tạo hiệu quả cho bộ phận bán hàng và marketing. Dữ
+liệu từ CRM phân tích có thể bao gồm sở thích của khách hàng, kênh, điểm tiếp
+xúc, xu hướng, dự báo, v.v
+CRM cộng tác (Collaborative CRM)
+Còn được gọi là CRM chiến lược (Strategic CRM), loại phần mềm CRM này cho
+phép các nhóm hoặc các phòng ban có chức năng khác nhau trong một tổ chức
+chia sẻ dữ liệu khách hàng. Mọi người đều sử dụng cùng một cơ sở kiến   thức về
+khách hàng để đưa ra quyết định, tạo ra cách tiếp cận toàn diện để quản lý mối
+quan hệ khách hàng. Trong khi các công cụ CRM hoạt động thường tập trung vào
+tiếp thị và bán hàng, các hệ thống CRM cộng tác tập trung chủ yếu vào dịch vụ
+khách hàng.
+0 2
+0 3
+19
+
+## PDF PAGE 20
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+PRM
+Partner Relationship Management
+(Quản lý quan hệ đối tác)
+DRM
+Distributor Relationship Management
+(Quản lý quan hệ nhà phân phối)
+SlimCRM CRM Playbook
+EXTENDING CRM -
+KHÔNG CHỈ LÀ "C"
+CHƯƠNG 5:
+Như đã giải thích ở trên, CRM - Customer Relationship Management, là một hệ
+thống quản lý các hoạt động liên quan đến KHÁCH HÀNG. Cốt lõi của định hướng
+lấy khách hàng làm trung tâm là quan tâm đến việc sử dụng phần mềm CRM để
+phát triển và thiết lập mối quan hệ lâu dài với khách hàng nhằm cải thiện dịch vụ
+và tăng sự hài lòng cho khách hàng.
+Tuy nhiên, sự phát triển của tri thức nhân loại và thực tiễn kinh doanh đã khiến
+cho khái niệm CRM không còn bị bó buộc xung quanh “khách hàng” nữa.
+Và đó là lúc Extending CRM ra đời.
+Extending CRM (CRM mở rộng) xây dựng trên một bộ khung xRM (xRM
+Framework), với “x” là một biến số, xoay quanh việc quản trị các mối quan hệ mà
+một doanh nghiệp có thể có, thay vì tập trung vào khai thác dữ liệu của khách
+hàng.
+Extending CRM bổ sung cho CRM cốt lõi và cho phép các tổ chức theo dõi và tối
+đa hóa giá trị của các mối quan hệ và tài sản khác, đồng thời mở rộng sức mạnh
+của CRM.
+Một số chữ “x” trong khung xRM có thể bao gồm:
+20
+
+## PDF PAGE 21
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+RRM
+Reseller Relationship Management
+(Quản lý quan hệ đại lý)
+ERM
+Employee Relationship Management
+(Quản lý quan hệ nhân viên)
+CRM
+Contractor Relationship Management
+(Quản lý quan hệ nhà thầu)
+SRM
+Supplier Relationship Management
+(Quản lý quan hệ nhà cung cấp)
+Asset Management
+(Quản lý tài sản)
+Property Management
+(Quản lý tài sản)
+Fleet Management
+(Quản lý đội nhóm)
+Land Management
+(Quản lý đất đai)
+Task Management
+(Quản lý tác vụ)
+Event Management
+(Quản lý sự kiện)
+SlimCRM CRM Playbook
+21
+Tuy nhiên, vai trò mở rộng của CRM không làm giảm tầm quan trọng của dữ liệu
+khách hàng trong các hoạt động CRM hiện tại của công ty. Dữ liệu khách hàng
+vẫn đang và sẽ tiếp tục là nguồn đầu vào cực kỳ quan trọng hỗ trợ các quy trình
+của công ty. Mở rộng khung CRM để giải quyết các lợi ích của khách hàng trong
+việc sử dụng dữ liệu khách hàng có thể mang lại cơ hội duy nhất cho các doanh
+nghiệp khi xây dựng và thực hiện các chiến lược quan hệ khách hàng của họ.
+SlimCRM là một ví dụ nổi bật trên thị trường trong nước về Extending CRM. Dù
+vẫn lấy quan hệ khách hàng làm cốt lõi, SlimCRM còn hỗ trợ doanh nghiệp phát
+triển cân bằng trên 4 khía cạnh: khách hàng, tài chính, quy trình nội bộ, học tập
+và phát triển. Đặc biệt, tất cả những tính năng hiện đại ấy nằm trên một phần
+mềm vô cùng tinh gọn, đơn giản và dễ sử dụng.
+
+## PDF PAGE 22
+2
+SlimCRM.vn
+CRM TÁC ĐỘNG ĐẾN
+NHỮNG BỘ PHẬN NÀO
+CỦA DOANH NGHIỆP?
+0
+
+## PDF PAGE 23
+CRM giúp toàn bộ tổ chức của bạn duy trì
+vận hành trên cùng một nền tảng và đảm
+bảo tính nhất quán giữa các bộ phận. Các
+thành viên từ mọi bộ phận đều có quyền
+truy cập vào những thông tin chi tiết giống
+nhau, khiến việc duy trì sự đồng bộ và giao
+tiếp trở nên hiệu quả hơn bao giờ hết. Mặc
+dù các bộ phận làm việc trực tiếp với khách
+hàng sẽ cảm nhận rõ hơn giá trị của CRM
+hàng ngày, nhưng toàn bộ tổ chức của bạn
+đều có thể hưởng lợi từ khả năng quản lý và
+kết nối dữ liệu mà CRM cung cấp. Sau đây
+là những cách mà các bộ phận khác nhau
+trong công ty có thể sử dụng CRM để chuẩn
+hóa và tự động hóa quy trình làm việc.
+Các bộ phận
+trong doanh nghiệp
+thay đổi như thế nào
+khi áp dụng CRM?
+nộidung
+SlimCRM CRM Playbook
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+23
+
+## PDF PAGE 24
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+SlimCRM CRM Playbook
+CRM VÀ MARKETING
+CHƯƠNG 1:
+Vào những năm 1960, việc nghiên cứu động lực mua hàng (motivational
+research) đã được tiến hành để tìm ra nguyên nhân dẫn đến hành vi của người
+tiêu dùng, từ đó giúp các nhà nghiên cứu tìm ra phương pháp marketing sản phẩm
+hiệu quả hơn. Nghiên cứu động lực mua hàng bao gồm rất nhiều công cụ, từ việc
+cho một nhóm tình nguyện viên xem một loạt quảng cáo và đo lường phản ứng vật
+lý của họ, cho đến việc thu thập và phân tích kết quả từ bài kiểm tra Rorschach
+(Rorschach test).
+Tuy nhiên, phạm vi của những nỗ lực này vẫn không làm thay đổi việc lấy sản
+phẩm làm trọng tâm, và khách hàng đóng vai trò như một thành phần phụ trợ của
+chu kỳ mua hàng. Thương hiệu là vua, như người ta vẫn nói lúc bấy giờ, và sẽ mất
+rất nhiều thời gian và các nỗ lực marketing nữa để các công ty thực sự hiểu được
+tầm quan trọng của việc tập trung vào một chiến lược kinh doanh tập trung vào
+khách hàng.
+Đến năm 1993, cuốn sách “Relationship Marketing: Successful Strategies for the
+Age of the Customer” của Regis McKenna được xuất bản, đánh dấu cột mốc mới
+trong việc triển khai chiến lược marketing của các công ty. Lúc này, các thông tin
+về khách hàng như sở thích hay thói quen được nghiên cứu nhiều hơn nhằm gia
+tăng trải nghiệm và giữ chân khách hàng lâu dài. Các chương trình marketing
+nhắm mục tiêu (target marketing), bán chéo (cross-selling), và các chương trình
+khách hàng trung thành đã phát triển và được chính thức hóa như một phần của
+quy trình bán hàng và marketing cốt lõi.
+Nếu marketing truyền thống là sự tổng hòa của khoa học và nghệ thuật, thì
+marketing của tương lai là khoa học thuần túy và thêm chút hoa mỹ. Sự thành
+công của các chương trình marketing của một doanh nghiệp tỷ lệ thuận với khả
+năng nắm bắt và phân tích đúng dữ liệu của doanh nghiệp đó.
+24
+
+## PDF PAGE 25
+SlimCRM CRM Playbook
+Các sản phẩm CRM cung cấp khả năng quản lý chiến dịch giúp tiết kiệm thời gian,
+nhân công và chi phí. Bên cạnh đó, hiệu quả của CRM còn được thể hiện qua sự
+gia tăng của lợi tức đầu tư (ROI). CRM cũng hỗ trợ, tăng cường kết nối giữa bộ
+phận Sales và Marketing, phá vỡ các rào cản giúp công việc trở nên thuận tiện
+hơn.
+Trong các hoạt động marketing, công nghệ CRM giúp khai thác dữ liệu và là công
+cụ cá nhân hóa, cho phép người dùng không chỉ nắm được lịch sử hành vi và sở
+thích của người tiêu dùng mà còn dự đoán được những gì họ có thể làm tiếp theo
+và chia sẻ thông tin này mà không cần người tiêu dùng lên tiếng.
+Trong các hoạt động marketing, dữ liệu mà CRM lưu trữ và tổng hợp chính là
+nguồn thông tin tuyệt vời về khách hàng để doanh nghiệp tiến hành các chiến
+dịch, bởi nó cho phép bộ phận Marketing nắm được lịch sử hoạt động và sở thích
+của khách hàng, từ đó phân tích hành vi của họ, phân khúc và triển khai các hoạt
+động nhắm mục tiêu chính xác hơn. Không những vậy, từ những dữ liệu mà CRM
+cung cấp, doanh nghiệp có thể dự đoán được những gì khách hàng tiềm năng sẽ
+làm tiếp theo và chia sẻ thông tin này trong nội bộ một cách nhanh chóng.
+Khi sử dụng thành thạo, CRM có thể được ví như một loại rượu hảo hạng: càng lâu
+càng ngon. Khi nhắm mục tiêu vào các phân khúc khách hàng ngày càng nhỏ, các
+công ty có thể tăng số lượng chiến dịch marketing để đảm bảo rằng họ tiếp tục
+tương tác với nhiều khách hàng nhất có thể.
+Và bằng cách theo dõi sự thành công của các chiến dịch theo thời gian, các doanh
+nghiệp có thể tinh chỉnh chúng, giúp tăng tỷ lệ phản hồi và do đó doanh thu tương
+ứng cũng lớn hơn. Việc thực hành quản lý chiến dịch vòng kín (closed-loop
+campaign) — sử dụng kết quả của các chiến dịch trước đó để điều chỉnh các chiến
+dịch trong tương lai — đã được công nhận là một phương pháp CRM tốt nhất.
+Các công ty sẽ không triển khai các giải pháp CRM để tự động hóa việc quản lý
+chiến dịch mà không có một kế hoạch rõ ràng về những gì mà họ muốn làm. Xét
+cho cùng, những công ty nào không có tầm nhìn marketing thường hiếm khi dành
+một phần ngân sách của họ cho phần mềm CRM.
+Nếu muốn áp dụng CRM để phục vụ hoạt động marketing, bạn cần có sẵn nhiều chiếnlược để tăng giá trị doanh nghiệp và tăng lòng trung thành của khách hàng. Có nhưvậy, phần mềm CRM mới phát huy được tác dụng của nó.
+Bài học
+25
+
+## PDF PAGE 26
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+SlimCRM CRM Playbook
+CRM VÀ SALES
+CHƯƠNG 2:
+Thông thường, cấp quản lý là những người có thể dễ dàng thấy được lợi ích của
+việc áp dụng hệ thống CRM. Họ đánh giá cao rằng trong phần mềm CRM, dữ liệu
+bán hàng của họ sẽ được lưu trữ tập trung và được trình bày ở định dạng dễ theo
+dõi, cho phép họ giám sát quy trình bán hàng, hiệu suất của nhân viên và do đó,
+tối ưu hóa hoạt động bán hàng.
+Nhưng còn với những người bán hàng (những nhân viên sales) thì sao?
+Nhân viên bán hàng thường coi CRM như một phần công việc mà họ phải đảm
+nhận thêm (với quỹ thời gian vốn đã ít ỏi), và chỉ là một cách khác để cấp trên có
+thể theo dõi tiến độ công việc của họ. Việc dành thêm thời gian để nhập dữ liệu
+vào phần mềm CRM cũng làm tăng thêm sự khó chịu. Những nhân viên sales nghĩ
+rằng điều này khiến họ không thể thực hiện tốt nhiệm vụ chính của mình – bán
+hàng.
+Không thể phủ nhận rằng, người quản lý kinh doanh có thể sử dụng CRM để theo
+dõi các hoạt động của nhân viên trong bộ phận, giám sát các giao dịch bán hàng
+và quy trình bán hàng giữa các nhân viên.
+Thông thường, họ không phải là những người “hạnh phúc” với CRM ngay từ đầu.
+Tuy nhiên, thêm vào đó, CRM là một công cụ tuyệt vời để thúc đẩy doanh số bán
+hàng!
+26
+
+## PDF PAGE 27
+SlimCRM CRM Playbook
+Dưới đây là một số những lợi ích mà một phần mềm CRM có thể mang đến cho đội
+sales của doanh nghiệp:
+CRM giúp nhân viên bán hàng lưu trữ tập trung và an toàn các liên hệ, cơ hội bán
+hàng, hoạt động và kế hoạch đã lên lịch của họ ở cùng một nơi và có quyền truy
+cập liên tục vào cơ sở dữ liệu từ nhiều địa điểm. Hãy yên tâm rằng dữ liệu của
+bạn sẽ không bị mất.
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+Tận hưởng không gian lưu trữ an toàn
+CRM giúp nhân viên bán hàng tối ưu hóa lịch trình hàng ngày của họ, đồng thời ưu
+tiên các nhiệm vụ quan trọng để đảm bảo không một khách hàng nào bị bỏ qua và
+những khách hàng tiềm năng chính được liên hệ đúng hạn. Trên thực tế, CRM cho
+phép nhân viên bán hàng dành nhiều thời gian hơn cho khách hàng, từ đó chốt
+được nhiều giao dịch hơn và thu về cơ sở khách hàng mạnh mẽ hơn.
+Lập kế hoạch và quản lý thời gian như một chuyên gia
+Quản lý khách hàng tiềm năng (còn được gọi là “quản lý cơ hội” hay “quản lý
+đường ống bán hàng”) là một tính năng quan trọng trong phần mềm, giúp nhân
+viên bán hàng phân đoạn dữ liệu và xác định các cơ hội có giá trị thông qua các
+lựa chọn dựa trên tiêu chí. Nhờ vậy, nhân viên bán hàng có thể biết được một
+người đang ở trong giai đoạn nào của quá trình mua hàng, sau đó tuân theo một
+quy trình xác định để biến một cơ hội trở thành khách hàng cuối cùng của doanh
+nghiệp.
+Ngừng “lang thang” - bắt đầu nhắm mục tiêu chuẩn xác
+CRM cung cấp lịch dùng chung, mẫu tài liệu và tích hợp e-mail, cho phép tất cả
+các thành viên trong nhóm nhận được thông báo về những hoạt động mới nhất.
+Một số phần mềm CRM còn có một không gian học tập riêng, nơi các thành viên có
+thể chia sẻ kiến thức và tài liệu thu thập được để cùng nâng cao kiến thức và kỹ
+năng. Bên cạnh đó, CRM cũng tăng thông tin liên lạc giữa lực lượng bán hàng và
+người quản lý bán hàng.
+Luôn cập nhật thông tin mới
+27
+
+## PDF PAGE 28
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+SlimCRM CRM Playbook
+CRM giải phóng nhóm bán hàng khỏi phần lớn các nhiệm vụ bằng cách giảm thiểu
+và thậm chí loại bỏ một số hoạt động lặp đi lặp lại, tốn nhiều thời gian nhưng
+mang lại ít lợi nhuận. CRM lưu trữ thông tin chi tiết về sản phẩm và giá cả, thông
+tin của khách hàng tiềm năng, kích hoạt nhắc nhở cho từng nhiệm vụ và đưa nhân
+viên sales đi qua quy trình bán hàng từng bước một cách bài bản.
+Cắt giảm những công việc lặp lại
+Với một số hệ thống CRM, chi phí lắp đặt và triển khai không hề rẻ, nhưng về lâu
+dài chúng có thể tiết kiệm cho bạn một khoản tiền khá lớn.
+Với nhân viên bán hàng, CRM có thể giúp giảm thiểu sai sót (ví dụ: trong đơn đặt
+hàng hoặc báo giá). Thời gian, công sức và chi phí liên quan đến việc sửa những
+sai sót đó có thể cao hơn nhiều. Cuối cùng, nó còn giúp tiết kiệm những loại chi
+phí lặt vặt phát sinh, chẳng hạn như tiết những tờ giấy ghi chú lộn xộn và thường
+dễ mất vì mọi thông tin mới đều có thể được lưu trữ an toàn trong hệ thống.
+Tiết kiệm chi phí vận hành
+28
+Thực ra, một phần mềm CRM tốt không cần có mức giá quá đắt. Nếu
+là một doanh nghiệp nhỏ và đang tìm kiếm những giải pháp CRM
+phù hợp với ngân sách, bạn có thể tham khảo SlimCRM - một phần
+mềm CRM tinh gọn và toàn diện cho doanh nghiệp SME.
+
+## PDF PAGE 29
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+SlimCRM CRM Playbook
+CRM VÀ
+CHĂM SÓC KHÁCH HÀNG
+CHƯƠNG 3:
+Không có gì ngạc nhiên khi hầu hết các công ty lập kế hoạch cho các dự án CRM
+đều bắt đầu với mục tiêu cải thiện dịch vụ hỗ trợ khách hàng. Nếu có bất cứ điều
+gì có thể ảnh hưởng đến trải nghiệm của khách hàng, thì đó là do dịch vụ hoặc do
+thiếu dịch vụ.
+29
+Hai mươi năm trước, hầu hết người tiêu dùng phàn nàn bằng cách viết thư, gửi
+qua đường bưu điện và chờ đợi phản hồi đến một cách ngẫu nhiên. Với sự xuất
+hiện của Internet, các trung tâm cuộc gọi (call center) được coi như là nơi duy
+nhất mà khách hàng có thể giao tiếp với nhân-viên-thật. Tuy nhiên, ở thời điểm
+đó, việc nhận cuộc gọi, ghi lại và lưu trữ thông tin cuộc gọi đều được thực hiện
+hoàn toàn thủ công. Điều này lâu dần khiến cho những nhân viên phụ trách cảm
+thấy bị quá tải và dần sinh cảm giác nhàm chán.
+Theo thời gian, các công ty ngày càng nhận ra được điều này và dần tích hợp các
+công cụ công nghệ vào hoạt động kinh doanh.
+Với CRM, công cụ này cung cấp quyền truy cập tức thì vào mọi tương tác mà
+khách hàng đã có với một thương hiệu, bao gồm lịch sử trò chuyện, lịch sử mua
+hàng và thẻ dịch vụ khách hàng. Điều này cho phép nhân viên dịch vụ khách hàng
+có được thông tin chi tiết của khách hàng khi đang tương tác với họ.
+Nhân viên hỗ trợ sẽ biết chính xác họ đang nói chuyện với ai ngay từ khi họ nhận
+cuộc gọi, vì số điện thoại của khách hàng, kèm tên và các thông tin liên quan, đã
+được lưu trữ trước trên hệ thống. Họ có thể chào hỏi với khách hàng bằng tên
+riêng và giao tiếp sao cho phù hợp với nghề nghiệp hiện tại của từng người. Bên
+cạnh đó, dữ liệu về những lần mua hàng gần đây nhất của khách hàng cũng được
+lưu lại trên phần mềm, vì vậy, nếu khách hàng cần thêm thông tin về sản phẩm,
+nhân viên hỗ trợ sẽ có thể nắm bắt kịp thời thông tin chi tiết của sản phẩm được
+nói đến. 
+
+## PDF PAGE 30
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+SlimCRM CRM Playbook
+CRM giúp nhân viên có được cái nhìn tổng thể 360 độ về từng khách hàng, cung
+cấp tất cả thông tin thu được về khách hàng từ lần tiếp xúc đầu tiên của họ với
+thương hiệu và cho phép thương hiệu giữ liên lạc với khách hàng để có thể liên
+tục đánh giá mức độ hài lòng của họ.
+Trước khi quyết định chuyển đổi số cho một bộ phận nào đó của doanh nghiệp,
+bạn cũng cần phải hiểu được nhu cầu và mong muốn của mình sau khi áp dụng nó,
+cũng như nắm được tình hình hiện tại của bộ phận cần được áp dụng công nghệ để
+đưa ra lựa chọn phù hợp nhất.
+Lựa chọn công nghệ một cách cẩn thận
+30
+CRM cũng rất quan trọng để giữ chân khách hàng và giảm tỷ lệ rời bỏ. Ví dụ: Các
+nhân viên chăm sóc khách hàng có thể lọc tài khoản để xem khách hàng nào sắp
+đến thời gian gia hạn hợp đồng và có thể tiếp cận sớm.
+Bên cạnh việc triển khai CRM, dưới đây là một số cách có thể giúp doanh nghiệp
+bạn cải thiện dịch vụ chăm sóc khách hàng của mình:
+Đặt mục tiêu phù hợp
+Nhiều công ty sử dụng CRM để cấp cho các nhân viên trung tâm cuộc gọi quyền
+truy cập dữ liệu dễ dàng hơn, mục tiêu là tăng hiệu quả cuộc gọi. Tuy nhiên, tôi
+biết một hãng ô tô lớn có hai bộ tiêu chí thành công khác nhau. Đối với loại xe hơi
+truyền thống, công ty đặt mục tiêu giữ cho các cuộc gọi điện thoại ngắn gọn và
+hướng khách hàng đến thông tin trên website hoặc đến các đại lý địa phương. Với
+các mẫu xe hơi sang trọng, công ty lại mong muốn giữ liên lạc qua điện thoại với
+khách hàng cho dù cuộc gọi diễn ra trong bao lâu. Vì vậy, việc đặt mục tiêu khi áp
+dụng CRM cần được tiến hành dựa trên đặc điểm của sản phẩm và nhóm khách
+hàng khác nhau.
+Thiết lập bộ quy trình cho các nhân viên chăm sóc khách hàng
+Với sự kỳ vọng ngày càng cao về chất lượng dịch vụ, các công ty cần thiết lập
+một quy trình chuẩn, dựa trên các dữ liệu chung về khách hàng, để nhân viên có
+thể tuân theo, tránh việc trả lời khách hàng bằng phán đoán và cảm tính. Bên
+cạnh đó, các nhân viên cũng cần được đào tạo bài bản và đảm bảo sử dụng tốt
+những công cụ công nghệ được áp dụng.
+
+## PDF PAGE 31
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+SlimCRM CRM Playbook
+CRM VÀ NHÂN SỰ
+CHƯƠNG 4:
+Con người luôn là tải sản quý báu nhất của mọi công ty, là nhân tố chính thúc đẩy
+mọi hoạt động kinh doanh, giúp công ty phát triển. Do đó, ngoài việc quản lý
+khách hàng và tập trung chăm sóc khách hàng vì mục đích kinh doanh, trách
+nhiệm của một tổ chức còn là quản lý và đáp ứng nhu cầu cho nhân viên của mình.
+31
+Sẽ không đúng nếu nói rằng hệ thống CRM chỉ được sử dụng để quản lý khách
+hàng và khách hàng tiềm năng; hầu hết các trưởng phòng nhân sự hoặc các cấp
+quản lý đang sử dụng công nghệ CRM để quản lý nguồn nhân lực của công ty.
+Quay trở lại Khung xRM (xRM Framework) đã được đề cập ở Chương 1, CRM -
+Customer Relationship Management lúc này sẽ trở thành Employee Resources
+Management - Quản lý nguồn nhân lực (ERM). ERM là một quy trình kinh doanh
+giúp lấp đầy khoảng cách giữa tổ chức và nhân viên để tạo ra mối liên kết bền
+chặt giữa họ.
+Quản lý hồ sơ, theo dõi tiến độ và hiệu suất của nhân viên
+Công cụ CRM có thể giúp bạn quản lý quản lý nhân viên chỉ bằng một cú nhấp
+chuột. Bạn sẽ xem được những dữ liệu liên quan đến tác động của hiệu suất của
+nhân viên đối với trải nghiệm của khách hàng. Điều này sẽ ảnh hưởng đến cách
+bạn lập chiến lược cho bộ phận nhân sự.
+Và chắc chắn rồi, tạo công việc, theo dõi tiến độ và kiểm tra hiệu quả đầu ra chính
+là những chức năng không thể thiếu của một phần mềm CRM. Hệ thống CRM có
+thể đóng vai trò là phần mềm quản lý cơ sở dữ liệu nhân sự vì nó cung cấp cho
+bạn thông tin tổng thể về nhân viên cũng như lịch sử công việc của họ. Hơn nữa,
+nền tảng CRM rất dễ sử dụng và trực quan với người dùng, vì vậy, các công ty có
+thể cập nhật thông tin theo thời gian thực về tình trạng hoạt động của nhân viên,
+cho dù họ đang làm hay không làm việc.
+
+## PDF PAGE 32
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+SlimCRM CRM Playbook
+Dựa trên những cải tiến và tổn thất gần đây trong công ty, phần mềm CRM còn
+có thể ước tính các nhiệm vụ được giao cho từng nhân viên và vẽ biểu đồ để phân
+tích đầy đủ về hiệu suất công việc. Phần mềm sẽ đảm bảo rằng mỗi tham số đều
+được kiểm tra, bao gồm loại công việc, chiến lược được quy định và các hành
+động được thực hiện theo lịch trình. Nó còn so sánh tỷ lệ hiệu suất dự kiến   với tỷ
+lệ thực tế.
+Theo Khung xRM, CRM không chỉ là C - Customer, mà còn là C - Candidate. Nói
+cách khác, CRM có thể được hiểu như một phần mềm quản lý mối quan hệ với các
+ứng viên.
+Tự động hóa quy trình tuyển dụng và đào tạo nhân viên mới
+32
+Thông qua báo cáo trên phần mềm, người quản lý có thể biết được những nhân
+viên nào đã hoàn thành tốt nhiệm vụ và những nhân viên nào chưa hoàn thành
+đúng hạn / thực hiện nhiệm vụ hời hợt. Từ đó, người quản lý sẽ ước định được
+mức thưởng / phạt và có những hình thức tuyên dương / đào tạo nâng cao trình
+độ cho phù hợp.
+
+## PDF PAGE 33
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+Mời bạn tham khảo Case Study
+áp dụng thành công CRM vào tuyển dụng tại đây
+SlimCRM CRM Playbook
+Sự trợ giúp của phần mềm CRM còn giúp cho việc đào tạo nhân viên mới dễ dàng
+hơn. Toàn bộ những thông tin về ứng viên, bao gồm cả lộ trình đào tạo, đều được
+hiển thị công khai và trực quan, giúp bộ phận nhân sự dễ dàng theo dõi và hỗ trợ
+nhân viên mới kịp thời. Một số phần mềm CRM cho phép nhân sự tạo các bài test
+đánh giá trình độ xuyên suốt quá trình thử việc, qua đó nhân viên mới có thể
+nhanh chóng làm quen với công việc, và người quản lý cũng dễ dàng nắm bắt tình
+trạng của ứng viên để biết cách nâng cao trình độ, giúp nhân viên hòa hợp với
+môi trường mới. Lâu dần, điều này sẽ giúp xây dựng một hình ảnh chuyên nghiệp
+cho toàn thể công ty và thu hút được nhiều nhân sự chất lượng hơn về sau.
+33
+Tự động hóa tuyển dụng và đào tạo đang trở nên thực sự cần thiết. Bởi lẽ, hai quy
+trình này thường tiêu tốn rất nhiều thời gian và năng lượng, đặc biệt là với các
+doanh nghiệp nhỏ, khi mà nguồn lực dành cho các hoạt động này là rất hạn chế.
+Bộ phận nhân sự có thể tận dụng phần mềm CRM để tiến hành tuyển dụng theo
+đúng quy trình và tìm kiếm nhân tài phù hợp nhất với doanh nghiệp, cũng giống
+như cách mà các nhóm bán hàng sử dụng phần mềm để quản lý khách hàng tiềm
+năng vậy. Các công cụ CRM cho phép người dùng lọc các ứng viên tốt nhất thông
+qua các bài test trực tuyến ngay trên phần mềm, gửi email tới ứng viên và theo
+dõi các phản hồi. Sau cùng, bộ phận tuyển dụng có thể đánh giá được năng lực
+của ứng viên ngay trên phần mềm và từ đó xây dựng khung năng lực rõ ràng cho
+từng vị trí. Về sau, những dữ liệu lưu lại trong quá trình tuyển dụng có thể được
+kết hợp để đánh giá chất lượng ứng viên trong quá trình thử việc, giúp HR đưa ra
+những nhận xét khoa học và chính xác hơn.
+
+## PDF PAGE 34
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+SlimCRM CRM Playbook
+CRM VÀ KẾ TOÁN
+CHƯƠNG 5:
+Nếu bạn là một kế toán viên, bạn sẽ biết việc bị “ngộp lặn” giữa xấp báo cáo và
+tài liệu xảy ra thường xuyên như thế nào! Tuy nhiên, kế toán không chỉ dừng lại ở
+những con số giòn giã. Bạn vẫn cần giữ mối quan hệ với nhân viên và khách hàng,
+giúp khách hàng của bạn không gặp những rắc rối về tài chính; bên cạnh đó còn
+phân tích và dự báo các xu hướng kinh doanh để doanh nghiệp có thể tiếp tục vận
+hành.
+34
+Thông thường, những nhân viên phụ trách công việc này phải kết hợp giữa phần
+mềm kế toán và nhiều ứng dụng phụ trợ khác. Trên thực tế, QuickBooks nhận
+thấy rằng các kế toán dành 86% thời gian của họ cho các nhiệm vụ có thể được
+tự động hóa.
+Phần mềm CRM là nơi tập trung thông tin của bạn
+CRM cung cấp một bảng điều khiển (dashboard) tập trung mọi dữ liệu về khách
+hàng của bạn. Từ đó, bạn có thể phân chia cơ sở dữ liệu, xem lại lịch sử giao dịch,
+tạo hóa đơn, báo giá, v.v… và gửi cho khách hàng dễ dàng hơn mà không cần mở
+quá nhiều tab. Bạn còn có thể theo dõi hành trình của khách hàng và cập nhật hồ
+sơ của họ khi có bất kỳ thay đổi nào. Có một cơ sở dữ liệu mạnh mẽ như vậy cũng
+sẽ giúp việc chuyển đổi khách hàng tiềm năng của bạn thành khách hàng dễ dàng
+hơn nhiều.
+May mắn thay, việc áp dụng CRM có thể giúp giảm bớt khối lượng công việc, giải
+phóng bạn khỏi các tác vụ thủ công như nhập dữ liệu và cho phép bạn dành thời
+gian cho những nỗ lực sinh lời hơn như phân tích, tư vấn và bán hàng:
+Đa số phần mềm CRM cho phép bạn di chuyển và đồng bộ hóa thông tin khách
+hàng trực tiếp từ các ứng dụng khác. Khi dữ liệu khách hàng được tổng hợp, đội
+nhóm của bạn có thể tiếp tục cộng tác chỉnh sửa và qua đó tối ưu hóa chất lượng
+dữ liệu.
+
+## PDF PAGE 35
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+SlimCRM CRM Playbook
+Là một kế toán viên, bạn sẽ hiểu được việc tự động hóa các nhiệm vụ lặp đi lặp lại
+có thể đóng góp vào lợi nhuận của bạn như thế nào. 
+CRM giúp tự động hóa các phần trong quy trình làm việc của bạn
+35
+Bên cạnh việc giải phóng nguồn nhân lực, việc tự động hóa quy trình làm việc
+bằng phần mềm CRM đảm bảo bạn có thể thực hiện các hành động phù hợp vào
+đúng thời điểm để mọi thứ luôn vận hành.
+CRM tự động tạo phiếu yêu cầu khi khách hàng điền vào biểu mẫu, gửi truy vấn
+qua email, hoặc trò chuyện trực tiếp. Bạn cũng có thể tạo lời nhắc tự động cho
+nhân viên và khách hàng của mình trên phần mềm CRM. Giả sử bạn mới có một
+khách hàng cần giữ liên hệ trong một số ngày nhất định. Bạn có thể gửi thông báo
+cho một nhân viên nào đó về nhiệm vụ này, sau đó theo dõi tiến độ và hiệu quả
+công việc của nhân viên. Bạn cũng có thể đặt lời nhắc cho những ngày quan
+trọng, chẳng hạn như ngày nộp thuế cuối cùng.
+Nhờ bảng điều khiển tự động và một số chỉ số hiệu suất, CRM cung cấp thông tin
+cho bộ phận kế toán về khả năng sinh lời của từng dự án và giúp bạn xác định
+khách hàng có lợi nhất cho doanh nghiệp của mình. 
+CRM giúp bạn phân tích dữ liệu dễ dàng
+CRM kế toán còn có thể tạo bảng phân tích dữ liệu và cung cấp bản tóm tắt trực
+quan về các số liệu thể hiện hiệu suất. Phân tích chính là chìa khóa để hiểu mức
+độ hiệu quả của chiến lược kinh doanh của bạn trong một khoảng thời gian nhất
+định. 
+Một nghiên cứu năm 2022 của Grandview Research cho thấy 82% công ty sử
+dụng CRM của họ để báo cáo bán hàng và tự động hóa quy trình. Điều đó phần
+nào chứng tỏ đây chính là một công cụ rất hiệu quả để giảm bớt “gánh nặng
+Excel” cho bộ phận kế toán.
+
+## PDF PAGE 36
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+SlimCRM CRM Playbook
+CRM VÀ LÃNH ĐẠO
+CHƯƠNG 6:
+Không có gì đáng ngạc nhiên khi nói rằng CEO - và các cấp quản lý - là những
+người cực kỳ bận rộn. Nhiệm vụ của họ không chỉ xoay quanh các cuộc họp và các
+quyết định điều hành khó khăn mà còn nhiều hơn thế nữa. Bậc quản lý phải gánh
+trên vai những trách nhiệm, bắt đầu từ việc xác định các mục tiêu kinh doanh,
+quản lý dữ liệu, đến theo các quy trình khác nhau của công ty và đưa ra các
+quyết định để nâng cao doanh số. Tất cả những nhiệm vụ này có thể mất rất nhiều
+thời gian và nỗ lực.
+36
+Xây dựng mối quan hệ bền vững với khách hàng
+“46% các cấp quản lý bán hàng nói
+rằng mối quan hệ sâu sắc với khách
+hàng là mục tiêu chính để duy trì sự
+thành công.” (Salesforce, State of
+Sales)
+Tuy nhiên, sự xuất hiện của phần mềm CRM đã giảm bớt rất nhiều gánh nặng cho
+những người lãnh đạo, được thể hiện qua một số khía cạnh sau đây:
+Mối quan hệ với khách hàng là chìa
+khóa cho sự phát triển của tổ chức
+của bạn, vì vậy bạn cần phải quản lý
+chúng một cách hiệu quả, và hiệu quả
+nhất có thể.
+Một hệ thống CRM phù hợp có thể
+giúp doanh nghiệp:
+
+## PDF PAGE 37
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+SlimCRM CRM Playbook
+Từ những cuộc trao đổi, bạn sẽ hiểu được điều
+gì là quan trọng đối với khách hàng, cũng như
+biết được mục tiêu, thách thức và sở thích của
+họ. Sau đó, bạn có thể ghi lại những ghi chú
+này trong hệ thống CRM để phục vụ cho việc
+xây dựng chiến lược và trò chuyện với khách
+hàng trong những lần tiếp theo.
+Hiểu khách hàng hơn
+37
+Sau khi hiểu được các thách thức và mục tiêu
+kinh doanh của khách hàng, bạn có thể đề xuất
+các sản phẩm phù hợp, chương trình khuyến mãi
+đặc biệt, hoặc những nội dung khác có liên quan
+đến sở thích của họ vào đúng thời điểm. Với
+CRM, bạn cũng sẽ biết được họ đã mua những gì
+và sử dụng sản phẩm hoặc dịch vụ đó như thế
+nào, nhờ vậy bạn có thể cung cấp cho khách
+hàng loại nội dung và thông tin phù hợp nhất.
+Tương tác với mức độ phù hợp
+Bất kỳ khách hàng nào cũng sẽ yêu thích những
+trải nghiệm được cá nhân hóa. Với một doanh
+nghiệp nhỏ, điều này có vẻ khá dễ dàng. Tuy
+nhiên, khi bắt đầu mở rộng quy mô, việc nắm bắt
+thông tin chi tiết của từng và mọi khách hàng -
+và khi nào nên theo dõi họ - sẽ trở nên khó khăn
+hơn. Lúc này, nền tảng CRM có thể lưu trữ các
+mẫu email, thiết lập lời nhắc công việc và kích
+hoạt các cuộc gọi điện thoại để giúp bạn kết nối
+với khách hàng nhanh chóng và dễ dàng.
+Mở rộng mối quan hệ 1-1
+
+## PDF PAGE 38
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+SlimCRM CRM Playbook
+“Không có hệ thống CRM, 79% tất cả các khách hàng marketing tiềm năng không
+bao giờ được chuyển đổi thành doanh số bán hàng.” (Pardot)
+Tối đa hiệu quả hoạt động Marketing và Sales
+38
+Bạn đã dành thời gian và nguồn lực để thu hút và tạo dựng khách hàng tiềm năng
+mới, nhưng bây giờ thì sao? Họ có được chuyển cho nhóm bán hàng của bạn
+không, và nếu vậy, đại diện của bạn có biết đâu mới là cơ hội hấp dẫn nhất
+không? Lúc này, thời gian chính là điều kiện tiên quyết, đặc biệt là khi doanh
+nghiệp bạn còn nhỏ và đang trên đà phát triển nhanh chóng. Hãy tận dụng tối đa
+các công cụ marketing của bạn — email, mạng xã hội, marketing tự động hóa —
+bằng cách kết nối chúng với nền tảng CRM. Nhờ vậy, cả hai bộ phận Sales và
+Marketing sẽ có một cái nhìn đầy đủ nhất về cơ hội và khách hàng tiềm năng để
+thực hiện các hoạt động truyền thông hấp dẫn nhằm biến khách hàng tiềm năng
+thành khách hàng, đồng thời nhanh chóng tiếp cận những người có ảnh hưởng đến
+quyết định mua (key decision maker).
+“52% nhân viên bán hàng có hiệu suất cao tự nhận mình là những người sử dụng
+thành thạo và tận dụng tối đa công nghệ CRM của công ty họ.” (Tạp chí kinh
+doanh Harvard)
+Tăng năng suất nhân viên
+Việc áp dụng công nghệ phù hợp sẽ giải phóng nhân viên của bạn khỏi các nhiệm
+vụ nặng về quy trình và cho họ nhiều thời gian hơn để kết nối với khách hàng. Các
+hoạt động thủ công như tìm kiếm thông tin liên hệ hoặc nhập dữ liệu có thể được
+tự động hóa, hoặc thậm chí loại bỏ khỏi các quy trình liên quan đến khách hàng.
+Bên cạnh đó, CRM giúp các nhà lãnh đạo cập nhật kịp thời thông tin về tình hình
+kinh doanh của doanh nghiệp và đánh giá xem liệu mỗi phòng ban có đang đi đúng
+hướng để đạt được các mục tiêu chung hay không. Nếu bạn là trưởng nhóm, chủ
+doanh nghiệp hoặc trong C-suite, mục dữ liệu và báo cáo bán hàng được hiển thị
+trực quan sẽ giúp bạn dễ dàng quản lý hiệu quả hoạt động của bộ phận và điều
+chỉnh chiến lược để đạt được mục tiêu. Đây cũng là cơ sở để bạn thiết lập và theo
+dõi các chỉ số hiệu suất như KPI cho từng bộ phận và nhân viên.
+
+## PDF PAGE 39
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
++ 24%
+TỈ LỆ CHIẾN THẮNG
++ 30%
+CHUYỂN ĐỔI
+KHÁCH HÀNG TIỀM NĂNG
++ 25%
+NĂNG SUẤT BÁN HÀNG
++ 25%
+DOANH THU
+SlimCRM CRM Playbook
+Giảm chi phí bán hàng
+39
+Nhờ việc tạo dựng mối quan hệ với
+khách hàng bằng CRM, bạn có thể xây
+dựng chiến lược giữ chân và tiếp tục
+bán cho khách hàng cũ để tiết kiệm chi
+phí, thay vì tập trung tìm kiếm khách
+hàng mới như trước.
+Nên nhớ rằng, “Xác suất bán được hàng
+cho một khách hàng tiềm năng mới là
+5%–20%. Xác suất bán được hàng cho
+khách hàng hiện tại là 60%–70%.”
+(Marketing Metrics)
+Sau cùng, tất cả những lợi ích có thể đo
+lường được mà một phần mềm CRM
+mang lại sẽ giúp phát triển doanh nghiệp
+của bạn, không chỉ về doanh thu - lợi
+nhuận, mà còn bao gồm uy tín, hình ảnh
+thương hiệu và sự hài lòng của nhân
+viên.
+Phần trăm cải thiện trung bình sau khi áp dụng CRM -
+do khách hàng của Salesforce báo cáo
+Nguồn: Khảo sát về mối quan hệ của Salesforce được
+thực hiện từ năm 2014 - 2016 trong số hơn 10.500
+khách hàng được chọn ngẫu nhiên. Kích thước phản hồi
+cho mỗi câu hỏi khác nhau
+
+## PDF PAGE 40
+SlimCRM.vn
+ỨNG DỤNG CỦA CRM
+TRONG MỘT SỐ NGÀNH
+03
+
+## PDF PAGE 41
+01Ngành du lịch
+QUẢN LÝ LEAD VÀ
+KHÁCH HÀNG
+NHẮC NHỞ THANH TOÁN
+QUẢN LÝ EMAIL
+Nếu doanh nghiệp thấy rằng doanh
+nghiệp đang không có nguồn khách
+hàng tiềm năng cụ thể, không có quy
+trình bán hàng nhất quán thì đây là
+thời điểm thích hợp để bắt đầu dùng
+thử CRM. CRM giúp doanh nghiệp quản
+lý và theo dõi các khách hàng tiềm
+năng để chuyển họ thành khách hàng.
+Bên cạnh đó, các công ty có thể theo
+dõi thông tin của khách hàng nếu họ đã
+từng giao dịch, hiểu được sở thích,
+điểm đến ưa thích và sự trung thành
+của họ. 
+Theo dõi quá trình thanh toán là một
+phần quan trọng của ngành du lịch,
+CRM giúp các công ty theo dõi trạng
+thái thanh toán của từng khách hàng
+riêng lẻ và nhắc nhở báo giá khi gần
+đến hạn thanh toán.
+Ngành du lịch thường dễ thay đổi theo
+mùa, thời tiết và các yếu tố khác bên
+ngoài; vì vậy, các công ty du lịch
+thường có trách nhiệm thông báo cho
+khách hàng về những thay đổi nhỏ.
+Việc quản lý email/sms trên CRM giúp
+doanh nghiệp có thể gửi email/sms đến
+khách hàng một cách nhanh chóng và
+theo dõi quá trình giao tiếp cùng khách
+hàng để hỗ trợ gửi email dựa theo sở
+thích của họ. 
+Phần mềm CRM ngày càng trở
+nên quan trọng với ngành du
+lịch, khi doanh nghiệp ngày
+càng lớn mạnh, việc sử dụng
+CRM gần như là bắt buộc, bên
+cạnh đây là những lợi ích
+CRM mang lại cho các công ty
+doanh nghiệp:
+SlimCRM CRM Playbook
+41
+
+## PDF PAGE 42
+Các công ty trong ngành dịch vụ cần
+phải đảm bảo rằng họ đang làm tốt
+nhất trong việc giao dịch với khách
+hàng vì khách hàng luôn mong muốn
+nhận được những dịch vụ tốt. Việc dữ
+liệu khách hàng được lưu trữ đầy đủ
+khiến điều này trở nên dễ dàng hơn.
+Phân tích các dữ liệu giúp bạn hiểu
+được các khách hàng tiềm năng; dựa
+vào đó, bạn có thể tạo ra những dịch
+vụ mang tính cá nhân hóa. Doanh
+nghiệp có thể mang đến những trải
+nghiệm tốt nhất và khiến họ cảm
+thấy hạnh phúc hơn. 
+TỔ CHỨC VÀ CẢI THIỆN GIAO
+TIẾP VỚI KHÁCH HÀNG
+CÁ NHÂN HÓA CÁC TRẢI
+NGHIỆM CHO KHÁCH HÀNG
+MỤC TIÊU
+THEO DÕI DOANH SỐ BÁN
+HÀNG VÀ HIỆU SUẤT CỦA
+CÁC NHÂN VIÊN
+CRM sẽ ngay lập tức ghi lại và quản
+lý các thông tin, dữ liệu giữa người
+quản lý và bộ phận lãnh đạo, giữa
+người quản lý và khách hàng, giữa
+các bộ phận ngang hàng với nhau.
+Các tính năng như chia sẻ dữ liệu,
+thông báo và nhắc nhở giúp doanh
+nghiệp có thể giao tiếp với khách
+hàng vào thời điểm thích hợp.
+Điều này sẽ giúp doanh nghiệp theo
+dõi được tính liên tục trong quá trình
+làm việc, giúp ngăn chặn sự chậm trễ
+không mong muốn và đánh giá hiệu
+suất của nhân viên 
+Ngành dịch vụ ngày càng trở
+nên cạnh tranh, nhiều công
+ty đã cố gắng cải thiện chất
+lượng dịch vụ của họ bằng
+cách đáp ứng nhu cầu, mong
+muốn của khách hàng vào
+đúng thời điểm. Sự tồn tại
+trong ngành này dựa vào khả
+năng đáp ứng được kỳ vọng
+của khách hàng, tìm kiếm
+được các khách hàng tiềm
+năng và duy trì. Điều quan
+trọng là doanh nghiệp cần có
+một đội ngũ thấu hiểu và
+quản lý được những nhu cầu
+từ khách hàng. Ngoài ra,
+doanh nghiệp đang hoạt động
+tốt, mọi thứ đều được hệ
+thống hóa cũng là một yếu tố
+quan trọng. Việc sử dụng
+CRM là một lựa chọn hoàn
+hảo để các công ty ngành
+dịch vụ hệ thống hóa quy
+trình và mang lại những trải
+nghiệm tốt nhất cho khách
+hàng. Dưới đây là những lợi
+ích mà CRM mang lại cho các
+công ty kinh doanh ngành
+dịch vụ:
+SlimCRM CRM Playbook
+02
+Ngành dịch vụ
+42
+
+## PDF PAGE 43
+Ngành khách sạn hoạt động dựa trên khái niệm về tỷ lệ lấp phòng, nếu
+tỷ lệ lấp phòng thấp thì sẽ sinh lời thấp. Việc khiến các khách hàng hài
+lòng và quay lại sẽ mang đến nhiều lợi nhuận hơn, sử dụng CRM có thể
+giúp các khách sạn theo sát các khách hàng. Khách sạn có thể có rất
+nhiều nguồn khách hàng tiềm năng và không nên bỏ lỡ bất kỳ nguồn
+nào, khi khách sạn lỡ mất một bước follow-up, khách hàng có thể dễ
+dàng đưa ra chọn lựa khác. Đội sales của các khách sạn sẽ phải gửi rất
+nhiều các bản báo giá và sửa đổi, nếu không có CRM, quá trình này sẽ
+rất khó khăn và dễ xảy ra sai sót. Ngày nay, việc đặt phòng online ngày
+càng phổ biến, việc tập trung chúng trên cùng một nền tảng là điều bắt
+buộc. Đội sales của khách sạn được phân tán và liên tục di chuyển nên
+việc có một phần mềm tập trung để sử dụng là điều cần thiết. 
+SlimCRM CRM Playbook
+Ngành bất động sản 
+Ngành bất động sản là một trong những ngành sử dụng phần mềm CRM
+nhiều nhất. Bất cứ công ty bất động sản nào cũng đều hiểu được tầm
+quan trọng của việc duy trì được một mối quan hệ vững bền, lâu dài và
+thành công với khách hàng, vì quá trình đưa ra quyết định mua hàng
+trong ngành bất động sản thường kéo dài khá lâu. 
+CRM có thể giúp các doanh nghiệp giữ liên lạc với khách hàng một cách
+lâu dài và hiệu quả. CRM giúp doanh nghiệp bất động sản quản lý được
+quá trình bán hàng và marketing để cải thiện được sự hài lòng của
+khách hàng 
+-5-(1) Wikipedia, https://en.wikipedia.org/wiki/Rolodex
+03Ngành khách sạn
+04
+43
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+
+## PDF PAGE 44
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+SlimCRM CRM Playbook
+(2) Oracle,
+https://docs.oracle.com/cd/B40099_02/books/HHSales/HHSalesUseHHApps2.html
+2
+Ngành
+chăm sóc sức khỏe
+Ngành chăm sóc sức khỏe luôn là một trong những ngành quan trọng,
+được đầu tư và thúc đẩy phát triển nhiều nhất. Chi phí chăm sóc sức
+khỏe cao khiến các bệnh nhân đặt kỳ vọng lớn vào dịch vụ khách hàng
+của ngành này. Lĩnh vực chăm sóc sức khỏe đòi hỏi một mạng lưới quản
+lý các bác sĩ, người bệnh và cả số lượng thuốc, hàng được tổ chức tốt. 
+Phần mềm CRM cung cấp cho ngành y tế một nền tảng tuyệt vời để quản
+lý các hoạt động theo nhiều cách như quản lý bán hàng và tiếp thị. Bên
+cạnh đó, phần mềm CRM giúp triển khai và thực hiện các chiến lược
+marketing khác nhau cũng như quản lý kế toán và hàng tồn kho.
+05
+44
+
+## PDF PAGE 45
+SlimCRM.vn
+04
+LỰA CHỌN CRM -
+TƯỞNG DỄ MÀ KHÓ
+
+## PDF PAGE 46
+TẢI TEMPLATE HƯỚNG DẪN LỰA CHỌN
+PHẦN MỀM CRM TẠI ĐÂY 
+LÀM THẾ NÀO ĐỂ CHỌN ĐƯỢC
+PHẦN MỀM CRM PHÙ HỢP?
+Chương 1:
+Một hệ thống quản lý khách hàng (CRM) giúp doanh nghiệp bạn quản dữ liệu
+khách hàng hiệu quả và chuẩn hóa quy trình bán hàng. Tuy nhiên, việc lựa chọn
+một nhà cung cấp phù hợp đòi hỏi một quá trình đưa ra quyết định cẩn thận để tối
+đa hóa thời gian và đầu tư tài chính của doanh nghiệp. Các khía cạnh khác nhau,
+bao gồm giá cả, tính năng, tính dễ sử dụng và mục tiêu của doanh nghiệp, cần phải
+được xem xét trước khi ký hợp đồng với các nhà cung cấp. 
+Hãy nhớ rằng, bạn không cần phải chọn phần mềm CRM tiên tiến nhất trên thị
+trường. Hãy chắc rằng bạn đang chọn một nhà cung cấp phù hợp nhất với nhu cầu
+cũng như ngân sách và các ưu tiên của doanh nghiệp bạn. 
+Sau khi tải xuống hướng dẫn trên, hãy theo 6 bước cần thiết sau để giúp doanh
+nghiệp sắp xếp quy trình lựa chọn nhà cung cấp CRM:
+-5-
+SlimCRM CRM Playbook
+46
+
+## PDF PAGE 47
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+Trước khi bắt đầu quá trình lựa chọn, hãy xem các báo cáo hiệu suất kinh doanh
+hàng năm của doanh nghiệp và xem xét các mục tiêu doanh nghiệp đã đặt ra, tốt
+nhất là bạn nên xác định các mục tiêu trong một đến hai năm tới. Những mục tiêu
+này có thể bao gồm tăng doanh số bán hàng cho đến mở rộng các danh mục sản
+phẩm của doanh nghiệp. 
+Những mục tiêu tốt nhất là những mục tiêu cụ thể, có thể đo lường được, khả thi
+và được thiết lập thời gian (SMART). Các bạn có thể xem thêm định nghĩa và các
+ví dụ cụ thể để nắm rõ về mục tiêu SMART. 
+2
+Bước 1: Hiểu được mục tiêu và nhu cầu của doanh nghiệp
+Nếu như doanh nghiệp đang tìm kiếm và lựa chọn một hệ thống CRM, chắc hẳn
+doanh nghiệp đang muốn giải quyết các nhu cầu cụ thể trong kinh doanh hoặc giải
+quyết các vấn đề hiện có trong các hoạt động kinh doanh. Những điều này có thể
+bao gồm theo dõi leads một cách hiệu quả, giám sát doanh số bán hàng mỗi tháng.
+Để tìm ra được phần mềm tốt nhất cho doanh nghiệp của bạn, hãy đặt ra mục tiêu
+và nghĩ đến “nỗi đau” mà doanh nghiệp muốn phần mềm CRM mới sẽ giải quyết. 
+SlimCRM CRM Playbook
+47
+
+## PDF PAGE 48
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+2
+Sau khi xác định các mục tiêu, hãy nghĩ đến những công cụ doanh nghiệp cần có
+để đạt được các mục tiêu đó. Ví dụ, nếu một trong các mục tiêu của doanh nghiệp
+cải thiện hiệu quả của đội sales thì nhu cầu của doanh nghiệp có thể là một phần
+mềm CRM gồm các tính năng tự động hóa quy trình làm việc. Nếu mục tiêu của
+doanh nghiệp là đặt ra mục tiêu bán hàng, thì nhu cầu của doanh nghiệp có thể là
+một phần mềm CRM với tính năng dự báo bán hàng. Quá trình này còn được gọi là
+xác định chiến lược CRM của doanh nghiệp. 
+Bước 2: Thu thập thông tin từ các nhóm và các phòng ban khác nhau
+Để hệ thống CRM hoạt động trơn tru, các nhóm khác nhau sẽ sử dụng phần mềm
+cần phải đưa ra thông tin trong quá trình quyết định. Việc thu thập các feedback
+từ tất cả những người dùng tiềm năng trong doanh nghiệp bạn là điều cần thiết để
+mang lại lợi ích cho cả nhóm. 
+Bộ phận marketing, chăm sóc khách hàng, kế toán sẽ có những yêu cầu và mong
+muốn về các tính năng khác với bộ phận sales. Thu thập feedback từ các phòng
+ban liên quan trước khi lựa chọn phần mềm CRM giúp đảm bảo rằng các phòng
+ban khác nhau có thể cùng hoạt động trên một hệ thống tập trung. 
+Trong template, chúng tôi đã liệt kê một số chức năng quan trọng và các ô trống
+để các nhóm khác nhau có thể cung cấp nhu cầu của họ, giúp cho doanh nghiệp có
+được một bức tranh toàn cảnh về cách họ sẽ sử dụng CRM. Điều này đảm bảo
+rằng phần mềm CRM mà doanh nghiệp chọn sẽ bao gồm tất cả những công cụ cần
+thiết mà các phòng ban của doanh nghiệp cần, tránh được việc doanh nghiệp phải
+trả tiền cho cả những tính năng không ai sử dụng. 
+SlimCRM CRM Playbook
+48
+
+## PDF PAGE 49
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+Bước 3: Lập danh sách những tính năng cần thiết cho doanh nghiệp
+Sau khi đã xem xét lại các mục tiêu và nhu cầu của doanh nghiệp và nhận
+feedback từ các phòng ban thì đây là lúc doanh nghiệp cần lập ra một danh sách
+các tính năng mà doanh nghiệp cần từ các nhà cung cấp. 
+Doanh nghiệp có thể lập ra hai danh sách: các tính năng must-have (bắt buộc
+phải có) và các tính năng nice-to-have (khá tốt nếu có). 
+Khi lập danh sách các tính năng, có hai yếu tố chắc chắn doanh nghiệp không thể
+bỏ qua, đó là bảo mật dữ liệu và dịch vụ chăm sóc khách hàng của nhà cung cấp.
+Khi chọn nhà cung cấp CRM, hãy đảm bảo rằng nhà cung cấp đó có các tính năng
+giúp bảo mật các dữ liệu của doanh nghiệp, như xác thực hai yếu tố và quyền
+người dùng nâng cao. Phần mềm CRM đó cũng cần phải được hỗ trợ bởi bộ phận
+chăm sóc khách hàng đáng tin cậy, có thể dễ dàng kết nối trên nhiều kênh, thậm
+chí cung cấp live chat, email và số điện thoại để hỗ trợ kỹ thuật luôn sẵn sàng khi
+bạn cần. 
+Danh sách các tính năng cần có
+Danh sách này bao gồm các tính năng thiết yếu của một phần mềm CRM, định ra
+sự khác biệt giữa triển khai CRM thành công và triển khai CRM không thành
+công. Danh sách này bao gồm các công cụ quản lý thông tin liên hệ để giữ cho cơ
+sở dữ liệu khách hàng không ngừng tăng lên của doanh nghiệp được sắp xếp. Nó
+cũng bao gồm các tính năng dự báo bán hàng, giúp doanh nghiệp đặt ra các mục
+tiêu doanh thu thực tế. Một số các tính năng CRM phổ biến và cần thiết bao gồm: 
+Quản lý liên hệ: Dùng để ghi lại, theo dõi và quản lý chi tiết các liên hệ của
+doanh nghiệp 
+Quản lý các tài khoản: Giúp doanh nghiệp theo sát các lead, tương tác với các
+liên hệ, bao gồm cả những hoạt động và lịch sử cuộc gọi 
+Báo cáo và bảng dashboard: Cung cấp bảng báo cáo tóm tắt ngắn gọn về
+doanh số bán hàng, kết qủa của email marketing và hiệu suất của đội sales
+Tự động hóa quy trình sales: Các hoạt động tự động trong các phần mềm CRM
+đa dạng như quản lý đơn hàng, email tự động 
+SlimCRM CRM Playbook
+49
+
+## PDF PAGE 50
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+Dữ liệu khách hàng: Sắp xếp dữ liệu khách hàng và quản lý tương tác của
+doanh nghiệp với họ
+Quản lý lead: Giúp đội sales sắp xếp và ưu tiên các lead để đảm bảo họ đang
+theo đúng các khách hàng tiềm năng
+Quản trị khu vực: Giúp doanh nghiệp chia leads và liên hệ cho các chi nhánh,
+nhân viên dựa trên vị trí địa lý, ngành, sản phẩm để có chiến dịch follow-up
+hiệu quả  
+Email Marketing: Giúp doanh nghiệp kết nối với các leads và khách hàng
+thông qua email cá nhân hoặc tin nhắn hàng loạt và theo dõi kết quả của các
+chiến dịch email
+Dự báo bán hàng: Đưa ra các dự đoán bán hàng và doanh thu sắp tới dựa trên
+các số liệu và xu hướng trong quá khứ và hiện tại 
+Quản lý tài liệu: Thu thập, đăng tải, lưu giữ và chia sẻ các file, tài liệu tập
+trung tại một nơi để tất cả các nhân viên đều có thể dễ dàng truy cập
+Sử dụng trên nhiều nền tảng: Cho phép người dùng sử dụng trên nhiều nền
+tảng và thiết bị khác nhau, bao gồm máy tính và điện thoại 
+Tùy chỉnh: Cho phép người dùng tạo các phần báo có riêng và các quy trình
+kinh doanh cụ thể
+Tích hợp: Đồng bộ hóa dữ liệu với các ứng dụng và công cụ khác để mở rộng
+tính năng của CRM 
+Ứng dụng trên điện thoại: Người dùng có thể quản lý leads, theo dõi đơn hàng,
+cập nhật đường ống bán hàng, liên lạc với khách hàng và hoàn thành công
+việc ngay cả khi không có máy tính, laptop
+Bất kể danh sách các tính năng cần có của doanh nghiệp bạn bao gồm những gì,
+hãy chắc rằng danh sách đó suy xét đến tất cả những thông tin được các nhóm và
+các phòng ban cung cấp từ bước nghiên cứu đầu tiên. Mặc dù không thể đáp ứng
+được tất cả các yêu cầu nhưng hãy lập một danh sách đảm bảo rằng tất cả các
+yêu cầu của các nhóm đều được xem xét một cách công bằng.
+Các tính năng “nice-to-have” (khá tốt nếu có) 
+Danh sách này bao gồm các tính năng hữu ích nên có trong giải pháp CRM, nhưng
+nếu thiếu đi các tính năng này cũng không gây cản trở khả năng đạt được các
+mục tiêu của doanh nghiệp. Đây là những chức năng mà doanh nghiệp có thể
+không cần hoặc đã có trong các ứng dụng mà doanh nghiệp đang sử dụng. 
+ 
+SlimCRM CRM Playbook
+50
+
+## PDF PAGE 51
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+Giới thiệu truyền miệng: Hãy hỏi các đồng nghiệp, đối tác và các chủ doanh
+nghiệp khác xem họ đang sử dụng phần mềm CRM nào và họ có hài lòng với
+phần mềm đó không. Tìm hiểu những gì họ cho là ưu, nhược điểm của phần
+mềm đó và họ có muốn đề xuất nó cho bạn hay không. 
+Đọc các tạp chí và website thương mại: Các ấn phẩm online và được in ấn liên
+quan đến doanh nghiệp hoặc ngành của bạn có thể là một nguồn thông tin
+tuyệt vời và cho bạn biết phần mềm CRM nào đang phổ biến trong ngành của
+bạn. 
+Hãy nhớ rằng, có rất nhiều nền tảng CRM cung cấp các mức giá theo các cấp khác
+nhau. Vì vậy, các tính năng nice-to-have không bao gồm trong lần mua đầu tiên
+của doanh nghiệp có thể sẽ khả dụng trong các gói dịch vụ cao hơn khi doanh
+nghiệp bạn phát triển. 
+Bước 4: Quyết định kiểu CRM phù hợp cho doanh nghiệp của bạn
+Nhận được thông tin từ các nhóm khác nhau về các công cụ và tính năng họ cần
+giúp bạn xác định được kiểu CRM phù hợp với yêu cầu của doanh nghiệp bạn. Nếu
+phân loại theo chiến lược doanh nghiệp, có ba loại phần mềm CRM: vận hành
+(operational); phân tích (analytical) và hợp tác (collaborative). 
+CRM vận hành tự động hóa quy trình kinh doanh và bán hàng để tiết kiệm thời
+gian và các nỗ lực. CRM phân tích tập trung vào việc thu thập và phân tích các dữ
+liệu để giúp doanh nghiệp mang đến những dịch vụ tuyệt vời cho khách hàng.
+CRM hợp tác tập trung các nhóm sales, marketing, dịch vụ khách hàng lại với
+nhau để giúp doanh nghiệp hiểu hơn về nhu cầu của khách hàng. 
+Bước 5: Nghiên cứu về các nhà cung cấp CRM tốt nhất phù hợp với
+nhu cầu và ngân sách của doanh nghiệp
+Sau khi đã được trang bị với những thông tin và danh sách các tính năng mà
+doanh nghiệp bạn cần thì giờ là lúc tìm kiếm trên thị trường xem phần mềm CRM
+nào là phù hợp nhất cho doanh nghiệp của bạn. Thực hiện tiếp cận theo ba hướng
+để thu hẹp các lựa chọn của bạn và quyết định nên thử cái nào. 
+ 
+SlimCRM CRM Playbook
+51
+
+## PDF PAGE 52
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+Đọc các review từ người dùng: Một trong những cách tốt nhất để đánh giáliệu một phần mềm CRM có đáng để xem xét không là đọc các review sẵn cótừ các khách hàng của phần mềm đó. 
+ 
+Đăng ký dùng thử và nhận demo trực tiếp
+Hầu hết các công ty CRM đều cung cấp bản dùng thử phần mềm để các khách
+hàng tiềm năng có thể dùng thử trước khi mua. Các bản dùng thử miễn phí tốt
+nhất thường cung cấp quyền truy cập vào tất cả các tính năng và cung cấp đủ số
+ngày dùng thử miễn phí để bạn hiểu rõ về sản phẩm.
+Một cách hiệu quả để tối đa hóa các bản dùng thử là tập hợp một nhóm dùng thử
+bao gồm các thành viên từ các phòng ban khác nhau của công ty - những phòng
+ban sẽ sử dụng hệ thống CRM. Yêu cầu 1-2 thành viên của mỗi phòng tham gia
+dùng thử bản miễn phí và doanh nghiệp có thể thu thập những phản hồi toàn diện
+từ những người dùng cuối. 
+SlimCRM CRM Playbook
+52
+
+
+## PDF PAGE 53
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+ 
+Các tính năng có hoạt động giống như những gì đã được mô tả không ?
+Phần mềm CRM có dễ sử dụng mà không phụ thuộc vào kiến thức về kỹ thuật
+hay không ? 
+Ứng dụng trên điện thoại có đầy đủ các tính năng hữu ích cho lĩnh vực này
+không ? 
+Có bất kỳ độ trễ (lag) nào đáng chú ý trong phần mềm không ? 
+Giao diện người dùng có trực quan không ? 
+Định giá theo số lượng người dùng: Liên quan đến việc định giá dựa trên số
+lượng người dùng cá nhân hoặc số người sẽ sử dụng phần mềm
+Định giá theo chi phí cố định: Người dùng trả một khoản phí cố định được xác
+định trước (hàng tháng hoặc hàng năm) bất kể người dùng hoặc tính năng
+được sử dụng. 
+Định giá theo mức: Đưa ra nhiều lựa chọn đăng ký có mức giá khác nhau dựa
+theo các tính năng trong gói và số lượng người dùng. Loại mô hình này có 2
+yếu tố cần phải xem xét: số lượng người dùng và các tính năng theo từng mức
+giá
+Đăng ký miễn phí: Thường được cung cấp như một gói đầu vào. Tuy nhiên, các
+tính năng trong gói miễn phí thường được giới hạn với các tính năng cơ bản
+nhất. 
+Những điều cần phải xem xét trong quá trình dùng thử CRM 
+Trong quá trình dùng thử, bạn có thể yêu cầu một buổi demo trực tuyến với nhà
+cung cấp CRM và yêu cầu các thành viên trong nhóm dùng thử tham gia. Điều
+này cho phép nhóm của bạn đặt các câu hỏi về phần mềm và hiểu về các tính
+năng. Hầu hết các nhà cung cấp CRM đều rất sẵn lòng làm điều này vì đây là cơ
+hội để họ thể hiện cho bạn thấy các tính năng đa dạng và sự khác nhau giữa các
+mức giá. 
+Nghiên cứu giá của CRM và kế hoạch thanh toán 
+Một điều quan trọng cần phải xem xét khi lựa chọn CRM là giá cả và các lựa chọn
+đăng ký. Một số bảng giá phổ biến nhất của hệ thống CRM bao gồm: 
+Bước 6: Lựa chọn phần mềm CRM phù hợp cho công ty của bạn và
+bắt đầu triển khai
+Sau khi đã lựa chọn và mua CRM, bước tiếp theo chính là triển khai. Mặc dù đây
+có thể là bước cuối cùng trong quy trình nhưng tầm quan trọng của nó cũng
+ngang bằng với các bước trước đó. 
+SlimCRM CRM Playbook
+53
+
+## PDF PAGE 54
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+ 
+Tầm quan trọng của việc chọn được một phần mềm CRM phù hợp 
+Chọn được một phần mềm CRM phù hợp để triển khai cho doanh nghiệp của bạn
+không phải là một công việc dễ dàng - bất kể nhóm của bạn lớn hay nhỏ. Các nhà
+cung cấp CRM khác nhau có những dịch vụ đặc biệt để nhắm đến những nhu cầu
+cụ thể của khách hàng, vì vậy việc tìm hiểu và nghiên cứu kỹ trước khi ký kết để
+sử dụng một phần mềm CRM là rất quan trọng.
+Tìm ra được một phần mềm CRM là rất cần thiết vì các dữ liệu cho thấy rằng CRM
+giúp doanh nghiệp tiếp cận các khách hàng mục tiêu, tăng cường truy cập dữ liệu
+khách hàng và rút ngắn quy trình bán hàng. Trên thực tế, một báo cáo của
+Hubspot đã chỉ ra rằng 61% các nhà lãnh đạo có hiệu suất cao đều sử dụng giải
+pháp CRM để tự động hóa quy trình bán hàng.
+Thêm vào đó, hãy thực hiện nghiên cứu để đảm bảo rằng phần mềm CRM sẽ giúp
+giải quyết các nhu cầu của doanh nghiệp và mang lại các lợi ích sau: 
+Cung cấp các gói tính năng và chức năng phù hợp 
+Phần menu các tính năng của một công cụ CRM là yếu tố giúp nó trở nên khác
+biệt so với các sản phẩm khác. Một phần mềm CRM có thể có các tính năng thiên
+về quản lý các phương tiện truyền thông xã hội, trong khi một phần mềm khác có
+thể tập trung vào email marketing. Do đó, việc tìm hiểu các điểm mạnh kết hợp
+với các tính năng của phần mềm CRM mà doanh nghiệp cần sẽ giúp giảm bớt các
+khó khăn trong quá trình triển khai. 
+ 
+ 
+ 
+ 
+SlimCRM CRM Playbook
+54
+
+## PDF PAGE 55
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+ 
+Giúp đáp ứng các nhu cầu của doanh nghiệp
+Mục tiêu của CRM là giúp doanh nghiệp giải quyết được các vấn đề bức thiết, dựa
+trên các mục tiêu của doanh nghiệp, có thể là tập trung cơ sở dữ liệu khách hàng
+hoặc tự động hóa quy trình Marketing. Thực hiện các nghiên cứu một cách cẩn
+thận có nghĩa là bạn sẽ thấy điểm mạnh của từng phần mềm CRM, các tính năng
+và xác định liệu các tính năng này có thể giúp doanh nghiệp giải quyết được các
+nhu cầu cụ thể của doanh nghiệp hay không.
+Phù hợp với trình độ công nghệ của doanh nghiệp
+Một số phần mềm CRM rất đơn giản, dễ sử dụng nhưng một số phần mềm lại yêu
+cầu kỹ thuật cao, cần có nhân viên kỹ thuật nội bộ vận hành và bảo trì. Đánh giá
+trình độ, kinh nghiệm kỹ thuật các nhóm trong doanh nghiệp với việc sử dụng
+CRM trước khi mua hàng để đảm bảo CRM được sử dụng đúng cách. 
+Tăng tỷ lệ chấp thuận cho các người dùng 
+Một trong những thước đo lớn nhất để đo lường xem doanh nghiệp đã thành công
+trong việc chọn đúng phần mềm CRM hay chưa là mức độ chấp nhận CRM của các
+người dùng cuối. Vì vậy, việc xem xét các ý kiến của các nhân viên trong quá
+trình lựa chọn CRM là rất quan trọng. 
+ 
+ 
+SlimCRM CRM Playbook
+55
+
+## PDF PAGE 56
+CÁC PHẦN MỀM CRM PHỔ BIẾN 
+Chương 2:
+-5-
+SlimCRM CRM Playbook
+56
+Salesforce: Là một trong những phần mềm CRM lớn nhất và phổ biến nhất
+trên thị trường. Salesforce cung cấp một giải pháp hoàn chỉnh cho quản lý
+mối quan hệ khách hàng và quản lý bán hàng.
+HubSpot CRM: Lựa chọn thích hợp cho các doanh nghiệp muốn phát triển
+Inbound Marketing.
+SlimCRM: Phần mềm CRM Việt Nam dành cho các doanh nghiệp vừa và nhỏ,
+hỗ trợ doanh nghiệp phát triển cân bằng trên 4 khía cạnh: khách hàng, nhân
+sự, tài chính, công việc.
+GetlyCRM: Là phần mềm CRM Việt Nam tập trung vào Marketing - Sales -
+Chăm sóc khách hàng, với tính năng nổi trội là marketing automation.
+OnlineCRM: Giải pháp chuyển đổi số hoạt động Tiếp Thị - Bán Hàng & Chăm
+Sóc Khách Hàng cho doanh nghiệp.
+AmisCRM: Phần mềm Quản lý quan hệ khách hàng chuyên nghiệp, tối ưu hoạt
+động bán hàng.
+Có rất nhiều phần mềm CRM khác nhau trên thị trường, tùy thuộc vào nhu cầu và
+quy mô của doanh nghiệp. Một số phần mềm CRM phổ biến bao gồm:
+ 
+ 
+ 
+ 
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+
+## PDF PAGE 57
+SlimCRM.vn
+05
+TRIỂN KHAI PHẦN MỀM
+CRM TRONG THỰC TẾ
+
+## PDF PAGE 58
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+NHỮNG YẾU TỐ ẢNH HƯỞNG
+ĐẾN VIỆC TRIỂN KHAI CRM 
+ 
+SlimCRM CRM Playbook
+Chương 1:
+Nghiên cứu của Tazkarji và Stafford đã chỉ ra rằng, 3 yếu tố có ảnh hưởng lớn
+nhất đến sự thành bại khi triển khai CRM chính là: con người, quy trình và hệ
+thống.
+58
+CON NGƯỜI1
+Hệ thống có nhiều chức năng, cần thời gian để đào tạo; việc triển khai B2B
+chậm hơn so với B2C vì các chức năng khác nhau của CRM 
+Việc có nhiều phòng ban khác nhau cũng là một thách thức cho việc triển khai 
+Bộ máy quản lý phức tạp khiến cho việc triển khai khó khăn, cần phải điều
+chỉnh trước khi thực hiện 
+Bộ máy quản lý
+Trong B2B, bạn sẽ gặp phải nhiều ý kiến hơn vì có nhiều nhu cầu về cách sử
+dụng nhiều tính năng của hệ thống (do chu kỳ bán hàng dài hơn và nhiều
+thông tin chi tiết cần thu thập và phân tích hơn)
+Đối mặt với sự không đồng tình của người dùng, điều quan trọng nhất là tìm ra
+vấn đề cốt lõi và bắt đầu từ đó
+Để thúc đẩy người dùng nhập thông tin chính xác và hữu ích, hãy cho họ thấy
+hệ thống có thể giúp họ làm việc hiệu quả và thành công hơn như thế nào
+Sự phản đối
+
+## PDF PAGE 59
+SlimCRM CRM Playbook
+Các vấn đề triển khai ở giai đoạn đầu bao gồm việc nhân viên không muốn học
+cách sử dụng một công cụ mới hoặc thêm gánh nặng
+Nếu như công ty triển khai CRM mà nhân viên vẫn phải sử dụng thêm nhiều
+phần mềm khác thì điều này hoàn toàn vô nghĩa, tốt hơn hết là công ty nên
+kiểm tra lại phần mềm hoặc thêm các lợi ích bổ sung
+Việc mọi người muốn kết hợp tất cả mọi thứ và tự động hóa mọi quá trình khá
+phổ biến, nhưng tốt nhất là nên có một nguồn thông tin chính, nếu không tất
+cả sẽ trở nên rắc rối
+Khi triển khai CRM, các công ty thường chú ý đến tính dễ sử dụng, dễ làm
+quen, các tính năng (CRM nên có bản mobile app), giá cả (mối lo ngại của các
+công ty vừa và nhỏ)
+Khi tìm hiểu sự hỗ trợ triển khai, khách hàng tìm kiếm kinh nghiệm, khả năng
+thấu hiểu tình hình và đưa ra giải pháp cho các vấn đề của họ
+Động lực của người dùng
+QUY TRÌNH2
+Để tập trung vào khách hàng nhiều hơn, các nhà cung cấp nên giảm bớt các
+công việc không cần thiết và dành nhiều thời gian hơn để có những cuộc trò
+chuyện cá nhân, giao tiếp nhiều hơn với khách hàng
+Các nhà cung cấp nên chuẩn bị trước các hướng dẫn bất kể quy mô công ty
+lớn hay nhỏ
+Vấn đề phát triển
+Đào tạo
+Khi đào tạo các nhân viên thường làm việc trực tiếp với khách hàng, các
+doanh nghiệp cần giúp họ dễ dàng điều hướng thông tin để hỗ trợ được khách
+hàng và cho phép họ có được tất cả các thông tin
+Nhóm triển khai sẽ giúp đỡ, đào tạo và làm việc với các khách hàng chủ yếu
+về khía cạnh quản lý
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+59
+
+## PDF PAGE 60
+SlimCRM CRM Playbook
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+60
+HỆ THỐNG3
+Tình trạng bộ máy quản lý phức tạp, rắc rối cần phải được xử lý trước khi
+triển khai 
+Các lý do triển khai CRM không thành công là:
+Doanh nghiệp phù hợp với hệ thống
++ Thiếu sự hỗ trợ 
++ Thiếu ngân sách 
++ Đặt kỳ vọng quá cao (tích hợp và tự động hóa tất cả mọi thứ)
+Ngay khi doanh nghiệp có khách hàng
+Khi doanh nghiệp đang phải sử dụng trên 2 phần mềm để lưu trữ thông tin và
+các thông tin không khớp với nhau 
+Khi nào doanh nghiệp cần sử dụng hệ thống?
+
+## PDF PAGE 61
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+CÁC BƯỚC TRIỂN KHAI CRM 
+ 
+Triển khai CRM là quá trình thiết lập và triển khai phần mềm CRM. Việc triển
+khai CRM bao gồm thiết lập nhóm, xác định mục tiêu, xác định dữ liệu để di
+chuyển, tích hợp ứng dụng, đào tạo nhóm và đo lường hiệu quả triển khai.
+SlimCRM CRM Playbook
+Chương 2:
+TẢI HƯỚNG DẪN TRIỂN KHAI CRM TẠI ĐÂY 
+61
+Bước 1: Tập hợp nhóm CRM của bạn 
+Điều cần thiết là phải có một nhóm CRM của công ty để đảm bảo hệ thống làm
+việc một cách chính xác và hiệu quả . Nhóm này không phải chỉ chuyên tâm
+chạy CRM, các thành viên nhóm có thể là những nhân viên hiện tại của công
+ty, được thêm một nhiệm vụ là giám sát CRM theo lĩnh vực mà họ đang làm
+việc.
+Bên cạnh việc có một nhóm triển khai CRM, việc tập hợp ý kiến của các người
+dùng cuối như các nhân viên phòng sales, marketing, chăm sóc khách hàng
+cũng rất quan trọng. Nhận được feedback từ họ giúp doanh nghiệp xác định
+được đâu là tính năng họ cần nhất, họ cần đào tạo thêm gì. 
+Bước 2: Xác định mục tiêu CRM 
+Xác định mục đích bạn sử dụng CRM. Phác thảo các mục tiêu mà công ty
+muốn đạt được bằng cách đưa ra các tham số về cách các nhóm sẽ được đo
+lường trong hệ thống và cách hệ thống dự kiến sẽ được sử dụng. 
+Các mục tiêu được đặt ra nên tuân theo SMART. Xác định rõ các mục tiêu
+giúp bạn có kế hoạch hành động thực tế.
+
+## PDF PAGE 62
+ 
+SlimCRM CRM Playbook
+62
+Bước 3: Xác định dữ liệu nào cần di chuyển/ nhập
+Một bước thường bị bỏ qua trong quá trình triển khai CRM là xác định những
+dữ liệu nào cần phải nhập hoặc di chuyển vào hệ thống CRM mới để tránh
+trường hợp thiếu các dữ liệu khách hàng quan trọng khi triển khai hệ thống
+CRM mới.
+Doanh nghiệp không nhất thiết phải di chuyển toàn bộ dữ liệu, doanh nghiệp
+có thể loại bỏ một số dữ liệu như các thông tin khách hàng đã lỗi thời, thông
+tin trùng lặp,... có thể gây rối cho hệ thống CRM của doanh nghiệp.
+Bước 4: Xác định các thiết lập và tùy chỉnh CRM của doanh
+nghiệp
+Một bước quan trọng trong việc tạo kế hoạch triển khai CRM là xác định trước
+các quy trình và cài đặt hệ thống. CRM bao gồm một loạt các cài đặt có thể
+được điều chỉnh cho phù hợp với nhu cầu của doanh nghiệp, bao gồm:
+Hồ sơ công ty 
+Các trường tùy chỉnh
+Lựa chọn menu 
+Quyền và quản lý người dùng
+Cài đặt quản trị
+Việc thiết lập và tùy chỉnh CRM không mất quá nhiều thời gian, nhưng có thể
+giảm bớt rất nhiều rắc rối cho việc sử dụng sau này, chính vì vậy đây là một
+trong những bước đầu tiên trong quá trình triển khai CRM. Việc điều chỉnh
+menu, chẳng hạn như trên SlimCRM, chỉ tốn vài click chuột đơn giản.
+
+
+## PDF PAGE 63
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+ 
+SlimCRM CRM Playbook
+Các phần mềm CRM thường cho phép người dùng tích hợp hàng chục đến hàng
+trăm các ứng dụng khác, vì vậy hãy ưu tiên tích hợp các tính năng là quan trọng
+nhất với doanh nghiệp của bạn. 
+63
+Bước 5: Tích hợp các ứng dụng khác 
+Tích hợp hệ thống CRM của doanh nghiệp với các ứng dụng khác có thể giúp
+tối đa hóa hiệu quả cho doanh nghiệp của bạn. 
+Theo dõi thông tin đăng nhập của người dùng: Một trong những cách đơn giản
+nhất để đánh giá việc sử dụng hệ thống là kiểm tra số lần đăng nhập và xem
+nhân viên nào thường xuyên sử dụng
+Giám sát đầu vào dữ liệu: Xem cách nhân viên của doanh nghiệp nhập các
+thông tin vào hệ thống 
+Theo dõi các báo cáo do CRM tạo: Khuyến khích các nhân viên xử lý dữ liệu
+và tạo báo cáo bằng công cụ trong CRM 
+Đo lường KPI bằng phần mềm: Sử dụng CRM để đo lường hiệu suất bán hàng
+và KPI của doanh nghiệp bạn.
+Bước 6: Kiểm tra hệ thống CRM của bạn
+Bước này được thực hiện khi bạn gần như đã hoàn tất quy trình triển khai và cần
+kiểm tra xem phần mềm có hoạt động chính xác và phù hợp với nhu cầu của doanh
+nghiệp hay không.
+Bước 7: Đào tạo người dùng
+Sau khi kiểm tra và xác định được tất cả các phần trong hệ thống CRM của doanh
+nghiệp đều đang hoạt động đúng cách thì đây là lúc doanh nghiệp đào tạo, hướng
+dẫn cho các nhân viên, nhóm CRM cách hoạt động của hệ thống. Hãy đảm bảo thu
+thập feedback từ họ thường xuyên để kịp thời tránh và giảm thiểu các sự cố khi
+sử dụng phần mềm.
+Bước 8: Đo lường hiệu quả áp dụng CRM 
+Quy trình triển khai CRM không kết thúc khi các nhân viên của doanh nghiệp học
+được cách sử dụng CRM. Giai đoạn cuối cùng trong quy trình triển khai CRM liên
+quan đến việc nhân viên có thể sử dụng hệ thống tốt. Dưới đây là một số số liệu
+doanh nghiệp có thể xem xét:
+
+## PDF PAGE 64
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+ 
+SlimCRM CRM Playbook
+Khách hàng - Cơ hội: Chuẩn hóa quy trình & tăng hiệu suất bán hàng
+Công việc - dự án: Thúc đẩy làm việc nhóm, tăng năng suất làm việc cá nhân 
+Tài chính - dòng tiền: Nắm bắt nhanh tình hình tài chính. Kiểm soát và thúc đẩy
+dòng tiền.
+Nhân sự: Tự động hóa quy trình nhân sự và tuyển dụng.
+SlimCRM - Phần mềm CRM tốt nhất cho doanh nghiệp nhỏ
+và vừa 
+SlimCRM được phát triển bởi công ty công nghệ Vinno với hơn 10 năm kinh nghiệm
+cung cấp giải pháp quản trị cho các doanh nghiệp. Phần mềm đã được vinh danh ở
+hạng mục Sản phẩm SaaS tốt nhất dành cho doanh nghiệp vừa và nhỏ tại giải
+thưởng SaaS Award. 
+SlimCRM chắt lọc ưu điểm của các phần mềm quản lý trong và ngoài nước với tính
+năng hiện đại nhưng vừa đủ đơn giản, giúp tăng năng lực quản trị và bán hàng mà
+không tốn nhiều chi phí hay thời gian triển khai.
+Hỗ trợ doanh nghiệp phát triển cân bằng cả 4 khía cạnh: khách hàng, tài chính,
+nhân sự, công việc.
+Dùng thử phần mềm CRM tốt nhất cho doanh nghiệp vừa và nhỏ tại đây 
+64
+
+## PDF PAGE 65
+Lấy khách hàng làm trung tâm giờ đây là chiến lược kinh doanh được ưu tiên
+hàng đầu của mỗi doanh nghiệp. Dù công ty bạn to hay nhỏ, già hay trẻ, chỉ khi
+duy trì được mối quan hệ bền vững với khách hàng, bạn mới có thể phát triển
+được.
+CRM là công cụ hỗ trợ thiết yếu cho quá trình bán hàng và nuôi dưỡng quan hệ
+khách hàng, tự động hóa khai thác và quản lý dữ liệu. Tuy nhiên, doanh nghiệp
+bạn phải luôn đổi mới và ứng dụng chiến lược triển khai CRM phù hợp nhất, tận
+dụng tối đa phần mềm này để có thể thúc đẩy hiệu suất bán hàng, tăng doanh thu
+và phát triển bền vững.
+Hy vọng với cuốn CRM Playbook của SlimCRM này, bạn đã có được cái nhìn tổng
+quát về phần mềm CRM cũng như hoạch định được chiến lược sử dụng CRM cho
+doanh nghiệp của mình. Chúc bạn triển khai CRM thành công!
+65
+LỜI KẾT
+SlimCRM CRM Playbook
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+
+## PDF PAGE 66
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+66
+ĐỘI NGŨ BIÊN TẬP
+SlimCRM CRM Playbook
+SlimCRM
+Marketing Team
+Hoàng Thanh Hằng
+Thẩm Ngọc Phương
+Ngô Trần Quỳnh Chi
+Lê Thị Diễm Quỳnh
+
+## PDF PAGE 67
+SlimCRM CRM Playbook
+CÁC THUẬT NGỮ CRM BẠN CẦN BIẾT
+Phụ lục
+Thuật ngữ Giải nghĩa
+Accounts 
+Accounts đại diện cho các công ty (B2B) hoặc những cá
+nhân (B2C) mà bạn có mối quan hệ kinh doanh. 
+Thông thường, một dữ liệu account trong phần mềm CRM
+sẽ chứa các thông tin khách hàng từ địa chỉ thanh toán
+đến lịch sử mua hàng của họ. Mỗi Account thường gắn với
+một hoặc nhiều Đầu mối liên lạc (Contacts) và các “Cơ
+hội” (Opportunities) bán hàng cụ thể.
+Contacts
+ 
+Contacts đại diện cho một người, với tư cách cá nhân hoặc
+đại diện cho doanh nghiệp đã mua sản phẩm / dịch vụ của
+bạn.
+Leads
+Khách hàng tiềm năng là người quan tâm đến sản phẩm
+hoặc dịch vụ của bạn hoặc thậm chí có thể không quan
+tâm.
+Deals
+Deals là một cơ hội bán hàng mà bạn có thể thuyết phục
+một người hoặc một tổ chức mua sản phẩm của doanh
+nghiệp.
+Profile Scoring
+Chấm điểm hồ sơ là quá trình chấm chỉ số phù hợp của
+khách hàng dựa trên mức độ quan trọng của họ đối với
+doanh nghiệp của bạn. Điều này giúp doanh nghiệp xác
+định khách hàng lý tưởng.
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+67
+
+## PDF PAGE 68
+SlimCRM CRM Playbook
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+68
+Esign
+Documents
+Esign Documents cho phép bạn gửi các tệp PDF cho
+khách hàng của mình và để họ ký điện tử.
+Events Một sự kiện có thể là một cuộc gọi, cuộc họp hoặc một
+cuộc hẹn có thời gian cụ thể.
+Follow Khi bạn theo dõi một bản ghi, bạn sẽ nhận được tất cả
+những thông báo về sự thay đổi của bản ghi đó. 
+Customer Data
+Platform (CDP)
+Nền tảng dữ liệu khách hàng là một nơi thu thập tất cả dữ
+liệu khách hàng từ nhiều nguồn khác nhau. Việc có một
+nguồn dữ liệu duy nhất giúp việc tổ chức và trình bày dữ
+liệu cho đội ngũ làm việc với khách hàng trở nên dễ dàng
+hơn. 
+Tính năng CDP trong phần mềm CRM giúp tối ưu hóa các
+chiến dịch và phản hồi trong thời gian thực vì mọi người
+đang làm việc trên một nguồn dữ liệu khách hàng duy
+nhất.
+Users
+Users là nhân viên trong tổ chức của bạn. Đó là những
+người có thể đăng nhập vào tài khoản trong phần mềm
+CRM của họ, truy cập thông tin và thực hiện các tác vụ
+theo quyền đã được xác định. 
+Reports
+Reports trong phần mềm CRM là những báo cáo hiển thị
+dữ liệu được trình bày một cách khoa học dưới dạng bảng,
+đồ thị và biểu đồ.
+
+## PDF PAGE 69
+Recurring
+Invoices
+Hóa đơn định kỳ là những hóa đơn được tạo tự động với
+tần suất cố định trong một thời gian cụ thể cho một khách
+hàng.
+Tags
+Tags trong phần mềm CRM là một cách để tổ chức và
+phân loại dữ liệu một cách tùy biến. Các “thẻ” giúp bạn
+tìm thấy các dữ liệu một cách dễ dàng; chúng giúp phân
+biệt các dữ liệu quan trọng với các dữ liệu thông thường.
+Gantt Charts
+Biểu đồ Gantt trong phần mềm CRM là một biểu đồ được
+sử dụng trong Quản lý dự án. Chúng được dùng để cung
+cấp những hình ảnh minh họa dưới dạng đồ họa về chi tiết
+các nhiệm vụ đã lên lịch, giúp lập kế hoạch, điều phối và
+theo dõi các nhiệm vụ cụ thể trong một dự án. 
+Kanban View
+Kanban View trong phần mềm CRM hiển thị cột dữ liệu
+theo từng phần nhỏ gọn gàng. Phương pháp tiếp cận trực
+quan của Kanban giúp bạn thực hiện công việc nhanh
+chóng trên một block thông tin, xem và lập kế hoạch cho
+công việc còn lại, tối ưu hóa quy trình và cải thiện năng
+suất.
+69
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+Bảng thuật ngữ phần mềm CRM
+
+## PDF PAGE 70
+DANH MỤC TÀI LIỆU THAM KHẢO
+SlimCRM CRM Playbook
+70
+ Jill Dyché (2001), "CRM Handbook, The: A Business Guide to Customer
+Relationship Management"
+ IBM, https://www.ibm.com/topics/crm 
+ Salesforce, https://www.salesforce.com/ap/crm/what-is-crm/how-crm-
+improves-business/ 
+ Hannu Saarijärvi, Heikki Karjaluoto, Hannu Kuusela (2013), "Extending
+customer relationship management: From empowering firms to empowering
+customers"
+ B Murli Krishna (2013), "Customer Relationship Management"
+ SuperOffice, https://www.superoffice.com/blog/why-sales-people-need-
+crm/
+ TalentLyft, https://www.talentlyft.com/en/resources/what-is-crm-
+software-for-recruiters 
+ Management Study Guide, https://www.managementstudyguide.com/crm-
+hr.htm 
+ Gestisoft, https://www.gestisoft.com/blog/what-is-crm-for-accounting-
+experts-gestisoft 
+ Hubspot, https://www.hubspot.com/products/crm/accounting 
+ Microsoft CRM 3.0: Lemonade Stand, https://youtu.be/YEa_RNSX5Xo
+ Fit Small Business: https://fitsmallbusiness.com/how-to-choose-a-crm/,
+https://fitsmallbusiness.com/crm-implementation/
+ IEEE Xplore: Reasons for Failures of CRM Implementations
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+9.
+10.
+11.
+12.
+13.
+SlimCRM.vn - Tăng Năng Lực Quản Trị và Bán Hàng
+
+## PDF PAGE 71
+KẾT NỐI VỚI CHÚNG TÔI

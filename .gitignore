@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv/
+venv/
+
+# Environment & secrets
+.env
+.env.*
+
+# OS & temporary files
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+*.bak
+~$*

@@ -1,0 +1,222 @@
+[
+  {
+    "id": "M01",
+    "name": "Hồ sơ khách hàng, doanh nghiệp, định danh và hợp nhất",
+    "actors": "Sales, AM, steward",
+    "owned_data_source": "Contacts/Accounts/Contact_Points/roles/merge",
+    "dependencies_source": "M02/M03/M08/M11/M20",
+    "priority_source": "P0 hồ sơ/identity; phân nhóm nâng cao P1",
+    "source_line": 385,
+    "implementation_status": "Not Implemented / repository not established"
+  },
+  {
+    "id": "M02",
+    "name": "Tiếp nhận nhu cầu, phân lead, cơ hội và hoạt động bán hàng",
+    "actors": "Marketing, Sales, quản lý",
+    "owned_data_source": "Leads/Deals/assignment/stage history/Activities",
+    "dependencies_source": "M01/M03/M07/M18",
+    "priority_source": "P0",
+    "source_line": 386,
+    "implementation_status": "Not Implemented / repository not established"
+  },
+  {
+    "id": "M03",
+    "name": "Hộp thư hợp nhất, trả lời và điều phối hội thoại",
+    "actors": "Sales, AM, CX",
+    "owned_data_source": "Conversations/Messages/response links/assignment",
+    "dependencies_source": "M01/M02/M11/M19/M20",
+    "priority_source": "P0 một kênh đủ quyền; mở rộng sau pilot",
+    "source_line": 387,
+    "implementation_status": "Not Implemented / repository not established"
+  },
+  {
+    "id": "M04",
+    "name": "Chăm sóc tự động và nhắc việc theo hành trình",
+    "actors": "CMO, Sales Ops, AM",
+    "owned_data_source": "Journey definition/instance/send schedule",
+    "dependencies_source": "M02/M03/M08/M11/M20",
+    "priority_source": "P0 nhắc việc đơn giản; engine P1",
+    "source_line": 388,
+    "implementation_status": "Not Implemented / repository not established"
+  },
+  {
+    "id": "M05",
+    "name": "Giới thiệu khách hàng và tích điểm",
+    "actors": "Marketing, Finance",
+    "owned_data_source": "Referral/reward; loyalty ledger khi bật",
+    "dependencies_source": "M01/M09/M10/M20",
+    "priority_source": "Referral P1; điểm/Mini App P2",
+    "source_line": 389,
+    "implementation_status": "Not Implemented / repository not established"
+  },
+  {
+    "id": "M06",
+    "name": "Trợ lý AI: tóm tắt, gợi ý, soạn nháp",
+    "actors": "Người xử lý, AI owner",
+    "owned_data_source": "AI draft/evaluation/model/prompt evidence",
+    "dependencies_source": "M01/M02/M03/M07/M20",
+    "priority_source": "P1 trợ lý; tự hành P2; guard trước bật",
+    "source_line": 390,
+    "implementation_status": "Not Implemented / repository not established"
+  },
+  {
+    "id": "M07",
+    "name": "Danh mục dịch vụ, báo giá, SOW và phê duyệt chào bán",
+    "actors": "Sales, chuyên môn, Finance",
+    "owned_data_source": "Catalog/Quote_Lines/quote revision/approval",
+    "dependencies_source": "M02/M08/M16/M17",
+    "priority_source": "P0",
+    "source_line": 391,
+    "implementation_status": "Not Implemented / repository not established"
+  },
+  {
+    "id": "M08",
+    "name": "Hợp đồng, đơn dịch vụ, onboarding và gia hạn",
+    "actors": "Sales, AM, Delivery",
+    "owned_data_source": "Contract/SOW/order/service period/handoff",
+    "dependencies_source": "M07/M09/M13/M16/M11",
+    "priority_source": "P0; không tự gia hạn bằng timer",
+    "source_line": 392,
+    "implementation_status": "Not Implemented / repository not established"
+  },
+  {
+    "id": "M09",
+    "name": "Nghĩa vụ thu, nhận tiền, phân bổ, hoàn tiền và đối soát",
+    "actors": "Finance, AM đọc summary",
+    "owned_data_source": "Receipt/evidence/obligation/allocation/refund/period",
+    "dependencies_source": "M08/M10/M17/M18",
+    "priority_source": "P0 nhập/đối soát thủ công; API ERP/bank P1",
+    "source_line": 393,
+    "implementation_status": "Not Implemented / repository not established"
+  },
+  {
+    "id": "M10",
+    "name": "Hoa hồng và chi thưởng bán hàng",
+    "actors": "Finance, quản lý, người hưởng",
+    "owned_data_source": "Policy snapshot/pool/commission/payout/adjustment",
+    "dependencies_source": "M02/M05/M09",
+    "priority_source": "Chỉ tính/chi khi policy đủ; không có thì PendingPolicy",
+    "source_line": 394,
+    "implementation_status": "Not Implemented / repository not established"
+  },
+  {
+    "id": "M11",
+    "name": "Tiếp nhận hỗ trợ, khiếu nại, SLA và khắc phục sự cố",
+    "actors": "AM/CX, Delivery",
+    "owned_data_source": "Ticket/entitlement/SLA/promise/resolution",
+    "dependencies_source": "M03/M08/M09/M12/M16",
+    "priority_source": "P0",
+    "source_line": 395,
+    "implementation_status": "Not Implemented / repository not established"
+  },
+  {
+    "id": "M12",
+    "name": "Phản hồi, CSAT/NPS và phục hồi trải nghiệm",
+    "actors": "CX, AM, CMO",
+    "owned_data_source": "Feedback/survey/recovery/corrective action",
+    "dependencies_source": "M08/M11/M15/M18",
+    "priority_source": "P0 recovery; khảo sát tự động P1",
+    "source_line": 396,
+    "implementation_status": "Not Implemented / repository not established"
+  },
+  {
+    "id": "M13",
+    "name": "Lịch hẹn và đặt tài nguyên",
+    "actors": "Sales, AM, ekip",
+    "owned_data_source": "Appointment/resource/booking/reminder",
+    "dependencies_source": "M02/M08/M16",
+    "priority_source": "P0 lịch đơn giản; resource theo nhu cầu; GPS P2",
+    "source_line": 397,
+    "implementation_status": "Not Implemented / repository not established"
+  },
+  {
+    "id": "M14",
+    "name": "Tổ chức, chi nhánh, thành viên, quyền và bàn giao nhân sự",
+    "actors": "Owner, quản lý, Admin theo quyền",
+    "owned_data_source": "Membership/role binding/team grant/delegation",
+    "dependencies_source": "Tất cả module; đặc biệt M09/M20",
+    "priority_source": "P0 phân quyền; hai nhánh khi có vận hành thật; payroll thuộc M22 HR-C",
+    "source_line": 398,
+    "implementation_status": "Not Implemented / repository not established"
+  },
+  {
+    "id": "M15",
+    "name": "Brief, chiến lược, kế hoạch IMC và phê duyệt launch",
+    "actors": "CMO, strategist, AM",
+    "owned_data_source": "Brief/approved plan/campaign/launch/learning",
+    "dependencies_source": "M07/M16/M17/M18/M12",
+    "priority_source": "P0 brief và gate khi launch; editor/experiment nâng cao sau",
+    "source_line": 399,
+    "implementation_status": "Not Implemented / repository not established"
+  },
+  {
+    "id": "M16",
+    "name": "Quản lý công việc cá nhân, đội nhóm, tổ chức, dự án và nguồn lực",
+    "actors": "Nhân viên, trưởng nhóm, PM, AM, Delivery, reviewer, khách có quyền",
+    "owned_data_source": "Task/assignment/review/recurrence/project/deliverable/acceptance",
+    "dependencies_source": "M02/M03/M04/M08/M11/M13/M14/M15/M17/M18",
+    "priority_source": "P0 Task Core, My Work/Team Board, delivery; P1 effort/capacity/Gantt/portfolio nâng cao; P2 OKR/AI nâng cao",
+    "source_line": 400,
+    "implementation_status": "Not Implemented / repository not established"
+  },
+  {
+    "id": "M17",
+    "name": "Ngân sách, chi phí, nguồn tiền media và rủi ro hiệu quả",
+    "actors": "CMO, Finance, Delivery lead",
+    "owned_data_source": "Budget/commitment/cost/funding authorization",
+    "dependencies_source": "M07/M09/M15/M16/M18",
+    "priority_source": "Cơ bản khi có chi phí/media; forecast nâng cao P1",
+    "source_line": 401,
+    "implementation_status": "Not Implemented / repository not established"
+  },
+  {
+    "id": "M18",
+    "name": "Từ điển chỉ số, báo cáo điều hành và attribution",
+    "actors": "CEO, CMO, Sales/CX/Finance",
+    "owned_data_source": "KPI definition/metric facts/report snapshot",
+    "dependencies_source": "Nhận dữ kiện có quyền từ các module",
+    "priority_source": "P0 số liệu lõi; attribution nâng cao P1/P2",
+    "source_line": 402,
+    "implementation_status": "Not Implemented / repository not established"
+  },
+  {
+    "id": "M19",
+    "name": "Kết nối bên ngoài, nhận/phát sự kiện và phục hồi",
+    "actors": "Integration operator",
+    "owned_data_source": "Connection/capability/inbox/outbox/checkpoint",
+    "dependencies_source": "M03/M09/M18/M20",
+    "priority_source": "P0 một nguồn/kênh; connector khác theo quyền thực tế",
+    "source_line": 403,
+    "implementation_status": "Not Implemented / repository not established"
+  },
+  {
+    "id": "M20",
+    "name": "Consent, yêu cầu dữ liệu, retention và quản trị mục đích",
+    "actors": "Privacy owner, steward, owner",
+    "owned_data_source": "Processing/consent/suppression/privacy/retention",
+    "dependencies_source": "Tất cả module xử lý dữ liệu cá nhân",
+    "priority_source": "Kiểm soát P0 từ ngày đầu; không đợi có engine riêng",
+    "source_line": 404,
+    "implementation_status": "Not Implemented / repository not established"
+  },
+  {
+    "id": "M21",
+    "name": "Kết quả kinh doanh đối tác và chia sẻ dữ liệu theo mức",
+    "actors": "AM, Analytics, partner reporter, data owner",
+    "owned_data_source": "Sharing profile/source binding/dataset/import/reconciliation/report snapshot/exception",
+    "dependencies_source": "M08/M14/M16/M18/M19/M20",
+    "priority_source": "P0 NONE/SUMMARY/FILE và controls; API_READ/detail P1 theo quyền; không thay OMS đối tác",
+    "source_line": 405,
+    "implementation_status": "Not Implemented / repository not established"
+  },
+  {
+    "id": "M22",
+    "name": "Quản trị nhân sự, công và lương",
+    "actors": "HR, nhân viên, quản lý, payroll, Finance",
+    "owned_data_source": "Employee/employment/contract/leave/attendance/payroll/import",
+    "dependencies_source": "M10/M14/M16/M18/M19/M20; M09 thanh toán theo adapter",
+    "priority_source": "HR-A hồ sơ/phép/công cơ bản; HR-B ca/OT; HR-C payroll sau gate; không kéo toàn bộ vào P0 CRM",
+    "source_line": 406,
+    "implementation_status": "Not Implemented / repository not established"
+  }
+]

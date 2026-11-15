@@ -1,0 +1,42 @@
+{
+  "master": "CRM_MASTER_BRD_SRS_HOP_NHAT.md",
+  "version": "1.4",
+  "source": "gemini-code-1792078127639.html",
+  "source_sha256": "1071f5c75361b8c2a6cea8ece7dba48df8e5f12aea303977aea35fb923dc6842",
+  "snapshot_sha256": "96cfed586f7740a764a6874ee83e90d89bd12818bb842075c5c63b69a4ca2976",
+  "master_sha256": "243b8940019e2e9472220742e9b55a6d4bdd6c47c0156677d9a671a7747e846a",
+  "FR": 40,
+  "UC": 22,
+  "review_findings": 42,
+  "RV_UAT": 20,
+  "html_P0_unique_names": 81,
+  "html_config_rows": 24,
+  "rounding_counterexample": [
+    "-1",
+    "1",
+    "1",
+    "1",
+    "1"
+  ],
+  "corrected_example": [
+    "1",
+    "1",
+    "1",
+    "0",
+    "0"
+  ],
+  "runtime_DB_provider_tests": "not run; document and arithmetic validation only",
+  "structural_checks": {
+    "MarkdownTables": "pass",
+    "MarkdownTableHeaders": "pass",
+    "InternalAnchors": "pass",
+    "CodeFences": "balanced",
+    "FR": 40,
+    "UC": 22,
+    "Findings": 42,
+    "NewUAT": 20,
+    "CanonicalRootMarkdown": [
+      "CRM_MASTER_BRD_SRS_HOP_NHAT.md"
+    ]
+  }
+}

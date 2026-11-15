@@ -1,0 +1,448 @@
+{
+  "baseline_version": "1.9",
+  "source_sha256": "b6a3279f328e96e1e97d845e209be7a326516a0dba5e3a033d88e1f2162e421c",
+  "feature_matrix": [
+    {
+      "feature": "M22-F01",
+      "use_cases": [
+        "UC-H01"
+      ],
+      "rules": [
+        "BR-H01"
+      ],
+      "tests": [
+        "H-T01",
+        "H-T02"
+      ],
+      "source_lines": [
+        2007
+      ]
+    },
+    {
+      "feature": "M22-F02",
+      "use_cases": [
+        "UC-H02"
+      ],
+      "rules": [
+        "BR-H02"
+      ],
+      "tests": [
+        "H-T03",
+        "H-T04"
+      ],
+      "source_lines": [
+        2008
+      ]
+    },
+    {
+      "feature": "M22-F03",
+      "use_cases": [
+        "UC-H03"
+      ],
+      "rules": [
+        "BR-H03"
+      ],
+      "tests": [
+        "H-T05",
+        "H-T06"
+      ],
+      "source_lines": [
+        2009
+      ]
+    },
+    {
+      "feature": "M22-F04",
+      "use_cases": [
+        "UC-H03"
+      ],
+      "rules": [
+        "BR-H04"
+      ],
+      "tests": [
+        "H-T07"
+      ],
+      "source_lines": [
+        2010
+      ]
+    },
+    {
+      "feature": "M22-F05",
+      "use_cases": [
+        "UC-H04"
+      ],
+      "rules": [
+        "BR-H05"
+      ],
+      "tests": [
+        "H-T08",
+        "H-T09"
+      ],
+      "source_lines": [
+        2011
+      ]
+    },
+    {
+      "feature": "M22-F06",
+      "use_cases": [
+        "UC-H04"
+      ],
+      "rules": [
+        "BR-H06"
+      ],
+      "tests": [
+        "H-T10",
+        "H-T11"
+      ],
+      "source_lines": [
+        2012
+      ]
+    },
+    {
+      "feature": "M22-F07",
+      "use_cases": [
+        "UC-H05"
+      ],
+      "rules": [
+        "BR-H07"
+      ],
+      "tests": [
+        "H-T12"
+      ],
+      "source_lines": [
+        2013
+      ]
+    },
+    {
+      "feature": "M22-F08",
+      "use_cases": [
+        "UC-H05"
+      ],
+      "rules": [
+        "BR-H08"
+      ],
+      "tests": [
+        "H-T13",
+        "H-T14"
+      ],
+      "source_lines": [
+        2014
+      ]
+    },
+    {
+      "feature": "M22-F09",
+      "use_cases": [
+        "UC-H05"
+      ],
+      "rules": [
+        "BR-H07"
+      ],
+      "tests": [
+        "H-T15",
+        "H-T16"
+      ],
+      "source_lines": [
+        2015
+      ]
+    },
+    {
+      "feature": "M22-F10",
+      "use_cases": [
+        "UC-H06"
+      ],
+      "rules": [
+        "BR-H08"
+      ],
+      "tests": [
+        "H-T17",
+        "H-T18"
+      ],
+      "source_lines": [
+        2016
+      ]
+    },
+    {
+      "feature": "M22-F11",
+      "use_cases": [
+        "UC-H07"
+      ],
+      "rules": [
+        "BR-H09"
+      ],
+      "tests": [
+        "H-T19",
+        "H-T20"
+      ],
+      "source_lines": [
+        2017
+      ]
+    },
+    {
+      "feature": "M22-F12",
+      "use_cases": [
+        "UC-H07"
+      ],
+      "rules": [
+        "BR-H10"
+      ],
+      "tests": [
+        "H-T21",
+        "H-T22"
+      ],
+      "source_lines": [
+        2018
+      ]
+    },
+    {
+      "feature": "M22-F13",
+      "use_cases": [
+        "UC-H08"
+      ],
+      "rules": [
+        "BR-H11"
+      ],
+      "tests": [
+        "H-T23",
+        "H-T24"
+      ],
+      "source_lines": [
+        2019
+      ]
+    },
+    {
+      "feature": "M22-F14",
+      "use_cases": [
+        "UC-H09"
+      ],
+      "rules": [
+        "BR-H12"
+      ],
+      "tests": [
+        "H-T25",
+        "H-T26"
+      ],
+      "source_lines": [
+        2020
+      ]
+    },
+    {
+      "feature": "M22-F15",
+      "use_cases": [
+        "UC-H09"
+      ],
+      "rules": [
+        "BR-H13"
+      ],
+      "tests": [
+        "H-T27",
+        "H-T28"
+      ],
+      "source_lines": [
+        2021
+      ]
+    },
+    {
+      "feature": "M22-F16",
+      "use_cases": [
+        "UC-H09"
+      ],
+      "rules": [
+        "BR-H14"
+      ],
+      "tests": [
+        "H-T29",
+        "H-T30"
+      ],
+      "source_lines": [
+        2022
+      ]
+    },
+    {
+      "feature": "M22-F17",
+      "use_cases": [
+        "UC-H10"
+      ],
+      "rules": [
+        "BR-H15"
+      ],
+      "tests": [
+        "H-T31",
+        "H-T32"
+      ],
+      "source_lines": [
+        2023
+      ]
+    },
+    {
+      "feature": "M22-F18",
+      "use_cases": [
+        "UC-H11"
+      ],
+      "rules": [
+        "BR-H16"
+      ],
+      "tests": [
+        "H-T33",
+        "H-T34"
+      ],
+      "source_lines": [
+        2024
+      ]
+    },
+    {
+      "feature": "M22-F19",
+      "use_cases": [
+        "UC-H12"
+      ],
+      "rules": [
+        "BR-H17"
+      ],
+      "tests": [
+        "H-T35",
+        "H-T36"
+      ],
+      "source_lines": [
+        2025
+      ]
+    },
+    {
+      "feature": "M22-F20",
+      "use_cases": [
+        "UC-H13"
+      ],
+      "rules": [
+        "BR-H18"
+      ],
+      "tests": [
+        "H-T37",
+        "H-T38"
+      ],
+      "source_lines": [
+        2026
+      ]
+    },
+    {
+      "feature": "M22-F21",
+      "use_cases": [
+        "UC-H14"
+      ],
+      "rules": [
+        "BR-H19"
+      ],
+      "tests": [
+        "H-T39"
+      ],
+      "source_lines": [
+        2027
+      ]
+    },
+    {
+      "feature": "M22-F22",
+      "use_cases": [
+        "UC-H14"
+      ],
+      "rules": [
+        "BR-H19"
+      ],
+      "tests": [
+        "H-T40",
+        "H-T41"
+      ],
+      "source_lines": [
+        2028
+      ]
+    },
+    {
+      "feature": "M22-F23",
+      "use_cases": [
+        "UC-H14"
+      ],
+      "rules": [
+        "BR-H20"
+      ],
+      "tests": [
+        "H-T42"
+      ],
+      "source_lines": [
+        2029
+      ]
+    },
+    {
+      "feature": "M22-F24",
+      "use_cases": [
+        "UC-H12"
+      ],
+      "rules": [
+        "BR-H17"
+      ],
+      "tests": [
+        "H-T43"
+      ],
+      "source_lines": [
+        2030
+      ]
+    },
+    {
+      "feature": "M22-F25",
+      "use_cases": [
+        "UC-H15"
+      ],
+      "rules": [
+        "BR-H21"
+      ],
+      "tests": [
+        "H-T44"
+      ],
+      "source_lines": [
+        2031
+      ]
+    },
+    {
+      "feature": "M22-F26",
+      "use_cases": [
+        "UC-H16"
+      ],
+      "rules": [
+        "BR-H22"
+      ],
+      "tests": [
+        "H-T45",
+        "H-T46"
+      ],
+      "source_lines": [
+        2032
+      ]
+    },
+    {
+      "feature": "M22-F27",
+      "use_cases": [
+        "UC-H15"
+      ],
+      "rules": [
+        "BR-H23"
+      ],
+      "tests": [
+        "H-T47"
+      ],
+      "source_lines": [
+        2033
+      ]
+    },
+    {
+      "feature": "M22-F28",
+      "use_cases": [
+        "UC-H06",
+        "UC-H13",
+        "UC-H16"
+      ],
+      "rules": [
+        "BR-H24"
+      ],
+      "tests": [
+        "H-T48"
+      ],
+      "source_lines": [
+        2034
+      ]
+    }
+  ]
+}

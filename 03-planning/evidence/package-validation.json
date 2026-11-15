@@ -1,0 +1,39 @@
+{
+  "run_at": "2026-11-15T17:40:46.889806+00:00",
+  "kind": "documentation-and-inventory validation only",
+  "checks": {
+    "master_hash_matches_baseline": true,
+    "inventory_checks_pass": true,
+    "markdown_links_exist": true,
+    "markdown_fences_balanced": true,
+    "work_tests_01_40_classified_once": true,
+    "manifest_baseline_path_resolves": true,
+    "manifest_read_first_exists": true,
+    "unique_registry_keys": true,
+    "required_registry_fields": true,
+    "no_claimed_application_pass": true,
+    "deliverables_exist": true
+  },
+  "bad_links": [],
+  "bad_fences": [],
+  "json_files_loaded": [
+    "03-planning\\agent\\active-task.json",
+    "03-planning\\evidence\\hrm-integration-validation.json",
+    "03-planning\\evidence\\inventory-validation.json",
+    "03-planning\\evidence\\module-spec-validation.json",
+    "03-planning\\evidence\\package-validation.json",
+    "03-planning\\evidence\\partner-results-fixture.json",
+    "03-planning\\evidence\\partner-results-integration-validation.json",
+    "03-planning\\trace\\entities-contracts.json",
+    "03-planning\\trace\\findings.json",
+    "03-planning\\trace\\hrm-trace.json",
+    "03-planning\\trace\\modules.json",
+    "03-planning\\trace\\partner-results-trace.json",
+    "03-planning\\trace\\requirements.json",
+    "03-planning\\trace\\source-sections.json",
+    "03-planning\\trace\\unnumbered-rules.json",
+    "04-research\\sources\\extracted\\manifest.json"
+  ],
+  "application_tests": "Not Run",
+  "mermaid_rendering": "Not Run; fences only checked"
+}

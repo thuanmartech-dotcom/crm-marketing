@@ -1,0 +1,65 @@
+{
+  "task_id": "CRM-SPECS-SYNC-20261115",
+  "status": "Wave 1 decomposition in progress: locked 4 Pre-Flight Rules and completed M14 (M14-ORG-ACCESS-DELEGATION.md + M14-PRINCIPAL-ACCESS-DECISION.md, 18/18 owned IDs + 25 extended IDs); next module in Wave 1 is M20; application not implemented",
+  "baseline_version": "1.9",
+  "baseline_sha256": "b6a3279f328e96e1e97d845e209be7a326516a0dba5e3a033d88e1f2162e421c",
+  "baseline_path": "../../00-master/CRM_MASTER_BRD_SRS_HOP_NHAT.md",
+  "proposed_next_slice": "Wave 1 — Module 2: M20 (Consent, Suppression & Privacy) per ../DECOMPOSITION-PLAN.md",
+  "read_first": [
+    "../../README.md",
+    "../../AGENTS.md",
+    "../README.md",
+    "../DECOMPOSITION-PLAN.md",
+    "../GAPS.md",
+    "../../01-architecture/INVARIANTS.md",
+    "../../01-architecture/INDEX.md",
+    "../../02-specs/README.md",
+    "../../02-specs/FUNCTION-CATALOG.md",
+    "../../02-specs/modules/M14-ORG-ACCESS-DELEGATION.md",
+    "../../02-specs/contracts/M14-PRINCIPAL-ACCESS-DECISION.md",
+    "../../02-specs/modules/M21-PARTNER-BUSINESS-RESULTS.md",
+    "../../02-specs/slices/SL08-PARTNER-RESULTS.md",
+    "PROGRESS.md",
+    "../../02-specs/modules/M22-HUMAN-RESOURCES.md",
+    "../../02-specs/slices/SL09-11-HRM.md",
+    "../../02-specs/modules/M23-SYSTEM-ADMIN-SECURITY-OPS.md",
+    "../../02-specs/modules/M18-BI-REPORTING-EXPANSION.md",
+    "../../02-specs/modules/M24-PERFORMANCE-AND-PRODUCTIVITY.md"
+  ],
+  "read_on_demand": [
+    "Master source sections",
+    "related contracts",
+    "producer/consumer specs",
+    "tests",
+    "ADRs",
+    "04-research reports and extracted sources"
+  ],
+  "planning_write_scope": [
+    "01-architecture/**",
+    "02-specs/**",
+    "03-planning/**",
+    "05-tools/**"
+  ],
+  "application_write_scope": null,
+  "migration_scope": "Documentation-only project phase; no application code or DB migrations authorized",
+  "owners": [
+    "M21",
+    "M14",
+    "M18",
+    "M19",
+    "M20",
+    "M16",
+    "M22",
+    "M10",
+    "M09",
+    "M23",
+    "M24"
+  ],
+  "gate_state": "Inventory structural validation only; application tests Not Run",
+  "next_actions": [
+    "Brainstorm and decompose per-module & per-function specs for M01-M20 cleanly in 02-specs/modules/ from 00-master/",
+    "Confirm H-O inputs for HR-A, P-O parameters for M21, and GAP-15..18 for M18+/M23/M24",
+    "Keep payroll HR-C and bank capability gated; no application code or verification claimed"
+  ],
+  "note": "Manifest guides context and planned scope; it is not filesystem enforcement. Relative links resolve from 03-planning/agent/."
+}

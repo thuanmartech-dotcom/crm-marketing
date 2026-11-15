@@ -1,0 +1,34 @@
+{
+  "source": "D:\\AI Agent\\CRM\\00-master\\CRM_MASTER_BRD_SRS_HOP_NHAT.md",
+  "version": "1.9",
+  "sha256": "b6a3279f328e96e1e97d845e209be7a326516a0dba5e3a033d88e1f2162e421c",
+  "source_lines": 4861,
+  "generated_at": "2026-11-15T17:40:46.092677+00:00",
+  "counts": {
+    "modules": 22,
+    "unique_id_candidates": 870,
+    "definition_candidates": 859,
+    "reference_only_ids": 11,
+    "duplicate_definition_candidates": 13,
+    "missing_owner": 221,
+    "without_test_link": 309,
+    "entity_declarations": 129,
+    "contract_declarations": 72,
+    "unnumbered_candidates": 491,
+    "unresolved_shorthand_lines": 54
+  },
+  "checks": {
+    "module_count_matches_baseline": true,
+    "module_ids_exact": true,
+    "FR01_40_defined": true,
+    "UC01_22_defined": true,
+    "work_namespaces_defined": true,
+    "NFR01_12_defined": true,
+    "partner_namespaces_defined": true,
+    "hrm_namespaces_defined": true,
+    "hrm_trace_complete": true,
+    "no_application_pass_claims": true,
+    "master_unchanged": true,
+    "source_lines_valid": true
+  }
+}

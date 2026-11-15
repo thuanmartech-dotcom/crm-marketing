@@ -1,0 +1,871 @@
+﻿id,kind,owner,definition_lines,test_links,verification,implementation,owner_basis
+BR-H01,BR-H,M22,2040,"H-T01,H-T02",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H02,BR-H,M22,2041,"H-T03,H-T04",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H03,BR-H,M22,2042,"H-T05,H-T06",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H04,BR-H,M22,2043,H-T07,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H05,BR-H,M22,2044,"H-T08,H-T09",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H06,BR-H,M22,2045,"H-T10,H-T11",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H07,BR-H,M22,2046,"H-T12,H-T15,H-T16",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H08,BR-H,M22,2047,"H-T13,H-T14,H-T17,H-T18",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H09,BR-H,M22,2048,"H-T19,H-T20",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H10,BR-H,M22,2049,"H-T21,H-T22",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H11,BR-H,M22,2050,"H-T23,H-T24",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H12,BR-H,M22,2051,"H-T25,H-T26",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H13,BR-H,M22,2052,"H-T27,H-T28",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H14,BR-H,M22,2053,"H-T29,H-T30",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H15,BR-H,M22,2054,"H-T31,H-T32",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H16,BR-H,M22,2055,"H-T33,H-T34",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H17,BR-H,M22,2056,"H-T35,H-T36,H-T43",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H18,BR-H,M22,2057,"H-T37,H-T38",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H19,BR-H,M22,2058,"H-T39,H-T40,H-T41",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H20,BR-H,M22,2059,H-T42,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H21,BR-H,M22,2060,H-T44,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H22,BR-H,M22,2061,"H-T45,H-T46",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H23,BR-H,M22,2062,H-T47,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-H24,BR-H,M22,2063,H-T48,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+BR-P01,BR-P,M21,1860,"P-T01,P-T02,P-T03,P-T06,P-T31",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+BR-P02,BR-P,M21,1862,"P-T01,P-T02,P-T03,P-T04,P-T05,P-T06,P-T31",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+BR-P03,BR-P,M21,1864,"P-T04,P-T05,P-T06,P-T16,P-T17,P-T18,P-T19,P-T20,P-T35,P-T36,P-T37",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+BR-P04,BR-P,M21,1866,"P-T01,P-T07,P-T28,P-T29,P-T30",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+BR-P05,BR-P,M21,1868,"P-T08,P-T09,P-T10",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+BR-P06,BR-P,M21,1870,"P-T08,P-T09,P-T10,P-T23,P-T24,P-T25",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+BR-P07,BR-P,M21,1872,"P-T08,P-T09,P-T10,P-T28,P-T29,P-T30",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+BR-P08,BR-P,M21,1874,"P-T11,P-T12,P-T13,P-T14,P-T15,P-T16,P-T17,P-T18,P-T19,P-T20,P-T21,P-T22",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+BR-P09,BR-P,M21,1876,"P-T11,P-T12,P-T13,P-T14,P-T15,P-T23,P-T24,P-T25",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+BR-P10,BR-P,M21,1878,"P-T16,P-T17,P-T18,P-T19,P-T20",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+BR-P11,BR-P,M21,1880,"P-T02,P-T06,P-T13,P-T14,P-T21,P-T22,P-T31",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+BR-P12,BR-P,M21,1882,"P-T13,P-T14,P-T21,P-T22",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+BR-P13,BR-P,M21,1884,"P-T23,P-T24,P-T25",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+BR-P14,BR-P,M21,1886,"P-T26,P-T27",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+BR-P15,BR-P,M21,1888,"P-T28,P-T29,P-T30,P-T38,P-T39,P-T40",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+BR-P16,BR-P,M21,1890,"P-T32,P-T33,P-T34",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+BR-P17,BR-P,M21,1892,"P-T32,P-T33,P-T34",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+BR-P18,BR-P,M21,1894,"P-T05,P-T35,P-T36,P-T37",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+BR-P19,BR-P,M21,1896,"P-T05,P-T30,P-T35,P-T36,P-T37,P-T38,P-T39,P-T40",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+BR-P20,BR-P,M21,1898,"P-T30,P-T38,P-T39,P-T40",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+BR-W01,BR-W,M16,1591,,Not Run,Not Implemented / no application evidence,namespace
+BR-W02,BR-W,M16,1593,,Not Run,Not Implemented / no application evidence,namespace
+BR-W03,BR-W,M16,1595,,Not Run,Not Implemented / no application evidence,namespace
+BR-W04,BR-W,M16,1597,,Not Run,Not Implemented / no application evidence,namespace
+BR-W05,BR-W,M16,1599,,Not Run,Not Implemented / no application evidence,namespace
+BR-W06,BR-W,M16,1601,,Not Run,Not Implemented / no application evidence,namespace
+BR-W07,BR-W,M16,1603,,Not Run,Not Implemented / no application evidence,namespace
+BR-W08,BR-W,M16,1605,,Not Run,Not Implemented / no application evidence,namespace
+BR-W09,BR-W,M16,1607,,Not Run,Not Implemented / no application evidence,namespace
+BR-W10,BR-W,M16,1609,,Not Run,Not Implemented / no application evidence,namespace
+BR01,BR,M02,113,,Not Run,Not Implemented / no application evidence,analyst mapping
+BR02,BR,M03,114,,Not Run,Not Implemented / no application evidence,analyst mapping
+BR03,BR,M07,115,,Not Run,Not Implemented / no application evidence,analyst mapping
+BR04,BR,M09,116,,Not Run,Not Implemented / no application evidence,analyst mapping
+BR05,BR,M08,117,,Not Run,Not Implemented / no application evidence,analyst mapping
+BR06,BR,PLATFORM,118,,Not Run,Not Implemented / no application evidence,analyst mapping
+CEO-U01,CEO-U,UNRESOLVED,3688,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U02,CEO-U,UNRESOLVED,3689,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U03,CEO-U,UNRESOLVED,3690,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U04,CEO-U,UNRESOLVED,3691,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U05,CEO-U,UNRESOLVED,3692,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U06,CEO-U,UNRESOLVED,3693,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U07,CEO-U,UNRESOLVED,3694,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U08,CEO-U,UNRESOLVED,3695,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U09,CEO-U,UNRESOLVED,3696,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U10,CEO-U,UNRESOLVED,3697,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U11,CEO-U,UNRESOLVED,3698,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U12,CEO-U,UNRESOLVED,3699,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U13,CEO-U,UNRESOLVED,3700,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U14,CEO-U,UNRESOLVED,3701,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U15,CEO-U,UNRESOLVED,3702,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U16,CEO-U,UNRESOLVED,3703,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U17,CEO-U,UNRESOLVED,3704,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U18,CEO-U,UNRESOLVED,3705,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U19,CEO-U,UNRESOLVED,3706,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U20,CEO-U,UNRESOLVED,3707,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U21,CEO-U,UNRESOLVED,3708,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U22,CEO-U,UNRESOLVED,3709,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U23,CEO-U,UNRESOLVED,3710,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U24,CEO-U,UNRESOLVED,3711,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U25,CEO-U,UNRESOLVED,3712,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CEO-U26,CEO-U,UNRESOLVED,3713,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U01,CMO-U,UNRESOLVED,3721,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U02,CMO-U,UNRESOLVED,3722,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U03,CMO-U,UNRESOLVED,3723,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U04,CMO-U,UNRESOLVED,3724,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U05,CMO-U,UNRESOLVED,3725,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U06,CMO-U,UNRESOLVED,3726,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U07,CMO-U,UNRESOLVED,3727,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U08,CMO-U,UNRESOLVED,3728,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U09,CMO-U,UNRESOLVED,3729,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U10,CMO-U,UNRESOLVED,3730,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U11,CMO-U,UNRESOLVED,3731,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U12,CMO-U,UNRESOLVED,3732,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U13,CMO-U,UNRESOLVED,3733,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U14,CMO-U,UNRESOLVED,3734,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U15,CMO-U,UNRESOLVED,3735,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U16,CMO-U,UNRESOLVED,3736,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U17,CMO-U,UNRESOLVED,3737,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U18,CMO-U,UNRESOLVED,3738,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U19,CMO-U,UNRESOLVED,3739,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U20,CMO-U,UNRESOLVED,3740,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U21,CMO-U,UNRESOLVED,3741,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U22,CMO-U,UNRESOLVED,3742,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U23,CMO-U,UNRESOLVED,3743,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U24,CMO-U,UNRESOLVED,3744,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U25,CMO-U,UNRESOLVED,3745,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CMO-U26,CMO-U,UNRESOLVED,3746,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CR01,CR,UNRESOLVED,4589,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CR02,CR,UNRESOLVED,4590,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CR03,CR,UNRESOLVED,4591,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CR04,CR,UNRESOLVED,4592,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CR05,CR,UNRESOLVED,4593,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CR06,CR,UNRESOLVED,4594,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CR07,CR,UNRESOLVED,4595,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CR08,CR,UNRESOLVED,4596,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CR09,CR,UNRESOLVED,4597,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CR10,CR,UNRESOLVED,4598,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CR11,CR,UNRESOLVED,4599,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CR12,CR,UNRESOLVED,4600,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CR13,CR,UNRESOLVED,4601,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CR14,CR,UNRESOLVED,4602,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U01,CX-U,UNRESOLVED,3752,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U02,CX-U,UNRESOLVED,3753,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U03,CX-U,UNRESOLVED,3754,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U04,CX-U,UNRESOLVED,3755,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U05,CX-U,UNRESOLVED,3756,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U06,CX-U,UNRESOLVED,3757,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U07,CX-U,UNRESOLVED,3758,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U08,CX-U,UNRESOLVED,3759,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U09,CX-U,UNRESOLVED,3760,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U10,CX-U,UNRESOLVED,3761,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U11,CX-U,UNRESOLVED,3762,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U12,CX-U,UNRESOLVED,3763,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U13,CX-U,UNRESOLVED,3764,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U14,CX-U,UNRESOLVED,3765,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U15,CX-U,UNRESOLVED,3766,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U16,CX-U,UNRESOLVED,3767,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U17,CX-U,UNRESOLVED,3768,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U18,CX-U,UNRESOLVED,3769,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U19,CX-U,UNRESOLVED,3770,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U20,CX-U,UNRESOLVED,3771,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U21,CX-U,UNRESOLVED,3772,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U22,CX-U,UNRESOLVED,3773,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U23,CX-U,UNRESOLVED,3774,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+CX-U24,CX-U,UNRESOLVED,3775,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+DB01,DB,UNRESOLVED,4681,FA01,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+DB02,DB,UNRESOLVED,4682,"FA04,FA05",Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+DB03,DB,UNRESOLVED,4683,"FA02,FA03",Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+DB04,DB,UNRESOLVED,4684,FA06,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+FA01,FA,M09,3815,,Not Run,Not Implemented / no application evidence,proposed financial control owner; M10 consumer
+FA02,FA,M09,3818,,Not Run,Not Implemented / no application evidence,proposed financial control owner; M10 consumer
+FA03,FA,M09,3819,,Not Run,Not Implemented / no application evidence,proposed financial control owner; M10 consumer
+FA04,FA,M09,3816,,Not Run,Not Implemented / no application evidence,proposed financial control owner; M10 consumer
+FA05,FA,M09,3817,,Not Run,Not Implemented / no application evidence,proposed financial control owner; M10 consumer
+FA06,FA,M09,3820,,Not Run,Not Implemented / no application evidence,proposed financial control owner; M10 consumer
+FR01,FR,M01,420,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR02,FR,M01,432,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR03,FR,M01,446,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR04,FR,M02,485,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR05,FR,M02,499,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR06,FR,M02,513,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR07,FR,M03,576,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR08,FR,M03,588,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR09,FR,M04,602,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR10,FR,M05,643,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR11,FR,M06,706,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR12,FR,M06,718,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR13,FR,M06,730,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR14,FR,M07,750,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR15,FR,M08,790,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR16,FR,M09,830,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR17,FR,M10,870,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR18,FR,M11,910,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR19,FR,M12,975,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR20,FR,M13,991,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR21,FR,M14,1054,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR22,FR,M15,1070,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR23,FR,M15,1082,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR24,FR,M15,1094,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR25,FR,M16,"1132,4290","W-T01,W-T02,W-T03,W-T04,W-T05,W-T06,W-T07,W-T08,W-T09,W-T10,W-T11,W-T12,W-T13,W-T14,W-T15,W-T16,W-T17,W-T18,W-T19,W-T20,W-T21,W-T22,W-T23,W-T24,W-T25,W-T26,W-T27,W-T28,W-T29,W-T30,W-T31,W-T32,W-T33,W-T34,W-T35,W-T36,W-T37,W-T38,W-T39,W-T40",Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR26,FR,M17,1170,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR27,FR,M16,1206,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR28,FR,M18,1220,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR29,FR,M18,1232,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR30,FR,M03,1272,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR31,FR,M03,1285,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR32,FR,M03,1298,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR33,FR,M03,1311,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR34,FR,M03,1322,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR35,FR,M03,1337,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR36,FR,M03,1350,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR37,FR,M03,"1363,4296","INT23,INT28,INT29,OC03,OC14,OC20,RV10,RV15,RV17,U16,U17",Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR38,FR,M03,"1374,4297","INT11,INT25,INT26,OC08,OC09,OC19,OC21,RV14,RV17",Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR39,FR,M03,1385,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR40,FR,M03,1396,,Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR41,FR,M21,"1810,4299","P-T01,P-T02,P-T03,P-T04,P-T05,P-T06,P-T07,P-T08,P-T09,P-T10,P-T11,P-T12,P-T13,P-T14,P-T15,P-T16,P-T17,P-T18,P-T19,P-T20,P-T21,P-T22,P-T23,P-T24,P-T25,P-T26,P-T27,P-T28,P-T29,P-T30,P-T31,P-T32,P-T33,P-T34,P-T35,P-T36,P-T37,P-T38,P-T39,P-T40",Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+FR42,FR,M22,1974,"H-T01,H-T02,H-T03,H-T04,H-T05,H-T06,H-T07,H-T08,H-T09,H-T10,H-T11,H-T12,H-T13,H-T14,H-T15,H-T16,H-T17,H-T18,H-T19,H-T20,H-T21,H-T22,H-T23,H-T24,H-T25,H-T26,H-T27,H-T28,H-T29,H-T30,H-T31,H-T32,H-T33,H-T34,H-T35,H-T36,H-T37,H-T38,H-T39,H-T40,H-T41,H-T42,H-T43,H-T44,H-T45,H-T46,H-T47,H-T48",Not Run,Not Implemented / no application evidence,analyst mapping from module catalog
+H-NFR01,H-NFR,M22,3361,"H-T35,H-T43,H-T47",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-NFR02,H-NFR,M22,3362,"H-T14,H-T29,H-T33,H-T38,H-T48",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-NFR03,H-NFR,M22,3363,"H-T45,H-T48",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-NFR04,H-NFR,M22,3364,H-T48,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-NFR05,H-NFR,M22,3365,"H-T10,H-T19,H-T35",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-NFR06,H-NFR,M22,3366,"H-T18,H-T38,H-T40,H-T48",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-NFR07,H-NFR,M22,3367,"H-T06,H-T24,H-T32,H-T47",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-NFR08,H-NFR,M22,3368,"H-T17,H-T46,H-T48",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-O01,H-O,M22,4261,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-O02,H-O,M22,4262,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-O03,H-O,M22,4263,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-O04,H-O,M22,4264,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-O05,H-O,M22,4265,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-O06,H-O,M22,4266,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-O07,H-O,M22,4267,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-O08,H-O,M22,4268,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-O09,H-O,M22,4269,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-O10,H-O,M22,4270,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T01,H-T,M22,3994,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T02,H-T,M22,3995,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T03,H-T,M22,3996,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T04,H-T,M22,3997,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T05,H-T,M22,3998,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T06,H-T,M22,3999,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T07,H-T,M22,4000,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T08,H-T,M22,4001,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T09,H-T,M22,4002,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T10,H-T,M22,4003,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T11,H-T,M22,4004,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T12,H-T,M22,4005,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T13,H-T,M22,4006,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T14,H-T,M22,4007,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T15,H-T,M22,4008,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T16,H-T,M22,4009,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T17,H-T,M22,4010,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T18,H-T,M22,4011,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T19,H-T,M22,4012,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T20,H-T,M22,4013,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T21,H-T,M22,4014,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T22,H-T,M22,4015,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T23,H-T,M22,4016,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T24,H-T,M22,4017,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T25,H-T,M22,4018,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T26,H-T,M22,4019,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T27,H-T,M22,4020,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T28,H-T,M22,4021,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T29,H-T,M22,4022,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T30,H-T,M22,4023,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T31,H-T,M22,4024,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T32,H-T,M22,4025,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T33,H-T,M22,4026,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T34,H-T,M22,4027,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T35,H-T,M22,4028,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T36,H-T,M22,4029,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T37,H-T,M22,4030,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T38,H-T,M22,4031,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T39,H-T,M22,4032,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T40,H-T,M22,4033,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T41,H-T,M22,4034,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T42,H-T,M22,4035,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T43,H-T,M22,4036,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T44,H-T,M22,4037,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T45,H-T,M22,4038,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T46,H-T,M22,4039,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T47,H-T,M22,4040,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+H-T48,H-T,M22,4041,,Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+INT01,INT,UNRESOLVED,3623,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT02,INT,UNRESOLVED,3624,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT03,INT,UNRESOLVED,3625,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT04,INT,UNRESOLVED,3626,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT05,INT,UNRESOLVED,3627,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT06,INT,UNRESOLVED,3628,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT07,INT,UNRESOLVED,3629,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT08,INT,UNRESOLVED,3630,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT09,INT,UNRESOLVED,3631,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT10,INT,UNRESOLVED,3632,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT11,INT,UNRESOLVED,3633,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT12,INT,UNRESOLVED,3634,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT13,INT,UNRESOLVED,3635,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT14,INT,UNRESOLVED,3636,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT15,INT,UNRESOLVED,3637,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT16,INT,UNRESOLVED,3638,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT17,INT,UNRESOLVED,3639,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT18,INT,UNRESOLVED,3640,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT19,INT,UNRESOLVED,3641,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT20,INT,UNRESOLVED,3642,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT21,INT,UNRESOLVED,3643,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT22,INT,UNRESOLVED,3644,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT23,INT,UNRESOLVED,3645,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT24,INT,UNRESOLVED,3646,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT25,INT,UNRESOLVED,3647,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT26,INT,UNRESOLVED,3648,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT27,INT,UNRESOLVED,3649,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT28,INT,UNRESOLVED,3650,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT29,INT,UNRESOLVED,3651,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+INT30,INT,UNRESOLVED,3652,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+M01-AC01,M01-AC,M01,479,"M01-AC02,M01-AC03,M01-AC04",Not Run,Not Implemented / no application evidence,namespace
+M01-AC02,M01-AC,M01,479,"M01-AC01,M01-AC03,M01-AC04",Not Run,Not Implemented / no application evidence,namespace
+M01-AC03,M01-AC,M01,479,"M01-AC01,M01-AC02,M01-AC04",Not Run,Not Implemented / no application evidence,namespace
+M01-AC04,M01-AC,M01,479,"M01-AC01,M01-AC02,M01-AC03",Not Run,Not Implemented / no application evidence,namespace
+M01-F01,M01-F,M01,466,,Not Run,Not Implemented / no application evidence,namespace
+M01-F02,M01-F,M01,467,,Not Run,Not Implemented / no application evidence,namespace
+M01-F03,M01-F,M01,468,,Not Run,Not Implemented / no application evidence,namespace
+M01-F04,M01-F,M01,469,,Not Run,Not Implemented / no application evidence,namespace
+M01-F05,M01-F,M01,470,,Not Run,Not Implemented / no application evidence,namespace
+M01-F06,M01-F,M01,471,,Not Run,Not Implemented / no application evidence,namespace
+M02-AC01,M02-AC,M02,545,"M02-AC02,M02-AC03,M02-AC04",Not Run,Not Implemented / no application evidence,namespace
+M02-AC02,M02-AC,M02,545,"M02-AC01,M02-AC03,M02-AC04",Not Run,Not Implemented / no application evidence,namespace
+M02-AC03,M02-AC,M02,545,"M02-AC01,M02-AC02,M02-AC04",Not Run,Not Implemented / no application evidence,namespace
+M02-AC04,M02-AC,M02,545,"M02-AC01,M02-AC02,M02-AC03",Not Run,Not Implemented / no application evidence,namespace
+M02-F01,M02-F,M02,531,,Not Run,Not Implemented / no application evidence,namespace
+M02-F02,M02-F,M02,532,,Not Run,Not Implemented / no application evidence,namespace
+M02-F03,M02-F,M02,533,,Not Run,Not Implemented / no application evidence,namespace
+M02-F04,M02-F,M02,534,,Not Run,Not Implemented / no application evidence,namespace
+M02-F05,M02-F,M02,535,,Not Run,Not Implemented / no application evidence,namespace
+M02-F06,M02-F,M02,536,,Not Run,Not Implemented / no application evidence,namespace
+M02-F07,M02-F,M02,537,,Not Run,Not Implemented / no application evidence,namespace
+M03-AC01,M03-AC,M03,574,"M03-AC02,M03-AC03,SEC-U03,U16,U17,WF-U02",Not Run,Not Implemented / no application evidence,namespace
+M03-AC02,M03-AC,M03,574,"M03-AC01,M03-AC03,SEC-U03,U16,U17,WF-U02",Not Run,Not Implemented / no application evidence,namespace
+M03-AC03,M03-AC,M03,574,"M03-AC01,M03-AC02,SEC-U03,U16,U17,WF-U02",Not Run,Not Implemented / no application evidence,namespace
+M03-F01,M03-F,M03,559,,Not Run,Not Implemented / no application evidence,namespace
+M03-F02,M03-F,M03,560,,Not Run,Not Implemented / no application evidence,namespace
+M03-F03,M03-F,M03,561,,Not Run,Not Implemented / no application evidence,namespace
+M03-F04,M03-F,M03,562,,Not Run,Not Implemented / no application evidence,namespace
+M03-F05,M03-F,M03,563,,Not Run,Not Implemented / no application evidence,namespace
+M03-F06,M03-F,M03,564,,Not Run,Not Implemented / no application evidence,namespace
+M03-F07,M03-F,M03,565,,Not Run,Not Implemented / no application evidence,namespace
+M03-F08,M03-F,M03,566,,Not Run,Not Implemented / no application evidence,namespace
+M04-AC01,M04-AC,M04,641,"CMO-U07,CMO-U08,CMO-U09,CMO-U10,INT17,M04-AC02,M04-AC03,M04-AC04,RV17",Not Run,Not Implemented / no application evidence,namespace
+M04-AC02,M04-AC,M04,641,"CMO-U07,CMO-U08,CMO-U09,CMO-U10,INT17,M04-AC01,M04-AC03,M04-AC04,RV17",Not Run,Not Implemented / no application evidence,namespace
+M04-AC03,M04-AC,M04,641,"CMO-U07,CMO-U08,CMO-U09,CMO-U10,INT17,M04-AC01,M04-AC02,M04-AC04,RV17",Not Run,Not Implemented / no application evidence,namespace
+M04-AC04,M04-AC,M04,641,"CMO-U07,CMO-U08,CMO-U09,CMO-U10,INT17,M04-AC01,M04-AC02,M04-AC03,RV17",Not Run,Not Implemented / no application evidence,namespace
+M04-F01,M04-F,M04,628,,Not Run,Not Implemented / no application evidence,namespace
+M04-F02,M04-F,M04,629,,Not Run,Not Implemented / no application evidence,namespace
+M04-F03,M04-F,M04,630,,Not Run,Not Implemented / no application evidence,namespace
+M04-F04,M04-F,M04,631,,Not Run,Not Implemented / no application evidence,namespace
+M04-F05,M04-F,M04,632,,Not Run,Not Implemented / no application evidence,namespace
+M04-F06,M04-F,M04,633,,Not Run,Not Implemented / no application evidence,namespace
+M05-AC01,M05-AC,M05,677,"CMO-U21,CMO-U26,INT17,M05-AC02,M05-AC03,M05-AC04,U23-L,U23-R",Not Run,Not Implemented / no application evidence,namespace
+M05-AC02,M05-AC,M05,677,"CMO-U21,CMO-U26,INT17,M05-AC01,M05-AC03,M05-AC04,U23-L,U23-R",Not Run,Not Implemented / no application evidence,namespace
+M05-AC03,M05-AC,M05,677,"CMO-U21,CMO-U26,INT17,M05-AC01,M05-AC02,M05-AC04,U23-L,U23-R",Not Run,Not Implemented / no application evidence,namespace
+M05-AC04,M05-AC,M05,677,"CMO-U21,CMO-U26,INT17,M05-AC01,M05-AC02,M05-AC03,U23-L,U23-R",Not Run,Not Implemented / no application evidence,namespace
+M05-F01,M05-F,M05,663,,Not Run,Not Implemented / no application evidence,namespace
+M05-F02,M05-F,M05,664,,Not Run,Not Implemented / no application evidence,namespace
+M05-F03,M05-F,M05,665,,Not Run,Not Implemented / no application evidence,namespace
+M05-F04,M05-F,M05,666,,Not Run,Not Implemented / no application evidence,namespace
+M05-F05,M05-F,M05,667,,Not Run,Not Implemented / no application evidence,namespace
+M05-F06,M05-F,M05,668,,Not Run,Not Implemented / no application evidence,namespace
+M05-F07,M05-F,M05,669,,Not Run,Not Implemented / no application evidence,namespace
+M06-AC01,M06-AC,M06,704,"M06-AC02,M06-AC03,RV17,U22,WF-U04",Not Run,Not Implemented / no application evidence,namespace
+M06-AC02,M06-AC,M06,704,"M06-AC01,M06-AC03,RV17,U22,WF-U04",Not Run,Not Implemented / no application evidence,namespace
+M06-AC03,M06-AC,M06,704,"M06-AC01,M06-AC02,RV17,U22,WF-U04",Not Run,Not Implemented / no application evidence,namespace
+M06-F01,M06-F,M06,689,,Not Run,Not Implemented / no application evidence,namespace
+M06-F02,M06-F,M06,690,,Not Run,Not Implemented / no application evidence,namespace
+M06-F03,M06-F,M06,691,,Not Run,Not Implemented / no application evidence,namespace
+M06-F04,M06-F,M06,692,,Not Run,Not Implemented / no application evidence,namespace
+M06-F05,M06-F,M06,693,,Not Run,Not Implemented / no application evidence,namespace
+M06-F06,M06-F,M06,694,,Not Run,Not Implemented / no application evidence,namespace
+M06-F07,M06-F,M06,695,,Not Run,Not Implemented / no application evidence,namespace
+M06-F08,M06-F,M06,696,,Not Run,Not Implemented / no application evidence,namespace
+M07-AC01,M07-AC,M07,786,"M07-AC02,M07-AC03,M07-AC04",Not Run,Not Implemented / no application evidence,namespace
+M07-AC02,M07-AC,M07,786,"M07-AC01,M07-AC03,M07-AC04",Not Run,Not Implemented / no application evidence,namespace
+M07-AC03,M07-AC,M07,786,"M07-AC01,M07-AC02,M07-AC04",Not Run,Not Implemented / no application evidence,namespace
+M07-AC04,M07-AC,M07,786,"M07-AC01,M07-AC02,M07-AC03",Not Run,Not Implemented / no application evidence,namespace
+M07-F01,M07-F,M07,772,,Not Run,Not Implemented / no application evidence,namespace
+M07-F02,M07-F,M07,773,,Not Run,Not Implemented / no application evidence,namespace
+M07-F03,M07-F,M07,774,,Not Run,Not Implemented / no application evidence,namespace
+M07-F04,M07-F,M07,775,,Not Run,Not Implemented / no application evidence,namespace
+M07-F05,M07-F,M07,776,,Not Run,Not Implemented / no application evidence,namespace
+M07-F06,M07-F,M07,777,,Not Run,Not Implemented / no application evidence,namespace
+M07-F07,M07-F,M07,778,,Not Run,Not Implemented / no application evidence,namespace
+M08-AC01,M08-AC,M08,826,"M08-AC02,M08-AC03,M08-AC04",Not Run,Not Implemented / no application evidence,namespace
+M08-AC02,M08-AC,M08,826,"M08-AC01,M08-AC03,M08-AC04",Not Run,Not Implemented / no application evidence,namespace
+M08-AC03,M08-AC,M08,826,"M08-AC01,M08-AC02,M08-AC04",Not Run,Not Implemented / no application evidence,namespace
+M08-AC04,M08-AC,M08,826,"M08-AC01,M08-AC02,M08-AC03",Not Run,Not Implemented / no application evidence,namespace
+M08-F01,M08-F,M08,812,,Not Run,Not Implemented / no application evidence,namespace
+M08-F02,M08-F,M08,813,,Not Run,Not Implemented / no application evidence,namespace
+M08-F03,M08-F,M08,814,,Not Run,Not Implemented / no application evidence,namespace
+M08-F04,M08-F,M08,815,,Not Run,Not Implemented / no application evidence,namespace
+M08-F05,M08-F,M08,816,,Not Run,Not Implemented / no application evidence,namespace
+M08-F06,M08-F,M08,817,,Not Run,Not Implemented / no application evidence,namespace
+M08-F07,M08-F,M08,818,,Not Run,Not Implemented / no application evidence,namespace
+M09-AC01,M09-AC,M09,868,"FA02,FA03,FA04,FA05,FA06,INT12,M09-AC02,M09-AC03,M09-AC04,RV07,RV08,U09,U10,U11,U12",Not Run,Not Implemented / no application evidence,namespace
+M09-AC02,M09-AC,M09,868,"FA02,FA03,FA04,FA05,FA06,INT12,M09-AC01,M09-AC03,M09-AC04,RV07,RV08,U09,U10,U11,U12",Not Run,Not Implemented / no application evidence,namespace
+M09-AC03,M09-AC,M09,868,"FA02,FA03,FA04,FA05,FA06,INT12,M09-AC01,M09-AC02,M09-AC04,RV07,RV08,U09,U10,U11,U12",Not Run,Not Implemented / no application evidence,namespace
+M09-AC04,M09-AC,M09,868,"FA02,FA03,FA04,FA05,FA06,INT12,M09-AC01,M09-AC02,M09-AC03,RV07,RV08,U09,U10,U11,U12",Not Run,Not Implemented / no application evidence,namespace
+M09-F01,M09-F,M09,854,,Not Run,Not Implemented / no application evidence,namespace
+M09-F02,M09-F,M09,855,,Not Run,Not Implemented / no application evidence,namespace
+M09-F03,M09-F,M09,856,,Not Run,Not Implemented / no application evidence,namespace
+M09-F04,M09-F,M09,857,,Not Run,Not Implemented / no application evidence,namespace
+M09-F05,M09-F,M09,858,,Not Run,Not Implemented / no application evidence,namespace
+M09-F06,M09-F,M09,859,,Not Run,Not Implemented / no application evidence,namespace
+M09-F07,M09-F,M09,860,,Not Run,Not Implemented / no application evidence,namespace
+M10-AC01,M10-AC,M10,906,"CEO-U12,CEO-U13,CEO-U16,CEO-U23,FA01,FA02,FA03,INT15,M10-AC02,M10-AC03,M10-AC04,U10,U11,U12",Not Run,Not Implemented / no application evidence,namespace
+M10-AC02,M10-AC,M10,906,"CEO-U12,CEO-U13,CEO-U16,CEO-U23,FA01,FA02,FA03,INT15,M10-AC01,M10-AC03,M10-AC04,U10,U11,U12",Not Run,Not Implemented / no application evidence,namespace
+M10-AC03,M10-AC,M10,906,"CEO-U12,CEO-U13,CEO-U16,CEO-U23,FA01,FA02,FA03,INT15,M10-AC01,M10-AC02,M10-AC04,U10,U11,U12",Not Run,Not Implemented / no application evidence,namespace
+M10-AC04,M10-AC,M10,906,"CEO-U12,CEO-U13,CEO-U16,CEO-U23,FA01,FA02,FA03,INT15,M10-AC01,M10-AC02,M10-AC03,U10,U11,U12",Not Run,Not Implemented / no application evidence,namespace
+M10-F01,M10-F,M10,892,,Not Run,Not Implemented / no application evidence,namespace
+M10-F02,M10-F,M10,893,,Not Run,Not Implemented / no application evidence,namespace
+M10-F03,M10-F,M10,894,,Not Run,Not Implemented / no application evidence,namespace
+M10-F04,M10-F,M10,895,,Not Run,Not Implemented / no application evidence,namespace
+M10-F05,M10-F,M10,896,,Not Run,Not Implemented / no application evidence,namespace
+M10-F06,M10-F,M10,897,,Not Run,Not Implemented / no application evidence,namespace
+M10-F07,M10-F,M10,898,,Not Run,Not Implemented / no application evidence,namespace
+M11-AC01,M11-AC,M11,946,"M11-AC02,M11-AC03,M11-AC04",Not Run,Not Implemented / no application evidence,namespace
+M11-AC02,M11-AC,M11,946,"M11-AC01,M11-AC03,M11-AC04",Not Run,Not Implemented / no application evidence,namespace
+M11-AC03,M11-AC,M11,946,"M11-AC01,M11-AC02,M11-AC04",Not Run,Not Implemented / no application evidence,namespace
+M11-AC04,M11-AC,M11,946,"M11-AC01,M11-AC02,M11-AC03",Not Run,Not Implemented / no application evidence,namespace
+M11-F01,M11-F,M11,932,,Not Run,Not Implemented / no application evidence,namespace
+M11-F02,M11-F,M11,933,,Not Run,Not Implemented / no application evidence,namespace
+M11-F03,M11-F,M11,934,,Not Run,Not Implemented / no application evidence,namespace
+M11-F04,M11-F,M11,935,,Not Run,Not Implemented / no application evidence,namespace
+M11-F05,M11-F,M11,936,,Not Run,Not Implemented / no application evidence,namespace
+M11-F06,M11-F,M11,937,,Not Run,Not Implemented / no application evidence,namespace
+M11-F07,M11-F,M11,938,,Not Run,Not Implemented / no application evidence,namespace
+M12-AC01,M12-AC,M12,973,"CX-U15,M12-AC02,M12-AC03",Not Run,Not Implemented / no application evidence,namespace
+M12-AC02,M12-AC,M12,973,"CX-U15,M12-AC01,M12-AC03",Not Run,Not Implemented / no application evidence,namespace
+M12-AC03,M12-AC,M12,973,"CX-U15,M12-AC01,M12-AC02",Not Run,Not Implemented / no application evidence,namespace
+M12-F01,M12-F,M12,958,,Not Run,Not Implemented / no application evidence,namespace
+M12-F02,M12-F,M12,959,,Not Run,Not Implemented / no application evidence,namespace
+M12-F03,M12-F,M12,960,,Not Run,Not Implemented / no application evidence,namespace
+M12-F04,M12-F,M12,961,,Not Run,Not Implemented / no application evidence,namespace
+M12-F05,M12-F,M12,962,,Not Run,Not Implemented / no application evidence,namespace
+M12-F06,M12-F,M12,963,,Not Run,Not Implemented / no application evidence,namespace
+M12-F07,M12-F,M12,964,,Not Run,Not Implemented / no application evidence,namespace
+M12-F08,M12-F,M12,965,,Not Run,Not Implemented / no application evidence,namespace
+M13-AC01,M13-AC,M13,1023,"M13-AC02,M13-AC03,M13-AC04",Not Run,Not Implemented / no application evidence,namespace
+M13-AC02,M13-AC,M13,1023,"M13-AC01,M13-AC03,M13-AC04",Not Run,Not Implemented / no application evidence,namespace
+M13-AC03,M13-AC,M13,1023,"M13-AC01,M13-AC02,M13-AC04",Not Run,Not Implemented / no application evidence,namespace
+M13-AC04,M13-AC,M13,1023,"M13-AC01,M13-AC02,M13-AC03",Not Run,Not Implemented / no application evidence,namespace
+M13-F01,M13-F,M13,1009,,Not Run,Not Implemented / no application evidence,namespace
+M13-F02,M13-F,M13,1010,,Not Run,Not Implemented / no application evidence,namespace
+M13-F03,M13-F,M13,1011,,Not Run,Not Implemented / no application evidence,namespace
+M13-F04,M13-F,M13,1012,,Not Run,Not Implemented / no application evidence,namespace
+M13-F05,M13-F,M13,1013,,Not Run,Not Implemented / no application evidence,namespace
+M13-F06,M13-F,M13,1014,,Not Run,Not Implemented / no application evidence,namespace
+M13-F07,M13-F,M13,1015,,Not Run,Not Implemented / no application evidence,namespace
+M14-AC01,M14-AC,M14,1050,"INT29,M14-AC02,M14-AC03,SEC-U06,U16,U17",Not Run,Not Implemented / no application evidence,namespace
+M14-AC02,M14-AC,M14,1050,"INT29,M14-AC01,M14-AC03,SEC-U06,U16,U17",Not Run,Not Implemented / no application evidence,namespace
+M14-AC03,M14-AC,M14,1050,"INT29,M14-AC01,M14-AC02,SEC-U06,U16,U17",Not Run,Not Implemented / no application evidence,namespace
+M14-F01,M14-F,M14,1035,,Not Run,Not Implemented / no application evidence,namespace
+M14-F02,M14-F,M14,1036,,Not Run,Not Implemented / no application evidence,namespace
+M14-F03,M14-F,M14,1037,,Not Run,Not Implemented / no application evidence,namespace
+M14-F04,M14-F,M14,1038,,Not Run,Not Implemented / no application evidence,namespace
+M14-F05,M14-F,M14,1039,,Not Run,Not Implemented / no application evidence,namespace
+M14-F06,M14-F,M14,1040,,Not Run,Not Implemented / no application evidence,namespace
+M14-F07,M14-F,M14,1041,,Not Run,Not Implemented / no application evidence,namespace
+M14-F08,M14-F,M14,1042,,Not Run,Not Implemented / no application evidence,namespace
+M15-AC01,M15-AC,M15,1128,"CMO-U11,CMO-U12,CMO-U13,CMO-U14,CMO-U15,CMO-U24,INT16,INT22,M15-AC02,M15-AC03,M15-AC04,U19",Not Run,Not Implemented / no application evidence,namespace
+M15-AC02,M15-AC,M15,1128,"CMO-U11,CMO-U12,CMO-U13,CMO-U14,CMO-U15,CMO-U24,INT16,INT22,M15-AC01,M15-AC03,M15-AC04,U19",Not Run,Not Implemented / no application evidence,namespace
+M15-AC03,M15-AC,M15,1128,"CMO-U11,CMO-U12,CMO-U13,CMO-U14,CMO-U15,CMO-U24,INT16,INT22,M15-AC01,M15-AC02,M15-AC04,U19",Not Run,Not Implemented / no application evidence,namespace
+M15-AC04,M15-AC,M15,1128,"CMO-U11,CMO-U12,CMO-U13,CMO-U14,CMO-U15,CMO-U24,INT16,INT22,M15-AC01,M15-AC02,M15-AC03,U19",Not Run,Not Implemented / no application evidence,namespace
+M15-F01,M15-F,M15,1114,,Not Run,Not Implemented / no application evidence,namespace
+M15-F02,M15-F,M15,1115,,Not Run,Not Implemented / no application evidence,namespace
+M15-F03,M15-F,M15,1116,,Not Run,Not Implemented / no application evidence,namespace
+M15-F04,M15-F,M15,1117,,Not Run,Not Implemented / no application evidence,namespace
+M15-F05,M15-F,M15,1118,,Not Run,Not Implemented / no application evidence,namespace
+M15-F06,M15-F,M15,1119,,Not Run,Not Implemented / no application evidence,namespace
+M15-F07,M15-F,M15,1120,,Not Run,Not Implemented / no application evidence,namespace
+M16-AC01,M16-AC,M16,1166,"M16-AC02,M16-AC03,M16-AC04",Not Run,Not Implemented / no application evidence,namespace
+M16-AC02,M16-AC,M16,1166,"M16-AC01,M16-AC03,M16-AC04",Not Run,Not Implemented / no application evidence,namespace
+M16-AC03,M16-AC,M16,1166,"M16-AC01,M16-AC02,M16-AC04",Not Run,Not Implemented / no application evidence,namespace
+M16-AC04,M16-AC,M16,1166,"M16-AC01,M16-AC02,M16-AC03",Not Run,Not Implemented / no application evidence,namespace
+M16-F01,M16-F,M16,1152,,Not Run,Not Implemented / no application evidence,namespace
+M16-F02,M16-F,M16,1153,,Not Run,Not Implemented / no application evidence,namespace
+M16-F03,M16-F,M16,1154,,Not Run,Not Implemented / no application evidence,namespace
+M16-F04,M16-F,M16,1155,,Not Run,Not Implemented / no application evidence,namespace
+M16-F05,M16-F,M16,1156,,Not Run,Not Implemented / no application evidence,namespace
+M16-F06,M16-F,M16,1157,,Not Run,Not Implemented / no application evidence,namespace
+M16-F07,M16-F,M16,1158,,Not Run,Not Implemented / no application evidence,namespace
+M17-AC01,M17-AC,M17,1204,"CEO-U05,CEO-U22,CMO-U16,CMO-U17,CMO-U18,CMO-U25,M17-AC02,M17-AC03,M17-AC04,RV18,RV19",Not Run,Not Implemented / no application evidence,namespace
+M17-AC02,M17-AC,M17,1204,"CEO-U05,CEO-U22,CMO-U16,CMO-U17,CMO-U18,CMO-U25,M17-AC01,M17-AC03,M17-AC04,RV18,RV19",Not Run,Not Implemented / no application evidence,namespace
+M17-AC03,M17-AC,M17,1204,"CEO-U05,CEO-U22,CMO-U16,CMO-U17,CMO-U18,CMO-U25,M17-AC01,M17-AC02,M17-AC04,RV18,RV19",Not Run,Not Implemented / no application evidence,namespace
+M17-AC04,M17-AC,M17,1204,"CEO-U05,CEO-U22,CMO-U16,CMO-U17,CMO-U18,CMO-U25,M17-AC01,M17-AC02,M17-AC03,RV18,RV19",Not Run,Not Implemented / no application evidence,namespace
+M17-F01,M17-F,M17,1190,,Not Run,Not Implemented / no application evidence,namespace
+M17-F02,M17-F,M17,1191,,Not Run,Not Implemented / no application evidence,namespace
+M17-F03,M17-F,M17,1192,,Not Run,Not Implemented / no application evidence,namespace
+M17-F04,M17-F,M17,1193,,Not Run,Not Implemented / no application evidence,namespace
+M17-F05,M17-F,M17,1194,,Not Run,Not Implemented / no application evidence,namespace
+M17-F06,M17-F,M17,1195,,Not Run,Not Implemented / no application evidence,namespace
+M17-F07,M17-F,M17,1196,,Not Run,Not Implemented / no application evidence,namespace
+M18-AC01,M18-AC,M18,1268,"CMO-U01,CMO-U02,CMO-U03,CMO-U04,CMO-U05,CMO-U06,CMO-U18,CMO-U19,CMO-U20,CMO-U21,CMO-U22,CMO-U23,INT18,INT19,INT20,M18-AC02,M18-AC03,M18-AC04,RV19",Not Run,Not Implemented / no application evidence,namespace
+M18-AC02,M18-AC,M18,1268,"CMO-U01,CMO-U02,CMO-U03,CMO-U04,CMO-U05,CMO-U06,CMO-U18,CMO-U19,CMO-U20,CMO-U21,CMO-U22,CMO-U23,INT18,INT19,INT20,M18-AC01,M18-AC03,M18-AC04,RV19",Not Run,Not Implemented / no application evidence,namespace
+M18-AC03,M18-AC,M18,1268,"CMO-U01,CMO-U02,CMO-U03,CMO-U04,CMO-U05,CMO-U06,CMO-U18,CMO-U19,CMO-U20,CMO-U21,CMO-U22,CMO-U23,INT18,INT19,INT20,M18-AC01,M18-AC02,M18-AC04,RV19",Not Run,Not Implemented / no application evidence,namespace
+M18-AC04,M18-AC,M18,1268,"CMO-U01,CMO-U02,CMO-U03,CMO-U04,CMO-U05,CMO-U06,CMO-U18,CMO-U19,CMO-U20,CMO-U21,CMO-U22,CMO-U23,INT18,INT19,INT20,M18-AC01,M18-AC02,M18-AC03,RV19",Not Run,Not Implemented / no application evidence,namespace
+M18-F01,M18-F,M18,1254,,Not Run,Not Implemented / no application evidence,namespace
+M18-F02,M18-F,M18,1255,,Not Run,Not Implemented / no application evidence,namespace
+M18-F03,M18-F,M18,1256,,Not Run,Not Implemented / no application evidence,namespace
+M18-F04,M18-F,M18,1257,,Not Run,Not Implemented / no application evidence,namespace
+M18-F05,M18-F,M18,1258,,Not Run,Not Implemented / no application evidence,namespace
+M18-F06,M18-F,M18,1259,,Not Run,Not Implemented / no application evidence,namespace
+M18-F07,M18-F,M18,1260,,Not Run,Not Implemented / no application evidence,namespace
+M19-AC01,M19-AC,M19,252,"M19-AC02,M19-AC03,SEC-U01,SEC-U02,SEC-U04,U01,U15",Not Run,Not Implemented / no application evidence,namespace
+M19-AC02,M19-AC,M19,252,"M19-AC01,M19-AC03,SEC-U01,SEC-U02,SEC-U04,U01,U15",Not Run,Not Implemented / no application evidence,namespace
+M19-AC03,M19-AC,M19,252,"M19-AC01,M19-AC02,SEC-U01,SEC-U02,SEC-U04,U01,U15",Not Run,Not Implemented / no application evidence,namespace
+M19-F01,M19-F,M19,237,,Not Run,Not Implemented / no application evidence,namespace
+M19-F02,M19-F,M19,238,,Not Run,Not Implemented / no application evidence,namespace
+M19-F03,M19-F,M19,239,,Not Run,Not Implemented / no application evidence,namespace
+M19-F04,M19-F,M19,240,,Not Run,Not Implemented / no application evidence,namespace
+M19-F05,M19-F,M19,241,,Not Run,Not Implemented / no application evidence,namespace
+M19-F06,M19-F,M19,242,,Not Run,Not Implemented / no application evidence,namespace
+M19-F07,M19-F,M19,243,,Not Run,Not Implemented / no application evidence,namespace
+M19-F08,M19-F,M19,244,,Not Run,Not Implemented / no application evidence,namespace
+M20-AC01,M20-AC,M20,3147,"INT26,M20-AC02,M20-AC03,RV17,SEC-U05,U15",Not Run,Not Implemented / no application evidence,namespace
+M20-AC02,M20-AC,M20,3147,"INT26,M20-AC01,M20-AC03,RV17,SEC-U05,U15",Not Run,Not Implemented / no application evidence,namespace
+M20-AC03,M20-AC,M20,3147,"INT26,M20-AC01,M20-AC02,RV17,SEC-U05,U15",Not Run,Not Implemented / no application evidence,namespace
+M20-F01,M20-F,M20,3132,,Not Run,Not Implemented / no application evidence,namespace
+M20-F02,M20-F,M20,3133,,Not Run,Not Implemented / no application evidence,namespace
+M20-F03,M20-F,M20,3134,,Not Run,Not Implemented / no application evidence,namespace
+M20-F04,M20-F,M20,3135,,Not Run,Not Implemented / no application evidence,namespace
+M20-F05,M20-F,M20,3136,,Not Run,Not Implemented / no application evidence,namespace
+M20-F06,M20-F,M20,3137,,Not Run,Not Implemented / no application evidence,namespace
+M20-F07,M20-F,M20,3138,,Not Run,Not Implemented / no application evidence,namespace
+M20-F08,M20-F,M20,3139,,Not Run,Not Implemented / no application evidence,namespace
+M21-F01,M21-F,M21,1841,"P-T01,P-T02,P-T03",Not Run,Not Implemented / no application evidence,namespace
+M21-F02,M21-F,M21,1842,"P-T04,P-T05,P-T06",Not Run,Not Implemented / no application evidence,namespace
+M21-F03,M21-F,M21,1843,"P-T01,P-T07",Not Run,Not Implemented / no application evidence,namespace
+M21-F04,M21-F,M21,1844,"P-T08,P-T09,P-T10",Not Run,Not Implemented / no application evidence,namespace
+M21-F05,M21-F,M21,1845,"P-T11,P-T12,P-T13,P-T14,P-T15",Not Run,Not Implemented / no application evidence,namespace
+M21-F06,M21-F,M21,1846,"P-T16,P-T17,P-T18,P-T19,P-T20",Not Run,Not Implemented / no application evidence,namespace
+M21-F07,M21-F,M21,1847,"P-T13,P-T14,P-T21,P-T22",Not Run,Not Implemented / no application evidence,namespace
+M21-F08,M21-F,M21,1848,"P-T23,P-T24,P-T25",Not Run,Not Implemented / no application evidence,namespace
+M21-F09,M21-F,M21,1849,"P-T26,P-T27",Not Run,Not Implemented / no application evidence,namespace
+M21-F10,M21-F,M21,1850,"P-T28,P-T29,P-T30",Not Run,Not Implemented / no application evidence,namespace
+M21-F11,M21-F,M21,1851,"P-T02,P-T06,P-T31",Not Run,Not Implemented / no application evidence,namespace
+M21-F12,M21-F,M21,1852,"P-T32,P-T33,P-T34",Not Run,Not Implemented / no application evidence,namespace
+M21-F13,M21-F,M21,1853,"P-T05,P-T35,P-T36,P-T37",Not Run,Not Implemented / no application evidence,namespace
+M21-F14,M21-F,M21,1854,"P-T30,P-T38,P-T39,P-T40",Not Run,Not Implemented / no application evidence,namespace
+M22-F01,M22-F,M22,2007,"H-T01,H-T02",Not Run,Not Implemented / no application evidence,namespace
+M22-F02,M22-F,M22,2008,"H-T03,H-T04",Not Run,Not Implemented / no application evidence,namespace
+M22-F03,M22-F,M22,2009,"H-T05,H-T06",Not Run,Not Implemented / no application evidence,namespace
+M22-F04,M22-F,M22,2010,H-T07,Not Run,Not Implemented / no application evidence,namespace
+M22-F05,M22-F,M22,2011,"H-T08,H-T09",Not Run,Not Implemented / no application evidence,namespace
+M22-F06,M22-F,M22,2012,"H-T10,H-T11",Not Run,Not Implemented / no application evidence,namespace
+M22-F07,M22-F,M22,2013,H-T12,Not Run,Not Implemented / no application evidence,namespace
+M22-F08,M22-F,M22,2014,"H-T13,H-T14",Not Run,Not Implemented / no application evidence,namespace
+M22-F09,M22-F,M22,2015,"H-T15,H-T16",Not Run,Not Implemented / no application evidence,namespace
+M22-F10,M22-F,M22,2016,"H-T17,H-T18",Not Run,Not Implemented / no application evidence,namespace
+M22-F11,M22-F,M22,2017,"H-T19,H-T20",Not Run,Not Implemented / no application evidence,namespace
+M22-F12,M22-F,M22,2018,"H-T21,H-T22",Not Run,Not Implemented / no application evidence,namespace
+M22-F13,M22-F,M22,2019,"H-T23,H-T24",Not Run,Not Implemented / no application evidence,namespace
+M22-F14,M22-F,M22,2020,"H-T25,H-T26",Not Run,Not Implemented / no application evidence,namespace
+M22-F15,M22-F,M22,2021,"H-T27,H-T28",Not Run,Not Implemented / no application evidence,namespace
+M22-F16,M22-F,M22,2022,"H-T29,H-T30",Not Run,Not Implemented / no application evidence,namespace
+M22-F17,M22-F,M22,2023,"H-T31,H-T32",Not Run,Not Implemented / no application evidence,namespace
+M22-F18,M22-F,M22,2024,"H-T33,H-T34",Not Run,Not Implemented / no application evidence,namespace
+M22-F19,M22-F,M22,2025,"H-T35,H-T36",Not Run,Not Implemented / no application evidence,namespace
+M22-F20,M22-F,M22,2026,"H-T37,H-T38",Not Run,Not Implemented / no application evidence,namespace
+M22-F21,M22-F,M22,2027,H-T39,Not Run,Not Implemented / no application evidence,namespace
+M22-F22,M22-F,M22,2028,"H-T40,H-T41",Not Run,Not Implemented / no application evidence,namespace
+M22-F23,M22-F,M22,2029,H-T42,Not Run,Not Implemented / no application evidence,namespace
+M22-F24,M22-F,M22,2030,H-T43,Not Run,Not Implemented / no application evidence,namespace
+M22-F25,M22-F,M22,2031,H-T44,Not Run,Not Implemented / no application evidence,namespace
+M22-F26,M22-F,M22,2032,"H-T45,H-T46",Not Run,Not Implemented / no application evidence,namespace
+M22-F27,M22-F,M22,2033,H-T47,Not Run,Not Implemented / no application evidence,namespace
+M22-F28,M22-F,M22,2034,H-T48,Not Run,Not Implemented / no application evidence,namespace
+NFR01,NFR,PLATFORM,3271,,Not Run,Not Implemented / no application evidence,proposed cross-cutting control owner
+NFR02,NFR,PLATFORM,3272,,Not Run,Not Implemented / no application evidence,proposed cross-cutting control owner
+NFR03,NFR,PLATFORM,3273,,Not Run,Not Implemented / no application evidence,proposed cross-cutting control owner
+NFR04,NFR,PLATFORM,3274,,Not Run,Not Implemented / no application evidence,proposed cross-cutting control owner
+NFR05,NFR,PLATFORM,3275,,Not Run,Not Implemented / no application evidence,proposed cross-cutting control owner
+NFR06,NFR,PLATFORM,3276,,Not Run,Not Implemented / no application evidence,proposed cross-cutting control owner
+NFR07,NFR,PLATFORM,3277,,Not Run,Not Implemented / no application evidence,proposed cross-cutting control owner
+NFR08,NFR,PLATFORM,3278,,Not Run,Not Implemented / no application evidence,proposed cross-cutting control owner
+NFR09,NFR,PLATFORM,3279,,Not Run,Not Implemented / no application evidence,proposed cross-cutting control owner
+NFR10,NFR,PLATFORM,3280,,Not Run,Not Implemented / no application evidence,proposed cross-cutting control owner
+NFR11,NFR,PLATFORM,3281,,Not Run,Not Implemented / no application evidence,proposed cross-cutting control owner
+NFR12,NFR,PLATFORM,3282,,Not Run,Not Implemented / no application evidence,proposed cross-cutting control owner
+O01,O,UNRESOLVED,"4209,4840",,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+O02,O,UNRESOLVED,"4210,4841",,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+O03,O,UNRESOLVED,"4211,4842",,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+O04,O,UNRESOLVED,"4212,4843",,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+O05,O,UNRESOLVED,"4213,4844",,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+O06,O,UNRESOLVED,4214,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+O07,O,UNRESOLVED,4215,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+O08,O,UNRESOLVED,4216,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC01,OC,UNRESOLVED,3590,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC02,OC,UNRESOLVED,3591,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC03,OC,UNRESOLVED,3592,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC04,OC,UNRESOLVED,3593,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC05,OC,UNRESOLVED,3594,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC06,OC,UNRESOLVED,3595,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC07,OC,UNRESOLVED,3596,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC08,OC,UNRESOLVED,3597,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC09,OC,UNRESOLVED,3598,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC10,OC,UNRESOLVED,3599,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC11,OC,UNRESOLVED,3600,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC12,OC,UNRESOLVED,3601,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC13,OC,UNRESOLVED,3602,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC14,OC,UNRESOLVED,3603,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC15,OC,UNRESOLVED,3604,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC16,OC,UNRESOLVED,3605,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC17,OC,UNRESOLVED,3606,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC18,OC,UNRESOLVED,3607,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC19,OC,UNRESOLVED,3608,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC20,OC,UNRESOLVED,3609,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC21,OC,UNRESOLVED,3610,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC22,OC,UNRESOLVED,3611,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC23,OC,UNRESOLVED,3612,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OC24,OC,UNRESOLVED,3613,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+OM-G01,OM-G,M03,3834,,Not Run,Not Implemented / no application evidence,proposed integration scenario owner; M19 consumer
+OM-G02,OM-G,M03,3835,,Not Run,Not Implemented / no application evidence,proposed integration scenario owner; M19 consumer
+OM-G03,OM-G,M03,3836,,Not Run,Not Implemented / no application evidence,proposed integration scenario owner; M19 consumer
+OM-G04,OM-G,M03,3837,,Not Run,Not Implemented / no application evidence,proposed integration scenario owner; M19 consumer
+OM-G05,OM-G,M03,3838,,Not Run,Not Implemented / no application evidence,proposed integration scenario owner; M19 consumer
+OM-G06,OM-G,M03,3839,,Not Run,Not Implemented / no application evidence,proposed integration scenario owner; M19 consumer
+OM-G07,OM-G,M03,3840,,Not Run,Not Implemented / no application evidence,proposed integration scenario owner; M19 consumer
+OM-G08,OM-G,M03,3841,,Not Run,Not Implemented / no application evidence,proposed integration scenario owner; M19 consumer
+OM-G09,OM-G,M03,3842,,Not Run,Not Implemented / no application evidence,proposed integration scenario owner; M19 consumer
+OM-G10,OM-G,M03,3843,,Not Run,Not Implemented / no application evidence,proposed integration scenario owner; M19 consumer
+ONFR01,ONFR,M19,3312,,Not Run,Not Implemented / no application evidence,proposed operational control owner; M03 consumer
+ONFR02,ONFR,M19,3313,,Not Run,Not Implemented / no application evidence,proposed operational control owner; M03 consumer
+ONFR03,ONFR,M19,3314,,Not Run,Not Implemented / no application evidence,proposed operational control owner; M03 consumer
+ONFR04,ONFR,M19,3315,,Not Run,Not Implemented / no application evidence,proposed operational control owner; M03 consumer
+ONFR05,ONFR,M19,3316,,Not Run,Not Implemented / no application evidence,proposed operational control owner; M03 consumer
+ONFR06,ONFR,M19,3317,,Not Run,Not Implemented / no application evidence,proposed operational control owner; M03 consumer
+P-NFR01,P-NFR,M21,3344,"P-T07,P-T28,P-T39",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-NFR02,P-NFR,M21,3345,"P-T11,P-T12,P-T15,P-T39",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-NFR03,P-NFR,M21,3346,"P-T13,P-T15,P-T18,P-T25",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-NFR04,P-NFR,M21,3347,"P-T02,P-T06,P-T30,P-T31,P-T36",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-NFR05,P-NFR,M21,3348,"P-T19,P-T20,P-T28",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-NFR06,P-NFR,M21,3349,"P-T11,P-T12,P-T20,P-T38",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-NFR07,P-NFR,M21,3350,"P-T35,P-T37,P-T40",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-NFR08,P-NFR,M21,3351,"P-T01,P-T20,P-T28,P-T32",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-O01,P-O,M21,4244,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-O02,P-O,M21,4245,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-O03,P-O,M21,4246,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-O04,P-O,M21,4247,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-O05,P-O,M21,4248,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-O06,P-O,M21,4249,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-O07,P-O,M21,4250,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-O08,P-O,M21,4251,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T01,P-T,M21,3939,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T02,P-T,M21,3940,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T03,P-T,M21,3941,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T04,P-T,M21,3942,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T05,P-T,M21,3943,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T06,P-T,M21,3944,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T07,P-T,M21,3945,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T08,P-T,M21,3946,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T09,P-T,M21,3947,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T10,P-T,M21,3948,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T11,P-T,M21,3949,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T12,P-T,M21,3950,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T13,P-T,M21,3951,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T14,P-T,M21,3952,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T15,P-T,M21,3953,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T16,P-T,M21,3954,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T17,P-T,M21,3955,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T18,P-T,M21,3956,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T19,P-T,M21,3957,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T20,P-T,M21,3958,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T21,P-T,M21,3959,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T22,P-T,M21,3960,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T23,P-T,M21,3961,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T24,P-T,M21,3962,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T25,P-T,M21,3963,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T26,P-T,M21,3964,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T27,P-T,M21,3965,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T28,P-T,M21,3966,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T29,P-T,M21,3967,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T30,P-T,M21,3968,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T31,P-T,M21,3969,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T32,P-T,M21,3970,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T33,P-T,M21,3971,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T34,P-T,M21,3972,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T35,P-T,M21,3973,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T36,P-T,M21,3974,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T37,P-T,M21,3975,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T38,P-T,M21,3976,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T39,P-T,M21,3977,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+P-T40,P-T,M21,3978,,Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+RV01,RV,UNRESOLVED,3783,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+RV02,RV,UNRESOLVED,3784,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+RV03,RV,UNRESOLVED,3785,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+RV04,RV,UNRESOLVED,3786,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+RV05,RV,UNRESOLVED,3787,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+RV06,RV,UNRESOLVED,3788,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+RV07,RV,UNRESOLVED,3789,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+RV08,RV,UNRESOLVED,3790,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+RV09,RV,UNRESOLVED,3791,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+RV10,RV,UNRESOLVED,3792,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+RV11,RV,UNRESOLVED,3793,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+RV12,RV,UNRESOLVED,3794,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+RV13,RV,UNRESOLVED,3795,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+RV14,RV,UNRESOLVED,3796,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+RV15,RV,UNRESOLVED,3797,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+RV16,RV,UNRESOLVED,3798,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+RV17,RV,UNRESOLVED,3799,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+RV18,RV,UNRESOLVED,3800,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+RV19,RV,UNRESOLVED,3801,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+RV20,RV,UNRESOLVED,3802,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+SEC-U01,SEC-U,M19,3821,,Not Run,Not Implemented / no application evidence,proposed security control owner
+SEC-U02,SEC-U,M19,3822,,Not Run,Not Implemented / no application evidence,proposed security control owner
+SEC-U03,SEC-U,M14,3823,,Not Run,Not Implemented / no application evidence,proposed security control owner
+SEC-U04,SEC-U,M19,3824,,Not Run,Not Implemented / no application evidence,proposed security control owner
+SEC-U05,SEC-U,M20,3825,,Not Run,Not Implemented / no application evidence,proposed security control owner
+SEC-U06,SEC-U,M14,3826,,Not Run,Not Implemented / no application evidence,proposed security control owner
+SEC01,SEC,M19,4685,SEC-U01,Not Run,Not Implemented / no application evidence,proposed security control owner
+SEC02,SEC,M19,4686,SEC-U02,Not Run,Not Implemented / no application evidence,proposed security control owner
+SEC03,SEC,M14,4687,"SEC-U03,U16",Not Run,Not Implemented / no application evidence,proposed security control owner
+SEC04,SEC,M19,4688,SEC-U04,Not Run,Not Implemented / no application evidence,proposed security control owner
+SEC05,SEC,M20,4689,SEC-U05,Not Run,Not Implemented / no application evidence,proposed security control owner
+SEC06,SEC,M14,4690,SEC-U06,Not Run,Not Implemented / no application evidence,proposed security control owner
+U01,U,UNRESOLVED,3544,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U02,U,UNRESOLVED,3545,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U03,U,UNRESOLVED,3546,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U04,U,UNRESOLVED,3547,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U05,U,UNRESOLVED,3548,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U06,U,UNRESOLVED,3549,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U07,U,UNRESOLVED,3550,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U08,U,UNRESOLVED,3551,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U09,U,UNRESOLVED,3552,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U10,U,UNRESOLVED,3553,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U11,U,UNRESOLVED,3554,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U12,U,UNRESOLVED,3555,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U13,U,UNRESOLVED,3556,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U14,U,UNRESOLVED,3557,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U15,U,UNRESOLVED,3558,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U16,U,UNRESOLVED,3559,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U17,U,UNRESOLVED,3560,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U18,U,UNRESOLVED,3561,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U19,U,UNRESOLVED,3562,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U20,U,UNRESOLVED,3563,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U21,U,UNRESOLVED,3564,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U22,U,UNRESOLVED,3565,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U23,U,UNRESOLVED,,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U23-L,U,UNRESOLVED,3567,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U23-R,U,UNRESOLVED,3566,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+U24,U,UNRESOLVED,3568,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+UC-H01,UC-H,M22,2466,"H-T01,H-T02",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+UC-H02,UC-H,M22,2467,"H-T03,H-T04",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+UC-H03,UC-H,M22,2468,"H-T05,H-T06,H-T07",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+UC-H04,UC-H,M22,2469,"H-T08,H-T09,H-T10,H-T11",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+UC-H05,UC-H,M22,2470,"H-T12,H-T13,H-T14,H-T15,H-T16",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+UC-H06,UC-H,M22,2471,"H-T17,H-T18,H-T48",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+UC-H07,UC-H,M22,2472,"H-T19,H-T20,H-T21,H-T22",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+UC-H08,UC-H,M22,2473,"H-T23,H-T24",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+UC-H09,UC-H,M22,2474,"H-T25,H-T26,H-T27,H-T28,H-T29,H-T30",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+UC-H10,UC-H,M22,2475,"H-T31,H-T32",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+UC-H11,UC-H,M22,2476,"H-T33,H-T34",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+UC-H12,UC-H,M22,2477,"H-T35,H-T36,H-T43",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+UC-H13,UC-H,M22,2478,"H-T37,H-T38,H-T48",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+UC-H14,UC-H,M22,2479,"H-T39,H-T40,H-T41,H-T42",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+UC-H15,UC-H,M22,2480,"H-T44,H-T47",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+UC-H16,UC-H,M22,2481,"H-T45,H-T46,H-T48",Not Run,Not Implemented / no application evidence,namespace and reviewed M22 ownership
+UC-P01,UC-P,M21,2447,"P-T01,P-T02,P-T03,P-T04,P-T05,P-T06",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+UC-P02,UC-P,M21,2448,"P-T01,P-T07",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+UC-P03,UC-P,M21,2449,"P-T08,P-T09,P-T10",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+UC-P04,UC-P,M21,2450,"P-T11,P-T12,P-T13,P-T14,P-T15,P-T21,P-T22",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+UC-P05,UC-P,M21,2451,"P-T02,P-T06,P-T13,P-T14,P-T16,P-T17,P-T18,P-T19,P-T20,P-T21,P-T22,P-T31",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+UC-P06,UC-P,M21,2452,"P-T23,P-T24,P-T25,P-T26,P-T27",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+UC-P07,UC-P,M21,2453,"P-T02,P-T06,P-T28,P-T29,P-T30,P-T31",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+UC-P08,UC-P,M21,2454,"P-T04,P-T05,P-T06,P-T35,P-T36,P-T37",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+UC-P09,UC-P,M21,2455,"P-T32,P-T33,P-T34",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+UC-P10,UC-P,M21,2456,"P-T30,P-T38,P-T39,P-T40",Not Run,Not Implemented / no application evidence,namespace and reviewed M21 ownership
+UC-W01,UC-W,M16,2366,,Not Run,Not Implemented / no application evidence,namespace
+UC-W02,UC-W,M16,2367,,Not Run,Not Implemented / no application evidence,namespace
+UC-W03,UC-W,M16,2368,,Not Run,Not Implemented / no application evidence,namespace
+UC-W04,UC-W,M16,2369,,Not Run,Not Implemented / no application evidence,namespace
+UC-W05,UC-W,M16,2370,,Not Run,Not Implemented / no application evidence,namespace
+UC-W06,UC-W,M16,2371,,Not Run,Not Implemented / no application evidence,namespace
+UC-W07,UC-W,M16,2372,,Not Run,Not Implemented / no application evidence,namespace
+UC-W08,UC-W,M16,"2373,2437",,Not Run,Not Implemented / no application evidence,namespace
+UC-W09,UC-W,M16,"2374,2439",,Not Run,Not Implemented / no application evidence,namespace
+UC-W10,UC-W,M16,"2375,2441",,Not Run,Not Implemented / no application evidence,namespace
+UC01,UC,M02,2079,,Not Run,Not Implemented / no application evidence,proposed command/flow owner; consumers separate
+UC02,UC,M02,2094,,Not Run,Not Implemented / no application evidence,proposed command/flow owner; consumers separate
+UC03,UC,M02,2107,,Not Run,Not Implemented / no application evidence,proposed command/flow owner; consumers separate
+UC04,UC,M15,2122,,Not Run,Not Implemented / no application evidence,proposed command/flow owner; consumers separate
+UC05,UC,M07,2135,,Not Run,Not Implemented / no application evidence,proposed command/flow owner; consumers separate
+UC06,UC,M08,2148,,Not Run,Not Implemented / no application evidence,proposed command/flow owner; consumers separate
+UC07,UC,M09,2161,,Not Run,Not Implemented / no application evidence,proposed command/flow owner; consumers separate
+UC08,UC,M16,2174,,Not Run,Not Implemented / no application evidence,proposed command/flow owner; consumers separate
+UC09,UC,M11,2187,,Not Run,Not Implemented / no application evidence,proposed command/flow owner; consumers separate
+UC10,UC,M08,2200,,Not Run,Not Implemented / no application evidence,proposed command/flow owner; consumers separate
+UC11,UC,M20,2213,,Not Run,Not Implemented / no application evidence,proposed command/flow owner; consumers separate
+UC12,UC,M14,2226,,Not Run,Not Implemented / no application evidence,proposed command/flow owner; consumers separate
+UC13,UC,M09,2239,,Not Run,Not Implemented / no application evidence,proposed command/flow owner; consumers separate
+UC14,UC,M14,2252,,Not Run,Not Implemented / no application evidence,proposed command/flow owner; consumers separate
+UC15,UC,M01,2265,,Not Run,Not Implemented / no application evidence,proposed command/flow owner; consumers separate
+UC16,UC,M18,2278,,Not Run,Not Implemented / no application evidence,proposed command/flow owner; consumers separate
+UC17,UC,M03,2291,,Not Run,Not Implemented / no application evidence,proposed command/flow owner; consumers separate
+UC18,UC,M01,2303,,Not Run,Not Implemented / no application evidence,proposed command/flow owner; consumers separate
+UC19,UC,M03,2314,,Not Run,Not Implemented / no application evidence,proposed command/flow owner; consumers separate
+UC20,UC,M03,2325,,Not Run,Not Implemented / no application evidence,proposed command/flow owner; consumers separate
+UC21,UC,M19,2336,,Not Run,Not Implemented / no application evidence,proposed command/flow owner; consumers separate
+UC22,UC,M16,2347,,Not Run,Not Implemented / no application evidence,proposed command/flow owner; consumers separate
+W-F01,W-F,M16,"1615,4676","W-T01,W-T36",Not Run,Not Implemented / no application evidence,namespace
+W-F02,W-F,M16,1616,"W-T03,W-T05,W-T06,W-T29",Not Run,Not Implemented / no application evidence,namespace
+W-F03,W-F,M16,1617,"W-T01,W-T36",Not Run,Not Implemented / no application evidence,namespace
+W-F04,W-F,M16,1618,"W-T10,W-T36",Not Run,Not Implemented / no application evidence,namespace
+W-F05,W-F,M16,1619,"W-T11,W-T12,W-T13",Not Run,Not Implemented / no application evidence,namespace
+W-F06,W-F,M16,1620,"W-T02,W-T07,W-T08,W-T09,W-T37",Not Run,Not Implemented / no application evidence,namespace
+W-F07,W-F,M16,1621,"W-T14,W-T15,W-T16,W-T17,W-T18",Not Run,Not Implemented / no application evidence,namespace
+W-F08,W-F,M16,1622,"W-T19,W-T20,W-T21,W-T22,W-T23",Not Run,Not Implemented / no application evidence,namespace
+W-F09,W-F,M16,1623,"W-T24,W-T25,W-T26,W-T27,W-T28",Not Run,Not Implemented / no application evidence,namespace
+W-F10,W-F,M16,1624,,Not Run,Not Implemented / no application evidence,namespace
+W-F11,W-F,M16,1625,,Not Run,Not Implemented / no application evidence,namespace
+W-F12,W-F,M16,1626,,Not Run,Not Implemented / no application evidence,namespace
+W-F13,W-F,M16,1627,,Not Run,Not Implemented / no application evidence,namespace
+W-F14,W-F,M16,1628,,Not Run,Not Implemented / no application evidence,namespace
+W-O01,W-O,M16,4228,,Not Run,Not Implemented / no application evidence,namespace
+W-O02,W-O,M16,4229,,Not Run,Not Implemented / no application evidence,namespace
+W-O03,W-O,M16,4230,,Not Run,Not Implemented / no application evidence,namespace
+W-O04,W-O,M16,4231,,Not Run,Not Implemented / no application evidence,namespace
+W-O05,W-O,M16,4232,,Not Run,Not Implemented / no application evidence,namespace
+W-O06,W-O,M16,4233,,Not Run,Not Implemented / no application evidence,namespace
+W-O07,W-O,M16,4234,,Not Run,Not Implemented / no application evidence,namespace
+W-T01,W-T,M16,3855,,Not Run,Not Implemented / no application evidence,namespace
+W-T02,W-T,M16,3856,,Not Run,Not Implemented / no application evidence,namespace
+W-T03,W-T,M16,3857,,Not Run,Not Implemented / no application evidence,namespace
+W-T04,W-T,M16,3858,,Not Run,Not Implemented / no application evidence,namespace
+W-T05,W-T,M16,3859,,Not Run,Not Implemented / no application evidence,namespace
+W-T06,W-T,M16,3860,,Not Run,Not Implemented / no application evidence,namespace
+W-T07,W-T,M16,3861,,Not Run,Not Implemented / no application evidence,namespace
+W-T08,W-T,M16,3862,,Not Run,Not Implemented / no application evidence,namespace
+W-T09,W-T,M16,3863,,Not Run,Not Implemented / no application evidence,namespace
+W-T10,W-T,M16,3864,,Not Run,Not Implemented / no application evidence,namespace
+W-T11,W-T,M16,3865,,Not Run,Not Implemented / no application evidence,namespace
+W-T12,W-T,M16,3866,,Not Run,Not Implemented / no application evidence,namespace
+W-T13,W-T,M16,3867,,Not Run,Not Implemented / no application evidence,namespace
+W-T14,W-T,M16,3868,,Not Run,Not Implemented / no application evidence,namespace
+W-T15,W-T,M16,3869,,Not Run,Not Implemented / no application evidence,namespace
+W-T16,W-T,M16,3870,,Not Run,Not Implemented / no application evidence,namespace
+W-T17,W-T,M16,3871,,Not Run,Not Implemented / no application evidence,namespace
+W-T18,W-T,M16,3872,,Not Run,Not Implemented / no application evidence,namespace
+W-T19,W-T,M16,3873,,Not Run,Not Implemented / no application evidence,namespace
+W-T20,W-T,M16,3874,,Not Run,Not Implemented / no application evidence,namespace
+W-T21,W-T,M16,3875,,Not Run,Not Implemented / no application evidence,namespace
+W-T22,W-T,M16,3876,,Not Run,Not Implemented / no application evidence,namespace
+W-T23,W-T,M16,3877,,Not Run,Not Implemented / no application evidence,namespace
+W-T24,W-T,M16,3878,,Not Run,Not Implemented / no application evidence,namespace
+W-T25,W-T,M16,3879,,Not Run,Not Implemented / no application evidence,namespace
+W-T26,W-T,M16,3880,,Not Run,Not Implemented / no application evidence,namespace
+W-T27,W-T,M16,3881,,Not Run,Not Implemented / no application evidence,namespace
+W-T28,W-T,M16,3882,,Not Run,Not Implemented / no application evidence,namespace
+W-T29,W-T,M16,3883,,Not Run,Not Implemented / no application evidence,namespace
+W-T30,W-T,M16,3884,,Not Run,Not Implemented / no application evidence,namespace
+W-T31,W-T,M16,3885,,Not Run,Not Implemented / no application evidence,namespace
+W-T32,W-T,M16,3886,,Not Run,Not Implemented / no application evidence,namespace
+W-T33,W-T,M16,3887,,Not Run,Not Implemented / no application evidence,namespace
+W-T34,W-T,M16,3888,,Not Run,Not Implemented / no application evidence,namespace
+W-T35,W-T,M16,3889,,Not Run,Not Implemented / no application evidence,namespace
+W-T36,W-T,M16,3890,,Not Run,Not Implemented / no application evidence,namespace
+W-T37,W-T,M16,3891,,Not Run,Not Implemented / no application evidence,namespace
+W-T38,W-T,M16,3892,,Not Run,Not Implemented / no application evidence,namespace
+W-T39,W-T,M16,3893,,Not Run,Not Implemented / no application evidence,namespace
+W-T40,W-T,M16,3894,,Not Run,Not Implemented / no application evidence,namespace
+WF-U01,WF-U,UNRESOLVED,3810,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+WF-U02,WF-U,UNRESOLVED,3811,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+WF-U03,WF-U,UNRESOLVED,3812,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+WF-U04,WF-U,UNRESOLVED,3813,"U19,U23",Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+WF-U05,WF-U,UNRESOLVED,3814,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+WF01,WF,UNRESOLVED,,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+WF02,WF,UNRESOLVED,4677,WF-U02,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+WF03,WF,UNRESOLVED,4678,WF-U03,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+WF04,WF,UNRESOLVED,4679,"U19,U23-L,U23-R,WF-U04",Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+WF05,WF,UNRESOLVED,4680,WF-U05,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+WF06,WF,UNRESOLVED,,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+WF07,WF,UNRESOLVED,,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+WF08,WF,UNRESOLVED,,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+WF09,WF,UNRESOLVED,,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+WF10,WF,UNRESOLVED,,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+WF11,WF,UNRESOLVED,,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+WF12,WF,UNRESOLVED,,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+WF13,WF,UNRESOLVED,,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
+WF14,WF,UNRESOLVED,,,Not Run,Not Implemented / no application evidence,unresolved; requires semantic review
