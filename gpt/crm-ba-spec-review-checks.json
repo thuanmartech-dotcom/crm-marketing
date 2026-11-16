@@ -1,0 +1,50 @@
+[
+  {
+    "file": "D:\\AI Agent\\CRM\\.agents\\skills\\crm-ba-spec\\SKILL.md",
+    "sha256": "072BE430EAB1BE3C39C9852EFE4396A0F4C894708BC439394E44CB493901BC8F",
+    "missing_links": [],
+    "fence_even": true
+  },
+  {
+    "file": "D:\\AI Agent\\CRM\\.agents\\skills\\crm-ba-spec\\references\\change-proposal-template.md",
+    "sha256": "2C25C6712B6CC7403C93DDF6FF4AEB4E1DE1717421939B6CE6513CE0C0E34201",
+    "missing_links": [],
+    "fence_even": true
+  },
+  {
+    "file": "D:\\AI Agent\\CRM\\.agents\\skills\\crm-ba-spec\\references\\domain-lenses.md",
+    "sha256": "10810F61A225B5340D2EB30960F00F10292FF61C4E3956DC1DDD4848DA3E45F1",
+    "missing_links": [],
+    "fence_even": true
+  },
+  {
+    "file": "D:\\AI Agent\\CRM\\.agents\\skills\\crm-ba-spec\\references\\ears-and-checklists.md",
+    "sha256": "81857C257088CEB26AA3D57CE3A50BEA55B2576F3BB64B1E2AA79D1DC98FDFCD",
+    "missing_links": [],
+    "fence_even": true
+  },
+  {
+    "file": "D:\\AI Agent\\CRM\\.agents\\skills\\crm-ba-spec\\references\\module-workflow.md",
+    "sha256": "B6BCE30882C4A16765311AAFEC755226284F00CA4FFE7813EDC9DA7A756545C5",
+    "missing_links": [],
+    "fence_even": true
+  },
+  {
+    "file": "D:\\AI Agent\\CRM\\.agents\\skills\\crm-ba-spec\\references\\review-change-workflow.md",
+    "sha256": "6D30D5A459B89F605798D66C7A2373D7B7089E6E64B4CF2249675C4B08AF8771",
+    "missing_links": [],
+    "fence_even": true
+  },
+  {
+    "file": "D:\\AI Agent\\CRM\\.agents\\skills\\crm-ba-spec\\references\\slice-workflow.md",
+    "sha256": "82C250E9DA104DA7F143110A282E1AF9E57E1BA19B3AFEED7281DD11579B0B14",
+    "missing_links": [],
+    "fence_even": true
+  },
+  {
+    "file": "D:\\AI Agent\\CRM\\.agents\\skills\\crm-ba-spec\\references\\usage-guide.md",
+    "sha256": "04BC5E1B4CAE7F40554EF1859D1A27334ACCB90E6631481DEF311DC260877E64",
+    "missing_links": [],
+    "fence_even": true
+  }
+]
