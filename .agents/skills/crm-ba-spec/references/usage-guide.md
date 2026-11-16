@@ -1,25 +1,25 @@
 # Hướng dẫn Sử dụng Chi tiết Skill `crm-ba-spec`
 
-Tài liệu này hướng dẫn cách gọi và phối hợp với Agent khi dùng skill `crm-ba-spec` để bóc tách đặc tả `M01–M20`, lập slice `SL00–SL07`, rà soát chéo và quản lý thay đổi spec.
+Tài liệu này hướng dẫn cách gọi và phối hợp với Agent khi dùng skill `crm-ba-spec` để bóc tách hoặc bảo trì đặc tả module (`M01–M24`), lập/bảo trì slice (`SL00–SL11`), rà soát chéo, xuất phiếu hỏi Stakeholder và quản lý thay đổi spec.
 
 ---
 
 ## 1. Các câu lệnh (Prompt) mẫu để gọi nhanh
 
-Skill được Antigravity tự động phát hiện qua `.agents/skills/crm-ba-spec/SKILL.md`. Bạn chỉ cần nhắn theo ngữ cảnh hoặc gọi thẳng tên skill:
+Skill được phát hiện qua `.agents/skills/crm-ba-spec/SKILL.md`. Bạn chỉ cần nhắn theo ngữ cảnh hoặc gọi thẳng tên skill:
 
-### A. Tách mới / Hoàn thiện một Module (`M01–M20`)
-- **Cú pháp chuẩn:**
+### A. Tách mới / Hoàn thiện / Bảo trì một Module (`M01–M24`)
+- **Cú pháp tách mới (`M01–M20`, gồm hoàn thiện `M18`):**
   > `Dùng skill crm-ba-spec tách đặc tả module M01 (Hồ sơ khách hàng, doanh nghiệp, định danh và hợp nhất).`
 - **Muốn Agent hỏi kỹ từng quyết định kiến trúc/edge-case trước khi viết:**
   > `Dùng skill crm-ba-spec tách module M02. Áp dụng /grill-me ở Pha 2 để hỏi tôi chốt hết state machine và ranh giới với M01, M07 trước khi tạo file.`
-- **Muốn tách riêng phần Contract liên module của module đã có:**
-  > `Dùng skill crm-ba-spec rà và tách các public cross-module contracts của M16 ra 02-specs/contracts/.`
+- **Muốn tách riêng phần Contract liên module hoặc mở rộng additive contract Wave trước (`Backward Contract Drift`):**
+  > `Dùng skill crm-ba-spec chế độ review-change mở Change Proposal mở rộng additive contract C19 để M03 sử dụng, cập nhật CONTRACTS-REGISTRY.md và ghi [PENDING-BACKSYNC].`
 
-### B. Lập đặc tả Lát cắt Triển khai (`SL00`, `SL02–SL07`)
-- **Cú pháp chuẩn:**
+### B. Lập hoặc Bảo trì đặc tả Lát cắt Triển khai (`SL00–SL11`)
+- **Cú pháp chuẩn (`SL00`, `SL02–SL07`):**
   > `Dùng skill crm-ba-spec chế độ slice lập đặc tả cho SL02 (Omnichannel Intake & Inbox tối thiểu).`
-- **Lưu ý điều kiện:** Các module chính nằm trong slice (ví dụ `M01`, `M03`, `M19` cho `SL02`) nên được tách module spec trước để tránh slice phải tự định nghĩa lại domain model.
+- **Lưu ý điều kiện:** Các module chính nằm trong slice (ví dụ `M01`, `M03`, `M19` cho `SL02`) nên được tách module spec trước để tránh slice phải tự định nghĩa lại domain model. Nếu sửa slice đã `Reviewed` (`SL01`, `SL08`, `SL09–11`), đi qua Change Proposal (`CR-*`).
 
 ### C. Rà soát chéo chống lệch spec (`Analyze`)
 - **Cú pháp chuẩn:**
@@ -51,24 +51,25 @@ Skill được Antigravity tự động phát hiện qua `.agents/skills/crm-ba-
 
 ## 2. Điều gì diễn ra trong 1 phiên bóc tách Module chuẩn?
 
-Khi bạn gọi Agent tách một module (ví dụ `M01`), Agent sẽ chạy đúng **4 pha**:
+Mỗi **1 phiên sạch** chỉ phụ trách **1 module** (riêng module lớn như `M03` tách 2 phiên theo pha; áp dụng phanh `Đèn Vàng ~170k` / `Đèn Đỏ ~210k` tokens). Khi bạn gọi Agent tách một module (ví dụ `M01`), Agent sẽ chạy đúng **4 pha**:
 
-1. **Pha 1 — Thu thập ngữ cảnh (bạn không cần làm gì):**
-   - Agent tự đọc `INVARIANTS.md`, `INDEX.md`, `modules.json`, `requirements.json`, `FUNCTION-CATALOG.md` và các dòng tương ứng trong `CRM_MASTER_BRD_SRS_HOP_NHAT.md` (`v1.9`).
-2. **Pha 2 — Cổng hỏi ngược 2 tầng (bạn tương tác qua `ask_question`):**
+1. **Pha 0 + Pha 1 — Thu thập ngữ cảnh tối giản (`0` token thừa):**
+   - Agent chạy `python 05-tools/build_module_context.py --module M01 --out "<ArtifactDir>/scratch/context-M01.md" --check-tokens`.
+   - Đọc bộ lõi (`INVARIANTS.md`, `INDEX.md`, [CONTRACTS-REGISTRY.md](../../../../02-specs/CONTRACTS-REGISTRY.md)), gói `context-M01.md`, các Contract liên quan và đúng dải dòng tương ứng trong `CRM_MASTER_BRD_SRS_HOP_NHAT.md` (`v1.9`).
+2. **Pha 2 — Cổng hỏi ngược 2 tầng (tương tác linh hoạt theo công cụ hỏi hiện có hoặc trực tiếp trong chat):**
    - Agent **không tự bịa** các quyết định ranh giới hay rule thiếu.
-   - Với **Tầng 1 (Blocking)** — Agent bật hộp chọn `ask_question` hỏi từng câu kèm phương án `(Recommended)`, ví dụ:
+   - Với **Tầng 1 (Blocking)** — Agent dùng công cụ hỏi tương tác (như `ask_question`) hoặc hỏi trực tiếp bằng văn bản có phương án `(Recommended)` cho từng quyết định chặn, ví dụ:
      - *Ranh giới dữ liệu:* Contact trùng SĐT ở 2 workspace có được gộp tự động hay chỉ link theo `M01` + kiểm quyền `M14`?
      - *State machine:* Khi merge 2 Contact (`MERGED`), bản ghi nguồn bị khóa chỉ đọc hay cho phép unmerge?
      - *Concurrency:* Khi 2 nhân viên sửa cùng 1 hồ sơ thì dùng `expected_version` chặn hay last-write-wins?
-   - Với **Tầng 2 (Non-blocking)** — các tham số chưa chốt được ngay (timeout cụ thể, ngưỡng cảnh báo trùng...) sẽ được gắn `[OPEN-GAP: GAP-M01-xx]` và ghi vào `03-planning/GAPS.md`.
+   - Với **Tầng 2 (Non-blocking)** — các tham số chưa chốt được ngay (timeout cụ thể, ngưỡng cảnh báo trùng...) sẽ được gắn `[OPEN-GAP: GAP-M01-xx]` và ghi đủ 7 trường phân loại vào `03-planning/GAPS.md` (tách rõ chỉ hỗ trợ viết spec vs chặn triển khai/kích hoạt).
 3. **Pha 3 — Sinh đặc tả chuẩn EARS & Hybrid Contract:**
-   - Tạo `02-specs/modules/M01-CUSTOMER-IDENTITY-MERGE.md` theo đúng 6 mục của `MODULE-SPEC.md`.
-   - Mọi hành vi viết theo câu điều kiện **EARS** (`Khi ...`, `Nếu ...`, `Trong khi ... phải ...`) và gắn nhãn `[MASTER]` / `[PROPOSED]` / `[OPEN-GAP]`.
-   - Nếu phát sinh command/event public gửi sang module khác (ví dụ `ContactMerged` gửi cho `M02`, `M03`, `M08`), Agent tách riêng ra `02-specs/contracts/M01-CONTACT-MERGED.md` theo `CONTRACT.md`.
-4. **Pha 4 — Tự kiểm tra & Chạy 4 script kiểm chứng:**
-   - Agent tự rà soát độ phủ ID từ `requirements.json` (không bỏ sót `FR/BR/UC`), cập nhật `02-specs/README.md` và `03-planning/agent/PROGRESS.md`.
-   - Chạy đủ 4 lệnh ở `05-tools/` và chỉ báo `Not Run` cho test ứng dụng.
+   - Tạo `02-specs/modules/M01-CUSTOMER-IDENTITY-MERGE.md` theo đúng 6 mục của `MODULE-SPEC.md` (bảng `Requirement trace` 9 cột nối tới `### 3.x` / Contract và mã Test trong `## 6.2`, `4.2` tuân thủ 4 nhóm `ADR-004`).
+   - Mọi hành vi viết theo câu điều kiện **EARS** (`Khi ...`, `Nếu ...`, `Trong khi ... phải ...`) và gắn nhãn `[MASTER]` / `[PROPOSED]` / `[OPEN-GAP]` (đề xuất được duyệt giữ nguyên `[PROPOSED]` kèm `decision_ref`, không đổi thành `[MASTER]`).
+   - Nếu phát sinh command/event public gửi sang module khác (ví dụ `ContactMerged` gửi cho `M02`, `M03`, `M08`), Agent tách riêng ra `02-specs/contracts/M01-CONTACT-MERGED.md` theo `CONTRACT.md` (có JSON field schema và ví dụ JSON payload). Nếu cần bổ sung ngược vào Contract Wave trước đã `Reviewed`/`Ready`, đi qua `CR-*` nhẹ và ghi `[PENDING-BACKSYNC]` vào `PROGRESS.md`.
+4. **Pha 4 — Fresh-Context Review (File-Backed) & Cổng kiểm chứng Toàn kho (`SKILL.md` Mục 4):**
+   - Kiểm tra độ phủ ID và `session_token_telemetry` (`GREEN <170k` / `YELLOW 170k–210k` / `RED >210k`), cập nhật `CONTRACTS-REGISTRY.md`, `02-specs/README.md` và `03-planning/agent/PROGRESS.md`.
+   - Cuối phiên bắt buộc chạy đủ bộ kiểm chứng toàn kho ở Mục 4 `SKILL.md` (không thay bằng `--file`) và chỉ báo `Not Run` cho test ứng dụng.
 
 ---
 
@@ -77,20 +78,24 @@ Khi bạn gọi Agent tách một module (ví dụ `M01`), Agent sẽ chạy đ�
 Chạy tại `d:\AI Agent\CRM`:
 
 ```powershell
-# Kiểm tra toàn bộ 02-specs/ (modules, contracts, changes) và xuất báo cáo độ phủ ID
+# Tái sinh Bảng tra cứu liên module & trích xuất gói ngữ cảnh gọn cho M01 + kiểm tra mức token phiên
+python 05-tools/build_module_context.py --build-registry --module M01 --out "<ArtifactDir>/scratch/context-M01.md" --check-tokens
+
+# Kiểm tra toàn bộ 02-specs/ (modules, contracts, changes, registry) và xuất báo cáo độ phủ ID
 python 05-tools/verify_module_spec.py
 
 # Kiểm tra riêng 1 file module vừa viết
 python 05-tools/verify_module_spec.py --file 02-specs/modules/M01-CUSTOMER-IDENTITY-MERGE.md
 
-# Chạy trọn bộ 4 cổng kiểm chứng của dự án
+# Chạy trọn bộ cổng kiểm chứng của dự án
+python 05-tools/build_module_context.py --build-registry
 python 05-tools/build_delivery_inventory.py
 python 05-tools/verify_delivery_plan.py
 python 05-tools/verify_hrm_integration.py
 python 05-tools/verify_module_spec.py
 ```
 
-Kết quả chi tiết (gồm danh sách ID còn thiếu của từng module so với `requirements.json`) được ghi tại `03-planning/evidence/module-spec-validation.json`.
+Kết quả chi tiết (gồm danh sách ID còn thiếu của từng module so với `requirements.json`, `unknown_cross_module_refs` và `session_token_telemetry`) được ghi tại `03-planning/evidence/module-spec-validation.json`.
 
 ---
 
@@ -99,6 +104,8 @@ Kết quả chi tiết (gồm danh sách ID còn thiếu của từng module so 
 | Tình huống | Cách xử lý |
 |---|---|
 | Muốn Agent giữ trạng thái `Draft` để team review tiếp, chưa muốn chốt | Nói rõ: *"Giữ `Status: Draft`, phần nào chưa rõ thì ghi `[OPEN-GAP]` vào `GAPS.md`."* |
-| Muốn chốt nâng trạng thái một module từ `Draft` → `Reviewed` | Nhắn: *"Chốt `M01` lên `Reviewed` sau khi tôi xác nhận các `[PROPOSED]` và đóng `GAP-M01-*`."* |
+| Muốn chốt nâng trạng thái một module từ `Draft` → `Reviewed` hoặc `Ready` | Nhắn: *"Chốt `M01` lên `Reviewed` (hoặc `Ready` cho `SL02`) sau khi tôi xác nhận các `[PROPOSED]` và đối soát các `[OPEN-GAP]`."* Agent sẽ ghi nhận `Approved_Scope`, `Approved_By`, `Decision_Ref` trong Manifest (vẫn giữ `[PROPOSED]` kèm `decision_ref` và vẫn trong giai đoạn `Documentation-Only`). |
+| Gửi trả lời Stakeholder cho các `[OPEN-GAP]` ở tài liệu đã `Reviewed`/`Ready` | Dùng chế độ `review-change`: Agent tự kiểm tra `Status` file; nếu đã `Reviewed`/`Ready` sẽ mở `CR-*` (ghi nhận luôn phê duyệt nếu bạn đã chốt đúng phạm vi), áp dụng sửa đổi và chỉ đóng GAP sau khi toàn bộ tài liệu liên quan đạt kiểm chứng. |
 | Muốn sửa một phần trong `M21`, `M22`, `SL01` đã ổn định | Gọi chế độ `review-change` để đi qua `02-specs/changes/CR-*.md` thay vì sửa chéo không dấu vết. |
+| Phiên gần chạm ngưỡng `~170k–210k` tokens hoặc chuẩn bị sang module mới | Yêu cầu Agent ghi `Handoff` vào `PROGRESS.md` và mở cuộc trò chuyện mới sạch (1 module / 1 phiên). |
 | Muốn kiểm tra nghiêm ngặt cả file mở rộng (`M18`, `M23`, `M24`) theo đủ 6 mục `MODULE-SPEC.md` | Chạy `python 05-tools/verify_module_spec.py --strict-all`. |

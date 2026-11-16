@@ -1,15 +1,20 @@
 {
-  "run_at": "2026-11-16T02:49:25.195986+00:00",
+  "run_at": "2026-11-16T15:19:17.883885+00:00",
   "kind": "spec-analyze-and-traceability validation only",
   "baseline_sha256": "b6a3279f328e96e1e97d845e209be7a326516a0dba5e3a033d88e1f2162e421c",
   "all_passed": true,
-  "modules_checked": 8,
+  "modules_checked": 9,
   "slices_checked": 3,
-  "contracts_checked": 3,
-  "changes_checked": 1,
+  "contracts_checked": 6,
+  "changes_checked": 4,
   "skills_checked": 8,
+  "registry_checked": 1,
   "partial_trace_warnings": {
     "M18": 5
+  },
+  "cross_doc_consistency": {
+    "passed": true,
+    "issues": []
   },
   "module_results": [
     {
@@ -27,6 +32,25 @@
       "trace_ids_complete": true,
       "missing_ids_count": 0,
       "missing_ids_sample": [],
+      "unknown_cross_module_refs": [],
+      "passed": true
+    },
+    {
+      "file": "02-specs\\modules\\M16-WORK-PROJECTS-TASK-CORE.md",
+      "mode": "standard_module_spec",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "missing_sections": [],
+      "has_provenance_tags": true,
+      "has_baseline_ref": true,
+      "has_precondition_blocks": true,
+      "has_base_scope_columns": true,
+      "has_10col_test_matrix": true,
+      "trace_ids_complete": true,
+      "missing_ids_count": 0,
+      "missing_ids_sample": [],
+      "unknown_cross_module_refs": [],
       "passed": true
     },
     {
@@ -50,6 +74,7 @@
         "M18-AC04",
         "UC16"
       ],
+      "unknown_cross_module_refs": [],
       "passed": true
     },
     {
@@ -67,6 +92,7 @@
       "trace_ids_complete": true,
       "missing_ids_count": 0,
       "missing_ids_sample": [],
+      "unknown_cross_module_refs": [],
       "passed": true
     },
     {
@@ -84,6 +110,7 @@
       "trace_ids_complete": true,
       "missing_ids_count": 0,
       "missing_ids_sample": [],
+      "unknown_cross_module_refs": [],
       "passed": true
     },
     {
@@ -101,6 +128,7 @@
       "trace_ids_complete": true,
       "missing_ids_count": 0,
       "missing_ids_sample": [],
+      "unknown_cross_module_refs": [],
       "passed": true
     },
     {
@@ -118,47 +146,50 @@
       "trace_ids_complete": true,
       "missing_ids_count": 0,
       "missing_ids_sample": [],
+      "unknown_cross_module_refs": [],
       "passed": true
     },
     {
       "file": "02-specs\\modules\\M23-SYSTEM-ADMIN-SECURITY-OPS.md",
-      "mode": "legacy_or_extension",
+      "mode": "standard_module_spec",
       "fences_balanced": true,
       "bad_links": [],
       "no_fake_pass": true,
       "missing_sections": [],
-      "has_provenance_tags": false,
+      "has_provenance_tags": true,
       "has_baseline_ref": true,
-      "has_precondition_blocks": false,
-      "has_base_scope_columns": false,
-      "has_10col_test_matrix": false,
+      "has_precondition_blocks": true,
+      "has_base_scope_columns": true,
+      "has_10col_test_matrix": true,
       "trace_ids_complete": true,
       "missing_ids_count": 0,
       "missing_ids_sample": [],
+      "unknown_cross_module_refs": [],
       "passed": true
     },
     {
       "file": "02-specs\\modules\\M24-PERFORMANCE-AND-PRODUCTIVITY.md",
-      "mode": "legacy_or_extension",
+      "mode": "standard_module_spec",
       "fences_balanced": true,
       "bad_links": [],
       "no_fake_pass": true,
       "missing_sections": [],
-      "has_provenance_tags": false,
+      "has_provenance_tags": true,
       "has_baseline_ref": true,
-      "has_precondition_blocks": false,
-      "has_base_scope_columns": false,
-      "has_10col_test_matrix": false,
+      "has_precondition_blocks": true,
+      "has_base_scope_columns": true,
+      "has_10col_test_matrix": true,
       "trace_ids_complete": true,
       "missing_ids_count": 0,
       "missing_ids_sample": [],
+      "unknown_cross_module_refs": [],
       "passed": true
     }
   ],
   "slice_results": [
     {
       "file": "02-specs\\slices\\SL01-INTERNAL-WORK.md",
-      "mode": "legacy_slice",
+      "mode": "standard_slice_spec",
       "fences_balanced": true,
       "bad_links": [],
       "no_fake_pass": true,
@@ -194,7 +225,18 @@
       "bad_links": [],
       "no_fake_pass": true,
       "missing_contract_parts": [],
-      "json_schema_count": 5,
+      "json_schema_count": 10,
+      "invalid_json_blocks": [],
+      "has_event_envelope_fields": true,
+      "passed": true
+    },
+    {
+      "file": "02-specs\\contracts\\M16-TASK-CORE-COMMANDS.md",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "missing_contract_parts": [],
+      "json_schema_count": 9,
       "invalid_json_blocks": [],
       "has_event_envelope_fields": true,
       "passed": true
@@ -205,7 +247,7 @@
       "bad_links": [],
       "no_fake_pass": true,
       "missing_contract_parts": [],
-      "json_schema_count": 5,
+      "json_schema_count": 6,
       "invalid_json_blocks": [],
       "has_event_envelope_fields": true,
       "passed": true
@@ -220,11 +262,54 @@
       "invalid_json_blocks": [],
       "has_event_envelope_fields": true,
       "passed": true
+    },
+    {
+      "file": "02-specs\\contracts\\M23-PLATFORM-GOVERNANCE-OUTBOX.md",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "missing_contract_parts": [],
+      "json_schema_count": 6,
+      "invalid_json_blocks": [],
+      "has_event_envelope_fields": true,
+      "passed": true
+    },
+    {
+      "file": "02-specs\\contracts\\M24-PRODUCTIVITY-CACHE-QUEUE.md",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "missing_contract_parts": [],
+      "json_schema_count": 5,
+      "invalid_json_blocks": [],
+      "has_event_envelope_fields": true,
+      "passed": true
     }
   ],
   "change_results": [
     {
+      "file": "02-specs\\changes\\archive\\CR-20261116-M16-ALIGNMENT.md",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "passed": true
+    },
+    {
+      "file": "02-specs\\changes\\archive\\CR-20261116-WAVE1-5-HARDENING.md",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "passed": true
+    },
+    {
       "file": "02-specs\\changes\\archive\\CR-20261116-WAVE1-RECONCILIATION.md",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "passed": true
+    },
+    {
+      "file": "02-specs\\changes\\archive\\CR-20261116-WAVE1-REVIEW-FIXES.md",
       "fences_balanced": true,
       "bad_links": [],
       "no_fake_pass": true,
@@ -283,6 +368,15 @@
     },
     {
       "file": ".agents\\skills\\crm-ba-spec\\SKILL.md",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "passed": true
+    }
+  ],
+  "registry_results": [
+    {
+      "file": "02-specs\\CONTRACTS-REGISTRY.md",
       "fences_balanced": true,
       "bad_links": [],
       "no_fake_pass": true,
@@ -399,11 +493,14 @@
       "status": "not_decomposed_yet"
     },
     "M16": {
-      "spec_files": [],
+      "spec_files": [
+        "02-specs\\modules\\M16-WORK-PROJECTS-TASK-CORE.md"
+      ],
       "total_owned_ids": 96,
-      "covered_ids": 0,
-      "missing_ids_count": 96,
-      "status": "not_decomposed_yet"
+      "covered_ids": 96,
+      "missing_ids_count": 0,
+      "missing_ids_sample": [],
+      "status": "complete_id_mentions"
     },
     "M17": {
       "spec_files": [],
@@ -468,6 +565,12 @@
       "missing_ids_sample": [],
       "status": "complete_id_mentions"
     }
+  },
+  "session_token_telemetry": {
+    "status": "UNKNOWN",
+    "reason": "No explicitly bound transcript; current session usage is UNKNOWN",
+    "yellow_threshold": 170000,
+    "red_threshold": 210000
   },
   "application_tests": "Not Run"
 }

@@ -1,50 +1,42 @@
 {
   "task_id": "CRM-SPECS-SYNC-20261116",
-  "status": "Wave 1 reconciliation (CR-20261116-WAVE1-RECONCILIATION) applied and re-verified (CRITICAL=0, HIGH=0): M14 (18/18 IDs + C14), M20 (14/14 IDs + C20) and M19 (24/24 IDs + C19) plus ADR-002..008 are Reviewed; next module in Wave 1 is M16; application not implemented",
+  "status": "Wave 1 & Wave 1.5 Reviewed + Wave 1 Review Fixes Applied (CR-20261116-WAVE1-REVIEW-FIXES Applied & Archived; ADR-002..009; M14/C14, M20/C20, M19/C19, M16/C16, M23/C23, M24/C24 & SL01 Reviewed; --strict-all enabled for M23/M24/SL01); ready for Wave 2 (M01) while keeping implementation blocked on open policy GAPs; application not implemented",
+  "spec_review_status": "Reviewed (Wave 1 & Wave 1.5; W1-01..W1-05 resolved)",
+  "implementation_readiness": "Blocked_By_Open_Policy_Gaps (O01..08, W-O01..07, GAP-* Fail-Closed until stakeholder sign-off; application tests Not Run)",
+  "wave1_specs": {
+    "M14": "Reviewed",
+    "C14": "Reviewed",
+    "M20": "Reviewed",
+    "C20": "Reviewed",
+    "M19": "Reviewed",
+    "C19": "Reviewed",
+    "M16": "Reviewed",
+    "C16": "Reviewed",
+    "M23": "Reviewed",
+    "C23": "Reviewed",
+    "M24": "Reviewed",
+    "C24": "Reviewed",
+    "SL01": "Reviewed"
+  },
   "baseline_version": "1.9",
   "baseline_sha256": "b6a3279f328e96e1e97d845e209be7a326516a0dba5e3a033d88e1f2162e421c",
   "baseline_path": "../../00-master/CRM_MASTER_BRD_SRS_HOP_NHAT.md",
-  "proposed_next_slice": "Wave 1 — Module 4: M16 (Công việc, Dự án & Task Core) per ../DECOMPOSITION-PLAN.md",
+  "proposed_next_slice": "Wave 2 — Module 5: M01 (CDP & Hồ sơ Khách hàng 360) per ../DECOMPOSITION-PLAN.md (keep O01..08, W-O01..07, GAP-* Fail-Closed until stakeholder sign-off)",
   "read_first": [
-    "../../README.md",
     "../../AGENTS.md",
-    "../README.md",
     "../DECOMPOSITION-PLAN.md",
-    "../GAPS.md",
     "../../01-architecture/INVARIANTS.md",
     "../../01-architecture/INDEX.md",
-    "../../01-architecture/decisions/ADR-002-ORG-ISOLATION-RLS-AND-SCOPE-FILTER.md",
-    "../../01-architecture/decisions/ADR-003-PERMISSION-VERSION-CACHE-AND-MODE-GOVERNANCE.md",
-    "../../01-architecture/decisions/ADR-004-SHARED-PLATFORM-TABLES-AND-BASE-SCHEMA.md",
-    "../../01-architecture/decisions/ADR-005-DUAL-OUTBOX-3LANE-ISOLATION-AND-VAULT.md",
-    "../../01-architecture/decisions/ADR-006-DOWNLOAD-GATEWAY-REMOTE-FETCH-AND-AI-GATEWAY.md",
-    "../../01-architecture/decisions/ADR-007-PRIVACY-CANONICAL-HASH-LEGAL-HOLD-AND-DR-FENCE.md",
-    "../../01-architecture/decisions/ADR-008-OMNICHANNEL-CONTRACTS-RECEIPTS-AND-CROSS-EVENTS.md",
-    "../../02-specs/README.md",
-    "../../02-specs/FUNCTION-CATALOG.md",
-    "../../02-specs/modules/M14-ORG-ACCESS-DELEGATION.md",
-    "../../02-specs/contracts/M14-PRINCIPAL-ACCESS-DECISION.md",
-    "../../02-specs/modules/M20-PRIVACY-CONSENT-RETENTION.md",
-    "../../02-specs/contracts/M20-SUPPRESSION-PRIVACY-GATE.md",
-    "../../02-specs/modules/M19-INTEGRATION-ADAPTERS-OUTBOX.md",
-    "../../02-specs/contracts/M19-DURABLE-INGEST-OUTBOX.md",
-    "../../02-specs/changes/archive/CR-20261116-WAVE1-RECONCILIATION.md",
-    "../../02-specs/modules/M21-PARTNER-BUSINESS-RESULTS.md",
-    "../../02-specs/slices/SL08-PARTNER-RESULTS.md",
+    "../../02-specs/CONTRACTS-REGISTRY.md",
     "PROGRESS.md",
-    "../../02-specs/modules/M22-HUMAN-RESOURCES.md",
-    "../../02-specs/slices/SL09-11-HRM.md",
-    "../../02-specs/modules/M23-SYSTEM-ADMIN-SECURITY-OPS.md",
-    "../../02-specs/modules/M18-BI-REPORTING-EXPANSION.md",
-    "../../02-specs/modules/M24-PERFORMANCE-AND-PRODUCTIVITY.md"
+    "../GAPS.md"
   ],
   "read_on_demand": [
-    "Master source sections",
-    "related contracts",
-    "producer/consumer specs",
-    "tests",
-    "ADRs",
-    "04-research reports and extracted sources"
+    "Run python 05-tools/build_module_context.py --module <Mxx> --out <ArtifactDir>/scratch/context-<Mxx>.md before reading Master v1.9 or requirements.json",
+    "Targeted Master source sections from build_module_context packet",
+    "Only upstream contracts in 02-specs/contracts/*.md and related ADR-001..009 listed in context-<Mxx>.md",
+    "Completed module specs (02-specs/modules/M14, M16, M19, M20, M23, M24, M21, M22, M18) & slices (SL01/08/09-11) only by targeted line range when CONTRACTS-REGISTRY.md is insufficient",
+    "Archived CRs (02-specs/changes/archive/*), 02-specs/README.md, 02-specs/FUNCTION-CATALOG.md, tests & 04-research reports"
   ],
   "planning_write_scope": [
     "01-architecture/**",
@@ -67,11 +59,24 @@
     "M23",
     "M24"
   ],
-  "gate_state": "Inventory structural validation only; application tests Not Run",
+  "gate_state": "Inventory & cross-document semantic structural validation only; application tests Not Run",
+  "sticky_wave_guards": {
+    "INV-26": "Async workers releasing DB locks MUST enforce 3-phase lease_token CAS fencing + shared 8-branch Reaper table (ADR-005, M19/C19)",
+    "INV-27": "Immutable tables permitting PII scrub MUST use per-erasure redacted_deletion_ledger_ids[] + dual hash (content_sha256 vs redacted_content_sha256), never single-shot IS NULL (ADR-004, M16/C16, M20/C20)",
+    "INV-28": "Keep valid 200 OK flows separate from 409 conflict test cases (W-T15) and verify cross-doc manifest sync via verify_module_spec.py",
+    "context_loader": "Run python 05-tools/build_module_context.py --module <Mxx> --out <ArtifactDir>/scratch/context-<Mxx>.md --check-tokens at Pha 0; Wave 1 guards auto-injected"
+  },
   "next_actions": [
-    "Brainstorm and decompose per-module & per-function specs for M01-M20 cleanly in 02-specs/modules/ from 00-master/",
-    "Confirm H-O inputs for HR-A, P-O parameters for M21, and GAP-15..18 for M18+/M23/M24",
-    "Keep payroll HR-C and bank capability gated; no application code or verification claimed"
+    "Begin Wave 2 Module 5: M01 (CDP & Ho so Khach hang 360) per ../DECOMPOSITION-PLAN.md (Wave 2..6: M01, M03, M02, M13 -> M07..M18 -> slices SL00, SL02..SL07)",
+    "Keep O01..08, W-O01..07, GAP-* Fail-Closed until stakeholder sign-off (HR-A H-O*, M21 P-O*, GAP-15..18, GAP-M14/16/19/20-*)",
+    "Keep payroll HR-C and bank capability gated; Documentation-Only phase (no application code or pass verification claimed)"
   ],
-  "note": "Manifest guides context and planned scope; it is not filesystem enforcement. Relative links resolve from 03-planning/agent/."
+  "note": "Manifest guides context and planned scope; it is not filesystem enforcement. Relative links resolve from 03-planning/agent/.",
+  "context_protocol": {
+    "version": 2,
+    "startup": "Follow AGENTS.md section 4; generate then read and verify a fresh packet for every target module, including modules belonging to a slice.",
+    "receipt": "Generated packet SHA-256 and source hashes; not proof of agent reading or understanding.",
+    "telemetry": "UNKNOWN unless an explicitly bound current-session transcript is available; never auto-discover another session.",
+    "limitations": "Registry is a navigation summary; read full relevant contracts/ADRs. Structural checks do not certify semantic completeness."
+  }
 }

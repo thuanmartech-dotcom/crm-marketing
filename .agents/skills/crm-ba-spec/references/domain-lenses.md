@@ -1,16 +1,26 @@
-# Thấu kính Câu hỏi Chuyên sâu theo 5 Cụm Nghiệp vụ (`M01–M20`)
+# Thấu kính Câu hỏi Chuyên sâu theo 5 Cụm Nghiệp vụ (`M01–M24`)
 
-Khi chạy Pha 2 (`Cổng hỏi ngược`) của [module-workflow.md](module-workflow.md), Agent **chỉ đọc đúng Cụm chứa module đang tách** (không đọc cả file để tiết kiệm context) và ép hỏi/kiểm tra mọi điểm chưa rõ trong Master v1.9 + [INVARIANTS.md](../../../../01-architecture/INVARIANTS.md).
+Khi chạy Pha 2 (`Cổng hỏi ngược`) của [module-workflow.md](module-workflow.md), Agent đọc **1 Cụm Chính chứa module đang tách** cộng thêm **các Cụm Liên miền được kích hoạt** theo bảng dưới đây (không nạp phần không liên quan) để kiểm tra mọi điểm chưa rõ trong Master v1.9, [INVARIANTS.md](../../../../01-architecture/INVARIANTS.md) và `ADR-001..009`.
+
+## Bảng Kích hoạt Thấu kính Liên miền (`Cross-Domain Lens Triggers`)
+
+| Nếu module đang tách có chạm tới... | Bắt buộc đọc thêm Cụm / Quy chiếu |
+|---|---|
+| Dữ liệu cá nhân (PII), tệp đính kèm, kênh ngoài, AI, hoặc xóa/giữ pháp lý | **Cụm 1** (`M19` ngoài vs `M20` Consent/Suppression/Hold + `ADR-006/007`) |
+| Giao việc, SLA, lịch hẹn, chuyển giao đơn/dự án, nghiệm thu, ticket | **Cụm 2** (`M16` vs `M23-F04` `Approval_Requests` vs `Acceptances` theo `ADR-009`) |
+| Tiền, thuế, hóa đơn, công nợ, chiết khấu, ngân sách, hoa hồng, phạt/chi | **Cụm 3** (`M09`/`M10`/`M17` + `Decimal`, khóa `Bank_Accounts` `ADR-004`, chống chi trùng `M22`) |
+| Tự động hóa gửi tin, điểm thưởng, AI draft/RAG, KPI/P&L/báo cáo | **Cụm 4** (`M23-F10` `Quiet Hours`, `M20-F07` AI Gateway, `NULL/Unavailable`) |
+| Phân quyền, đa chi nhánh/pháp nhân, duyệt 2 lớp, Break-glass, lịch chuẩn, outbox nội bộ, cache/queue | **Cụm 5** (`M14`, `M23`, `M24`, `ADR-002..005`) |
 
 ---
 
-## Cụm 1 — Định danh, Hội thoại, Kết nối & Quyền riêng tư (`M01`, `M03`, `M19`, `M20`)
+## Cụm 1 — Định danh, Hội thoại, Kết nối Ngoài & Quyền riêng tư (`M01`, `M03`, `M19`, `M20`)
 
 - **Ranh giới hợp nhất & nguồn ghi (`M01`):** Khi 2 hồ sơ trùng SĐT/email nhưng khác `workspace` hoặc khác `Contact_Point`, hệ thống tự động merge hay tạo `Duplicate_Candidate` chờ steward duyệt? Nếu unmerge, field nào giữ lại (`survivorship rule`)?
 - **Danh tính đa lớp (`M01` vs `M21` vs `M22`):** Hồ sơ người mua sàn TMĐT (`M21`) hoặc nhân viên (`M22`) có tuyệt đối bị chặn không tự sinh `Contact/Lead` trong `M01/M02` không? (`INV-18`).
-- **Độ tin cậy kênh & thứ tự sự kiện (`M03`, `M19`):** Webhook/tin nhắn đến sai thứ tự (`out-of-order`) dùng trường timestamp nào của provider để xếp lại? Cơ chế xác minh chữ ký webhook và `ACK` chỉ sau khi ghi bền inbox đã rõ chưa? (`INV-07`).
-- **Gửi không rõ kết quả (`M03`, `M19`):** Khi gọi API gửi tin bị timeout sau khi provider có thể đã nhận (`Unknown send outcome`), trạng thái chuyển sang `RECONCILING` thế nào để cấm retry mù gây spam khách? (`INV-08`).
-- **Mục đích, Consent & Suppression (`M20`):** Hành động gửi/sync nào bắt buộc check `Consent` + `Suppression` thời gian thực? Khi khách yêu cầu xóa/ẩn danh (`Privacy_Request`), các bảng lịch sử/audit/backup xử lý `retention` vs `legal hold` ra sao?
+- **Độ tin cậy kênh, thứ tự sự kiện & tách Dual Outbox (`M03`, `M19` vs `M23-F12`):** Webhook/tin nhắn đến sai thứ tự (`out-of-order`) dùng trường timestamp nào của provider để xếp lại? Cơ chế xác minh chữ ký webhook và `ACK` chỉ sau khi ghi bền inbox đã rõ chưa? (`INV-07`). Đã khớp bảng reducer `Message_Status_Events` (`DELIVERED/READ -> COMPLAINED/FAILED`, receipt đến sớm) trong `C19` và tách dứt khoát `M19` (kênh ngoài) khỏi `M23-F12` (Outbox nội bộ `Lane 2` theo `ADR-005`) chưa?
+- **Gửi không rõ kết quả & Lease Fencing (`M03`, `M19`):** Khi gọi API gửi tin bị timeout sau khi provider có thể đã nhận (`Unknown send outcome`), trạng thái chuyển sang `UNKNOWN_OUTCOME` thế nào để cấm retry mù gây spam khách? (`INV-08`). Bảng/worker nội bộ hay tích hợp ngoài có áp `lease_token` CAS fencing 3 pha và Bảng Reaper 8 nhánh theo `INV-26` chưa?
+- **Mục đích, Consent, Suppression & Xóa Đa chủ thể (`M01`, `M03`, `M20`):** Hành động gửi/sync nào bắt buộc check `Consent` + `Suppression` (`endpoint_hashes_by_version[]` đa phiên bản `HMAC`) thời gian thực? Khi khách yêu cầu xóa/ẩn danh (`Privacy_Request`, `M20.SubjectErasureExecuted`), các bảng hội thoại/hồ sơ/file đính kèm bất biến xử lý multi-subject `redacted_deletion_ledger_ids[]` + tách `content_sha256` vs `redacted_content_sha256` (`INV-27`) và `active_legal_hold_ids[]` ra sao?
 
 ---
 
@@ -20,7 +30,7 @@ Khi chạy Pha 2 (`Cổng hỏi ngược`) của [module-workflow.md](module-wor
 - **Khóa sửa & tạo Revision (`M07`, `M08`, `M15`):** Sau khi báo giá/hợp đồng/kế hoạch IMC đã được duyệt hoặc ký, sửa đổi có bắt buộc tạo phiên bản mới (`revision`) và chạy lại ma trận thẩm quyền (`M23-F04`) không?
 - **Cơ chế nhận việc & Hàng đợi (`M02`, `M11`, `M13`, `M16`):** Phân biệt `Offer` (chưa accept) vs `Assigned` vs `Queue` có manager (`INV-10`)? Nếu quá hạn SLA nhận việc hoặc trùng lịch tài nguyên (`M13`), hành động leo thang (escalation) là gì?
 - **Tách bạch Hoàn thành vs Cam kết (`M11`, `M12`, `M16`):** Đã tách rõ `Task Done` ≠ `SLA fulfilled` ≠ `Client Accepted` ≠ `Paid` chưa? (`INV-05`). Đổi hạn/snooze/block có giữ nguyên lịch sử vi phạm SLA không? (`INV-12`).
-- **Nghiệm thu & Reopen (`M11`, `M12`, `M16`):** Nộp kết quả có bất biến theo `submission_version/hash` không? (`INV-11`). Khi khách reject/mở lại ticket sau khi đã đóng, mở `episode` mới hay reopen bản ghi cũ?
+- **Nghiệm thu, Reopen & Tách Ca Kiểm thử (`M11`, `M12`, `M16`):** Nộp kết quả có bất biến theo `submission_version/hash` (và cho phép xóa PII đa chủ thể theo `INV-27` nếu có ngoại lệ scrub) không? (`INV-11`). Khi khách reject/mở lại ticket sau khi đã đóng, mở `episode` mới hay reopen bản ghi cũ? Ma trận test có tách riêng ca rút/chỉnh hợp lệ (`200 OK`) khỏi ca duyệt nhầm/đua đồng thời (`409`) theo `INV-28` chưa?
 
 ---
 
@@ -43,9 +53,10 @@ Khi chạy Pha 2 (`Cổng hỏi ngược`) của [module-workflow.md](module-wor
 
 ---
 
-## Cụm 5 — Tổ chức, Quyền hạn & Cấu hình lõi (`M14` — liên thông `M23`, `M24`)
+## Cụm 5 — Tổ chức, Quyền hạn, Quản trị Bảo mật & Hiệu năng Nền tảng (`M14`, `M23`, `M24` — liên thông `M21`, `M22`)
 
-- **Phân cấp phạm vi dữ liệu (`M14`):** Quy tắc kế thừa và cô lập giữa `Tenant → Legal Entity → Branch → Workspace (AGENCY vs CLIENT)` (`INV-01`)? Khi thiếu context phạm vi thì fail-closed thế nào? (`INV-13`).
+- **Phân cấp phạm vi dữ liệu (`M14`):** Quy tắc kế thừa và cô lập giữa `Tenant → Legal Entity → Branch → Workspace (AGENCY vs CLIENT)` (`INV-01`, `ADR-002` 6 GUC `SET LOCAL`)? Khi thiếu context phạm vi thì fail-closed thế nào? (`INV-13`).
 - **Quyền thực thi vs Chức danh (`M14` vs `M22`):** Thay đổi phòng ban/chức danh bên `M22` có tuyệt đối không tự mở rộng quyền đọc dữ liệu nhạy cảm nếu thiếu `Role Binding / Entity_Team_Grant`? (`INV-02`).
-- **Chuyển giao, Kiêm nhiệm & Break-glass (`M14`, `M23`):** `Delegation` (nghỉ phép/bàn giao nhân sự) có bắt buộc `effective_from/to` và tự thu hồi khi hết hạn không? Quyền khẩn cấp `Break-glass` (`M23-F03`) ghi vào `M14` theo TTL và có kiểm `Maker != Checker` khi ở chế độ `TEAM` không? (`INV-22`).
-- **Đồng bộ cache quyền (`M14` vs `M24`):** Khi thu hồi quyền (`Revoke`) hoặc đóng phiên khẩn cấp (`M23-F02`), `permission_version` bị invalidate ngay lập tức để Read Model/Cache không phục vụ quyền cũ (`INV-25`) và Download Gateway (`INV-24`) chặn tải file ngay?
+- **Chuyển giao, Kiêm nhiệm & Break-glass (`M14`, `M23`):** `Delegation` (nghỉ phép/bàn giao nhân sự) có bắt buộc `effective_from/to` và tự thu hồi khi hết hạn không? Quyền khẩn cấp `Break-glass` (`M23-F03`) ghi vào `M14.Break_Glass_Grants` theo TTL và có kiểm `Maker != Checker` khi `M14.Tenants.operating_mode = 'TEAM'` không? (`INV-22`, `ADR-003`).
+- **Bảng Nền tảng, Lịch chuẩn & Dual Outbox (`M23`, `M24`):** Đã tách đúng SSoT `Approval_Requests`/`Approval_Decisions` (`M23-F04`) khỏi `M16.Acceptances`, `Assets`/`Asset_Versions` + `Download Gateway SEC03` (`ADR-006`), `System_Calendars` (`M23-F10`), và `Internal_Outbox_Events` (`M23-F12` `Lane 2`) khỏi `M19` chưa? (`ADR-004/005/009`).
+- **Đồng bộ cache quyền & 3 Làn Queue (`M14` vs `M24`):** Khi thu hồi quyền (`Revoke`) hoặc đóng phiên khẩn cấp (`M23-F02`), `permission_version` (`acl_epoch`) bị invalidate ngay lập tức để Read Model/Cache (`M24-F06`) không phục vụ quyền cũ (`INV-25`), `Bulk` (`M24-F03`) chặn miền nhạy cảm, và `Lane 3` không nghẽn `Lane 1` (`M24-F07`)?
