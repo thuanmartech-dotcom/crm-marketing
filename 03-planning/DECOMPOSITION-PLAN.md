@@ -1,6 +1,6 @@
 # Kế hoạch Ưu tiên Bóc tách Đặc tả Chi tiết (`M01–M24` & `SL00–SL07`)
 
-> **Trạng thái thực thi:** `Đang thực thi Wave 1 — Đã hoàn tất M14, M20 & M19 (3/24), tiếp theo: M16` (cập nhật `16/11/2026`).  
+> **Trạng thái thực thi:** `Đã hoàn tất đối soát CR-20261116 & chốt Reviewed cho Wave 1: M14, M20 & M19 (3/24) — Tiếp theo: M16` (cập nhật `16/11/2026`).  
 > **Nguồn chuẩn & công cụ:** [CRM_MASTER_BRD_SRS_HOP_NHAT.md](../00-master/CRM_MASTER_BRD_SRS_HOP_NHAT.md) (`v1.9`, `SHA-256: b6a3279f328e96e1e97d845e209be7a326516a0dba5e3a033d88e1f2162e421c`), [FUNCTION-CATALOG.md](../02-specs/FUNCTION-CATALOG.md) (`224` chức năng `M01–M24`), [requirements.json](trace/requirements.json), [module-spec-validation.json](evidence/module-spec-validation.json) và skill [crm-ba-spec](../.agents/skills/crm-ba-spec/SKILL.md).
 
 ---
@@ -13,7 +13,7 @@
 4. **4 Quy ước Nền đã chốt qua `/grill-me` (15/11/2026):**
    - **Truy vết mở rộng (`GAP-03`):** Bao phủ cả 100% ID `owner == Mxx` lẫn các ID liên quan trong nhóm `221 missing_owner` / `PLATFORM` (`U*`, `INT*`, `RV*`, `OC*`, `DB*`, `CEO/CMO/CX/SEC/WF-U*`, `NFR*`, `O*`, `ENTITY-L*`), phân biệt rõ `Primary Owner` vs `Consumer`.
    - **Độ sâu `Per-Function` (`Mxx-Fyy`):** Trong Mục `3. Hành vi` của mỗi file `02-specs/modules/Mxx-*.md`, tách tiểu mục `### 3.x Mxx-Fyy` cho 100% chức năng của module.
-   - **Tách bảng gộp (`GAP-04`):** Trong Mục `4. Data/API`, tách rời các khai báo bảng gộp ở Master `5.13/5.18/5.20` thành từng bảng độc lập (kế thừa 10 cột chuẩn Mục `5.1` + gắn mã `ENTITY-Lxxxx`).
+   - **Tách bảng gộp (`GAP-04`):** Trong Mục `4. Data/API`, tách rời các khai báo bảng gộp ở Master `5.13/5.18/5.20` thành từng bảng độc lập (kế thừa `11` cột chuẩn Mục `5.1` bổ sung `legal_entity_id` thành `12` cột `Nhóm A` theo `ADR-004` + gắn mã `ENTITY-Lxxxx`).
    - **Bảng `Policy/Config Parameters` (`Fail-Closed` theo `INV-14`) & Nhịp cuốn chiếu:** Thiết kế tham số mở (`O01–08`, `W-O*`, `GAP-*`) thành bảng cấu hình có `Safe Default (Fail-Closed)` để không chặn spec; chạy cuốn chiếu **từng module một (4 pha/module)** bắt đầu từ `M14`.
 
 ---
@@ -24,8 +24,8 @@
 flowchart TB
   subgraph W1["WAVE 1 — Trục Hạ tầng & Công việc Cốt lõi"]
     direction LR
-    M14["[DONE] 1. M14 (18/18 IDs) - Quyền & Grants"] --> M20["[DONE] 2. M20 (14/14 IDs) - Consent & Privacy"]
-    M20 --> M19["[DONE] 3. M19 (24/24 IDs) - Ingest, Outbox & Adapter"]
+    M14["[REVIEWED] 1. M14 (18/18 IDs) - Quyền & Grants"] --> M20["[REVIEWED] 2. M20 (14/14 IDs) - Consent & Privacy"]
+    M20 --> M19["[REVIEWED] 3. M19 (24/24 IDs) - Ingest, Outbox & Adapter"]
     M19 --> M16["[NEXT] 4. M16 (96 IDs) - Task Core & Delivery"]
   end
 
@@ -78,9 +78,9 @@ flowchart TB
 
 | Thứ tự | Wave | Module | Fan-In | Owned IDs | Trạng thái hiện tại | Tệp đặc tả đích (`02-specs/modules/`) | Public Contracts cần khóa cuối Wave (`02-specs/contracts/`) |
 |---:|---|---|---:|---:|---|---|---|
-| 1 | Wave 1 | `M14` — Tổ chức, Nhóm & Quyền | 17 | 18 | `complete_id_mentions` (`18/18` IDs — `Reviewed`) | [M14-ORG-ACCESS-DELEGATION.md](../02-specs/modules/M14-ORG-ACCESS-DELEGATION.md) | [M14-PRINCIPAL-ACCESS-DECISION.md](../02-specs/contracts/M14-PRINCIPAL-ACCESS-DECISION.md) |
-| 2 | Wave 1 | `M20` — Consent, Suppression & Privacy | 15 | 14 | `complete_id_mentions` (`14/14` IDs — `Reviewed`) | [M20-PRIVACY-CONSENT-RETENTION.md](../02-specs/modules/M20-PRIVACY-CONSENT-RETENTION.md) | [M20-SUPPRESSION-PRIVACY-GATE.md](../02-specs/contracts/M20-SUPPRESSION-PRIVACY-GATE.md) |
-| 3 | Wave 1 | `M19` — Tích hợp, Ingest & Outbox | 16 | 24 | `complete_id_mentions` (`24/24` IDs — `Reviewed`) | [M19-INTEGRATION-ADAPTERS-OUTBOX.md](../02-specs/modules/M19-INTEGRATION-ADAPTERS-OUTBOX.md) | [M19-DURABLE-INGEST-OUTBOX.md](../02-specs/contracts/M19-DURABLE-INGEST-OUTBOX.md) |
+| 1 | Wave 1 | `M14` — Tổ chức, Nhóm & Quyền | 17 | 18 | `complete_id_mentions` (`18/18` IDs — Reconciled `ADR-002..008`) | [M14-ORG-ACCESS-DELEGATION.md](../02-specs/modules/M14-ORG-ACCESS-DELEGATION.md) | [M14-PRINCIPAL-ACCESS-DECISION.md](../02-specs/contracts/M14-PRINCIPAL-ACCESS-DECISION.md) |
+| 2 | Wave 1 | `M20` — Consent, Suppression & Privacy | 15 | 14 | `complete_id_mentions` (`14/14` IDs — Reconciled `ADR-004..008`) | [M20-PRIVACY-CONSENT-RETENTION.md](../02-specs/modules/M20-PRIVACY-CONSENT-RETENTION.md) | [M20-SUPPRESSION-PRIVACY-GATE.md](../02-specs/contracts/M20-SUPPRESSION-PRIVACY-GATE.md) |
+| 3 | Wave 1 | `M19` — Tích hợp, Ingest & Outbox | 16 | 24 | `complete_id_mentions` (`24/24` IDs — Reconciled `ADR-004..008`) | [M19-INTEGRATION-ADAPTERS-OUTBOX.md](../02-specs/modules/M19-INTEGRATION-ADAPTERS-OUTBOX.md) | [M19-DURABLE-INGEST-OUTBOX.md](../02-specs/contracts/M19-DURABLE-INGEST-OUTBOX.md) |
 | 4 | Wave 1 | `M16` — Công việc, Dự án & Task Core | 18 | 96 | Chờ lệnh tiếp theo *(có pilot `SL01`)* | `M16-WORK-PROJECTS-TASK-CORE.md` | `M16-TASK-CORE-COMMANDS.md` |
 | 5 | Wave 2 | `M01` — CDP & Hồ sơ khách hàng 360 | 12 | 15 | Chờ Wave 1 | `M01-CDP-IDENTITY-MERGE.md` | `M01-IDENTITY-PROFILE-EVENTS.md` |
 | 6 | Wave 2 | `M03` — Omnichannel Inbox | 15 | 38 | Chờ Wave 1 | `M03-OMNICHANNEL-INBOX.md` | `M03-INBOX-TRIAGE-HANDOFF.md` |
@@ -121,26 +121,26 @@ flowchart TB
 
 ## 5. Nhật ký Kết quả Bóc tách từng Module (`Completed Modules Log`)
 
-### Wave 1
+### Wave 1 *(Đã đối soát đồng bộ theo [CR-20261116-WAVE1-RECONCILIATION](../02-specs/changes/archive/CR-20261116-WAVE1-RECONCILIATION.md) & `ADR-002..008`; đã vượt tái kiểm Fresh-Context & chốt `Reviewed`)*
 
-1. **`M14` — Tổ chức, Chi nhánh, Thành viên, Quyền & Bàn giao Nhân sự (Hoàn tất `15/11/2026`):**
-   - **Tệp đặc tả Module:** [M14-ORG-ACCESS-DELEGATION.md](../02-specs/modules/M14-ORG-ACCESS-DELEGATION.md) — Đạt `complete_id_mentions` (`18/18` ID sở hữu trực tiếp + `25` ID/thực thể mở rộng từ bể `missing_owner`/`PLATFORM`); đặc tả EARS đầy đủ cho 8 chức năng `M14-F01..08`, tách rời 18 bảng logic từ Master `5.13/5.18`, và khóa bảng `Policy/Config Parameters` (`GAP-M14-01`).
-   - **Tệp Hợp đồng Liên Module (`Contract`):** [M14-PRINCIPAL-ACCESS-DECISION.md](../02-specs/contracts/M14-PRINCIPAL-ACCESS-DECISION.md) — Khóa hợp đồng chế độ kép (`EvaluateAccessDecision` + `CompileScopeFilter`) và 4 Domain Events (`M14.PermissionVersionBumped`, `M14.UserOffboardingLocked`, `M14.WorkHandoverAssigned`, `M14.WorkspaceActivated`).
-   - **3 Quyết định Kiến trúc đã chốt qua `/grill-me`:**
+1. **`M14` — Tổ chức, Chi nhánh, Thành viên, Quyền & Bàn giao Nhân sự (`Reviewed`):**
+   - **Tệp đặc tả Module:** [M14-ORG-ACCESS-DELEGATION.md](../02-specs/modules/M14-ORG-ACCESS-DELEGATION.md) — Đạt `complete_id_mentions` (`18/18` ID sở hữu trực tiếp + toàn bộ ID/thực thể mở rộng); đặc tả EARS cho 8 chức năng `M14-F01..08`, sở hữu **23 bảng logic** (đã tách `Policy_Definitions`, `Policy_Versions`, `Audit_Logs` về SSoT `M23` theo `ADR-004`, bổ sung đủ cột phạm vi `branch_id/legal_entity_id/business_line_id` + `ADR-002` PostgreSQL RLS 5-GUC `SET LOCAL`), và khóa bảng Tham số Mở (`GAP-M14-01..06`).
+   - **Tệp Hợp đồng Liên Module (`Contract`):** [M14-PRINCIPAL-ACCESS-DECISION.md](../02-specs/contracts/M14-PRINCIPAL-ACCESS-DECISION.md) (`v1.1`) — Hợp đồng 3 cổng đồng bộ (`BindDbTransactionContext`, `EvaluateAccessDecision` phân tách `INTERACTIVE_READ` vs `GUARDED_EXECUTION`, `CompileScopeFilter` với AST chuẩn hóa) kết hợp đồng bộ `ApplyBreakGlassGrant` / `RevokeBreakGlassGrant` từ `M23` theo `ADR-002/003` kèm JSON Schema đầy đủ và 4 Domain Events (`M14.PermissionVersionBumped`, `M14.UserOffboardingLocked`, `M14.WorkHandoverAssigned`, `M14.WorkspaceActivated`).
+   - **3 Quyết định Kiến trúc cốt lõi:**
      1. *Ủy nhiệm Thay ca (`M14-F05`):* Mô hình `Act-On-Behalf` có tiền kiểm `Membership + Role_Binding` nền tại cùng `Workspace/Branch`, giữ nguyên `owner_id` và quyền hưởng hoa hồng lịch sử.
-     2. *Bàn giao Nghỉ việc 2 Pha (`M14-F06` & `UC12`):* Pha 1 cắt phiên/quyền nguyên tử tại `effective_at` và gán tạm `Queue Manager` làm `Custodian` cho 8 nhóm open work; Pha 2 yêu cầu người nhận mới bấm `Accept` (hoặc `Reject` có lý do) trước khi đóng ca sang `OFFBOARDED`.
-     3. *Cổng Kiểm tra Quyền Thực thi (`M14-F04`):* Hợp đồng kép kết hợp đánh giá bản ghi đơn lẻ/Download Gateway/Worker recheck và đẩy bộ lọc `Predicate AST + SET LOCAL` xuống câu truy vấn gốc cho `List/Search/Count/BI/AI RAG`.
-2. **`M20` — Quản trị Dữ liệu Cá nhân, Consent, Suppression & Quyền Chủ thể (Hoàn tất `16/11/2026`):**
-   - **Tệp đặc tả Module:** [M20-PRIVACY-CONSENT-RETENTION.md](../02-specs/modules/M20-PRIVACY-CONSENT-RETENTION.md) — Đạt `complete_id_mentions` (`14/14` ID sở hữu trực tiếp + `21` ID/thực thể mở rộng từ bể `missing_owner`/`PLATFORM`); tích hợp mô tả luồng nghiệp vụ từng bước + đặc tả EARS cho 8 chức năng `M20-F01..08`, tách rời 12 bảng logic từ Master `5.13/5.18`, và khóa bảng `Policy/Config Parameters` (`GAP-M20-01`, `GAP-M20-02`).
-   - **Tệp Hợp đồng Liên Module (`Contract`):** [M20-SUPPRESSION-PRIVACY-GATE.md](../02-specs/contracts/M20-SUPPRESSION-PRIVACY-GATE.md) — Khóa hợp đồng 3 cổng (`EvaluateOutboundCompliance`, `EvaluateVendorAndAiTransfer`, `VerifyPostRestoreComplianceGate`) và 4 Domain Events (`M20.EndpointSuppressed`, `M20.SubjectErasureExecuted`, `M20.LegalHoldChanged`, `M20.DataIncidentEscalated`).
-   - **3 Quyết định Kiến trúc đã chốt qua `/grill-me`:**
-     1. *Định danh Suppression & Mục đích gửi (`M20-F02/03`):* Gắn `Endpoint_Suppressions` trực tiếp vào điểm liên hệ vật lý (`endpoint_lookup_hash + channel + purpose_code`) độc lập với `contact_id` (Merge/Undo/Import không làm mất lệnh chặn; `Unsubscribe` chặn Marketing/Survey nhưng giữ thông báo Dịch vụ/Hợp đồng `OC17`, còn `Hard-Bounce` chặn mọi gửi tự động trên endpoint đó).
-     2. *Xóa phân tầng kết hợp Cô lập `Legal Hold` & Sổ Xóa `HMAC` (`M20-F06` & `UC11`):* Xóa sạch phần Marketing/Chat/Search/AI; phần Hợp đồng/Chứng từ kế toán (`M08/M09`) chuyển sang `RESTRICTED_LEGAL_HOLD`; ghi mã băm `HMAC-SHA256` vào `Deletion_Ledger` độc lập để tự động xóa lại khi Restore Backup (`INT26`).
-     3. *Cổng Kép Gửi tin & Kiểm soát AI/Vendor (`M20-F03/07`):* Kiểm tra `EvaluateOutboundCompliance` ở cả lúc xếp hàng (`Enqueue`) và ngay giây phát tin (`Authoritative Dispatch Recheck`); chặn gửi sang AI/Vendor chưa `ACTIVE` (`No-Train != ZDR` theo `RV17`) và tự động thay thế PII bằng placeholder trước khi rời hệ thống.
-3. **`M19` — Tích hợp, Ingest & Outbox** *(Hoàn tất `16/11/2026` — `Reviewed`, `24/24` IDs sở hữu + ID mở rộng `OC/INT/RV/SEC-U/ONFR/OM-G`)*
-   - Tài liệu đặc tả: [M19-INTEGRATION-ADAPTERS-OUTBOX.md](../02-specs/modules/M19-INTEGRATION-ADAPTERS-OUTBOX.md) (13 bảng logic, cơ chế tổng thể `3.0A/3.0B` và luồng từng bước + EARS cho `M19-F01..08`).
-   - Hợp đồng Public: [M19-DURABLE-INGEST-OUTBOX.md](../02-specs/contracts/M19-DURABLE-INGEST-OUTBOX.md) (3 trụ cột: `Durable-Before-ACK`, `Safe Backfill & Replay`, `Zero-Trust Remote Fetch SSRF Guard` + 4 Domain Events).
-   - 3 quyết định chốt từ `/grill-me`:
-     1. *Sở hữu kết nối đơn Workspace (`M19-F01` & `SEC02`):* Partial unique lock trên `(provider, provider_namespace, external_account_id)` cho trạng thái hoạt động; xung đột trả `409 CONNECTION_OWNERSHIP_CONFLICT` không lộ chủ cũ (`SEC-U02`); chuyển giao theo trình tự 4 bước (`Pause -> settle Pending Intents & lock Cursor -> Revoke old grant -> activate mới` và giữ lịch sử ở workspace cũ).
-     2. *Tách DB Lock & Đóng băng `UNKNOWN_OUTCOME` khi Timeout sau gửi (`M19-F05` & `INT25`):* Tuyệt đối không giữ DB lock khi gọi mạng (`INV-06`); chỉ retry backoff (`1/5/15/60m + jitter` + `Retry-After`) cho `429/5xx` hoặc lỗi kết nối trước khi gửi; timeout sau khi payload có thể đã tới provider phải đóng băng ở `UNKNOWN_OUTCOME` để đối soát/xác minh (không gửi mù).
-     3. *Ingest bền vững trước ACK, Backfill an toàn TTL & Chống SSRF (`M19-F03/F04/F06` & `SEC04`):* Lưu DB `Inbound_Events` trước khi trả `2xx` (`INV-07`); chế độ `BACKFILL`/`REPLAY` không kích hoạt Journey/SLA live và hủy `Outbound_Intents` hết TTL thay vì xả lũ tin; tải media từ xa kiểm tra IP sau DNS-resolve, cấm redirect và giới hạn byte/timeout (`GAP-M19-01..02`).
+     2. *Bàn giao Nghỉ việc 2 Pha (`M14-F06` & `UC12`):* Pha 1 cắt phiên/quyền nguyên tử tại `effective_at` (`ADR-003`) và gán tạm `Queue Manager` làm `Custodian` cho 8 nhóm open work; Pha 2 yêu cầu người nhận mới bấm `Accept` (hoặc `Reject` có lý do) trước khi đóng ca sang `OFFBOARDED`.
+     3. *Cổng Kiểm tra Quyền Thực thi (`M14-F04`):* Hợp đồng 3 cổng kết hợp binding phiên giao dịch (`SET LOCAL`), đánh giá bản ghi đơn lẻ/Download Gateway (`INTERACTIVE_READ` invalidate cache + đọc Primary DB khi lệch phiên bản; `GUARDED_EXECUTION` fail-closed `409/401`), và đẩy bộ lọc `Predicate AST + SET LOCAL` xuống câu truy vấn gốc.
+2. **`M20` — Quản trị Dữ liệu Cá nhân, Consent, Suppression & Quyền Chủ thể (`Reviewed`):**
+   - **Tệp đặc tả Module:** [M20-PRIVACY-CONSENT-RETENTION.md](../02-specs/modules/M20-PRIVACY-CONSENT-RETENTION.md) — Đạt `complete_id_mentions` (`14/14` ID sở hữu trực tiếp + toàn bộ ID/thực thể mở rộng); đặc tả EARS cho 8 chức năng `M20-F01..08`, sở hữu **12 bảng logic** (phân loại `Nhóm A/B/C` & cột phạm vi `ADR-004`, khôi phục đầy đủ `Consent_Logs` & endpoint `POST /v1/consents/revoke`), và khóa bảng Tham số Mở (`GAP-M20-01..10`, bỏ giả định `72h` hay cam kết `0s` queue cleanup).
+   - **Tệp Hợp đồng Liên Module (`Contract`):** [M20-SUPPRESSION-PRIVACY-GATE.md](../02-specs/contracts/M20-SUPPRESSION-PRIVACY-GATE.md) (`v1.1`) — Hợp đồng 4 cổng (`EvaluateOutboundCompliance`, `EvaluateVendorAndAiTransfer`, `VerifyPostRestoreComplianceGate`, `EvaluateAssetDownloadPrivacyGate`) kèm JSON Schema đầy đủ và 4 Domain Events (`M20.EndpointSuppressed`, `M20.SubjectErasureExecuted`, `M20.LegalHoldChanged`, `M20.DataIncidentEscalated`).
+   - **3 Quyết định Kiến trúc cốt lõi:**
+     1. *Định danh Suppression & Mục đích gửi (`M20-F02/03`):* Gắn `Endpoint_Suppressions` trực tiếp vào điểm liên hệ vật lý (`endpoint_lookup_hash + channel + purpose_code`) độc lập với `contact_id`; `Unsubscribe` chặn Marketing/Survey nhưng giữ thông báo Dịch vụ/Hợp đồng (`OC17`), còn `Hard-Bounce` chặn mọi gửi tự động trên endpoint đó.
+     2. *Xóa phân tầng kết hợp Cô lập `Legal Hold` & Sổ Xóa `HMAC` (`M20-F06` & `UC11`):* Xóa sạch phần Marketing/Chat/Search/AI; phần Hợp đồng/Chứng từ kế toán (`M08/M09`) chuyển sang `RESTRICTED_LEGAL_HOLD`; ghi mã băm `HMAC-SHA256` kèm `hmac_key_version` vào `Deletion_Ledger` lưu PITR/WAL độc lập (`ADR-007`) để tự động xóa lại khi Restore Backup (`INT26`).
+     3. *Cổng Kép Gửi tin & Kiểm soát AI/Vendor (`M20-F03/07`):* Kiểm tra `EvaluateOutboundCompliance` bằng cách đọc Primary DB trực tiếp ở `DISPATCH_AUTHORITATIVE`; chặn gửi sang AI/Vendor chưa `ACTIVE` (`No-Train != ZDR` theo `RV17`) và thay thế PII qua `Placeholder_Vault` có TTL ngắn trước khi rời hệ thống.
+3. **`M19` — Tích hợp, Ingest & Outbox (`Reviewed`):**
+   - **Tệp đặc tả Module:** [M19-INTEGRATION-ADAPTERS-OUTBOX.md](../02-specs/modules/M19-INTEGRATION-ADAPTERS-OUTBOX.md) — Đạt `complete_id_mentions` (`24/24` ID sở hữu trực tiếp + toàn bộ ID mở rộng); đặc tả 3 máy trạng thái tách rời, 8 chức năng `M19-F01..08`, sở hữu **14 bảng logic + phần định tuyến kênh ngoài `Connector_Mappings`** (tổng 15 dòng Từ điển 4.2, gồm `Message_Status_Events`, `Email_Delivery_Events`; tách bạch External Outbox ở `M19` vs Internal Outbox ở `M23-F12` và cô lập 3 làn queue theo `ADR-005`), và khóa bảng Tham số Mở (`GAP-M19-01..10`, gắn `UNVERIFIED_UNTIL_POC` cho Zalo webhook & Meta Tags).
+   - **Tệp Hợp đồng Public (`Contract`):** [M19-DURABLE-INGEST-OUTBOX.md](../02-specs/contracts/M19-DURABLE-INGEST-OUTBOX.md) (`v1.1`) — Hợp đồng 5 trụ cột (`IngestWebhookEvent`, `EnqueueOutboundIntent`, `DispatchOutboundIntent`, `ExecuteSafeRemoteFetch`, `ReplayConnectionEvents`) kèm 5 Domain Events (`M19.InboundEventPersisted`, `M19.OutboundDispatchResulted`, `M19.MessageReceiptUpdated`, `M19.ConnectionHealthChanged`, `M19.SyncCoverageGapReported`) và tiêu thụ đồng bộ sự kiện từ `M14/M20/M23`.
+   - **3 Quyết định Kiến trúc cốt lõi:**
+     1. *Sở hữu kết nối đơn Workspace (`M19-F01` & `SEC02`):* Partial unique lock trên `(tenant_id, provider, provider_namespace, external_account_id)` với các trạng thái đang hoạt động/tạm dừng `ACTIVE/DEGRADED/REAUTHORIZATION_REQUIRED/PAUSED` (không gồm `PENDING_AUTHORIZATION`); chuyển giao theo trình tự 4 bước và giữ lịch sử ở workspace cũ.
+     2. *Tách DB Lock & Đóng băng `UNKNOWN_OUTCOME` khi Timeout sau gửi (`M19-F05` & `INT25`):* Cấm giữ DB lock khi gọi mạng (`INV-06`); tách `Lane 1` (live SLA) khỏi `Lane 3` (backfill/replay); đặt `allow_auto_retry = false` cho giao dịch tiền/lương/ZBS phí; timeout sau khi payload có thể đã rời đi đóng băng ở `UNKNOWN_OUTCOME` để đối soát kèm `evidence_ref`.
+     3. *Ingest bền vững trước ACK, Backfill/Replay an toàn TTL & Chống SSRF (`M19-F04/F06/F08` & `SEC04`):* Lưu DB `Inbound_Events` trước khi trả `2xx` (`INV-07`); `BACKFILL`/`REPLAY` hủy `Outbound_Intents` hết TTL thay vì xả lũ; tải media từ xa kiểm tra IP sau DNS-resolve, cấm redirect, kiểm MIME `+33%` và `min(product, provider)` (`GAP-M19-02`).

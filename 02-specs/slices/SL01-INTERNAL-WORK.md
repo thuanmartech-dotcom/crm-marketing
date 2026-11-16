@@ -6,7 +6,7 @@ Trạng thái: đề xuất pilot đủ để review; physical design và policy
 
 Người giao biết ai chịu trách nhiệm; người làm nhận việc và nộp một phiên bản kết quả; reviewer duyệt đúng bản; My Work phản ánh trạng thái có quyền xem. Pilot kiểm cả người dùng cá nhân và một team, không cần Contact/Account/Contract/Project giả.
 
-Owner nghiệp vụ M16. M14 cung cấp principal/membership/grants; M20 cung cấp retention/purpose/visibility controls; M19 cung cấp outbox dispatch infrastructure. M18 chỉ nhận dữ kiện/projection, không đổi task. Vai trò nhân sự cụ thể còn GAP-05.
+Owner nghiệp vụ M16. M14 cung cấp principal/membership/grants ([M14-PRINCIPAL-ACCESS-DECISION.md](../contracts/M14-PRINCIPAL-ACCESS-DECISION.md) & `ADR-002/003`); M20 cung cấp retention/purpose/visibility controls ([M20-SUPPRESSION-PRIVACY-GATE.md](../contracts/M20-SUPPRESSION-PRIVACY-GATE.md)); **`M23-F12` (`Internal_Outbox_Events`, `ADR-005`)** cung cấp hạ tầng outbox/notification nội bộ *(cập nhật delta từ tài liệu cũ trỏ nhầm sang `M19` — `M19` chỉ dành cho adapter tích hợp ngoài)*. M18 chỉ nhận dữ kiện/projection, không đổi task. Vai trò nhân sự cụ thể còn GAP-05.
 
 In scope đề xuất: PERSONAL và INTERNAL; một assignee hoặc queue hợp lệ; draft/open, offer/accept/decline/claim; start, text result, submit/review; My Work và team list; audit, outbox notification nội bộ. Result text được sanitize; file upload chưa enable. Queue không có manager không được dùng. Team board drag/drop, thay hạn, broadcast, comments/mentions, recurrence, dependencies và dự án theo mốc sau; vẫn giữ toàn bộ yêu cầu P0 ở registry.
 
@@ -93,7 +93,7 @@ Submission đang InReview không được mutate. Muốn đổi kết quả ph�
 | Task_Submissions / Reviews | M16 | Chuẩn hóa tên vật lý; FK task/submission cùng scope; immutable result version/hash; unique decision/effect theo command |
 | Task_Events | M16 | Actor/source/reason/version; append history; retention có policy |
 | Queue/grants/membership | M14 phối hợp M16 | Phân biệt queue task với lead assignment; chốt shared queue hay riêng bằng ADR |
-| Outbox/dedup/idempotency | M19 infrastructure, M16 payload | Atomic writes, leased processing, consumer effect key, retry status; cleanup không mất khả năng dedup cần thiết |
+| Outbox/dedup/idempotency | **`M23-F12` (`Internal_Outbox_Events` — `ADR-005`)**, M16 payload | Atomic writes trong `Internal_Outbox_Events`, leased processing ở Lane 2, consumer effect key, retry status; tách khỏi External Outbox `M19` (`INV-23`) |
 | Notification projection | Owner đề xuất M16 | Recipient grant hiện tại; dispatch state khác assignment accepted |
 
 Không tạo Contract/Project chỉ để FK chạy. Tên grouped `Task_Submissions / Reviews` không được tự coi hai bảng với tên viết tắt đã chuẩn. Physical package phải chỉ rõ columns/types/nullability/unique/index/FK/RLS policies, error mapping, clean install, upgrade và lock plan.

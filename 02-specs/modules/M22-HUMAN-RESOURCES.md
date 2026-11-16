@@ -186,6 +186,11 @@ Events: `hr.employment.changed.v1`, `hr.availability.changed.v1`, `hr.attendance
 7. Kiểm ngay sau import bằng mẫu do HR chọn và totals; batch chưa có downstream có thể reverse bằng command, không xóa cứng lịch sử. Đã có nghiệp vụ phát sinh phải correction có liên kết và đối soát lại.
 8. Sau chấp nhận HR-A, Excel vận hành cũ chỉ đọc. Payroll giai đoạn chuyển tiếp vẫn được tính/đối chiếu trong công cụ hiện tại theo owner rõ; khi HR-C chính thức, chốt lại system of record payroll. Chạy song song ít nhất hai kỳ liên tiếp với bộ kết quả được duyệt, không phát hai lệnh chi.
 
+> **Ghi chú Đồng bộ Kiến trúc Wave 1 (`ADR-004 / 006 / 008`):**
+> - **Tài khoản Ngân hàng Nhân sự (`ADR-004`):** Bảng/trường tài khoản ngân hàng cá nhân nhận lương của `Employee` mang tên định chuẩn **`Employee_Bank_Accounts`**, tách biệt hoàn toàn khỏi tài khoản ngân hàng pháp nhân công ty (`M09.Bank_Accounts`).
+> - **`EmployeeDocument` & Chứng từ HR (`ADR-006`):** Việc tải tệp nhạy cảm qua *"File gateway M20"* sử dụng chuỗi khép kín **`Download Gateway SEC03`** (`M14.EvaluateAccessDecision` `GUARDED_EXECUTION` $\rightarrow$ `M20` Scan/Hold/`6.8` HR document gate $\rightarrow$ `M23-F07` Audit), tuyệt đối không trả URL Storage thô.
+> - **Liên thông Sự kiện `M22` $\leftrightarrow$ `M14` & Thiết bị/Bank `M19` (`ADR-008`):** Sự kiện `hr.employment.changed.v1`, `hr.availability.changed.v1`, `hr.offboarding.effective.v1` được `M14` tiêu thụ có kiểm tra `effective_at` & `aggregate_version` chống out-of-order và không tự mở quyền dữ liệu kinh doanh (`H-T04`); kết nối thiết bị chấm công (`M22-F10`) & cổng chi lương ngân hàng (`M22-F28`) chạy qua adapter versioning + `allow_auto_retry = false` tại [`M19`](M19-INTEGRATION-ADAPTERS-OUTBOX.md) (`H-NFR08`).
+
 ### 6.8 Phân quyền và bảo vệ dữ liệu M22
 
 | Vai trò | Được phép trong scope | Không mặc nhiên được phép |

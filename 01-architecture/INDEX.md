@@ -27,7 +27,7 @@ Baseline 1.9; nguồn chính Master 3.0, 2.8, 5.1, 5.19. Chi tiết catalog nguy
 | M21 | Partner sharing profiles/datasets/imports/reconciliation/reports | Agency outcome integration, core theo mức chia sẻ | SL08 sau foundation; API theo capability |
 | M22 | Employee/employment/leave/attendance/payroll | HR extension; same app, separate data authority | SL09 HR-A; SL10 HR-B; SL11 HR-C |
 
-Owner ở đây là domain chịu trách nhiệm, chưa phải nhân sự đã được chỉ định. BA/PO chỉ định người accountable trước enable. Một projection không được biến thành nguồn ghi; Outbox infrastructure M19 không sở hữu ý nghĩa event nghiệp vụ M16. Reviewer cấp quyền M14 không tự được duyệt kết quả M16 nếu thiếu assignment/authority.
+Owner ở đây là domain chịu trách nhiệm, chưa phải nhân sự đã được chỉ định. BA/PO chỉ định người accountable trước enable. Một projection không được biến thành nguồn ghi; hạ tầng Outbox tích hợp ngoài `M19` tách biệt khỏi **Outbox/DLQ sự kiện nội bộ tại `M23-F12`** (`ADR-005`) và không sở hữu ý nghĩa event nghiệp vụ `M16`. Reviewer cấp quyền `M14` không tự được duyệt kết quả `M16` nếu thiếu assignment/authority.
 
 ## Bản đồ tài liệu
 
@@ -119,7 +119,20 @@ M21→M19 public ingest/connection contract; M21→M18 metric definitions; M21�
 | M24 | UX Productivity (`Ctrl+K`, Split-View, Bulk dry-run, Quick Replies, Smart Notification/Digest) & Platform Scale (Read Model/Permission Cache, Queue Priority Isolation, Async Export/Archiving) | Cross-cutting UX & platform scale | SL00–07 | [M24-PERFORMANCE-AND-PRODUCTIVITY.md](../02-specs/modules/M24-PERFORMANCE-AND-PRODUCTIVITY.md) |
 
 **Ranh giới Single Source of Truth (khử chồng chéo):**
-- `M23-F03` quản lý luồng xin/duyệt/TTL Break-glass và ghi grant tạm thời vào `M14`; **`M14` là cổng kiểm tra quyền thực thi duy nhất**.
-- `M19-F07` chỉ quản lý health/DLQ **adapter tích hợp ngoài**; `M23-F12` quản lý **Queue Priority, Outbox/DLQ nội bộ và diễn tập Backup/Restore**.
-- `M23-F10` sở hữu Lịch chuẩn Tenant/Pháp nhân, Ngày lễ & `Quiet Hours`; `M22-F07` kế thừa để phân ca nhân viên; `M04/M11/M16` đọc từ `M23-F10`.
-- Chuỗi Export thống nhất: `M18-F10` / màn hình nguồn $\rightarrow$ duyệt 2 lớp & watermark `M23-F07` $\rightarrow$ chạy nền `M24-F08` $\rightarrow$ Download Gateway (`Chương 6.2`).
+- `M23-F03` quản lý luồng xin/duyệt/TTL Break-glass (`Maker != Checker`) và ghi grant hiệu lực sang `M14`; **`M14` là cổng kiểm tra quyền thực thi duy nhất (`EvaluateAccessDecision` + `CompileScopeFilter` + `BindDbTransactionContext`)** và sở hữu runtime `Break_Glass_Grants` + `Principal_Permission_Versions`.
+- `M19-F07` chỉ quản lý adapter/Outbox/DLQ cho **tích hợp bên ngoài** (`Channel_Connections`, `Inbound_Events`, `Outbound_Intents`, `Message_Status_Events`, `Email_Delivery_Events`); **`M23-F12`** quản lý **Outbox/DLQ nội bộ dùng chung (`Internal_Outbox_Events` / `Internal_Dead_Letter_Queue`), `Queue Priority` và diễn tập Backup/Restore (`DR Startup Fence`)**.
+- `M23` sở hữu bảng cấu hình dùng chung `Policy_Definitions` / `Policy_Versions` (`ENTITY-L2885`) và `Audit_Logs` (`ENTITY-L2787`); từng domain giữ bảng nghiệp vụ đặc thù riêng (`M20.Legal_Deadline_Policies`, `M20.Retention_Policies`) và `M14.Departments` thuộc cây tổ chức `M14`.
+- **`Bank_Accounts` (`ADR-004`):** `M09.Bank_Accounts` giữ tài khoản ngân hàng pháp nhân thu/chi công ty; `M22.Employee_Bank_Accounts` giữ tài khoản cá nhân nhận lương/hoa hồng nhân sự.
+- `M23-F10` sở hữu Lịch chuẩn Tenant/Pháp nhân, Ngày lễ & `Quiet Hours`; `M22-F07` kế thừa để phân ca nhân viên; `M04`/`M11`/`M16` đọc từ `M23-F10`.
+- Chuỗi Export & **`Download Gateway SEC03` (`ADR-006`)** thống nhất: `M18-F10` / màn hình nguồn $\rightarrow$ duyệt 2 lớp & watermark `M23-F07` $\rightarrow$ chạy nền `M24-F08` $\rightarrow$ `Download Gateway SEC03` (`M14` live ACL/session + `expected_permission_version` $\rightarrow$ `M20` Scan/Hold/`6.8` HR gate $\rightarrow$ `M23-F07` Audit, cấm trả Storage URL thô).
+
+## Quyết định Kiến trúc (`01-architecture/decisions/`)
+
+1. [ADR-001 — Baseline Stack & Modular Monolith PostgreSQL](decisions/ADR-001-BASELINE-AND-STACK.md)
+2. [ADR-002 — Cô lập Tổ chức, Pooled PostgreSQL RLS & `CompileScopeFilter`](decisions/ADR-002-ORG-ISOLATION-RLS-AND-SCOPE-FILTER.md)
+3. [ADR-003 — `permission_version` Hai Chế độ, Cache `M24-F06` & Quản trị `SOLO/TEAM`](decisions/ADR-003-PERMISSION-VERSION-CACHE-AND-MODE-GOVERNANCE.md)
+4. [ADR-004 — Bảng Nền tảng Dùng chung, Ranh giới SSoT & 3 Nhóm Kế thừa Cột `5.1`](decisions/ADR-004-SHARED-PLATFORM-TABLES-AND-BASE-SCHEMA.md)
+5. [ADR-005 — Dual Outbox (`M19` Ngoài vs `M23-F12` Nội bộ), Cô lập 3 Làn Queue & Vault](decisions/ADR-005-DUAL-OUTBOX-3LANE-ISOLATION-AND-VAULT.md)
+6. [ADR-006 — `Download Gateway` (`SEC03`), Zero-Trust `Remote Fetch` (`SEC04`) & `AI Gateway`](decisions/ADR-006-DOWNLOAD-GATEWAY-REMOTE-FETCH-AND-AI-GATEWAY.md)
+7. [ADR-007 — Chuẩn hóa `HMAC` & Xoay khóa `Deletion_Ledger`, `Legal Hold` & DR Fence](decisions/ADR-007-PRIVACY-CANONICAL-HASH-LEGAL-HOLD-AND-DR-FENCE.md)
+8. [ADR-008 — Khóa Hợp đồng Liên Module Wave 1 (`M14 <-> M19 <-> M20 <-> M22 <-> M03`)](decisions/ADR-008-OMNICHANNEL-CONTRACTS-RECEIPTS-AND-CROSS-EVENTS.md)

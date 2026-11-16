@@ -1,12 +1,12 @@
 {
-  "run_at": "2026-11-15T18:24:42.459441+00:00",
+  "run_at": "2026-11-16T02:49:25.195986+00:00",
   "kind": "spec-analyze-and-traceability validation only",
   "baseline_sha256": "b6a3279f328e96e1e97d845e209be7a326516a0dba5e3a033d88e1f2162e421c",
   "all_passed": true,
   "modules_checked": 8,
   "slices_checked": 3,
   "contracts_checked": 3,
-  "changes_checked": 0,
+  "changes_checked": 1,
   "skills_checked": 8,
   "partial_trace_warnings": {
     "M18": 5
@@ -21,6 +21,9 @@
       "missing_sections": [],
       "has_provenance_tags": true,
       "has_baseline_ref": true,
+      "has_precondition_blocks": true,
+      "has_base_scope_columns": true,
+      "has_10col_test_matrix": true,
       "trace_ids_complete": true,
       "missing_ids_count": 0,
       "missing_ids_sample": [],
@@ -35,6 +38,9 @@
       "missing_sections": [],
       "has_provenance_tags": false,
       "has_baseline_ref": true,
+      "has_precondition_blocks": false,
+      "has_base_scope_columns": false,
+      "has_10col_test_matrix": false,
       "trace_ids_complete": false,
       "missing_ids_count": 5,
       "missing_ids_sample": [
@@ -55,6 +61,9 @@
       "missing_sections": [],
       "has_provenance_tags": true,
       "has_baseline_ref": true,
+      "has_precondition_blocks": true,
+      "has_base_scope_columns": true,
+      "has_10col_test_matrix": true,
       "trace_ids_complete": true,
       "missing_ids_count": 0,
       "missing_ids_sample": [],
@@ -69,6 +78,9 @@
       "missing_sections": [],
       "has_provenance_tags": true,
       "has_baseline_ref": true,
+      "has_precondition_blocks": true,
+      "has_base_scope_columns": true,
+      "has_10col_test_matrix": true,
       "trace_ids_complete": true,
       "missing_ids_count": 0,
       "missing_ids_sample": [],
@@ -83,6 +95,9 @@
       "missing_sections": [],
       "has_provenance_tags": false,
       "has_baseline_ref": false,
+      "has_precondition_blocks": false,
+      "has_base_scope_columns": false,
+      "has_10col_test_matrix": false,
       "trace_ids_complete": true,
       "missing_ids_count": 0,
       "missing_ids_sample": [],
@@ -97,6 +112,9 @@
       "missing_sections": [],
       "has_provenance_tags": false,
       "has_baseline_ref": true,
+      "has_precondition_blocks": false,
+      "has_base_scope_columns": false,
+      "has_10col_test_matrix": false,
       "trace_ids_complete": true,
       "missing_ids_count": 0,
       "missing_ids_sample": [],
@@ -111,6 +129,9 @@
       "missing_sections": [],
       "has_provenance_tags": false,
       "has_baseline_ref": true,
+      "has_precondition_blocks": false,
+      "has_base_scope_columns": false,
+      "has_10col_test_matrix": false,
       "trace_ids_complete": true,
       "missing_ids_count": 0,
       "missing_ids_sample": [],
@@ -125,6 +146,9 @@
       "missing_sections": [],
       "has_provenance_tags": false,
       "has_baseline_ref": true,
+      "has_precondition_blocks": false,
+      "has_base_scope_columns": false,
+      "has_10col_test_matrix": false,
       "trace_ids_complete": true,
       "missing_ids_count": 0,
       "missing_ids_sample": [],
@@ -170,6 +194,9 @@
       "bad_links": [],
       "no_fake_pass": true,
       "missing_contract_parts": [],
+      "json_schema_count": 5,
+      "invalid_json_blocks": [],
+      "has_event_envelope_fields": true,
       "passed": true
     },
     {
@@ -178,6 +205,9 @@
       "bad_links": [],
       "no_fake_pass": true,
       "missing_contract_parts": [],
+      "json_schema_count": 5,
+      "invalid_json_blocks": [],
+      "has_event_envelope_fields": true,
       "passed": true
     },
     {
@@ -186,10 +216,21 @@
       "bad_links": [],
       "no_fake_pass": true,
       "missing_contract_parts": [],
+      "json_schema_count": 4,
+      "invalid_json_blocks": [],
+      "has_event_envelope_fields": true,
       "passed": true
     }
   ],
-  "change_results": [],
+  "change_results": [
+    {
+      "file": "02-specs\\changes\\archive\\CR-20261116-WAVE1-RECONCILIATION.md",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "passed": true
+    }
+  ],
   "skill_results": [
     {
       "file": ".agents\\skills\\crm-ba-spec\\references\\change-proposal-template.md",

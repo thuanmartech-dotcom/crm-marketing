@@ -117,6 +117,19 @@ def check_module_file(
 
     has_provenance_tags = bool(re.search(r'\[(MASTER|PROPOSED|OPEN-GAP(?::[^\]]+)?)\]', text))
     has_baseline_ref = (baseline_sha in text) or ('1.9' in text)
+    has_precondition_blocks = bool(re.search(r'^\s*-\s+\*\*Tiền điều kiện', text, re.M))
+    has_base_scope_columns = all(col in text for col in ('branch_id', 'legal_entity_id', 'business_line_id'))
+    test_header_match = re.search(r'^(\|\s*Mã Test\s*\|[^\r\n]+)$', text, re.M)
+    if test_header_match:
+        cols = [c.strip() for c in test_header_match.group(1).strip().strip('|').split('|')]
+        header_joined = ' | '.join(cols)
+        has_10col_test_matrix = (
+            len(cols) == 10
+            and all(req in header_joined for req in ('Severity', 'Fixture', 'Build', 'Actual'))
+            and (('Status' in header_joined) or ('Evidence' in header_joined))
+        )
+    else:
+        has_10col_test_matrix = False
 
     mod_match = re.match(r'^(M\d{2})-', path.name)
     mod_id = mod_match[1] if mod_match else None
@@ -125,7 +138,15 @@ def check_module_file(
 
     passed = fences_ok and (not bad_links) and no_fake_pass and (not missing_sections)
     if not is_legacy:
-        passed = passed and has_provenance_tags and has_baseline_ref and trace_ids_complete
+        passed = (
+            passed
+            and has_provenance_tags
+            and has_baseline_ref
+            and has_precondition_blocks
+            and has_base_scope_columns
+            and has_10col_test_matrix
+            and trace_ids_complete
+        )
 
     return {
         'file': str(path.relative_to(ROOT)),
@@ -136,6 +157,9 @@ def check_module_file(
         'missing_sections': missing_sections,
         'has_provenance_tags': has_provenance_tags,
         'has_baseline_ref': has_baseline_ref,
+        'has_precondition_blocks': has_precondition_blocks,
+        'has_base_scope_columns': has_base_scope_columns,
+        'has_10col_test_matrix': has_10col_test_matrix,
         'trace_ids_complete': trace_ids_complete,
         'missing_ids_count': len(missing_ids),
         'missing_ids_sample': missing_ids[:25],
@@ -172,16 +196,39 @@ def check_slice_file(path: Path, baseline_sha: str, strict_all: bool = False) ->
 
 
 def check_contract_file(path: Path) -> dict:
+    import json
+
     text = path.read_text(encoding='utf-8')
     fences_ok, bad_links, no_fake_pass = check_markdown_basics(path)
     missing_parts = [p for p in REQUIRED_CONTRACT_PARTS if not re.search(re.escape(p), text, re.I)]
-    passed = fences_ok and (not bad_links) and no_fake_pass and (not missing_parts)
+    normalized = text.replace('\r\n', '\n')
+    json_blocks = re.findall(r'```json\s*\n(.*?)\n```', normalized, re.S)
+    invalid_json_blocks = []
+    for idx, block in enumerate(json_blocks):
+        try:
+            json.loads(block)
+        except json.JSONDecodeError as exc:
+            invalid_json_blocks.append(f'block#{idx}: {exc.msg} (line {exc.lineno})')
+    has_json_schemas = len(json_blocks) >= 2
+    has_event_envelope_fields = ('correlation_id' in text) and ('schema_version' in text)
+    passed = (
+        fences_ok
+        and (not bad_links)
+        and no_fake_pass
+        and (not missing_parts)
+        and has_json_schemas
+        and (not invalid_json_blocks)
+        and has_event_envelope_fields
+    )
     return {
         'file': str(path.relative_to(ROOT)),
         'fences_balanced': fences_ok,
         'bad_links': bad_links,
         'no_fake_pass': no_fake_pass,
         'missing_contract_parts': missing_parts,
+        'json_schema_count': len(json_blocks),
+        'invalid_json_blocks': invalid_json_blocks,
+        'has_event_envelope_fields': has_event_envelope_fields,
         'passed': passed,
     }
 

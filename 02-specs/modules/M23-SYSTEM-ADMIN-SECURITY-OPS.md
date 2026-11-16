@@ -10,14 +10,14 @@
 - **Baseline tham chiếu:** [CRM_MASTER_BRD_SRS_HOP_NHAT.md](../../00-master/CRM_MASTER_BRD_SRS_HOP_NHAT.md) (`v1.9`, `SHA-256: b6a3279f328e96e1e97d845e209be7a326516a0dba5e3a033d88e1f2162e421c`), trọng tâm Mục `6.1` (Mô hình quyền & Thẩm quyền cấp quyền), `6.2` (Bảo vệ dữ liệu, Export, Audit, Download Gateway), `7.2–7.5` (Độ sẵn sàng, DRP, Feature flags).
 - **Trạng thái:** `Draft (Proposed Extension — chưa phê duyệt đưa vào Baseline v1.9; chưa có code/DDL/test chạy)`.
 - **Domain Owner (đề xuất):** Technical/Security Lead (vận hành cấu hình kỹ thuật) + Owner/CEO hoặc Security/Privacy Approver (phê duyệt thẩm quyền, Break-glass, Export).
-- **Thực thể sở hữu (Owned Entities — Đề xuất):** `Auth_Session_Policies`, `Break_Glass_Grants`, `Approval_Matrix_Rules`, `Tenant_Operating_Modes`, `Export_Requests`, `Security_Anomaly_Alerts`, `Feature_Flag_Configs`, `System_Calendars`, `Shared_Dictionaries`, `Shared_Templates`, `Backup_Drill_Logs`.
+- **Thực thể sở hữu (Owned Entities — Đề xuất + Platform Shared `ADR-004/005`):** `Policy_Definitions` & `Policy_Versions` (`ENTITY-L2885` — SSoT cấu hình nền tảng theo version), `Audit_Logs` (`ENTITY-L2787` — sổ kiểm toán bất biến `M23-F06`), `Auth_Session_Policies`, `Break_Glass_Requests` (luồng xin–duyệt–thu hồi tại `M23-F03`; phát event `M23.BreakGlassApproved` / `M23.BreakGlassRevoked` gọi `M14.ApplyBreakGlassGrant` / `RevokeBreakGlassGrant` trên `M14.Break_Glass_Grants`), `Approval_Matrix_Rules`, `Tenant_Operating_Modes` (`SOLO_PILOT <-> TEAM`, đồng bộ sang `M14.SetTenantOperatingMode`), `Export_Requests`, `Security_Anomaly_Alerts`, `Feature_Flag_Configs`, `System_Calendars`, `Shared_Dictionaries`, `Shared_Templates`, `Internal_Outbox_Events` & `Internal_Dead_Letter_Queue` (`M23-F12`), `Backup_Drill_Logs`.
 - **Module tiêu thụ (Consumers):** Toàn bộ `M01–M24` (đặc biệt `M07`, `M10`, `M14`, `M15`, `M17`, `M18`, `M19`, `M20`, `M22`, `M24`).
-- **Ranh giới tuyệt đối (*Single Source of Truth* — `INV-23`, `INV-24`):**
-  - **`M23` vs `M14` (Quyền & Break-glass):** `M14` vẫn sở hữu cây tổ chức (`Tenant/Branch/Legal Entity/Workspace`), `Membership`, `Entity_Team_Grants` và là **cổng kiểm tra quyền thực thi (`RBAC + ABAC`) duy nhất**. `M23-F03` chỉ quản lý quy trình xin–duyệt–TTL của `Break-glass` và ghi grant tạm thời sang `M14`.
-  - **`M23` vs `M20` (Privacy):** `M20` sở hữu mục đích xử lý dữ liệu cá nhân, `Consent`, `Suppression`, `Privacy_Requests` và `Retention/Legal Hold`.
-  - **`M23` vs `M19` (Sức khỏe, Outbox & DLQ):** `M19` (`M19-F07`) sở hữu `Connector/OAuth` và DLQ/health cho **tích hợp bên ngoài**; `M23-F12` chỉ quản lý **hệ thống nội bộ dùng chung** (trạng thái `Queue Priority` của `M24-F07`, Outbox/DLQ nội bộ và nhật ký diễn tập Backup/Restore).
-  - **`M23` vs `M22/M11/M04/M16` (Lịch chuẩn):** `M23-F10` sở hữu Lịch chuẩn Tenant/Pháp nhân, Ngày lễ & `Quiet Hours`; `M22-F07` kế thừa để phân ca từng nhân viên; `M04`/`M11`/`M16` đọc từ `M23-F10`.
-  - **Chuỗi Export thống nhất:** Mọi xuất dữ liệu lớn/báo cáo định kỳ đi qua `M18-F10` / màn hình nguồn $\rightarrow$ `M23-F07` (Duyệt 2 lớp & Watermark) $\rightarrow$ [`M24-F08`](M24-PERFORMANCE-AND-PRODUCTIVITY.md) (Worker chạy nền) $\rightarrow$ Download Gateway.
+- **Ranh giới tuyệt đối (*Single Source of Truth* — `INV-23`, `INV-24`, `ADR-003/004/005/006/007`):**
+  - **`M23` vs `M14` (Quyền, Policy, Mode & Break-glass):** `M14` sở hữu cây tổ chức (`Tenant/Branch/Legal Entity/Workspace/Department`), `Membership`, `Entity_Team_Grants`, `Principal_Permission_Versions`, **SSoT thực thi ACL `Break_Glass_Grants`**, và là **cổng kiểm tra quyền thực thi (`RBAC + ABAC + Legal Hold`) duy nhất**. `M23-F03` sở hữu bảng quy trình `Break_Glass_Requests` (`Maker != Checker` & TTL) rồi phát `M23.BreakGlassApproved`/`Revoked` gọi `M14.ApplyBreakGlassGrant`/`RevokeBreakGlassGrant`; `M23-F05` đồng bộ chế độ vận hành sang `M14.SetTenantOperatingMode` (`ADR-003`).
+  - **`M23` vs `M20` (Privacy & Restore Gate):** `M20` sở hữu mục đích xử lý dữ liệu cá nhân, `Consent`, `Legal_Deadline_Policies`, `Retention_Policies`, `Suppression`, `Privacy_Requests` và `Retention/Legal Hold`; định nghĩa policy version chia sẻ qua `Policy_Definitions/Versions` (`M23` `Draft -> Reviewed -> Active`).
+  - **`M23` vs `M19` (Sức khỏe, Outbox & DLQ):** `M19` (`M19-F07`) sở hữu `Connector/OAuth` và DLQ/health cho **tích hợp bên ngoài**; `M23-F12` sở hữu **Outbox/DLQ nội bộ dùng chung (`Internal_Outbox_Events` / `Internal_Dead_Letter_Queue`)**, giám sát `Queue Priority` của `M24-F07`, và điều phối **`DR Startup Fence` (`Master 7.3 L3294`, `ADR-007`)** — bắt buộc khóa `M19` Worker, chạy đối soát `M14` + `M19` (`EXPIRED_CANCELLED`) + `M20.VerifyPostRestoreComplianceGate` rồi mới ghi `Backup_Drill_Logs` và mở lại traffic.
+  - **`M23` vs `M22/M11/M04/M16` (Lịch chuẩn & Catalog):** `M23-F10` sở hữu Lịch chuẩn Tenant/Pháp nhân, Ngày lễ & `Quiet Hours`; `M22-F07` kế thừa để phân ca từng nhân viên; `M04`/`M11`/`M16` đọc từ `M23-F10`.
+  - **Chuỗi Export & `Download Gateway SEC03` (`ADR-006`):** Mọi xuất dữ liệu lớn/báo cáo định kỳ đi qua `M18-F10` / màn hình nguồn $\rightarrow$ `M23-F07` (Duyệt 2 lớp & Watermark) $\rightarrow$ [`M24-F08`](M24-PERFORMANCE-AND-PRODUCTIVITY.md) (Worker chạy nền) $\rightarrow$ **`Download Gateway SEC03` (`M14` live ACL/session + `expected_permission_version` $\rightarrow$ `M20` Asset scan/Erasure/Legal-Hold/`6.8` HR doc gate $\rightarrow$ `M23-F07` expiry/no-store audit)**.
   - **Nguyên tắc Chương 6.1:** Technical Admin triển khai chính sách đã duyệt, không mặc nhiên được tự cấp quyền xem dữ liệu kinh doanh, tài chính hay lương (`M22`).
 - **Read first:** [INVARIANTS.md](../../01-architecture/INVARIANTS.md) (`INV-01`, `INV-02`, `INV-09`, `INV-13`, `INV-14`, `INV-22`, `INV-23`, `INV-24`), [INDEX.md](../../01-architecture/INDEX.md), [M24-PERFORMANCE-AND-PRODUCTIVITY.md](M24-PERFORMANCE-AND-PRODUCTIVITY.md).
 
@@ -50,10 +50,10 @@
   - Đề xuất thiết kế: Policy theo vai trò và tenant (`require_mfa_roles`, `idle_timeout_minutes`, `absolute_timeout_hours`, `max_concurrent_sessions`, `ip_allowlist_optional`). Thiếu cấu hình áp dụng bộ mặc định an toàn (`fail-closed` cho quyền Admin/Finance).
 - **`M23-F02` (Quản lý Phiên & Thu hồi khẩn cấp):**
   - Hiển thị danh sách phiên đang hoạt động (ẩn token thật, chỉ hiện thiết bị/IP rút gọn/thời điểm hoạt động).
-  - Cho phép ép đăng xuất một phiên hoặc toàn bộ phiên của nhân sự (kích hoạt tự động khi nhận event `M14-F06` nghỉ việc hoặc phát hiện mất thiết bị), tăng `permission_version` để vô hiệu JWT/session cache tức thì.
+  - Cho phép ép đăng xuất một phiên hoặc toàn bộ phiên của nhân sự (kích hoạt tự động khi nhận event `M14.UserOffboardingLocked` / `M14.PermissionVersionBumped`, sự cố rò rỉ `M20.DataIncidentEscalated` hoặc phát hiện mất thiết bị), đồng bộ tăng `M14.Principal_Permission_Versions` để vô hiệu JWT/session cache tức thì.
 - **`M23-F03` (Quyền khẩn cấp `Break-glass` có TTL):**
-  - Tác nhân kỹ thuật/hỗ trợ tạo yêu cầu kèm `target_workspace`, `reason`, `incident_ticket_id` và `ttl_minutes` (tối đa đề xuất 120–240 phút).
-  - Bắt buộc qua cơ chế duyệt ở `M23-F05`: **cấm mở mặc định sang dữ liệu lương `M22` hoặc ví tài chính nếu không được Security/CEO chỉ định riêng**. Tự động thu hồi khi hết TTL và khóa mọi session/download đang mở bằng grant đó (`Download Gateway` recheck).
+  - Tác nhân kỹ thuật/hỗ trợ tạo yêu cầu (`Break_Glass_Requests`) kèm `target_workspace`, `reason`, `incident_ticket_id` và `ttl_minutes` (tối đa đề xuất 120–240 phút).
+  - Bắt buộc qua cơ chế duyệt ở `M23-F05` (`Maker != Checker` khi `TEAM`): khi được duyệt/thu hồi, `M23-F03` phát `M23.BreakGlassApproved` / `M23.BreakGlassRevoked` và gọi `M14.ApplyBreakGlassGrant` / `M14.RevokeBreakGlassGrant` để ghi vào bảng ACL thực thi **`M14.Break_Glass_Grants`** (`ADR-003`). **Cấm mở mặc định sang dữ liệu lương `M22` hoặc ví tài chính nếu không được Security/CEO chỉ định riêng**; hết TTL tự động hết hạn `EXPIRED` tại `M14` và khóa mọi session/download đang mở qua `Download Gateway SEC03`.
 
 ### Trụ cột B — Ma trận Thẩm quyền & Cơ chế Maker–Checker Thích ứng (`M23-F04..05`)
 - **`M23-F04` (Ma trận Thẩm quyền & Ngưỡng Duyệt tập trung):**
@@ -72,7 +72,7 @@
   - Khi người dùng yêu cầu export danh sách có PII/tài chính hoặc vượt ngưỡng dòng cho phép (`M01–M22`, `M18-F10`): tạo `Export_Request (PendingApproval)`.
   - Người duyệt (khác người yêu cầu ở chế độ `TEAM`) rà xét mục đích, số dòng, trường nhạy cảm. Sau khi duyệt, worker nền mới kết xuất tệp, nhúng watermark (`user_id`, `request_id`, `exported_at`), thoát công thức CSV (`=,+,-,@`), đẩy về `Download Gateway` với link TTL ngắn.
 - **`M23-F08` (Cảnh báo Bất thường Truy cập & DLP):**
-  - Phát hiện theo rule định lượng (ví dụ: nhiều yêu cầu export liên tiếp, tải file vượt ngưỡng giờ, đăng nhập từ IP/vị trí lạ sau giờ làm, bùng phát lỗi `403/404` nghi rà quét ID) $\rightarrow$ tạo `Security_Anomaly_Alert`, đề xuất khóa phiên tạm thời (`M23-F02`) cho người trực xử lý.
+  - Phát hiện theo rule định lượng (ví dụ: nhiều yêu cầu export liên tiếp, tải file vượt ngưỡng giờ, đăng nhập từ IP/vị trí lạ sau giờ làm, bùng phát lỗi `403/404` nghi rà quét ID từ `M14`) đồng thời tiêu thụ `M20.DataIncidentEscalated` và `M19.ConnectionHealthChanged` $\rightarrow$ tạo `Security_Anomaly_Alert`, kích hoạt khóa phiên khẩn cấp (`M23-F02`) cho người trực xử lý.
 
 ### Trụ cột D — Cấu hình Hệ thống, Dữ liệu nền & Vận hành Nền tảng (`M23-F09..12`)
 - **`M23-F09` (Feature Flags, Gói ngành & Release Profile):**
@@ -93,17 +93,18 @@
 
 - **Thực thể chính (tất cả có `tenant_id`, `version`, `created_by`, `created_at`):**
   - `Auth_Session_Policies` (`policy_id`, `role_scope`, `mfa_required`, `idle_ttl_min`, `max_sessions`, `ip_allowlist`, `effective_from`)
-  - `Break_Glass_Grants` (`grant_id`, `requester_id`, `approver_id`, `target_scope`, `reason`, `ticket_ref`, `expires_at`, `revoked_at`, `status`)
+  - `Break_Glass_Requests` (`request_id`, `user_id`, `workspace_id`, `incident_ticket_id`, `scope_resource_types`, `allowed_actions`, `requested_by`, `approved_by`, `reason`, `ttl_expires_at`, `revoked_at`, `status` — chứng từ xin/duyệt tại `M23-F03`; khi `APPROVED`/`REVOKED` phát `M23.BreakGlassApproved` / `M23.BreakGlassRevoked` và gọi `M14.ApplyBreakGlassGrant` / `M14.RevokeBreakGlassGrant` đồng bộ sang SSoT thực thi `M14.Break_Glass_Grants` theo `ADR-003`)
   - `Approval_Matrix_Rules` (`rule_id`, `domain_module`, `action_code`, `threshold_json`, `approver_chain`, `version`, `status`, `effective_from`)
   - `Export_Requests` (`request_id`, `requester_id`, `approver_id`, `dataset_scope`, `row_count_est`, `purpose`, `status`, `watermark_hash`, `download_expires_at`)
   - `Feature_Flag_Configs` (`flag_key`, `scope_type`, `scope_id`, `state`, `dependencies`, `updated_by`, `reason`)
   - `System_Calendars` & `Shared_Dictionaries` (`calendar_id` / `dict_type`, `code`, `version`, `effective_from`, `archived_at`)
-- **Commands chính (`/admin/v1` — Đề xuất):**
+- **Commands chính (`/admin/v1` — Đề xuất) & Events liên kết Wave 1:**
   - `POST /admin/v1/sessions/{id}/revoke`, `POST /admin/v1/users/{id}/revoke-all-sessions`
-  - `POST /admin/v1/break-glass/requests`, `POST /admin/v1/break-glass/{id}/approve`, `POST /admin/v1/break-glass/{id}/revoke`
+  - `POST /admin/v1/break-glass/requests`, `POST /admin/v1/break-glass/{id}/approve` (phát `M23.BreakGlassApproved`), `POST /admin/v1/break-glass/{id}/revoke` (phát `M23.BreakGlassRevoked`)
+  - `POST /admin/v1/tenant/operating-mode` (cập nhật chế độ `SOLO_PILOT <-> TEAM`, phát `M23.TenantOperatingModeChanged` $\rightarrow$ `M14.SetTenantOperatingMode`)
   - `POST /admin/v1/approval-matrix/versions`, `POST /admin/v1/approval-matrix/{id}/activate`
   - `POST /admin/v1/exports/{id}/approve`, `POST /admin/v1/exports/{id}/reject`
-  - `POST /admin/v1/feature-flags/{key}/toggle`, `POST /admin/v1/dlq/{job_id}/replay`
+  - `POST /admin/v1/feature-flags/{key}/toggle` (phát `M23.FeatureFlagUpdated`), `POST /admin/v1/dlq/{job_id}/replay`
 - **Bảo vệ API:** Mọi command bắt buộc `idempotency_key`, `expected_version`, `reason` cho thao tác nhạy cảm và kiểm tra chế độ `SOLO/PILOT` vs `TEAM` ở server (`Maker != Checker` khi `TEAM`).
 
 ---

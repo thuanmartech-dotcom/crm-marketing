@@ -12,10 +12,10 @@
 - **Domain Owner (đề xuất):** Tech Lead + Product UX Lead + SRE / Platform Lead.
 - **Thực thể / Hạ tầng sở hữu (Logical):** `Command_Palette_Index`, `Bulk_Job_Batches`, `Quick_Reply_Templates`, `Notification_Preferences_Digest`, `Read_Model_Projections`, `Permission_Cache_Versions`, `Priority_Queue_Pools`, `Async_Export_Jobs`, `Cold_Archive_Partitions`.
 - **Module tiêu thụ (Consumers):** Toàn bộ `M01–M23`.
-- **Ranh giới Single Source of Truth:**
-  - `M24` **không sở hữu quyền hay logic nghiệp vụ domain**: mọi tìm kiếm/autocomplete/projection phải hỏi quyền `M14` (`permission_version`) và tuân thủ nguyên tắc *Deny-wins*.
-  - `M24-F08` (**Async Export**) chỉ đóng vai trò **động cơ kết xuất chạy nền**, luôn đi sau bước duyệt/watermark `M23-F07` và trả tệp qua Download Gateway (`INV-24`).
-  - `M24-F07` (**Queue Priority Isolation**) điều phối làn tài nguyên cho các worker; console theo dõi và thao tác xử lý DLQ nội bộ nằm ở [`M23-F12`](M23-SYSTEM-ADMIN-SECURITY-OPS.md).
+- **Ranh giới Single Source of Truth (`ADR-003`, `ADR-005`, `ADR-006`, `ADR-007`):**
+  - `M24` **không sở hữu quyền hay logic nghiệp vụ domain**: `Permission_Cache_Versions` của `M24-F06` chỉ là **bản phản chiếu Read-Model** từ SSoT **`M14.Principal_Permission_Versions` (`ADR-003`)**. Mọi đọc tương tác (`INTERACTIVE_READ`) nếu lệch cache bắt buộc invalidate & đọc lại Primary DB; mọi tác vụ nền (`M24-F03` Bulk, `M24-F08` Async Export, `M19` Worker, `Download Gateway SEC03`) chạy chế độ **`GUARDED_EXECUTION`** fail-closed `409/401` khi `permission_version` thay đổi.
+  - `M24-F08` (**Async Export**) chỉ đóng vai trò **động cơ kết xuất chạy nền**, luôn đi sau bước duyệt/watermark `M23-F07` và xuất tệp qua **`Download Gateway SEC03` (`M14 ACL + M20 Privacy/Hold/6.8` — `ADR-006`)**; tiến trình Archiving/Partitioning bắt buộc tôn trọng `Legal_Holds` & `M20.VerifyPostRestoreComplianceGate` (`ADR-007`).
+  - `M24-F07` (**Queue Priority Isolation**) điều phối **3 làn tài nguyên cô lập (`ADR-005`)**: Lane 1 (`M19-F04` Live Webhook Ingest `ONFR02 <= 1s`, giao dịch tiền `M09`, `M11` SLA, revoke `M23-F02`), Lane 2 (`M23-F12` Internal Outbox, Inbox push `M03`, Task `SL01`), Lane 3 (`M19-F06` Backfill, `M19-F08` Replay & Remote Fetch, Bulk Campaign, `M21/M22` import, `M18` BI, `M24-F08` Async Export). Console theo dõi và DLQ nội bộ nằm ở [`M23-F12`](M23-SYSTEM-ADMIN-SECURITY-OPS.md).
 - **Read first:** [INVARIANTS.md](../../01-architecture/INVARIANTS.md) (`INV-02`, `INV-03`, `INV-04`, `INV-06`, `INV-23`, `INV-24`, `INV-25`), [INDEX.md](../../01-architecture/INDEX.md).
 
 ---
@@ -58,17 +58,17 @@
 ### 3.2 Nhóm II — Hiệu năng Hệ thống & Tối ưu Tải (`M24-F06–08`, bảo đảm `NFR01–05`, `ONFR01–04`)
 
 - **`M24-F06` — Read Model / Materialized Projections & Permission-aware Cache:**
-  - Duy trì bảng chiếu đọc riêng cho các màn hình truy vấn nặng (`Customer 360 Timeline`, `Team Board Kanban Counts`, `My Work`, `BI Dashboard M18`), cập nhật bất đồng bộ qua `Outbox` (`INV-06`) thay vì `JOIN` nặng trực tiếp trên bảng giao dịch.
-  - **Guard (`INV-25`):** Mọi key cache và projection query gắn `tenant_id` và `permission_version`. Khi `M14` hoặc `M23-F02` thay đổi/thu hồi quyền phải tăng `permission_version` và invalidate cache tức thì. Projection chỉ để đọc, không làm nguồn ghi.
-- **`M24-F07` — Queue Priority Isolation & Backpressure Control:**
+  - Duy trì bảng chiếu đọc riêng cho các màn hình truy vấn nặng (`Customer 360 Timeline`, `Team Board Kanban Counts`, `My Work`, `BI Dashboard M18`), cập nhật bất đồng bộ qua `Internal_Outbox_Events` (`M23-F12` — `INV-06`) thay vì `JOIN` nặng trực tiếp trên bảng giao dịch.
+  - **Guard (`INV-25`, `ADR-003`):** `Permission_Cache_Versions` chỉ là bản phản chiếu Read-Model của **`M14.Principal_Permission_Versions`**. Mọi đọc tương tác (`INTERACTIVE_READ`) nếu lệch version buộc xóa cache và nạp từ Primary DB; mọi tác vụ nền (`M24-F03` Bulk, `M24-F08` Export, `M19` Worker, `Download Gateway SEC03`) chạy chế độ `GUARDED_EXECUTION` fail-closed `409/401`.
+- **`M24-F07` — Queue Priority Isolation & Backpressure Control (`ADR-005`):**
   - Tách tối thiểu **3 làn hàng đợi độc lập** (Bulkhead tài nguyên, `Chương 7.2/7.8`):
-    - **Làn 1 (Critical):** Webhook intake `M19-F04`, ghi nhận giao dịch tiền `M09`, đồng hồ SLA `M11-F03`, thu hồi quyền/phiên `M23-F02`.
-    - **Làn 2 (Interactive):** Đẩy tin Inbox `M03`, Task reminders `W-F05`, cập nhật Search index & Read Model `M24-F06`.
-    - **Làn 3 (Heavy Batch):** Import Excel lớn (`M21/M22`), AI Co-Pilot `M06`, tính toán BI/P&L `M18` và Async Export `M24-F08`.
+    - **Làn 1 (`REALTIME_CRITICAL`):** Webhook intake `M19-F04` (`ONFR02 <= 1s`), trả lời trực tiếp Agent Inbox (`M03`), ghi nhận giao dịch tiền `M09`, đồng hồ SLA `M11-F03`, thu hồi quyền/phiên `M23-F02`.
+    - **Làn 2 (`STANDARD_INTERACTIVE`):** Sự kiện nội bộ `M23-F12` (`Internal_Outbox_Events`), đẩy tin Inbox `M03` & transactional, Task reminders `W-F05`, cập nhật Search index & Read Model `M24-F06`.
+    - **Làn 3 (`HEAVY_BATCH_BACKFILL`):** **`M19-F06` Backfill lịch sử nhiều ngày**, **`M19-F08` Replay Jobs & Remote Fetch**, gửi chiến dịch hàng loạt (`M04`), Import Excel lớn (`M21/M22`), AI Co-Pilot `M06`, tính toán BI/P&L `M18` và Async Export `M24-F08`.
   - **Guard:** Khi Làn 3 quá tải hoặc nhà cung cấp AI/đối tác chậm, cơ chế backpressure và Circuit Breaker kích hoạt để bảo vệ tuyệt đối độ trễ Làn 1 và Làn 2.
 - **`M24-F08` — Unified Async Export Pipeline & Lifecycle Archiving/Partitioning:**
-  - **Async Export:** Mọi thao tác export danh sách/báo cáo lớn chạy nền theo `Export_Request` đã được [`M23-F07`](M23-SYSTEM-ADMIN-SECURITY-OPS.md) duyệt (`INV-24`), có thanh tiến độ, tự thoát công thức CSV (`=,+,-,@`) và xuất qua Download Gateway.
-  - **Archiving & Partitioning:** Phân vùng theo thời gian (`time-based partitioning`) và chuyển dữ liệu cũ (`Activities`, `Inbound_Events`, `Audit_Logs`) sang tầng lưu trữ lạnh theo chính sách retention `M20-F06` nhằm giữ bảng nóng nhẹ dưới chuẩn `NFR01`. Bảo toàn toàn vẹn `Legal Hold` và `Deletion_Ledger` khi khôi phục backup.
+  - **Async Export:** Mọi thao tác export danh sách/báo cáo lớn chạy nền theo `Export_Request` đã được [`M23-F07`](M23-SYSTEM-ADMIN-SECURITY-OPS.md) duyệt (`INV-24`), kiểm `GUARDED_EXECUTION` (`expected_permission_version` với `M14` — `CEO-U18`), tự thoát công thức CSV (`=,+,-,@`) và xuất qua **`Download Gateway SEC03` (`ADR-006`)**.
+  - **Archiving & Partitioning:** Phân vùng theo thời gian (`time-based partitioning`) và chuyển dữ liệu cũ (`Activities`, `Inbound_Events` / raw payload 30 ngày `GAP-M19-08`, `Audit_Logs`) sang tầng lưu trữ lạnh theo chính sách retention `M20-F06` (`Legal_Holds` chặn xóa!). Giữ toàn vẹn `Deletion_Ledger` khi khôi phục qua **`M20.VerifyPostRestoreComplianceGate`** (`ADR-007`).
 
 ---
 

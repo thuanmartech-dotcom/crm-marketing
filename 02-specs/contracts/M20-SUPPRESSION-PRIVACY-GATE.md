@@ -1,128 +1,192 @@
-# Contract: M20-SUPPRESSION-PRIVACY-GATE — Cổng Kiểm duyệt Chặn Gửi Thời gian thực, Kiểm soát Dữ liệu sang AI/Vendor & Đối soát Sổ Chứng cứ Xóa
+# Contract `M20-SUPPRESSION-PRIVACY-GATE` — Cổng Kiểm duyệt Gửi tin, Legal Hold, AI/Vendor, File Privacy & Phục hồi
 
-- **Contract ID / Version:** `M20-SUPPRESSION-PRIVACY-GATE` / `v1.0` (`[PROPOSED]` trên nền `[MASTER]` Mục `4.11`, `5.13`, `5.18`, `6.2`, `6.3`, `6.4`, `9.5`, `9.9`, `9.10`, `9.13`, `9.14`).
-- **Baseline:** [CRM_MASTER_BRD_SRS_HOP_NHAT.md](../../00-master/CRM_MASTER_BRD_SRS_HOP_NHAT.md) (`v1.9`, `SHA-256: b6a3279f328e96e1e97d845e209be7a326516a0dba5e3a033d88e1f2162e421c`).
-- **Provider Owner:** [M20 — Quản trị Dữ liệu Cá nhân, Consent, Suppression & Quyền Chủ thể](../modules/M20-PRIVACY-CONSENT-RETENTION.md).
-- **Consumers:** `M01` (CDP Merge/Unmerge), `M03` (Omnichannel Inbox), `M04` (Journey Automation), `M06` (AI Co-Pilot), `M11/M12` (Ticket/VoC Survey), `M14` (CLIENT Workspace Activation `UC14`), `M19` (Integration Outbox Dispatch & Replay), `M21` (Partner Data Retention `M21-F02/F13`), `M22` (HRM Privacy `M22-F27`), `M23` (DLP/Backup Restore), `M24` (Search/Cache/Archive Purge).
-- **Source Requirements:** `M20-F01..08`, `M20-AC01..03`, `UC11`, `SEC05`, `SEC-U05`, `FR02`, `FR09`, `FR13`, `FR34`, `FR37`, `U01`, `U15`, `U21`, `INT17`, `INT26`, `RV11`, `RV16`, `RV17`, `OC17`, `OC22`, `CX-U15`, `CX-U20`, `NFR06`.
-- **Status:** `Reviewed` (Đã chốt kiến trúc Dual-Gate + HMAC Deletion Ledger qua `/grill-me` ngày `16/11/2026`; test ứng dụng `Not Run`).
-- **Breaking-Change Policy:** Mọi thay đổi trên cấu trúc `OutboundComplianceDecision`, ma trận ưu tiên `Endpoint_Suppression` theo mục đích gửi (`purpose`), hoặc định dạng băm `HMAC-SHA256` của `Deletion_Ledger` bắt buộc tăng `major_version`, giữ dual-reader tối thiểu 1 release và chạy lại bộ kiểm thử `M20-AC01..03`, `SEC-U05`, `U15`, `INT17`, `INT26`, `RV17`, `CX-U20`.
+- **Contract ID:** `CONTRACT-M20-PRIVACY-GATE-v1.1`
+- **Provider Owner:** `M20` (Consent, Mục đích Xử lý, Suppression, Privacy Requests, Legal Hold, Retention & AI Gateway)
+- **Consumers:** `M19` (Outbound Dispatch), `M01` (Merge Consent Guard), `M02` (Lead/Import), `M03` (Inbox Compose), `M04` (Journey Dispatch), `M06` (AI Co-Pilot), `M08`/`M09` (Legal Hold Lock), `M11`/`M12` (Ticket vs Survey/Feedback), `M14` (Legal Hold ACL & Download Gateway `SEC03`), `M16`/`M18`/`M21`/`M22` (Erasure & Reporting/HR Gate), `M23-F12`/`M24-F08` (Restore Drill & Async Export)
+- **Baseline & ADRs liên quan:** [CRM_MASTER_BRD_SRS_HOP_NHAT.md](../../00-master/CRM_MASTER_BRD_SRS_HOP_NHAT.md) (`2.5 L268 CONTRACT-L0268`, `3.5.3 FR13`, `5.9`, `5.18`, `6.3 L3132–3174`, `6.4 L3178`, `7.3 L3294`, `SEC03`, `SEC05`, `SEC-U05`, `U15`, `U21`, `U22`, `INT17`, `INT26`, `INT28`, `OC03`, `OC17`, `OC19`, `OC20`, `RV16`, `RV17`, `CX-U15`, `CX-U20`), [ADR-006](../../01-architecture/decisions/ADR-006-DOWNLOAD-GATEWAY-REMOTE-FETCH-AND-AI-GATEWAY.md), [ADR-007](../../01-architecture/decisions/ADR-007-PRIVACY-CANONICAL-HASH-LEGAL-HOLD-AND-DR-FENCE.md), [ADR-008](../../01-architecture/decisions/ADR-008-OMNICHANNEL-CONTRACTS-RECEIPTS-AND-CROSS-EVENTS.md)
+- **Trạng thái:** `Reviewed (CR-20261116-WAVE1-RECONCILIATION Applied)`
+- **Chính sách Breaking Change:** Thay đổi rule chặn gửi hoặc schema chuyển AI/Restore bắt buộc giữ chế độ Fail-Closed trong `ADR-006`/`ADR-007` và cập nhật đồng thời `M19`, `M14`, `M06`, `M23-F12`.
 
 ---
 
-## 1. Bảng 12 Thành phần Hợp đồng (`12 Required Contract Parts`)
+## 1. Hợp đồng Kiểm tra Đặc tả (`12 Phần Chuẩn CONTRACT.md`)
 
-| Phần | Nội dung đặc tả chi tiết |
+| Phần | Quy định chuẩn hóa của Hợp đồng |
 |---|---|
-| **Meaning** | `[MASTER]` + `[PROPOSED]` Hợp đồng cổng tuân thủ quyền riêng tư và chặn gửi bắt buộc (*Single Source of Truth* — `INV-02`, `INV-07`), gồm **3 giao diện đồng bộ**: (1) `EvaluateOutboundCompliance` kiểm tra quyền liên hệ ở cả thời điểm xếp hàng (`Enqueue`) và ngay trước giây phát tin thực tế (`Authoritative Dispatch Recheck`); (2) `EvaluateVendorAndAiTransfer` kiểm duyệt cơ sở xử lý và tự động làm mờ PII (`Pseudonymization/Redaction`) trước khi dữ liệu rời hệ thống sang AI/Vendor; (3) `VerifyPostRestoreComplianceGate` đối soát `Deletion_Ledger` và `Endpoint_Suppressions` trước khi mở cổng truy cập sau khôi phục sao lưu (`INT26`), cùng **4 Domain Events** phát qua Outbox. |
-| **Actor/scope** | `[MASTER]` Tác nhân gọi gồm: `Domain Command Handlers` (`M03`, `M04`, `M12`), `Outbox Dispatch Worker` (`M19-F05`), `AI Data Gateway` (`M06-F01/02`), `Workspace Activation Handler` (`M14-F01` / `UC14`), và `Backup Restore Coordinator` (`M23`). Ngữ cảnh `tenant_id` và `workspace_id` bắt buộc lấy từ phiên xác thực server hoặc Outbox envelope đã ký; không bao giờ gộp chung `Consent` hoặc mở rộng `Consent` giữa hai `Workspace` độc lập (`INV-01`, `M20-F02`). |
-| **Preconditions** | `[MASTER]` (1) Đối với gửi tin ra ngoài (`EvaluateOutboundCompliance`): phải truyền đủ `workspace_id`, `channel`, `endpoint_lookup_hash` (băm chuẩn hóa của Email/SĐT/Zalo ID), `purpose_code` (`MARKETING_PROMO \| SURVEY_VOC \| SERVICE_NOTIFICATION \| SECURITY_LEGAL`), và `check_stage` (`ENQUEUE \| DISPATCH_AUTHORITATIVE`). (2) Đối với chuyển dữ liệu sang AI/Vendor (`EvaluateVendorAndAiTransfer`): tính năng/connector đích phải có hồ sơ `Processing_Records` và `Vendor_Data_Flows` ở trạng thái `ACTIVE` (`M20-F01`, `M20-F07`). |
-| **Input** | `[PROPOSED]` Xem chi tiết Schema đầu vào của `EvaluateOutboundComplianceInput`, `EvaluateVendorAndAiTransferInput` và `VerifyPostRestoreComplianceGateInput` tại Mục 2 bên dưới. |
-| **Output** | `[PROPOSED]` Xem chi tiết Schema đầu ra `OutboundComplianceDecision` (`decision: ALLOW \| BLOCK`, `block_reason_code`, `suppression_ref`, `consent_version_ref`, `checked_at`) và `VendorTransferDecision` (`decision: ALLOW_REDACTED \| ALLOW_RAW \| BLOCK`, `sanitized_payload`, `placeholder_map_ref`, `retention_constraint`) tại Mục 2 bên dưới. |
-| **Errors** | `[MASTER]` + `[PROPOSED]` Chuẩn hóa mã lỗi: `PRIVACY_PURPOSE_UNAPPROVED` (`422/403` — chưa có `Processing_Records` ở trạng thái `ACTIVE`), `OUTBOUND_SUPPRESSED_UNSUBSCRIBE` (`403` — khách đã hủy đăng ký mục đích này), `OUTBOUND_SUPPRESSED_HARD_BOUNCE` (`403` — endpoint bị lỗi cứng trên kênh này), `OUTBOUND_SUPPRESSED_COMPLAINT_OR_DNC` (`403` — khách khiếu nại spam hoặc từ chối liên hệ lại `CX-U15`), `OUTBOUND_MISSING_CONSENT_EVIDENCE` (`403` — mục đích `MARKETING_PROMO` nhưng chưa có consent hợp lệ `OC22`), `VENDOR_TRANSFER_POLICY_BLOCKED` (`403` — vendor/AI chưa đạt điều kiện vùng lưu trữ/retention `RV17`), `RESTORE_LEDGER_REPLAY_REQUIRED` (`503` — cấm mở hệ thống khi chưa áp lại `Deletion_Ledger` sau restore `INT26`). |
-| **Concurrency** | `[MASTER]` Khi khách hàng rút sự đồng ý (`RevokeConsent`), bấm `Unsubscribe`, hoặc phát sinh `Hard-Bounce`, `M20` phải ghi nhận vào `Endpoint_Suppressions` và `Consent_Logs` **nguyên tử trong cùng 1 transaction trước khi trả xác nhận thành công (`M20-F02`, `6.3`)**. Tại thời điểm `M19-F05` chuẩn bị gọi API nhà mạng/kênh ngoài, Worker thực hiện `DISPATCH_AUTHORITATIVE` đọc trực tiếp trạng thái hiện hành của `Endpoint_Suppressions` (không giữ DB lock trong lúc chờ mạng gọi provider — `5.14`, `5.17`). |
-| **Idempotency** | `[MASTER]` Các sự kiện webhook từ nhà cung cấp (`Unsubscribe`, `Hard-Bounce`, `Spam-Complaint`) và các lệnh `RecordConsent / RevokeConsent` đi kèm khóa `(tenant_id, workspace_id, channel, endpoint_lookup_hash, provider_event_id / idempotency_key)` để xử lý idempotent tuyệt đối (`ENTITY-L2893`, `SEC-U05`). Gọi lặp cùng một sự kiện hủy đăng ký hoặc bounce không tạo bản ghi trùng và không đảo ngược trạng thái đã chặn. |
-| **Transaction** | `[MASTER]` (1) **Đường ghi Consent/Suppression:** Ghi `Consent_Logs` (append-only) + cập nhật `Consent_States` + upsert `Endpoint_Suppressions` + ghi `Audit_Logs` + đẩy `Outbox` (`M20.EndpointSuppressed`) trong cùng 1 DB transaction. (2) **Đường thực thi Xóa/Ẩn danh (`M20-F06`):** Đánh dấu `Legal_Holds` cho phần chứng từ bắt buộc giữ $\rightarrow$ xóa/ẩn danh phần dữ liệu được phép xóa $\rightarrow$ ghi mã băm `HMAC-SHA256` vào `Deletion_Ledger` $\rightarrow$ phát `M20.SubjectErasureExecuted` để các kho phụ (`Search`, `Cache`, `AI Vector`, `File`) dọn dẹp đồng bộ (`6.4`). |
-| **Compatibility** | `[MASTER]` + `[PROPOSED]` Hỗ trợ cấu hình `Legal_Policy` theo phiên bản (`Policy_Versions`: `DRAFT -> REVIEWED -> ACTIVE`). Nếu một loại yêu cầu pháp lý chưa được cấu hình công thức tính hạn tự động (`ACTIVE`), hệ thống **không tự bịa một mốc giờ cố định (như 72h chung)** mà chuyển ca về hàng đợi bắt buộc `Privacy Owner` xử lý thủ công có lưu bằng chứng (`M20-F05`, `3149`). |
-| **Audit/privacy** | `[MASTER]` Bảng `Consent_Logs`, `Endpoint_Suppressions` và `Deletion_Ledger` là bất biến / có truy vết nguồn gốc (`provenance`). Đặc biệt, **`Deletion_Ledger` tuyệt đối không lưu lại SĐT, Email hay tên thật của người đã yêu cầu xóa**, mà chỉ lưu `endpoint_hmac_sha256` và `subject_hmac_sha256` với khóa bí mật lưu trong Secret Manager (`6.2`, `6.4`). Trong `AI Data Gateway` (`M20-F07`), bảng ánh xạ placeholder (`[PII_PHONE_1]`) có TTL ngắn và kiểm quyền nghiêm ngặt (`6.3` dòng `3174`). |
-| **Tests** | `[MASTER]` Provider & Consumer test fixtures: `M20-AC01`, `M20-AC02`, `M20-AC03`, `SEC-U05`, `U01`, `U15`, `U21`, `INT17`, `INT26`, `RV11`, `RV16`, `RV17`, `OC14`, `OC17`, `OC22`, `CX-U15`, `CX-U20`. Trạng thái thực thi hiện tại: `Not Run`. |
+| **Meaning** | Cung cấp **4 cổng kiểm duyệt Authoritative** của `M20`: (1) `EvaluateOutboundCompliance` (Cổng Kép chặn gửi tại lúc `Enqueue` và tại thời điểm phát tin `DISPATCH_AUTHORITATIVE`), (2) `EvaluateVendorAndAiTransfer` (Cổng Kiểm soát AI Data Gateway, `Placeholder_Vault` & Chống Prompt Injection `U22`/`INT28`), (3) `VerifyPostRestoreComplianceGate` (Hàng rào áp lại `Deletion_Ledger` + `Endpoint_Suppressions` + `Consent_Logs` + `Legal_Holds` sau Restore `INT26`), và (4) `EvaluateAssetDownloadPrivacyGate` (`SEC03` File/Document Privacy & Hold Check phối hợp `M14`). |
+| **Actor/scope** | `tenant_id`, `workspace_id` (lưu ý `Deletion_Ledger` & kiểm soát chủ thể xóa hỗ trợ phạm vi toàn `tenant_id` khi Agency là `Controller` hoặc nhiều `CLIENT workspace` cùng email `OC03`), `actor_id` (required trên Vendor/AI & Asset Gate), `channel` đồng bộ 8 giá trị (`EMAIL \| SMS \| ZALO \| FACEBOOK \| TIKTOK \| TELEGRAM \| VOICE_CALL \| WEBHOOK`). |
+| **Preconditions** | Endpoint phải được chuẩn hóa canonical trước khi băm `endpoint_lookup_hash` (`ADR-007`: qua bước `Unicode NFKC` $\rightarrow$ `EMAIL: trim().lowercase()` bỏ ký tự điều khiển; `PHONE: E.164`; `PLATFORM_UID: <provider>:<provider_namespace>:<canonical_external_id>`); `Processing_Records` phải đạt `ACTIVE` (nếu `PROCESSOR` bắt buộc có `dpa_contract_ref`); `Vendor_Data_Flows` phải đạt `APPROVED` và phân tách `training_opt_out` vs `zero_data_retention` (`RV17`). |
+| **Input** | Xem 4 cặp JSON Schema đầy đủ ở Mục 2 (`EvaluateOutboundComplianceInput`, `EvaluateVendorAndAiTransferInput`, `VerifyPostRestoreComplianceGateInput`, `EvaluateAssetDownloadPrivacyGateInput`). |
+| **Output** | Xem 4 JSON Schema đầy đủ ở Mục 2 (`OutboundComplianceDecision` với đúng tên trường `suppression_id`, `consent_state_version`, `evaluated_at`; `VendorTransferDecision`; `PostRestoreComplianceGateResult`; `AssetPrivacyGateDecision`). |
+| **Errors** | Chuẩn Error Envelope `{code, message, field_errors, correlation_id}`. Mã chặn đầy đủ khớp 100% 4 JSON schema bên dưới: `OUTBOUND_SUPPRESSED_UNSUBSCRIBE`, `OUTBOUND_SUPPRESSED_CONSENT_REVOKED`, `OUTBOUND_SUPPRESSED_HARD_BOUNCE`, `OUTBOUND_SUPPRESSED_SOFT_BOUNCE_COOLDOWN`, `OUTBOUND_SUPPRESSED_SPAM_COMPLAINT`, `OUTBOUND_SUPPRESSED_REFUSED_CALLBACK`, `OUTBOUND_SUPPRESSED_MANUAL_DNC`, `OUTBOUND_SUPPRESSED_ERASED_OR_LEGAL_HOLD`, `PRIVACY_PURPOSE_UNAPPROVED`, `SENDER_PROFILE_UNVERIFIED`, `VENDOR_TRANSFER_POLICY_BLOCKED`, `PROHIBITED_DATA_CLASS_INCLUDED`, `AI_PROMPT_TOOL_POLICY_BLOCKED`, `MISSING_HMAC_KEY_VERSION`, `PENDING_REAPPLY_NONZERO`, `INDEPENDENT_LEDGER_UNREACHABLE`, `ASSET_QUARANTINED_OR_INFECTED`, `ASSET_PRIVACY_HOLD_OR_ERASED`, `ASSET_RETENTION_EXPIRED`, `HRM_CONFIDENTIALITY_BLOCKED`. *(Lưu ý: `EXPORT_LINK_EXPIRED` do `M23-F07` kiểm ở Bước 3 Download Gateway theo `ADR-006`)*. |
+| **Concurrency** | `EvaluateOutboundCompliance` đọc thẳng Primary DB (Authoritative State, không chờ cache) tại bước `DISPATCH_AUTHORITATIVE`. **Theo Master `6.3 L3172`: tuyệt đối không hứa `0 giây` vật lý hay thu hồi chắc chắn tin mà provider đã nhận (`in-flight`)**; cleanup hàng đợi bất đồng bộ chạy với `SLA` giám sát riêng (`[OPEN-GAP]`). Giao dịch `REVOKE`/`UNSUBSCRIBE` commit `Endpoint_Suppressions` nguyên tử trước khi trả `200/202` (`CONTRACT-L0268`). |
+| **Idempotency** | Các hàm `Evaluate*` không ghi đột biến nghiệp vụ (chỉ ghi audit chặn/tạo phiên `Placeholder_Vault` theo `correlation_id`). `VerifyPostRestoreComplianceGate` chạy idempotent tuyệt đối theo khóa tổng hợp `(restore_run_id, source_table, source_record_id)` (bao phủ `Deletion_Ledger` [`deletion_ledger_id`], `Endpoint_Suppressions`, `Consent_Logs`, `Legal_Holds`) — chạy lặp 100 lần không sai lệch dữ liệu (`NFR08`, `INT26`). `POST /v1/consents/revoke` yêu cầu `idempotency_key` duy nhất theo `tenant_id` (`5.9 L2701`). |
+| **Transaction** | Lệnh `POST /v1/consents/revoke` (`CONTRACT-L0268`) hoặc `PublicOneClickUnsubscribe` (`SEC05`) bắt buộc ghi `Consent_Logs` + cập nhật `Consent_State` + ghi `Endpoint_Suppressions` + ghi `Internal_Outbox_Events` (`M20.EndpointSuppressed`) trong **1 DB transaction nguyên tử**; trả `202 Accepted` nếu còn tác vụ lan truyền hủy `Outbound_Intents` ở `M19` chưa hoàn tất đồng bộ tức thì (`200 OK` nếu xong ngay). |
+| **Compatibility** | Hỗ trợ đồng thời nhiều `hmac_key_version` ở chế độ `VERIFY_ONLY` cho `Deletion_Ledger` khi xoay khóa (`ADR-007`). `purpose_code` chuẩn hóa `varchar(80)` khớp Master `5.9 L2692`. |
+| **Audit/privacy** | Không lộ PII gốc trong log/error; `PublicOneClickUnsubscribe` không lộ hồ sơ khách; giải mã ngược `Placeholder_Vault` kiểm lại `M14.EvaluateAccessDecision` cho đúng `actor_id` (`6.3 L3174`); **5 bảng bảo vệ PITR/WAL độc lập (`ADR-007`)**: `Deletion_Ledger`, `Endpoint_Suppressions`, `Consent_Logs`, `Legal_Holds`, `M23.Audit_Logs` (đồng thời `Consent_State` được tái dựng/đối soát từ `Consent_Logs` khi Verify). |
+| **Tests** | `M20-AC01..03`, `SEC-U05`, `U15`/`INT17`, `U18`, `U21` (backup restore), `U22` (AI prompt injection), `INT24`, `INT26`, `INT28`, `RV11`, `RV16`, `RV17`, `OC03`, `OC17`, `OC19`, `OC20`, `CX-U12`, `CX-U15`, `CX-U20`, `SEC-U03`. Toàn bộ ở trạng thái **`Not Run`**. |
 
 ---
 
-## 2. Đặc tả Giao diện & Schema Chi tiết (`Dual-Gate & Restore Ledger Schemas`)
+## 2. Schemas Đầy đủ cho 4 Cổng Kiểm duyệt (`ADR-006`, `ADR-007`, `ADR-008`)
 
-### 2.1. Cổng 1: `EvaluateOutboundCompliance` (Kiểm tra Chặn gửi ở `Enqueue` và `Authoritative Dispatch`)
+### 2.1. `EvaluateOutboundComplianceInput` & `OutboundComplianceDecision`
 
-#### Đầu vào (`EvaluateOutboundComplianceInput`)
 ```json
 {
-  "tenant_id": "uuid (server-verified)",
-  "workspace_id": "uuid (NOT NULL)",
-  "check_stage": "ENQUEUE | DISPATCH_AUTHORITATIVE",
-  "channel": "EMAIL | SMS | ZALO | FACEBOOK | TELEGRAM | VOICE_CALL | WEBHOOK",
-  "endpoint_lookup_hash": "char(64) (HMAC-SHA256 của email/phone/channel_user_id đã chuẩn hóa)",
-  "contact_id": "uuid | null",
-  "purpose_code": "MARKETING_PROMO | SURVEY_VOC | SERVICE_NOTIFICATION | SECURITY_LEGAL",
-  "sender_profile_id": "uuid",
-  "outbound_intent_id": "uuid | null"
-}
-```
-
-#### Quy tắc Đánh giá Tất định (`Deterministic Compliance Matrix` — Quyết định `/grill-me` #1 & #3)
-Khi `EvaluateOutboundCompliance` được gọi, `M20-F03` đánh giá theo đúng thứ tự ưu tiên từ `1` đến `5` dưới đây:
-
-1. **Bước 1 — Kiểm tra Trạng thái Xóa / Khóa Pháp lý (`Erasure & Restricted Legal Hold`):**
-   - Nếu `endpoint_lookup_hash` hoặc `contact_id` đã nằm trong `Deletion_Ledger` (đã thực thi xóa theo `UC11`), hoặc đang ở chế độ `RESTRICTED_LEGAL_HOLD` và `purpose_code IN ('MARKETING_PROMO', 'SURVEY_VOC')` $\rightarrow$ **`BLOCK` (`OUTBOUND_SUPPRESSED_ERASED_OR_LEGAL_HOLD`)**.
-2. **Bước 2 — Kiểm tra Lỗi Kỹ thuật Cứng của Điểm liên hệ (`Hard-Bounce / Invalid Endpoint` — `SEC05`):**
-   - Nếu `Endpoint_Suppressions` ghi nhận `reason_code IN ('HARD_BOUNCE', 'INVALID_ENDPOINT', 'PROVIDER_BLOCKED')` đang `ACTIVE` trên `(workspace_id, channel, endpoint_lookup_hash)` $\rightarrow$ **`BLOCK` (`OUTBOUND_SUPPRESSED_HARD_BOUNCE`)** đối với mọi lệnh gửi tự động trên kênh đó cho tới khi điểm liên hệ được xác minh lại bằng bằng chứng mới.
-3. **Bước 3 — Kiểm tra Khiếu nại Spam & Từ chối Liên hệ lại (`Complaint / Refused Callback / Manual DNC` — `SEC05`, `CX-U15`):**
-   - Nếu `Endpoint_Suppressions` có `reason_code IN ('SPAM_COMPLAINT', 'REFUSED_CALLBACK', 'MANUAL_DNC')`:
-     - Chặn tuyệt đối `MARKETING_PROMO` và `SURVEY_VOC` (`M12-AC02`, `CX-U15`).
-     - Với `SERVICE_NOTIFICATION`: chỉ cho phép nếu gắn trực tiếp với nghĩa vụ hợp đồng/hóa đơn/ticket đang mở do chính khách hàng yêu cầu xử lý và có cờ `transactional_exempt = true`.
-4. **Bước 4 — Kiểm tra Rút sự đồng ý / Hủy đăng ký (`Unsubscribe / Consent Revoked` — `M20-F02`, `OC17`, `U15`):**
-   - Nếu `purpose_code IN ('MARKETING_PROMO', 'SURVEY_VOC')`:
-     - Tra cứu `Endpoint_Suppressions` theo `(workspace_id, channel, endpoint_lookup_hash, purpose_code)`: nếu có bản ghi `UNSUBSCRIBE` hoặc `CONSENT_REVOKED` đang hiệu lực $\rightarrow$ **`BLOCK` (`OUTBOUND_SUPPRESSED_UNSUBSCRIBE`)** (bất kể `contact_id` vừa được `Merge`, `Undo Merge` hay vừa được `Import` lại từ file Excel — `M20-AC01`, `CX-U20`, `SEC-U05`).
-     - Tra cứu `Consent_States`: nếu `purpose_code = 'MARKETING_PROMO'` mà điểm liên hệ đó chưa từng có `Consent_State.status = 'GRANTED'` hợp lệ (ví dụ: form web bị spam hoặc email chưa xác minh — `OC22`, `RV11`) $\rightarrow$ **`BLOCK` (`OUTBOUND_MISSING_CONSENT_EVIDENCE`)**.
-   - Nếu `purpose_code = 'SERVICE_NOTIFICATION'` (ví dụ: phản hồi Ticket hỗ trợ đang mở, thông báo nghiệm thu/hóa đơn của hợp đồng đang hiệu lực — `OC17`): việc khách rút `MARKETING_PROMO` **không làm mất hoặc chặn phản hồi dịch vụ hợp lệ**.
-5. **Bước 5 — Kiểm tra Xác thực Đầu gửi (`Sender Authentication Gate` — `SEC05`):**
-   - Nếu `channel = 'EMAIL'` mà `sender_profile_id` chưa đạt xác thực `SPF/DKIM/DMARC` và chưa cấu hình `List-Unsubscribe` header hợp lệ $\rightarrow$ **`BLOCK` (`SENDER_AUTHENTICATION_NOT_VERIFIED`)**.
-
-#### Đầu ra (`OutboundComplianceDecision`)
-```json
-{
-  "decision": "ALLOW | BLOCK",
-  "block_reason_code": "NONE | OUTBOUND_SUPPRESSED_UNSUBSCRIBE | OUTBOUND_SUPPRESSED_HARD_BOUNCE | OUTBOUND_SUPPRESSED_COMPLAINT_OR_DNC | OUTBOUND_MISSING_CONSENT_EVIDENCE | SENDER_AUTHENTICATION_NOT_VERIFIED",
-  "suppression_id": "uuid | null",
-  "consent_state_version": 12,
-  "evaluated_at": "2026-11-16T00:45:00Z"
-}
-```
-
----
-
-### 2.2. Cổng 2: `EvaluateVendorAndAiTransfer` (Kiểm duyệt Chuyển Dữ liệu sang AI / Cloud Vendor — `M20-F01`, `M20-F07`, `RV17`)
-
-#### Đầu vào (`EvaluateVendorAndAiTransferInput`)
-```json
-{
-  "tenant_id": "uuid",
-  "workspace_id": "uuid",
-  "feature_code": "M06_THREAD_SUMMARY | M06_REPLY_DRAFT | M19_EXTERNAL_WEBHOOK | M21_PARTNER_SYNC",
-  "vendor_code": "string",
-  "purpose_code": "string",
-  "data_classes": ["CONTACT_PII", "CONVERSATION_TEXT", "CONTRACT_COMMERCIAL", "NATIONAL_ID_OR_BANK"],
-  "raw_payload": {
-    "text": "Khách Nguyễn Văn A, SĐT 0901234567, CCCD 079099001122 hỏi về hợp đồng..."
+  "EvaluateOutboundComplianceInput": {
+    "tenant_id": "uuid (NN)",
+    "workspace_id": "uuid (NN)",
+    "actor_id": "uuid (NN)",
+    "check_stage": "ENQUEUE_PREVIEW | DISPATCH_AUTHORITATIVE",
+    "channel": "EMAIL | SMS | ZALO | FACEBOOK | TIKTOK | TELEGRAM | VOICE_CALL | WEBHOOK",
+    "purpose_code": "string (max 80 chars, varchar(80) theo Master 5.9)",
+    "message_category": "TRANSACTIONAL_TICKET_OR_APPOINTMENT | SERVICE_REPLY | MARKETING_PROMO | SURVEY_VOC | AUTOMATED_JOURNEY",
+    "contact_id": "uuid | null (có thể null khi mới có channel identity)",
+    "endpoint_lookup_hash": "string (char(64) HMAC-SHA256 của chuỗi Unicode NFKC canonical theo ADR-007: EMAIL trim().lowercase(); PHONE E.164; UID <provider>:<namespace>:<id>)",
+    "sender_profile_id": "uuid | null (bắt buộc non-null cho EMAIL / SMS / ZALO để kiểm định danh & Opt-out)",
+    "connection_id": "uuid (NN)",
+    "correlation_id": "uuid (NN)"
+  },
+  "OutboundComplianceDecision": {
+    "decision": "ALLOW | BLOCK",
+    "block_reason_code": "null | OUTBOUND_SUPPRESSED_UNSUBSCRIBE | OUTBOUND_SUPPRESSED_CONSENT_REVOKED | OUTBOUND_SUPPRESSED_HARD_BOUNCE | OUTBOUND_SUPPRESSED_SOFT_BOUNCE_COOLDOWN | OUTBOUND_SUPPRESSED_SPAM_COMPLAINT | OUTBOUND_SUPPRESSED_REFUSED_CALLBACK | OUTBOUND_SUPPRESSED_MANUAL_DNC | OUTBOUND_SUPPRESSED_ERASED_OR_LEGAL_HOLD | PRIVACY_PURPOSE_UNAPPROVED | SENDER_PROFILE_UNVERIFIED",
+    "suppression_id": "uuid | null",
+    "consent_state_version": "integer | null",
+    "evaluated_at": "timestamptz (UTC)",
+    "audit_ref": "uuid (NN)"
   }
 }
 ```
 
-#### Quy tắc Đánh giá & Làm mờ PII (`AI & Vendor Gate Rules` — Quyết định `/grill-me` #3)
-1. **Kiểm tra Hồ sơ Xử lý (`Processing_Records` — `M20-F01`) và Hồ sơ Nhà cung cấp (`Vendor_Data_Flows` — `M20-F07`):**
-   - Nếu `(workspace_id, feature_code, purpose_code)` chưa có `Processing_Records.status = 'ACTIVE'` hoặc `vendor_code` chưa có `Vendor_Data_Flows.status = 'APPROVED'` (hoặc vùng lưu trữ `region` / thời hạn lưu log `vendor_retention_days` vượt quá giới hạn cho phép của workspace) $\rightarrow$ **`BLOCK` (`VENDOR_TRANSFER_POLICY_BLOCKED`)**.
-   - **Không đánh đồng `No-Train` với `Zero-Data-Retention` (`RV17`):** Cờ `vendor_no_train = true` chỉ có nghĩa là nhà cung cấp AI không dùng dữ liệu để huấn luyện mô hình chung; hệ thống vẫn bắt buộc kiểm tra `vendor_log_retention_days` và chính sách xóa của vendor.
-2. **Chặn cứng Nhóm Dữ liệu Cấm Gửi Ra Ngoài (`Prohibited Egress Data Classes`):**
-   - Các trường `CCCD/CMND`, `Số tài khoản ngân hàng đầy đủ`, `Mật khẩu/Token`, `Bảng lương cá nhân (M22)` hoặc hồ sơ đang gắn `RESTRICTED_LEGAL_HOLD` **tuyệt đối không được gửi ra AI bên thứ ba**, kể cả khi tính năng AI đang bật (`6.3` dòng `3174`).
-3. **Tự động Thay thế PII bằng Placeholder có Kiểm soát (`Deterministic Pseudonymization`):**
-   - Trước khi trả `ALLOW_REDACTED` cho `M06`, `M20-F07` thay thế các thông tin định danh cá nhân được phép xử lý trong văn bản bằng token giả lập (`[PII_PHONE_1]`, `[PII_EMAIL_1]`, `[PII_PERSON_1]`) và lưu bảng ánh xạ tạm thời (`Placeholder_Vault` có TTL ngắn, gắn chặt `tenant_id + workspace_id + actor_id`) để chỉ người có quyền mới giải mã ngược được trên giao diện.
+**Thứ tự kiểm tra 5 bước (`Fail-Closed`):**
+1. **Bước 1 (Erasure & Suppression Cứng):** Nếu `endpoint_lookup_hash` khớp bản ghi xóa ở `Deletion_Ledger` (trừ trường hợp hợp đồng/hồ sơ còn mở giao dịch giao vận pháp lý được miễn trừ theo `Legal_Hold` hợp lệ) $\rightarrow$ `BLOCK (OUTBOUND_SUPPRESSED_ERASED_OR_LEGAL_HOLD)`. Nếu khớp `Endpoint_Suppressions (status = 'ACTIVE')` trong đúng `channel + purpose_scope` (`OC17`: không chặn `TRANSACTIONAL_TICKET_OR_APPOINTMENT` khi khách chỉ rút `MARKETING_PROMO`) $\rightarrow$ `BLOCK` trả đúng mã tương ứng với `reason_code` (`OUTBOUND_SUPPRESSED_UNSUBSCRIBE | OUTBOUND_SUPPRESSED_CONSENT_REVOKED | OUTBOUND_SUPPRESSED_HARD_BOUNCE | OUTBOUND_SUPPRESSED_SOFT_BOUNCE_COOLDOWN | OUTBOUND_SUPPRESSED_SPAM_COMPLAINT | OUTBOUND_SUPPRESSED_REFUSED_CALLBACK | OUTBOUND_SUPPRESSED_MANUAL_DNC`).
+2. **Bước 2 (`Processing_Records` Gate):** Nếu `Processing_Records` cho `purpose_code` trong `workspace_id` chưa đạt `ACTIVE` (hoặc `PROCESSOR` thiếu `dpa_contract_ref` theo `O06`) $\rightarrow$ `BLOCK (PRIVACY_PURPOSE_UNAPPROVED)`.
+3. **Bước 3 (`Consent_State` Gate):** Nếu `message_category IN ('MARKETING_PROMO', 'SURVEY_VOC', 'AUTOMATED_JOURNEY')` $\rightarrow$ bắt buộc `Consent_State (channel, endpoint_lookup_hash, purpose_code).status == 'GRANTED'` (trạng thái `REVOKED | EXPIRED | UNKNOWN` $\rightarrow$ `BLOCK (OUTBOUND_SUPPRESSED_CONSENT_REVOKED)`).
+4. **Bước 4 (Legal Hold vs Notification Rules):** Nếu `contact_id` đang ở `Legal_Hold`, kiểm xem tin gửi có vi phạm phạm vi tạm dừng tiếp thị/xử lý (`RESTRICT`) hay không (`M20-F04`); nếu vi phạm phạm vi hold/`RESTRICT` $\rightarrow$ `BLOCK (OUTBOUND_SUPPRESSED_ERASED_OR_LEGAL_HOLD)`.
+5. **Bước 5 (Sender Profile Gate cho `EMAIL / SMS / ZALO`):** Với `EMAIL`, kiểm `sender_profile_id` đã verify `SPF / DKIM / DMARC` và nhúng token `List-Unsubscribe` / `PublicOneClickUnsubscribe`; với `SMS`, kiểm Brandname / Sender ID đã đăng ký nhà mạng còn `ACTIVE` và cú pháp từ chối (`Opt-out`); với `ZALO`, kiểm `OA_ID` hợp lệ và mẫu ZBS tương ứng đúng `purpose_code` theo năng lực đã kiểm chứng (`OM-G01` & `M19-F03 Connection_Capabilities.verified_policy_manifest_version`, giữ `GAP-M19-03` fail-closed cho webhook Zalo và tách riêng `GAP-M19-04` cho Meta Tags); thiếu hoặc `NULL` khi bắt buộc $\rightarrow$ `BLOCK (SENDER_PROFILE_UNVERIFIED)`. *(Với `WEBHOOK` hệ thống phi nhắn tin như ERP/Bank: giữ nguyên Bước 1 [`Deletion_Ledger` + `Endpoint_Suppressions`], Bước 2 [`Processing_Records`], và Bước 4 [`Legal_Hold`]; chỉ miễn Bước 3 Consent tiếp thị khi thuộc `TRANSACTIONAL_*` kỹ thuật và miễn Bước 5 Sender Profile `EMAIL/SMS/ZALO`).*
+
+### 2.2. `EvaluateVendorAndAiTransferInput` & `VendorTransferDecision` (`U22`, `INT28`, `OC20`, `RV17`)
+
+```json
+{
+  "EvaluateVendorAndAiTransferInput": {
+    "tenant_id": "uuid (NN)",
+    "workspace_id": "uuid (NN)",
+    "actor_id": "uuid (NN — dùng cho M14 check khi re-identify Placeholder_Vault)",
+    "feature_code": "AI_SUMMARY | AI_DRAFT | AI_SUGGEST | AI_TRANSCRIBE | M19_EXTERNAL_WEBHOOK | M21_PARTNER_SYNC | REMOTE_VENDOR_API",
+    "vendor_code": "string (NN)",
+    "processing_record_id": "uuid (NN)",
+    "data_classes": ["PUBLIC_META | INTERNAL_NOTES | CONVERSATION_TEXT | CONTACT_PII_PHONE_EMAIL | NATIONAL_ID_CCCD | BANK_ACCOUNT_OR_PAYMENT | HRM_PAYROLL | CALL_RECORDING_RAW"],
+    "payload_text_or_ref": "string (NN)",
+    "payload_provenance": "INTERNAL_SYSTEM | CUSTOMER_MESSAGE | EXTERNAL_ATTACHMENT_TEXT",
+    "allow_placeholder_pseudonymization": "boolean (default true)",
+    "correlation_id": "uuid (NN)"
+  },
+  "VendorTransferDecision": {
+    "decision": "ALLOW | ALLOW_WITH_REDACTION | BLOCK",
+    "reason_code": "null | PRIVACY_PURPOSE_UNAPPROVED | VENDOR_TRANSFER_POLICY_BLOCKED | PROHIBITED_DATA_CLASS_INCLUDED | AI_PROMPT_TOOL_POLICY_BLOCKED",
+    "vendor_flow_id": "uuid | null",
+    "vendor_flow_version_no": "integer | null",
+    "training_opt_out": "boolean",
+    "zero_data_retention": "boolean",
+    "vendor_log_retention_days": "integer",
+    "redacted_payload_text_or_ref": "string | null",
+    "placeholder_session_correlation_id": "uuid | null",
+    "untrusted_data_fenced": "boolean",
+    "placeholder_ttl_expires_at": "timestamptz | null",
+    "fallback_manual_mode": "string | null",
+    "evaluated_at": "timestamptz (UTC)"
+  }
+}
+```
+
+> **Quy tắc Cứng `FR13` / `6.3 L3174` / `6.8 L3257` / `U22` / `INT28` / `OC20`:**
+> - Nếu `data_classes` chứa `NATIONAL_ID_CCCD`, `BANK_ACCOUNT_OR_PAYMENT`, hoặc `HRM_PAYROLL` (hồ sơ HR/lương không được index vào AI chung `6.8`): trả ngay `BLOCK (PROHIBITED_DATA_CLASS_INCLUDED)`.
+> - Nếu `Processing_Records` chưa đạt `ACTIVE` (hoặc `PROCESSOR` thiếu `dpa_contract_ref`): trả ngay `BLOCK (PRIVACY_PURPOSE_UNAPPROVED)` kèm `fallback_manual_mode`.
+> - Nếu `Vendor_Data_Flows` chưa ở `APPROVED` (hoặc không đáp ứng `zero_data_retention` / căn cứ xuyên biên giới theo chính sách): trả `BLOCK (VENDOR_TRANSFER_POLICY_BLOCKED)` kèm `fallback_manual_mode`. Không coi `training_opt_out = true` là `zero_data_retention = true` (`RV17`).
+> - Nếu `payload_provenance IN ('CUSTOMER_MESSAGE', 'EXTERNAL_ATTACHMENT_TEXT')`: luôn gắn `untrusted_data_fenced = true` và khóa cứng không cho phép lời nhắc trong nội dung khách kích hoạt tool đột biến (`U22`, `INT28`). Trước khi trả placeholder về bản gốc cho UI (`Placeholder_Vault`), gọi `M14.EvaluateAccessDecision` cho đúng `actor_id` hiện tại.
+
+### 2.3. `VerifyPostRestoreComplianceGateInput` & `PostRestoreComplianceGateResult` (`INT26`, `OC19`, `U21`, `ADR-007`)
+
+```json
+{
+  "VerifyPostRestoreComplianceGateInput": {
+    "restore_run_id": "uuid (NN)",
+    "tenant_id": "uuid | null (NULL khi verify toàn hệ thống)",
+    "backup_point_in_time": "timestamptz (UTC, mốc snapshot DB vừa khôi phục)",
+    "dry_run": "boolean (default false)",
+    "hmac_key_versions_available": ["string"],
+    "initiated_by": "uuid (NN)",
+    "correlation_id": "uuid (NN)"
+  },
+  "PostRestoreComplianceGateResult": {
+    "restore_run_id": "uuid",
+    "gate_status": "PASSED | BLOCKED",
+    "reapplied_erasure_count": "integer (>= 0)",
+    "reapplied_suppression_count": "integer (>= 0)",
+    "reapplied_consent_revokes_count": "integer (>= 0)",
+    "reapplied_legal_holds_count": "integer (>= 0)",
+    "pending_reapply_count": "integer (0 mới PASSED)",
+    "hmac_keys_verified": "boolean",
+    "blocked_reason": "null | MISSING_HMAC_KEY_VERSION | PENDING_REAPPLY_NONZERO | INDEPENDENT_LEDGER_UNREACHABLE",
+    "verified_at": "timestamptz (UTC)"
+  }
+}
+```
+
+> **Quy tắc Kiểm duyệt `VerifyPostRestoreComplianceGate` (`INT26`, `OC19`, `ADR-007`):**
+> - Trước hết xác minh kết nối tới kho PITR/WAL độc lập (`Deletion_Ledger`, `Endpoint_Suppressions`, `Consent_Logs`, `Legal_Holds`, `M23.Audit_Logs`); nếu không truy cập được $\rightarrow$ `BLOCKED (INDEPENDENT_LEDGER_UNREACHABLE)`.
+> - Kiểm mọi `hmac_key_version` xuất hiện trên `Deletion_Ledger` đều hiện diện trong `hmac_key_versions_available[]` (gồm khóa cũ ở chế độ `VERIFY_ONLY`); thiếu bất kỳ phiên bản khóa nào $\rightarrow$ `BLOCKED (MISSING_HMAC_KEY_VERSION)` + `hmac_keys_verified = false`.
+> - Nếu `dry_run = true`: chỉ tính số bản ghi chênh lệch so với snapshot vừa restore để Ops thẩm định mà **không ghi đè bảng nghiệp vụ**. Nếu `dry_run = false`: chạy idempotent theo `(restore_run_id, source_table, source_record_id)` (bao phủ `Deletion_Ledger` [`deletion_ledger_id`], `Endpoint_Suppressions`, `Consent_Logs`, `Legal_Holds`) áp lại 100% xóa phân tầng (gồm cả `RESTRICTED_LEGAL_HOLD`), `Endpoint_Suppressions`, `Consent_Logs` (tái dựng `Consent_State`), `Legal_Holds` và hủy các `M19 Outbound_Intents` quá hạn/thuộc đối tượng đã rút/xóa; chỉ trả `PASSED` khi `pending_reapply_count == 0` & `hmac_keys_verified == true`.
+
+### 2.4. `EvaluateAssetDownloadPrivacyGateInput` & `AssetPrivacyGateDecision` (`SEC03`, `ADR-006`)
+
+```json
+{
+  "EvaluateAssetDownloadPrivacyGateInput": {
+    "tenant_id": "uuid (NN)",
+    "workspace_id": "uuid (NN)",
+    "actor_id": "uuid (NN)",
+    "asset_id": "uuid (NN)",
+    "asset_domain": "CRM_ATTACHMENT | CALL_RECORDING | EXPORT_BUNDLE | HRM_EMPLOYEE_DOCUMENT | CONTRACT_OR_FINANCE_DOC",
+    "correlation_id": "uuid (NN)"
+  },
+  "AssetPrivacyGateDecision": {
+    "decision": "ALLOW | BLOCK",
+    "block_reason_code": "null | ASSET_QUARANTINED_OR_INFECTED | ASSET_PRIVACY_HOLD_OR_ERASED | ASSET_RETENTION_EXPIRED | HRM_CONFIDENTIALITY_BLOCKED",
+    "legal_hold_status": "NONE | RESTRICTED_LEGAL_HOLD",
+    "requires_watermark": "boolean",
+    "evaluated_at": "timestamptz (UTC)"
+  }
+}
+```
+
+> **Thứ tự Kiểm duyệt & Ranh giới `SEC03` (`ADR-006` Bước 2 vs Bước 3):**
+> - **Bước 1 (Quarantine / Malware `INT24`):** Nếu `Assets.scan_status <> 'CLEAN'` $\rightarrow$ `BLOCK (ASSET_QUARANTINED_OR_INFECTED)`.
+> - **Bước 2 (Erasure & `Legal_Hold` trên `ASSET`):** Nếu tệp thuộc hồ sơ đã xóa theo `Deletion_Ledger` hoặc bị khóa xuất ngoại lệ bởi `Legal_Holds (target_scope_type = 'ASSET' | ...)` (trừ vai trò `LEGAL_HOLD_READ` được phép xem đối chiếu) $\rightarrow$ `BLOCK (ASSET_PRIVACY_HOLD_OR_ERASED)`; khi đang `RESTRICTED_LEGAL_HOLD` và được phép đọc $\rightarrow$ trả `legal_hold_status = 'RESTRICTED_LEGAL_HOLD'` & `requires_watermark = true`.
+> - **Bước 3 (`Retention_Policies`):** Nếu tệp đã quá hạn lưu giữ (`ACTIVE` retention policy) chờ purge $\rightarrow$ `BLOCK (ASSET_RETENTION_EXPIRED)`.
+> - **Bước 4 (`Master 6.8` & `ENTITY-L3031` cho `HRM_EMPLOYEE_DOCUMENT`):** Kiểm quy tắc bảo mật hồ sơ nhân sự/CCCD/bảng lương theo `6.8` (cấm AI/tìm kiếm đại trà/role thường truy xuất trái phạm vi) $\rightarrow$ `BLOCK (HRM_CONFIDENTIALITY_BLOCKED)`.
+> - **Watermark & Ranh giới Bước 3 (`M23-F07`):** Đặt `requires_watermark = true` với `EXPORT_BUNDLE`, `HRM_EMPLOYEE_DOCUMENT`, `CONTRACT_OR_FINANCE_DOC` hoặc khi `legal_hold_status = 'RESTRICTED_LEGAL_HOLD'`. Kiểm tra hạn link `download_expires_at` (`EXPORT_LINK_EXPIRED`), header `Cache-Control: no-store` và ghi event `AssetDownloaded` thuộc **Bước 3 (`M23-F07`)** sau khi Bước 1 (`M14`) & Bước 2 (`M20`) đều trả `ALLOW` (`ADR-006 L22`).
 
 ---
 
-### 2.3. Cổng 3: `VerifyPostRestoreComplianceGate` (Đối soát Sổ Xóa & Danh sách Chặn sau khi Khôi phục Backup — `M20-F06`, `INT26`)
+## 3. Domain Events Phát hành & Tiêu thụ (Qua Internal Outbox `M23-F12`)
 
-- **Kích hoạt:** Bắt buộc chạy trước khi mở lại lưu lượng người dùng và trước khi bật lại `M19` Outbox / `M04` Journey sau bất kỳ thao tác khôi phục cơ sở dữ liệu nào (`Restore from Backup`).
-- **Hành vi:**
-  1. Đọc toàn bộ bản ghi trong kho `Deletion_Ledger` và `Endpoint_Suppressions` (được lưu bền trên nhánh lưu trữ độc lập/append-only tới thời điểm mới nhất trước sự cố).
-  2. Tự động quét và xóa/ẩn danh lại toàn bộ các bản ghi khớp `subject_hmac_sha256` / `endpoint_hmac_sha256` vừa bị khôi phục từ bản backup cũ, đồng thời hủy (`CANCELLED_BY_SUPPRESSION`) mọi `Outbound_Intents` và `Journey_Instances` đang chờ gửi tới các điểm liên hệ đã rút consent sau thời điểm backup (`INT26`, `M20-AC03`).
-  3. Chỉ khi đối soát đạt `100%` (`pending_reapply_count == 0`), cổng mới trả về `READY_TO_OPEN_TRAFFIC`.
+### 3.1. Envelope Chuẩn Mọi Sự kiện `M20` (`schema_version = "1.1"`)
 
----
+Dùng chung cấu trúc chuẩn (`event_id`, `event_type`, `aggregate_type`, `aggregate_id`, `aggregate_version`, `schema_version`, `tenant_id`, `workspace_id` [`uuid | null`, `NULL` khi sự kiện phạm vi toàn Tenant như `SubjectErasureExecuted` / `LegalHoldChanged Nhóm B`], `occurred_at`, `correlation_id`, `causation_id`, `payload`).
 
-## 3. Các Sự kiện Miền Phát Qua Outbox (`Published Domain Events`)
+### 3.2. Danh mục Sự kiện Phát hành (`Published Events`)
 
-| Tên Sự kiện (`Event Type`) | Khi nào phát (`Trigger`) | Payload chính | Consumers bắt buộc xử lý |
+| Event Name | Payload Trọng yếu | Consumers Bắt buộc | Hành động Phải thực thi |
 |---|---|---|---|
-| `M20.EndpointSuppressed` | Khách rút consent (`Revoke`), bấm `Unsubscribe`, bị `Hard-Bounce`, `Spam-Complaint` hoặc từ chối gọi lại (`Refused Callback`) | `tenant_id`, `workspace_id`, `channel`, `endpoint_lookup_hash`, `purpose_scope[]`, `reason_code`, `effective_at` | `M04` (dừng bước gửi Journey đang chờ — `U15`), `M19` (hủy `Outbound_Intents` đang xếp hàng — `OC17`, `RV17`), `M12` (khóa gọi lại khảo sát — `CX-U15`) |
-| `M20.SubjectErasureExecuted` | Thực thi hoàn tất lệnh xóa/ẩn danh theo `Privacy_Request` (`UC11`) hoặc hết hạn `Retention` (`M20-F06`) | `tenant_id`, `workspace_id`, `privacy_request_id`, `subject_hmac_sha256`, `erased_scopes[]`, `retained_legal_hold_scopes[]`, `executed_at` | `M01/M02/M03` (ẩn danh hồ sơ/tin nhắn), `M06` (xóa AI vector/cache), `M24` (xóa chỉ mục tìm kiếm `Search Index` và file export cũ) |
-| `M20.LegalHoldChanged` | Đặt mới hoặc gỡ bỏ `Legal_Hold` trên một chủ thể/hợp đồng/hồ sơ (`M20-F06`) | `tenant_id`, `workspace_id`, `target_type`, `target_id`, `hold_status` (`ACTIVE \| RELEASED`), `legal_basis`, `review_due_at` | `M08/M09` (khóa xóa chứng từ), `M14` (áp chế độ chỉ đọc hạn chế `RESTRICTED_LEGAL_HOLD`), `M21/M22` |
-| `M20.DataIncidentEscalated` | Phát hiện sự cố rò rỉ dữ liệu cá nhân (`M20-F08`) tại mốc `awareness_at` | `tenant_id`, `workspace_id`, `incident_id`, `awareness_at`, `affected_data_classes[]`, `severity`, `owner_id` | `M11-F07` (điều phối sự cố nghiêm trọng), `M16` (tạo task khắc phục và thông báo theo hạn pháp lý), `M23` (thu hồi token/cô lập kết nối) |
+| `M20.EndpointSuppressed` | `suppression_id`, `channel`, `endpoint_lookup_hash`, `purpose_scope[]`, `reason_code`, `effective_at` | `M19`, `M01`, `M03`, `M04`, `M12`, `M21` | `M19` hủy toàn bộ `Outbound_Intents` đang xếp hàng (`QUEUED`/`RETRY_WAITING`) khớp `endpoint_lookup_hash + channel + purpose_scope`; `M04` dừng nhánh Journey tiếp thị; `M01`/`M03`/`M12`/`M21` đồng bộ trạng thái DNC trên UI (`OC17`, `RV17`) |
+| `M20.SubjectErasureExecuted` | `privacy_request_id`, `deletion_ledger_id`, `subject_hmac_sha256`, `endpoint_hmac_hashes[]`, `hmac_key_version`, `erased_scopes[]`, `retained_legal_hold_scopes[]`, `scope_tenant_wide` | `M01`, `M02`, `M03`, `M06`, `M11`, `M12`, `M16`, `M18`, `M19`, `M21`, `M22`, `M24`, `File/Assets` | Xóa/ẩn danh dữ liệu cá nhân theo phạm vi đã phê duyệt (`M19` hủy `Outbound_Intents` khớp `endpoint_hmac_hashes[]` + xóa raw payload cache; `M06` xóa `Placeholder_Vault`/vector index; `M18`/`M21`/`M24` cập nhật projection sang `REDACTED-SUBJECT-#...`; `M22-F27` kiểm tra hold lao động) |
+| `M20.LegalHoldChanged` | `legal_hold_id`, `target_scope_type`, `target_id`, `status` (`ACTIVE \| RELEASED`), `review_due_at` | `M14`, `M08`, `M09`, `M18`, `M21`, `M22` | `M14` bật/tắt cờ `RESTRICTED_LEGAL_HOLD` trong ACL & bump `permission_version`; `M08`/`M09`/`M22` khóa xóa vật lý; `M18`/`M21` ẩn danh báo cáo ngoài phạm vi audit |
+| `M20.DataIncidentEscalated` | `incident_id`, `severity` (`S1 \| S2 \| S3`), `awareness_at`, `notification_due_at`, `affected_connection_ids[]`, `affected_actor_ids[]` | `M14`, `M19`, `M23-F08`, `M23-F02` | `M19` tạm ngắt/thu hồi token kết nối liên quan; `M14` & `M23-F02` thu hồi phiên & khóa user nghi lộ; `M23-F08` bật cảnh báo an ninh khẩn |
+
+### 3.3. Danh mục Sự kiện `M20` Tiêu thụ (`Subscribed Events`)
+
+- **`M14.WorkspaceActivated`:** Kiểm tra & khởi tạo yêu cầu rà soát `Processing_Records` + DPA khi bật `CLIENT workspace` (`O06`).
+- **`M19.MessageReceiptUpdated` (`BOUNCED_HARD | BOUNCED_SOFT | COMPLAINED`):** Tiếp nhận sự kiện receipt từ `M19` (đã được `M19-F04` ingest bất biến vào `Email_Delivery_Events`/`Message_Status_Events` và được `M19` làm giàu sẵn `channel`, `purpose_code`, `endpoint_masked | null` trước khi phát) để `M20-F03` ghi/cập nhật **`Endpoint_Suppressions`** (`purpose_scope` lấy theo `purpose_code` hoặc `["ALL"]` khi `BOUNCED_HARD`/`COMPLAINED`; cho phép `endpoint_masked NULL` nếu kênh chỉ trả hash) theo cơ chế đếm `Soft-Bounce` (`[OPEN-GAP: GAP-M20-04]`) hoặc chặn tức thì (`Hard-Bounce`, `Spam Complaint`) mà **không truy vấn chéo DB `M19`** (`INDEX.md L62`).

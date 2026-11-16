@@ -1,113 +1,244 @@
-# Contract: M19-DURABLE-INGEST-OUTBOX — Hợp đồng Thu nhận Bền vững, Phát Tin & Phục hồi Kết nối Ngoài
+# Contract `M19-DURABLE-INGEST-OUTBOX` — Cổng Tiếp nhận Bền vững, Điều phối Gửi tin Ngoài, Backfill/Replay & Zero-Trust Media Fetch
 
-- **Contract ID / Version:** `M19-DURABLE-INGEST-OUTBOX` / `v1.0` (`[PROPOSED]` trên nền `[MASTER]` Mục `2.4`, `2.5`, `2.6`, `2.7`, `3.12`, `4.21`, `5.16`, `7.6`, `9.9–9.15`).
-- **Baseline:** [CRM_MASTER_BRD_SRS_HOP_NHAT.md](../../00-master/CRM_MASTER_BRD_SRS_HOP_NHAT.md) (`v1.9`, `SHA-256: b6a3279f328e96e1e97d845e209be7a326516a0dba5e3a033d88e1f2162e421c`).
-- **Provider Owner:** [M19 — Kết nối Bên ngoài, Thu nhận Sự kiện, Phát Sự kiện & Phục hồi](../modules/M19-INTEGRATION-ADAPTERS-OUTBOX.md).
-- **Consumers:** `M01` (CDP Identity Intake), `M02` (Lead/Webhook Intake), `M03` (Omnichannel Inbox Receive/Send), `M04` (Journey Dispatch), `M08/M09` (Payment/E-Invoice Gateway), `M12` (Survey Delivery), `M16/M22` (PMS/Timekeeping Sync), `M21` (`API_READ` Partner Sales Adapter `M21-F06`).
-- **Source Requirements:** `M19-F01..08`, `M19-AC01..03`, `UC21`, `ONFR01..06`, `SEC01`, `SEC02`, `SEC04`, `SEC-U01`, `SEC-U02`, `SEC-U04`, `FR30`, `FR33`, `FR34`, `FR38`, `FR40`, `INV-06`, `INV-07`, `INV-08`, `INV-23`, `OC01..09`, `OC14..16`, `OC19`, `OC21..23`, `INT01`, `INT11`, `INT24..26`, `RV05`, `RV11`, `RV17`, `OM-G01`, `OM-G02`, `OM-G07`, `OM-G08`, `OM-G09`, `OM-G10`.
-- **Status:** `Reviewed` (Đã chốt kiến trúc 3 Trụ cột qua `/grill-me` ngày `16/11/2026`; test ứng dụng `Not Run`).
-- **Breaking-Change Policy:** Mọi thay đổi trên envelope `InboundEventEnvelope`, quy tắc khử trùng lặp `(connection_id, external_event_id)`, hợp đồng trạng thái `UNKNOWN_OUTCOME` trên `OutboundDispatchResulted`, hoặc danh sách kiểm tra `RemoteFetchEgressRequest` bắt buộc tăng `major_version`, giữ dual-reader tối thiểu 1 release và chạy lại bộ kiểm thử `M19-AC01..03`, `SEC-U01/02/04`, `ONFR01..06`, `OC01/05/06/08/09`, `INT25`, `OM-G08`.
+- **Contract ID:** `CONTRACT-M19-INTEGRATION-OUTBOX-v1.1`
+- **Provider Owner:** `M19` (**Chỉ cho Tích hợp Kênh ngoài, POS `API_READ`, ERP/Payment/HRM Devices** — không dùng cho Internal Domain Outbox `M23-F12` theo `ADR-005`)
+- **Consumers:** `M01`, `M02`, `M03`, `M04`, `M09`, `M11`, `M12`, `M13`, `M18`, `M20`, `M21` (`API_READ`), `M22` (`M22-F10` thiết bị chấm công & `M22-F28` ngân hàng chi lương), `M23` (`M23-F08` Security/Ops Alerts, `M23-F12` Platform Health/DR)
+- **Baseline & ADRs liên quan:** [CRM_MASTER_BRD_SRS_HOP_NHAT.md](../../00-master/CRM_MASTER_BRD_SRS_HOP_NHAT.md) (`2.4–2.7`, `3.12.5`, `3.12.11–12`, `5.16 L2816–2829`, `5.17 L2845–2848`, `5.18 L2893/2897`, `7.6 ONFR01–06`, `Phụ lục G L4713`, `OC01`, `OC05`, `OC06`, `OC07`, `OC08`, `OC14`, `OC19`, `INT25`, `SEC-U01`, `SEC-U02`, `SEC-U04`, `H-NFR08`), [ADR-005](../../01-architecture/decisions/ADR-005-DUAL-OUTBOX-3LANE-ISOLATION-AND-VAULT.md), [ADR-006](../../01-architecture/decisions/ADR-006-DOWNLOAD-GATEWAY-REMOTE-FETCH-AND-AI-GATEWAY.md), [ADR-008](../../01-architecture/decisions/ADR-008-OMNICHANNEL-CONTRACTS-RECEIPTS-AND-CROSS-EVENTS.md)
+- **Trạng thái:** `Reviewed (CR-20261116-WAVE1-RECONCILIATION Applied)`
+- **Chính sách Breaking Change:** Mọi thay đổi schema payload hoặc tập `channel`/`provider` phải giữ tương thích ngược cho `Inbound_Events` / `Outbound_Intents` đang tồn đọng (`replay_compatible = true`) và cập nhật đồng thời `M03`, `M14`, `M20`, `M21`.
 
 ---
 
-## 1. Bảng 12 Thành phần Hợp đồng (`12 Required Contract Parts`)
+## 1. Hợp đồng Kiểm tra Đặc tả (`12 Phần Chuẩn CONTRACT.md`)
 
-| Phần | Nội dung đặc tả chi tiết |
+| Phần | Quy định chuẩn hóa của Hợp đồng |
 |---|---|
-| **Meaning** | `[MASTER]` + `[PROPOSED]` Hợp đồng cổng giao tiếp biên duy nhất giữa CRM và toàn bộ nền tảng bên ngoài (Zalo OA/ZBS, Facebook Page/Lead Ads, TikTok Business Messaging, Gmail/Microsoft 365, Web Form, Tổng đài VoIP, Cổng Thanh toán/Ngân hàng, Hóa đơn điện tử, API Đối tác `M21-F06`), tách bạch hoàn toàn khỏi hàng đợi/DLQ nội bộ do `M23-F12` quản lý (`INV-23`). Hợp đồng gồm **3 giao diện vận hành** (`IngestWebhookEvent`, `DispatchOutboundIntent`, `ExecuteSafeBackfillOrRemoteFetch`) và **4 Domain Events** phát qua Outbox. |
-| **Actor/scope** | `[MASTER]` (1) **Webhook Ingress Endpoint:** Không nhận `tenant_id / workspace_id` từ payload bên ngoài; **phải suy xuất `tenant_id` và `workspace_id` độc quyền từ bản ghi ánh xạ server `Channel_Connections` đang giữ quyền sở hữu `(provider, provider_namespace, external_account_id)` (`INV-07`, `SEC02`)**. (2) **Domain Callers (`M03`, `M04`, `M12`, `M21`):** Chỉ được gửi `Outbound_Intents` thuộc `Channel_Connections` ở trạng thái `ACTIVE` trong đúng `workspace_id` và đã kiểm `Connection_Capabilities` ở mức `verified` (`M19-F03`). (3) **Integration Operator (`M19-F07/08`):** Chỉ thao tác vận hành/health/replay trong scope được `M14` cấp; không tự động có quyền đọc nội dung chat/tài chính nếu thiếu `Entity_Team_Grant / Break-glass`. |
-| **Preconditions** | `[MASTER]` (1) Với `IngestWebhookEvent`: Adapter phải xác minh chữ ký/secret đúng chuẩn từng kênh (Zalo/Meta signature, Telegram `X-Telegram-Bot-Api-Secret-Token`, Email/Form verification) và kiểm tra kích thước payload trước khi lưu (`3.12.12`). (2) Với `DispatchOutboundIntent`: Phải có `idempotency_key` duy nhất, `capability_code = 'send'` ở trạng thái `verified`, `M14-F04` cho phép actor hiện tại, và `M20-F03` (`DISPATCH_AUTHORITATIVE`) trả về `ALLOW`. (3) Với `RemoteFetch`: URL phải khớp allowlist host đã đăng ký trong manifest của `provider`. |
-| **Input** | `[PROPOSED]` Xem chi tiết Schema đầu vào của `IngestWebhookEventInput`, `DispatchOutboundIntentInput` và `ExecuteSafeRemoteFetchInput` tại Mục 2 bên dưới. |
-| **Output** | `[PROPOSED]` Xem chi tiết Schema đầu ra `InboundIngestAck`, `OutboundDispatchResult` (`ACCEPTED \| RETRY_SCHEDULED \| UNKNOWN_OUTCOME_RECONCILING \| BLOCKED_BY_POLICY \| FAILED_TERMINAL`) và `RemoteFetchResult` tại Mục 2 bên dưới. Tuyệt đối không lộ raw DB constraint, tên `workspace_id` đang giữ kết nối khác, hay access token ra ngoài (`SEC-U02`). |
-| **Errors** | `[MASTER]` + `[PROPOSED]` Chuẩn hóa mã lỗi: `INGEST_SIGNATURE_INVALID` (`401`), `INGEST_QUOTA_OR_SIZE_EXCEEDED` (`413/429`), `INGEST_UNMAPPED_QUARANTINED` (`202 Accepted` vào `Quarantined_Events` nhưng không kích hoạt domain), `CONNECTION_OWNERSHIP_CONFLICT` (`409` — tài khoản đã thuộc owner khác, ẩn thông tin owner `SEC-U02`), `CAPABILITY_NOT_VERIFIED` (`422` — kênh chưa verify tính năng này `M19-F03`), `OUTBOUND_POLICY_BLOCKED` (`403` — chặn tại recheck bởi `M14`/`M20`), `OUTBOUND_WINDOW_OR_BUDGET_EXCEEDED` (`422` — quá cửa sổ 48h/7 ngày Zalo hoặc thiếu budget `OM-G01`), `OUTBOUND_UNKNOWN_OUTCOME` (`202` — khóa retry mù chờ đối soát `INT25`), `EGRESS_SSRF_BLOCKED` (`403` — URL trỏ vào loopback/private/metadata IP hoặc redirect trái phép `SEC-U04`). |
-| **Concurrency** | `[MASTER]` (1) **Single Active Connection Lock:** Cưỡng chế bằng Unique Partial Index trên `Channel_Connections(provider, provider_namespace, external_account_id) WHERE status IN ('ACTIVE', 'DEGRADED', 'REAUTHORIZATION_REQUIRED')` để 2 workspace không bao giờ kích hoạt trùng cùng 1 Page/OA/Mailbox (`SEC-U02`). (2) **Token Refresh Mutex:** Worker làm mới OAuth token phải giữ distributed lock / `SELECT ... FOR UPDATE` trên `Channel_Connections` để hai worker không ghi đè mất `refresh_token` của nhau (`M19-F08`, `2.6`). (3) **Non-Blocking Network Call (`INV-06`):** Worker đánh dấu intent sang `DISPATCHING`, **nhả hoàn toàn DB transaction/lock**, thực hiện gọi HTTP ra provider, rồi mới mở transaction ngắn để ghi `Send_Attempts` và cập nhật trạng thái cuối. |
-| **Idempotency** | `[MASTER]` (1) **Webhook Ingest:** Dùng khóa duy nhất `(tenant_id, connection_id, event_key)` (`UNIQUE` trong PostgreSQL — `ENTITY-L2824`). Khi cùng một sự kiện webhook đến 10 lần (`OC01`, `ONFR03`), lần 2..10 nhận `200 OK (deduplicated = true)` và không sinh Lead/Message/SLA mới. (2) **Outbound Send:** Dùng `UNIQUE (workspace_id, client_request_id / idempotency_key)` trên `Outbound_Intents` (`OC05`). Double-click cùng payload trả lại intent cũ; khác payload trả `409`. (3) **Backfill vs Realtime (`UC21`):** Dùng chung một pipeline dedup nhưng đánh dấu `source_mode = 'BACKFILL' | 'REPLAY'` để ngăn kích hoạt lại Journey hoặc SLA mới (`OC09`, `OM-G09`). |
-| **Transaction** | `[MASTER]` (1) **Durable-Before-ACK (`INV-07`, `ONFR02`):** Webhook chỉ được trả HTTP `2xx` cho nhà cung cấp sau khi `INSERT INTO Inbound_Events` commit thành công trong DB (nếu DB lỗi/timeout $\rightarrow$ trả HTTP `5xx` để đối tác tự gửi lại). (2) **Atomic Domain Projection:** Worker đọc từ `Inbound_Events` cập nhật dữ liệu nghiệp vụ + `Domain Outbox` + cập nhật trạng thái `Inbound_Events.processing_status = 'PROCESSED'` trong cùng 1 transaction. (3) **Page-Atomic Checkpoint (`M19-F06`):** Con trỏ đồng bộ `Sync_Checkpoints` chỉ tiến lên sau khi toàn bộ các bản ghi trong 1 trang (`page`) đã được xử lý và commit bền vững (`2.7` dòng `325`). |
-| **Compatibility** | `[MASTER]` + `[PROPOSED]` Hỗ trợ song song Adapter theo đúng `api_version` và bảng `Connection_Capabilities` độc lập cho 9 năng lực (`receive`, `send`, `attachments`, `delivery_receipt`, `read_receipt`, `history_backfill`, `edit`, `delete`, `native_reply_echo`). Năng lực nào ở trạng thái `pending_approval / unsupported / unknown` thì UI và API tự động khóa đúng nút thao tác tương ứng (`OM-G02`, `OC15`). |
-| **Audit/privacy** | `[MASTER]` Tuyệt đối không ghi access token, refresh token, secret webhook, hoặc toàn bộ nội dung chat/email PII thô vào log kỹ thuật ứng dụng (`2.5` dòng `260`, `7.6` dòng `3319`). Toàn bộ OAuth token mã hóa trong Vault/Secret Manager; màn hình và DLQ chỉ hiển thị `secret_ref`, trạng thái hết hạn và mã lỗi đã làm sạch (`redacted`). Raw payload trong `Inbound_Events` tuân thủ chính sách xóa định kỳ `Retention_Policies` của `M20-F06` (`6.4`). |
-| **Tests** | `[MASTER]` Provider & Consumer test fixtures: `M19-AC01..03`, `SEC-U01`, `SEC-U02`, `SEC-U04`, `ONFR01..06`, `OC01..09`, `OC14..16`, `OC19`, `OC21..23`, `INT01`, `INT11`, `INT24`, `INT25`, `INT26`, `RV05`, `RV11`, `RV17`, `OM-G01`, `OM-G02`, `OM-G07`, `OM-G08`, `OM-G09`, `OM-G10`. Trạng thái thực thi hiện tại: `Not Run`. |
+| **Meaning** | Chuẩn hóa **5 trụ cột/cổng tích hợp ngoài** của `M19`: (1) `IngestWebhookEvent` (`Durable-Before-ACK` tại Lane 1 `REALTIME_CRITICAL`), (2) `EnqueueOutboundIntent` (tạo ý định gửi nguyên tử trong transaction domain), (3) `DispatchOutboundIntent` (điều phối gửi không giữ DB lock, recheck `M14` + `M20`, đóng băng `UNKNOWN_OUTCOME` khi timeout & khóa `allow_auto_retry = false` cho giao dịch tiền/phí), (4) `ExecuteSafeRemoteFetch` (tải media từ xa Zero-Trust & cách ly quarantine tại Lane 3 `HEAVY_BATCH_BACKFILL`), và (5) `ReplayConnectionEvents` (`POST /v1/connections/{id}/replay` — `CONTRACT-L2845`: replay có giới hạn thời gian hữu hạn, bắt buộc `DRY_RUN -> EXECUTE`, audit & qua lại chống trùng/ACL). |
+| **Actor/scope** | `External Provider Webhook` (từ `Channel_Connections` xác minh chữ ký) và `Authenticated Internal Service / Worker` (`M03`, `M04`, `M12`, `M21`, `M22`, `M09`). Mọi phạm vi `tenant_id` & `workspace_id` suy xuất từ `Channel_Connections` đã xác minh trong DB, **tuyệt đối không tin `workspace_id` từ webhook ngoài (`INV-07`)**. |
+| **Preconditions** | `Channel_Connections` có trạng thái `ACTIVE` (riêng `Processing_Records` bên `M20` phải đạt `ACTIVE` trước khi bật kết nối `Master 6.3 L3159`); `Connection_Capabilities` đạt `CAPABILITY_VERIFIED` cho hành động tương ứng (`OM-G01`, `OC15`); kết nối `API_READ` (`M21-F06`) bị khóa allowlist chỉ đọc (`INV-21`). **Khóa chống Hijack `Channel_Connections`:** `UNIQUE (tenant_id, provider, provider_namespace, external_account_id) WHERE status IN ('ACTIVE', 'DEGRADED', 'REAUTHORIZATION_REQUIRED', 'PAUSED')`. |
+| **Input** | Xem 5 cặp Input JSON Schema đầy đủ ở Mục 2: `IngestWebhookEventInput`, `EnqueueOutboundIntentInput`, `DispatchOutboundIntentInput`, `ExecuteSafeRemoteFetchInput`, `ReplayConnectionEventsInput`. |
+| **Output** | Xem 5 Output JSON Schema đầy đủ ở Mục 2: `InboundIngestAck`, `EnqueueOutboundIntentOutput`, `OutboundDispatchResult`, `RemoteFetchResult`, `ReplayConnectionEventsOutput`. |
+| **Errors** | Chuẩn Error Envelope `{code, message, field_errors, correlation_id}`. Mã lỗi chính: `401 INGEST_SIGNATURE_INVALID`; `403 BREAK_GLASS_REQUIRED`; `409 CONNECTION_OWNERSHIP_CONFLICT` (non-disclosure `SEC-U02`), `409 AUTH_PERMISSION_VERSION_STALE` (từ `M14`), `409 IDEMPOTENCY_PAYLOAD_CONFLICT`; `422 CAPABILITY_NOT_VERIFIED`, `422 READ_ONLY_ADAPTER_WRITE_FORBIDDEN`, `422 PROCESSING_RECORD_UNAPPROVED`, `422 EGRESS_SSRF_BLOCKED`, `422 MEDIA_SIZE_OR_MIME_EXCEEDED`, `422 DRY_RUN_REQUIRED`, plus mọi mã chặn từ `M20` (`OUTBOUND_SUPPRESSED_UNSUBSCRIBE | OUTBOUND_SUPPRESSED_CONSENT_REVOKED | OUTBOUND_SUPPRESSED_HARD_BOUNCE | OUTBOUND_SUPPRESSED_SOFT_BOUNCE_COOLDOWN | OUTBOUND_SUPPRESSED_SPAM_COMPLAINT | OUTBOUND_SUPPRESSED_REFUSED_CALLBACK | OUTBOUND_SUPPRESSED_MANUAL_DNC | OUTBOUND_SUPPRESSED_ERASED_OR_LEGAL_HOLD`); `429 PROVIDER_RATE_LIMITED`; `503 DURABLE_WRITE_UNAVAILABLE` (cấm trả `2xx` ACK khi ghi DB thất bại `ONFR02`). |
+| **Concurrency** | **Tuyệt đối không giữ DB lock khi gọi HTTP ra ngoài (`INV-06`).** Áp dụng optimistic locking (`row_version` + CAS `QUEUED -> DISPATCHING`) để chỉ 1 worker được phép thực thi một `Outbound_Intent` tại một thời điểm (`INV-09`). Mạng đọc/timeout sau khi đã gửi POST ra provider $\rightarrow$ chuyển ngay `UNKNOWN_OUTCOME` để đối soát (`INT25`), **không retry mù** (và `allow_auto_retry = false` cho giao dịch tiền/trả phí `Master 2.5 L258`). |
+| **Idempotency** | `Inbound_Events`: **`UNIQUE (tenant_id, connection_id, event_key)`** (SQL: `ON CONFLICT (tenant_id, connection_id, event_key) DO NOTHING`; riêng các status-update event của cùng tin nhắn dùng `provider_event_id + receipt_status` riêng biệt per `5.17 L2848`). `Outbound_Intents`: **`UNIQUE (tenant_id, workspace_id, idempotency_key)`** (`OC05`) — cùng key khác payload trả `409`. |
+| **Transaction** | `IngestWebhookEvent`: commit `Inbound_Events` + `Internal_Outbox_Events` (`M19.InboundEventPersisted`) xong mới trả `2xx` ACK (`ONFR02`). `EnqueueOutboundIntent`: commit chung 1 DB transaction với bản ghi tin nhắn/lệnh domain nguồn (`INV-06`). `DispatchOutboundIntent`: Pha 1 claim `CAS` và nhả transaction $\rightarrow$ Pha 2 check `M14` + `M20` & gọi mạng $\rightarrow$ Pha 3 mở transaction mới ghi `Send_Attempts` + cập nhật trạng thái `Outbound_Intents` + event kết quả. |
+| **Compatibility** | Hỗ trợ đồng thời nhiều version adapter theo từng provider; **tuyệt đối tuân thủ lệnh cấm giả định trong Master `3.12.12` & `Phụ lục G`**: thuật toán xác minh webhook Zalo (`ZALO_OA`) và bộ Meta Message Tags (`FACEBOOK_PAGE`) đánh dấu `UNVERIFIED_UNTIL_POC` (`Fail-Closed` nếu bật cờ live mà chưa có contract xác minh PoC, `GAP-M19-03/04`). |
+| **Audit/privacy** | Không lưu token, secret hay PII nội dung tin nhắn thô trong `Send_Attempts` (`5.16 L2826`) và application logs (`NFR11`). Xem raw payload trong `Quarantined_Events` / `Adapter_Dead_Letter_Queue` bắt buộc có `Break-glass` Grant từ `M14`/`M23-F03` (`INV-22`). |
+| **Tests** | `M19-AC01..03`, `SEC-U01`, `SEC-U02`, `SEC-U04`, `OC01`, `OC05`, `OC06`, `OC07`, `OC08`, `OC09`, `OC13`, `OC14`, `OC15`, `OC16`, `OC17`, `OC19`, `OC21`, `OC22`, `INT23`, `INT24`, `INT25`, `INT26`, `ONFR01..06`, `OM-G01`, `OM-G02`, `OM-G08`, `P-T17`, `RV15`, `RV17`. Toàn bộ ở trạng thái **`Not Run`**. |
 
 ---
 
-## 2. Đặc tả Giao diện & Schema Chi tiết (`3 Pillars of M19 Contract`)
+## 2. Schemas Đầy đủ cho 5 Cổng/Lệnh Tích hợp Ngoài (`10 JSON Schemas`)
 
-### 2.1. Trụ cột 1: `IngestWebhookEvent` (`Durable-Before-ACK` & Anti-Spoof)
+### 2.1. Trụ cột 1 — `IngestWebhookEventInput` & `InboundIngestAck`
 
-#### Đầu vào chuẩn hóa từ Adapter Webhook (`IngestWebhookEventInput`)
 ```json
 {
-  "provider": "ZALO_OA | FACEBOOK_PAGE | TIKTOK_BM | GMAIL | MS_GRAPH | WEB_FORM | VOIP_SIP | PAYMENT_GW",
-  "provider_namespace": "string (App ID / Bot ID / Region / Shop Cluster)",
-  "external_account_id": "string (OA ID / Page ID / Mailbox / Form ID)",
-  "signature_verification": {
-    "algorithm": "HMAC_SHA256 | TELEGRAM_SECRET_HEADER | OAUTH_PUSH_JWT | SHARED_TOKEN",
-    "verified_by_edge": true,
-    "replay_timestamp_utc": "2026-11-16T01:05:00Z"
+  "IngestWebhookEventInput": {
+    "provider": "ZALO_OA | FACEBOOK_PAGE | TIKTOK_BM | TELEGRAM | GMAIL | MS_GRAPH | WEB_FORM | VOIP_SIP | PAYMENT_GW | PANCAKE | ERP_MISA | PMS | BIOMETRIC_DEVICE | PAYROLL_BANK",
+    "provider_namespace": "string (NN — OA ID / Page ID / Bot ID / Mailbox / Shop ID)",
+    "signature_headers": "object (header xác minh theo adapter manifest đã verify; Zalo để adapter_verifier_pending_poc cho tới khi hoàn tất PoC)",
+    "raw_body_ref": "string (reference tới payload thô được bảo vệ/mã hóa trước parse sâu)",
+    "event_key": "string (NN — canonical provider event key dùng chống trùng)",
+    "event_type": "INBOUND_MESSAGE | STATUS_RECEIPT | EMAIL_BOUNCE_OR_COMPLAINT | CALL_CDR | LEAD_FORM | ORDER_SYNC | PAYMENT_CALLBACK | ATTENDANCE_PUNCH | PAYROLL_BATCH_STATUS",
+    "occurred_at": "timestamptz | null",
+    "received_at": "timestamptz (UTC, server time NN)",
+    "source_mode": "LIVE | BACKFILL | REPLAY",
+    "correlation_id": "uuid (NN)"
   },
-  "event_key": "string (Ưu tiên provider_event_id; fallback hash phiên bản hóa có kiểm va chạm)",
-  "event_type": "INBOUND_MESSAGE | MESSAGE_EDIT | DELIVERY_RECEIPT | READ_RECEIPT | LEAD_AD | PAYMENT_NOTICE | UNSUBSCRIBE",
-  "source_mode": "LIVE | BACKFILL | REPLAY",
-  "occurred_at_utc": "2026-11-16T01:04:58Z",
-  "payload_storage_ref": "s3://crm-quarantine-or-payload/..."
+  "InboundIngestAck": {
+    "accepted": "boolean (true sau COMMIT DB)",
+    "http_status": "integer (200 | 202 — 200 OK cho provider đòi ACK đồng bộ, 202 Accepted khi xếp tiếp xử lý nền)",
+    "ingest_status": "PERSISTED_DURABLE | DUPLICATE_NOOP | QUARANTINED",
+    "inbound_event_id": "uuid | null",
+    "quarantined_event_id": "uuid | null",
+    "connection_id": "uuid",
+    "correlation_id": "uuid"
+  }
 }
 ```
 
-#### Quy tắc Bảo đảm Bắt buộc
-1. **Không bao giờ tin `tenant_id` / `workspace_id` trong payload webhook:** Webhook Ingress tra cứu `Channel_Connections` bằng `(provider, provider_namespace, external_account_id)` đang ở trạng thái nhận được (`ACTIVE | DEGRADED`). Nếu không tìm thấy hoặc chữ ký sai $\rightarrow$ từ chối `401/404` và ghi audit bảo mật. Nếu tìm thấy nhưng cấu trúc payload bất thường $\rightarrow$ lưu vào `Quarantined_Events` rồi mới trả `202` để tránh làm tắc luồng sự kiện hợp lệ kế tiếp (`M19-F04`, `3.12.11`).
-2. **Ghi bền trước khi ACK (`ONFR02`):** Thực thi `INSERT INTO Inbound_Events (...) ON CONFLICT (connection_id, event_key) DO NOTHING`. Chỉ trả HTTP `200/202` khi DB đã `COMMIT` thành công (ngân sách nội bộ `p95 <= 1 giây`).
-3. **Không lùi trạng thái khi event đến trễ (`OC07`, `OM-G08`):** Khi nhận `DELIVERED` sau `READ` hoặc trạng thái cũ đến muộn, `Delivery_Receipt_Events` lưu append-only toàn bộ lịch sử nhưng bộ giảm trạng thái (`Status Reducer`) giữ trạng thái cao hơn đã đạt (`READ > DELIVERED > ACCEPTED`).
+> **SQL Bền vững Chuẩn hóa:**  
+> `INSERT INTO inbound_events (id, tenant_id, workspace_id, connection_id, event_key, ...) VALUES (...) ON CONFLICT (tenant_id, connection_id, event_key) DO NOTHING;`  
+> Nếu là webhook `STATUS_RECEIPT` hoặc `EMAIL_BOUNCE_OR_COMPLAINT`, ghi tách vào `Message_Status_Events` (`UNIQUE (tenant_id, connection_id, provider_event_id, receipt_status)`) / `Email_Delivery_Events` để không bị nuốt do trùng `message_key` gốc (`5.17 L2848`).
 
----
+### 2.2. Trụ cột 2A — `EnqueueOutboundIntentInput` & `EnqueueOutboundIntentOutput` (Chạy trong Transaction Nghiệp vụ)
 
-### 2.2. Trụ cột 2: `DispatchOutboundIntent` (`Outbox Worker`, `Authoritative Recheck` & `UNKNOWN_OUTCOME`)
-
-#### Đầu vào (`DispatchOutboundIntentInput`)
 ```json
 {
-  "tenant_id": "uuid",
-  "workspace_id": "uuid",
-  "outbound_intent_id": "uuid",
-  "connection_id": "uuid",
-  "idempotency_key": "uuid",
-  "actor_id": "uuid (Actor hoặc Service Principal)",
-  "expected_permission_version": 7,
-  "channel": "ZALO | FACEBOOK | EMAIL | SMS | TIKTOK | WEBHOOK",
-  "purpose_code": "MARKETING_PROMO | SURVEY_VOC | SERVICE_NOTIFICATION | SECURITY_LEGAL",
-  "endpoint_lookup_hash": "char(64)",
-  "expires_at": "2026-11-16T03:00:00Z",
-  "message_ref": "uuid"
+  "EnqueueOutboundIntentInput": {
+    "tenant_id": "uuid (NN)",
+    "workspace_id": "uuid (NN)",
+    "connection_id": "uuid (NN)",
+    "actor_id": "uuid (NN)",
+    "expected_permission_version": "integer (bigint NN)",
+    "idempotency_key": "uuid (NN — UNIQUE (tenant_id, workspace_id, idempotency_key))",
+    "message_id": "uuid | null (FK Messages theo Master 5.16 L2825 cho tin nhắn CRM)",
+    "source_domain_ref": "string (NN — ví dụ m03_message / m04_step / m12_survey / m09_payment / m22_payout)",
+    "channel": "EMAIL | SMS | ZALO | FACEBOOK | TIKTOK | TELEGRAM | VOICE_CALL | WEBHOOK (API/ERP/Bank/POS dùng WEBHOOK; VoIP dùng VOICE_CALL)",
+    "purpose_code": "string (max 80 chars, khớp Master 5.9)",
+    "message_category": "TRANSACTIONAL_TICKET_OR_APPOINTMENT | SERVICE_REPLY | MARKETING_PROMO | SURVEY_VOC | AUTOMATED_JOURNEY",
+    "contact_id": "uuid | null",
+    "sender_profile_id": "uuid | null",
+    "endpoint_lookup_hash": "string (char(64) NN — với API hệ thống ERP/Bank phi cá nhân không gắn contact/người nhận thì truyền canonical system-endpoint HMAC)",
+    "risk_class": "STANDARD_MESSAGE | PAID_ZBS_TEMPLATE | PAYMENT_EXECUTION | PAYROLL_DISBURSEMENT | TAX_FILING | IRREVERSIBLE_EXTERNAL_WRITE",
+    "allow_auto_retry": "boolean (bắt buộc false khi risk_class <> STANDARD_MESSAGE theo Master 2.5 L258)",
+    "queue_lane": "REALTIME_CRITICAL | STANDARD_INTERACTIVE | HEAVY_BATCH_BACKFILL",
+    "expires_at": "timestamptz (NN — TTL tối đa theo policy GAP-M19-01)",
+    "payload_ref": "string (NN)",
+    "correlation_id": "uuid (NN)"
+  },
+  "EnqueueOutboundIntentOutput": {
+    "outbound_intent_id": "uuid",
+    "status": "QUEUED",
+    "enqueue_compliance_decision": "ALLOW",
+    "idempotent_replay": "boolean",
+    "queued_at": "timestamptz (UTC)"
+  }
 }
 ```
 
-#### Quy tắc Thực thi & Xử lý Timeout (`Decision & Retry Matrix` — Quyết định `/grill-me` #2)
-1. **Chốt chặn trước khi gọi mạng (Không dùng cache cũ):**
-   - Kiểm tra `now() <= expires_at`: nếu intent đã quá hạn TTL (ví dụ do mất kết nối 2 giờ vừa kết nối lại — `OC08`, `UC21`), **hủy ngay (`EXPIRED_CANCELLED`)**, tuyệt đối không xả hàng loạt tin nhắn cũ cho khách.
-   - Gọi đồng bộ `M14-F04` (`EvaluateAccessDecision`) với `expected_permission_version` để đảm bảo người gửi chưa bị thu hồi quyền/nghỉ việc lúc job đang chờ trong hàng đợi (`CEO-U18`, `INT23`).
-   - Gọi đồng bộ `M20-F03` (`EvaluateOutboundCompliance` với `check_stage = 'DISPATCH_AUTHORITATIVE'`) để chặn ngay nếu khách vừa rút consent (`U15`, `INT17`, `OC17`).
-   - Kiểm tra Cửa sổ gửi & Hạn mức (`Zalo 48h miễn phí vs OpenAPI 7 ngày có phí + budget`, `Meta tag policy` — `OM-G01`, `OC16`).
-2. **Nhả khóa DB trước khi gọi Provider (`INV-06`):** Cập nhật `attempt_no`, `started_at`, `OUTBOUND_DISPATCHING` rồi `COMMIT` transaction trước khi mở kết nối HTTPS ra ngoài.
-3. **Phân loại kết quả gọi API đối tác (`Retry vs UNKNOWN_OUTCOME`):**
-   - `HTTP 2xx`: Lưu `provider_message_id`, chuyển `ACCEPTED` (lưu ý: `ACCEPTED != DELIVERED`, chờ webhook đối chiếu tiếp).
-   - `HTTP 429 / 502 / 503` hoặc lỗi từ chối kết nối TCP trước khi gửi dữ liệu: Lên lịch retry theo công thức backoff `1 / 5 / 15 / 60 phút + jitter` (ưu tiên đọc header `Retry-After`).
-   - `HTTP 401 / 403` (mất quyền OAuth/Token hết hạn): Dừng gửi trên `Connection`, chuyển trạng thái `Channel_Connections` sang `REAUTHORIZATION_REQUIRED`, giữ nguyên các intent còn TTL và phát cảnh báo cho Connection Owner (`ONFR05`).
-   - **Read/Socket Timeout sau khi đã truyền payload sang Provider (`UNKNOWN_OUTCOME` — `INV-08`, `INT25`, `OM-G08`):** **TUYỆT ĐỐI KHÔNG RETRY MÙ**. Đánh dấu `Outbound_Intents.status = 'UNKNOWN_OUTCOME'`, tạo tác vụ đối soát tự động (gọi API tra cứu `message_id/request_ref` nếu provider hỗ trợ) hoặc đẩy vào hàng đợi `Reconciliation Queue` cho Operator xác minh kèm bằng chứng.
+### 2.3. Trụ cột 2B — `DispatchOutboundIntentInput` & `OutboundDispatchResult` (`C19` $\rightarrow$ `M14` + `M20`)
+
+```json
+{
+  "DispatchOutboundIntentInput": {
+    "outbound_intent_id": "uuid (NN)",
+    "tenant_id": "uuid (NN)",
+    "workspace_id": "uuid (NN)",
+    "connection_id": "uuid (NN)",
+    "actor_id": "uuid (NN)",
+    "expected_permission_version": "integer (bigint NN — kiểm tra M14 Guarded Execution trước gửi)",
+    "idempotency_key": "uuid (NN)",
+    "message_id": "uuid | null",
+    "channel": "EMAIL | SMS | ZALO | FACEBOOK | TIKTOK | TELEGRAM | VOICE_CALL | WEBHOOK",
+    "purpose_code": "string (max 80 chars NN)",
+    "message_category": "TRANSACTIONAL_TICKET_OR_APPOINTMENT | SERVICE_REPLY | MARKETING_PROMO | SURVEY_VOC | AUTOMATED_JOURNEY",
+    "contact_id": "uuid | null",
+    "sender_profile_id": "uuid | null",
+    "endpoint_lookup_hash": "string (char(64) NN)",
+    "risk_class": "STANDARD_MESSAGE | PAID_ZBS_TEMPLATE | PAYMENT_EXECUTION | PAYROLL_DISBURSEMENT | TAX_FILING | IRREVERSIBLE_EXTERNAL_WRITE",
+    "allow_auto_retry": "boolean",
+    "verified_provider_policy_manifest_version": "string | null (từ Connection_Capabilities, không hardcode Meta tags trước PoC)",
+    "payload_ref": "string (NN)",
+    "expires_at": "timestamptz (NN)",
+    "attempt_no": "integer (NN >= 1)",
+    "correlation_id": "uuid (NN)"
+  },
+  "OutboundDispatchResult": {
+    "outbound_intent_id": "uuid",
+    "status": "ACCEPTED | RETRY_WAITING | BLOCKED_BY_POLICY | EXPIRED_CANCELLED | UNKNOWN_OUTCOME | FAILED_TERMINAL",
+    "provider_message_id": "string | null",
+    "block_or_error_code": "string | null (ví dụ AUTH_PERMISSION_VERSION_STALE, OUTBOUND_SUPPRESSED_*, CAPABILITY_NOT_VERIFIED, READ_ONLY_ADAPTER_WRITE_FORBIDDEN)",
+    "next_attempt_at": "timestamptz | null",
+    "reconcile_due_at": "timestamptz | null (bắt buộc khi status = UNKNOWN_OUTCOME)",
+    "dispatched_at": "timestamptz (UTC)"
+  }
+}
+```
+
+> **Quy trình 5 bước của Worker `DispatchOutboundIntent`:**
+> 1. **TTL & Connection Gate:** Kiểm `now() < expires_at` (quá hạn $\rightarrow$ `EXPIRED_CANCELLED` `OC08`); kiểm `Channel_Connections.status == 'ACTIVE'`, `Connection_Capabilities` đạt `CAPABILITY_VERIFIED` và chặn cứng nếu connection gắn `READ_ONLY_PARTNER_SYNC` (`P-T17`).
+> 2. **`M14` Guarded Authority Check (`ADR-003`):** Gọi `M14.EvaluateAccessDecision` với `execution_mode = 'GUARDED_EXECUTION'` & `expected_permission_version`. Nếu lệch/bị khóa $\rightarrow$ `BLOCKED_BY_POLICY` (`AUTH_PERMISSION_VERSION_STALE` / `AUTH_*`) + audit (`CEO-U18`, `INT23`).
+> 3. **`M20` Authoritative Suppression Gate (`ADR-008`):** Gọi `M20.EvaluateOutboundCompliance` (`DISPATCH_AUTHORITATIVE`) với đủ `contact_id`, `sender_profile_id`, `channel`, `purpose_code`, `endpoint_lookup_hash` *(lưu ý: với lệnh `WEBHOOK` hệ thống phi nhắn tin như ERP/Payment/Bank, giữ nguyên Bước 1 [`Deletion_Ledger` + `Endpoint_Suppressions`], Bước 2 [`Processing_Records == ACTIVE` + `EvaluateVendorAndAiTransfer`], và Bước 4 [`Legal_Hold`] của `M20`; chỉ miễn Bước 3 Consent tiếp thị khi thuộc `TRANSACTIONAL_*` kỹ thuật và miễn Bước 5 Sender Profile `EMAIL/SMS/ZALO` theo `C20`)*. Nếu `BLOCK` $\rightarrow$ `BLOCKED_BY_POLICY` (`OC17`, `RV17`).
+> 4. **Gọi Adapter Ngoài (Không giữ DB lock `INV-06`):** Dùng secret từ Vault (`ADR-005`). Kiểm kích thước MIME (`+33%` base64 cho Email) & `min(product_limit, provider_limit)`.
+> 5. **Xử lý Kết quả & Chống Retry Mù (`INT25`, `Master 2.5 L258`):**
+>    - Nếu timeout/mất kết nối sau khi phát POST hoặc `allow_auto_retry = false` gặp lỗi mơ hồ $\rightarrow$ chuyển ngay **`UNKNOWN_OUTCOME`** (đặt `reconcile_due_at`, **tuyệt đối không retry tự động**).
+>    - Nếu lỗi định dạng `4xx / 422` xác định thất bại đồng bộ (hoặc `allow_auto_retry = false` bị provider từ chối rõ ràng chưa ghi sổ ngoài) $\rightarrow$ chuyển thẳng **`FAILED_TERMINAL`**.
+>    - Nếu `TRANSIENT_ERROR` / `429` và `allow_auto_retry = true` $\rightarrow$ `RETRY_WAITING` theo lịch `[1, 5, 15, 60]` phút + jitter hoặc header `Retry-After` (`GAP-M19-01`).
+
+### 2.4. Trụ cột 4 — `ExecuteSafeRemoteFetchInput` & `RemoteFetchResult` (`SEC04`, `ADR-006`)
+
+```json
+{
+  "ExecuteSafeRemoteFetchInput": {
+    "tenant_id": "uuid (NN)",
+    "workspace_id": "uuid (NN)",
+    "connection_id": "uuid (NN)",
+    "inbound_event_id": "uuid | null",
+    "source_url": "string (HTTPS URL từ provider payload đã xác minh chữ ký)",
+    "expected_mime_types": ["string"],
+    "provider_reported_limit_bytes": "integer | null",
+    "follow_redirects": "boolean (bắt buộc false)",
+    "queue_lane": "HEAVY_BATCH_BACKFILL",
+    "correlation_id": "uuid (NN)"
+  },
+  "RemoteFetchResult": {
+    "fetch_log_id": "uuid",
+    "decision": "ALLOWED | BLOCKED_SSRF | BLOCKED_ALLOWLIST | BLOCKED_SIZE_OR_MIME | QUARANTINED_INFECTED",
+    "effective_max_bytes": "integer (min(26214400, verified_provider_method_limit))",
+    "actual_size_bytes": "integer | null",
+    "resolved_mime_type": "string | null",
+    "content_sha256": "string | null",
+    "scan_status": "PENDING | CLEAN | INFECTED | FAILED",
+    "asset_id": "uuid | null (chỉ gắn khi scan_status = CLEAN)",
+    "quarantined_event_id": "uuid | null",
+    "fetched_at": "timestamptz (UTC)"
+  }
+}
+```
+
+### 2.5. Trụ cột 5 — `ReplayConnectionEventsInput` & `ReplayConnectionEventsOutput` (`POST /v1/connections/{id}/replay` — `CONTRACT-L2845`, `ADR-008`)
+
+```json
+{
+  "ReplayConnectionEventsInput": {
+    "tenant_id": "uuid (NN — suy xuất từ session)",
+    "workspace_id": "uuid (NN — suy xuất từ session)",
+    "connection_id": "uuid (NN)",
+    "actor_id": "uuid (NN)",
+    "expected_permission_version": "integer (bigint NN — GUARDED_EXECUTION)",
+    "idempotency_key": "uuid (NN)",
+    "mode": "DRY_RUN | EXECUTE (bắt buộc DRY_RUN hợp lệ trước khi gọi EXECUTE)",
+    "range_from": "timestamptz (UTC NN — bắt buộc range_to > range_from trong cửa sổ GAP-M19-09)",
+    "range_to": "timestamptz (UTC NN)",
+    "reason": "string (NN — lý do kiểm toán bắt buộc)",
+    "approved_by_user_id": "uuid | null (bắt buộc != actor_id khi phạm vi rủi ro cao / TEAM)",
+    "queue_lane": "HEAVY_BATCH_BACKFILL",
+    "correlation_id": "uuid (NN)"
+  },
+  "ReplayConnectionEventsOutput": {
+    "replay_job_id": "uuid",
+    "mode": "DRY_RUN | EXECUTE",
+    "status": "DRY_RUN_READY | RUNNING | COMPLETED | FAILED | CANCELLED",
+    "estimated_count": "integer (>= 0)",
+    "executed_count": "integer (>= 0)",
+    "blocked_by_policy_count": "integer (>= 0)",
+    "correlation_id": "uuid"
+  }
+}
+```
+
+> **Quy tắc Kiểm duyệt `ReplayConnectionEvents` (`CONTRACT-L2845`):**
+> - Kiểm `M14.EvaluateAccessDecision(resource_type = 'REPLAY_JOB', action = 'REPLAY', execution_mode = 'GUARDED_EXECUTION')`. Nếu gọi `EXECUTE` khi chưa có phiếu `DRY_RUN_READY` khớp `(connection_id, range_from, range_to)` $\rightarrow$ trả ngay `422 DRY_RUN_REQUIRED`.
+> - Chạy hoàn toàn trên **`Lane 3 (HEAVY_BATCH_BACKFILL)`**, luôn gắn `source_mode = 'REPLAY'` (không tạo SLA/Journey live `OC09`), đi qua cùng bảng dedup `Inbound_Events` và kiểm lại `M20` trước mọi side-effect (`OC08`, `OC19`).
 
 ---
 
-### 2.3. Trụ cột 3: `ExecuteSafeRemoteFetch` (`SSRF Guard` — `SEC04`, `SEC-U04`) & `Safe Replay`
+## 3. Domain Events Phát hành & Tiêu thụ (Qua Internal Outbox `M23-F12` — `ADR-005`)
 
-#### Quy tắc Bảo vệ Tải Media từ URL Đối tác (`Remote Fetch Policy`)
-1. **Allowlist & DNS-Rebinding Prevention:** Chỉ tải file từ danh sách domain chính thức thuộc manifest của `provider` (hoặc qua SDK/endpoint xác minh). Worker thực hiện phân giải DNS trước, **từ chối ngay (`EGRESS_SSRF_BLOCKED`) nếu bất kỳ địa chỉ IP kết quả nào thuộc dải `127.0.0.0/8`, `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`, `169.254.0.0/16` (cloud metadata), `::1`, `fc00::/7`, `fe80::/10`, hoặc IP riêng/reserved**.
-2. **Tắt Redirect Tự do & Bảo toàn Credential:** Mặc định `follow_redirects = false`. Nếu một provider đặc thù bắt buộc redirect CDN, mỗi hop chuyển hướng phải qua lại bước kiểm tra IP + Allowlist từ đầu và **tuyệt đối không gửi kèm Header chứa Access Token sang domain thứ hai**.
-3. **Giới hạn Kích thước & Quét Mã độc:** Áp đặt `connect_timeout`, `read_timeout`, `max_bytes` (trước khi đọc hết stream), chặn nén bom giải nén (`decompression bomb`), kiểm tra chữ ký MIME thật và quét malware (`scan_status = 'CLEAN'`) trước khi cho phép `Download Gateway` (`SEC03`) hiển thị hoặc tải về (`OC14`).
+### 3.1. Envelope Chuẩn Mọi Sự kiện `M19` (`schema_version = "1.1"`)
 
----
+Dùng cấu trúc Envelope thống nhất (`event_id`, `event_type`, `aggregate_type`, `aggregate_id`, `aggregate_version`, `schema_version`, `tenant_id`, `workspace_id`, `occurred_at`, `correlation_id`, `causation_id`, `payload`).
 
-## 3. Các Sự kiện Miền Phát Qua Outbox (`Published Domain Events`)
+### 3.2. Danh mục Sự kiện Phát hành (`Published Events`)
 
-| Tên Sự kiện (`Event Type`) | Khi nào phát (`Trigger`) | Payload chính | Consumers bắt buộc xử lý |
+| Event Name | Payload Trọng yếu | Consumers Bắt buộc | Hành động Phải thực thi |
 |---|---|---|---|
-| `M19.InboundEventPersisted` | Lưu bền sự kiện webhook/đồng bộ mới hợp lệ (không trùng) | `tenant_id`, `workspace_id`, `connection_id`, `inbound_event_id`, `provider`, `event_type`, `source_mode` (`LIVE \| BACKFILL \| REPLAY`), `occurred_at`, `payload_ref` | `M01/M03` (tiếp nhận hội thoại/identity), `M02` (Lead Ads/Webform), `M09` (biến động thanh toán), `M21` (`API_READ` dataset) |
-| `M19.OutboundDispatchResulted` | Outbox Worker hoàn tất một lượt gửi tin hoặc chuyển trạng thái đối soát | `tenant_id`, `workspace_id`, `outbound_intent_id`, `status` (`ACCEPTED \| BLOCKED_BY_POLICY \| EXPIRED_CANCELLED \| UNKNOWN_OUTCOME \| FAILED_TERMINAL`), `provider_message_id`, `block_reason_code` | `M03` (cập nhật trạng thái bong bóng chat), `M04` (ghi nhận kết quả bước Journey), `M11` (xác nhận hoàn tất SLA `response_to`), `M12` (khảo sát) |
-| `M19.ConnectionHealthChanged` | Trạng thái kết nối đổi sang `ACTIVE`, `DEGRADED`, `REAUTHORIZATION_REQUIRED`, `PAUSED`, hoặc `DISCONNECTED` | `tenant_id`, `workspace_id`, `connection_id`, `provider`, `old_status`, `new_status`, `capability_summary`, `owner_user_id` | `M03` (hiện badge cảnh báo mất kết nối trên Inbox), `M16` (tạo task khắc phục cho Owner nếu lỗi quyền quá 5 phút `ONFR05`), `M23` (giám sát sức khỏe) |
-| `M19.SyncCoverageGapReported` | Đọc lịch sử (`Backfill`) hoàn tất nhưng API không hỗ trợ lấy đủ khoảng mất kết nối (`UC21`, `OC21`) | `tenant_id`, `workspace_id`, `connection_id`, `sync_run_id`, `coverage_from`, `coverage_to`, `gap_reason`, `is_recoverable` | `M03` (hiển thị banner cảnh báo khoảng trống lịch sử trung thực trên timeline), `M18` (đánh dấu chất lượng dữ liệu `Partial/Unknown` — không báo 100%) |
+| `M19.InboundEventPersisted` | `inbound_event_id`, `connection_id`, `provider`, `event_type`, `source_mode` (`LIVE \| BACKFILL \| REPLAY`), `payload_ref`, `occurred_at` | `M03`, `M01`, `M09`, `M21`, `M22` | `M03` chiếu hội thoại/tin nhắn; nếu `source_mode = BACKFILL` thì chỉ ghi lịch sử, không tính SLA mới hoặc chạy trigger nurture (`OC09`); `M09` đối soát `PAYMENT_GW`; `M21`/`M22` nạp dataset/device/payroll status theo adapter |
+| `M19.OutboundDispatchResulted` | `outbound_intent_id`, `message_id`, `channel`, `status` (`ACCEPTED \| BLOCKED_BY_POLICY \| EXPIRED_CANCELLED \| UNKNOWN_OUTCOME \| FAILED_TERMINAL`), `provider_message_id`, `reason_code` | `M03`, `M04`, `M12`, `M09`, `M22` | Cập nhật trạng thái gửi thực tế tại màn hình nguồn; hiển thị cờ chờ đối soát `UNKNOWN_OUTCOME` (`UC19`, `INT25`) hoặc lý do bị chặn `M20`/`M14` |
+| `M19.MessageReceiptUpdated` *(Mới — từ `Message_Status_Events` `ENTITY-L2823` & `Email_Delivery_Events` `ENTITY-L2893` do `M19-F04` ingest)* | `message_status_event_id`, `outbound_intent_id`, `message_id`, `connection_id`, `channel`, `purpose_code`, `endpoint_lookup_hash`, `endpoint_masked` *(tùy kênh/payload, nullable)*, `receipt_status` (`ACCEPTED \| SENT \| DELIVERED \| DEFERRED \| READ \| BOUNCED_HARD \| BOUNCED_SOFT \| COMPLAINED \| FAILED`), `occurred_at` | `M03`, `M20`, `M04`, `M12` | `M03` cập nhật trạng thái đọc/nhận/bounce theo thứ tự đơn điệu (`ACCEPTED -> READ`, `ACCEPTED -> FAILED` `OC07`); `M20-F03` tiếp nhận trực tiếp `{channel, endpoint_lookup_hash, purpose_code, endpoint_masked, receipt_status}` từ payload event để ghi/cập nhật `Endpoint_Suppressions` mà **không truy vấn chéo DB `M19`** (`INDEX.md L62`, cấm hồi sinh trước khi gửi kế tiếp; bảng `Email_Delivery_Events` đã do `M19-F04` ingest trước đó) |
+| `M19.ConnectionHealthChanged` | `connection_id`, `provider`, `old_status`, `new_status` (`ACTIVE \| DEGRADED \| REAUTHORIZATION_REQUIRED \| PAUSED \| DISCONNECTED`), `health_reason_redacted` | `M03`, `M21`, `M22`, `M23-F08` | Vô hiệu hóa nút gửi/đồng bộ khi mất kết nối, cảnh báo owner có runbook (`ONFR05`), báo `Availability` 2 lớp (`ONFR06`) |
+| `M19.SyncCoverageGapReported` | `connection_id`, `checkpoint_id`, `stream_key`, `coverage_from`, `coverage_to`, `coverage_status` (`COMPLETE \| PARTIAL \| UNKNOWN`), `gap_reason` | `M03`, `M18`, `M21`, `M23-F08` | Hiển thị trung thực khoảng dữ liệu lịch sử không lấy lại được trên Monitor/BI (`OC21`, `UC21`, `CMO-U25`) thay vì báo `"100%"` giả |
+
+### 3.3. Danh mục Sự kiện Liên Module `M19` Tiêu thụ (`Subscribed Events`)
+
+| Nguồn & Event | Hành vi Xử lý Tại `M19` |
+|---|---|
+| **`M14.PermissionVersionBumped`** | Làm mới kiểm tra quyền cho worker dispatch / từ chối các lệnh `DispatchOutboundIntent` hoặc `ReplayConnectionEvents` đang giữ `expected_permission_version` cũ (`409 AUTH_PERMISSION_VERSION_STALE` — `ADR-003`, `CEO-U18`) |
+| **`M14.UserOffboardingLocked` / `M14.WorkHandoverAssigned`** | Ngừng phát các `Outbound_Intents` theo lịch gắn `actor_id` cũ (hoặc chuyển `owner/approver` sang Custodian mới sau xác nhận `OC18`); từ chối cấp lại quyền replay/connect cho actor bị khóa |
+| **`M14.WorkspaceActivated`** | Cho phép mở quyền đăng ký/kích hoạt `Channel_Connections` trong `workspace_id` vừa kích hoạt (phải kiểm `Processing_Records` ở `M20` trước khi lên `ACTIVE`) |
+| **`M20.EndpointSuppressed`** | Hủy ngay toàn bộ `Outbound_Intents` còn ở trạng thái `QUEUED` hoặc `RETRY_WAITING` khớp `(tenant_id, workspace_id, channel, endpoint_lookup_hash)` + `purpose_scope` $\rightarrow$ chuyển sang `BLOCKED_BY_POLICY` (`OC17`, `RV17`) |
+| **`M20.SubjectErasureExecuted`** | Hủy toàn bộ `Outbound_Intents` đang xếp hàng liên quan tới `endpoint_hmac_hashes` bị xóa và đánh dấu purge các `payload_ref` raw payload theo chính sách `Retention` |
+| **`M20.DataIncidentEscalated`** | Nếu `affected_connection_ids[]` không rỗng: đưa ngay kết nối bị nghi rò rỉ token sang `REAUTHORIZATION_REQUIRED` / `PAUSED` và thu hồi secret cũ khỏi Vault cache (`M20-F08`) |
+| **`M23.FeatureFlagUpdated`** (`M23-F09`) | Khi tắt cờ kênh hoặc `M06`/`M21`, áp dụng `Feature Flag Closure` đóng toàn bộ endpoint webhook/outbox của kênh tương ứng (`RV20`) |

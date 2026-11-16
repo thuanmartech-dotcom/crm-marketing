@@ -14,11 +14,11 @@ Mục tiêu giai đoạn hiện tại là hoàn thiện đặc tả chi tiết c
 - [PARTNER-DATA-PROFILE.md](templates/PARTNER-DATA-PROFILE.md) — Mẫu phiếu cấu hình chia sẻ dữ liệu đối tác (`M21`).
 - [PARTNER-REPORT.md](templates/PARTNER-REPORT.md) — Mẫu báo cáo dịch vụ và kết quả đối tác (`M21`).
 
-### Hợp đồng Liên Module Đã Khóa (`contracts/`)
+### Hợp đồng Liên Module Đã Khóa (`contracts/` — Đã đối soát `CR-20261116-WAVE1-RECONCILIATION`)
 
-- [M14-PRINCIPAL-ACCESS-DECISION.md](contracts/M14-PRINCIPAL-ACCESS-DECISION.md) — Hợp đồng Kép kiểm tra quyền thực thi (`EvaluateAccessDecision` + `CompileScopeFilter`) và 4 Domain Events thu hồi/bàn giao của `M14`.
-- [M20-SUPPRESSION-PRIVACY-GATE.md](contracts/M20-SUPPRESSION-PRIVACY-GATE.md) — Hợp đồng Kép kiểm duyệt chặn gửi thời gian thực (`EvaluateOutboundCompliance`), kiểm soát chuyển dữ liệu sang AI/Vendor (`EvaluateVendorAndAiTransfer`), đối soát sổ xóa sau Restore (`VerifyPostRestoreComplianceGate`) và 4 Domain Events của `M20`.
-- [M19-DURABLE-INGEST-OUTBOX.md](contracts/M19-DURABLE-INGEST-OUTBOX.md) — Hợp đồng 3 trụ cột Ingest bền vững trước ACK (`Durable-Before-ACK`), Backfill/Replay an toàn TTL (`Safe Backfill & Replay`), tải media Zero-Trust (`SEC04`) và 4 Domain Events của `M19`.
+- [M14-PRINCIPAL-ACCESS-DECISION.md](contracts/M14-PRINCIPAL-ACCESS-DECISION.md) — Hợp đồng 3 cổng (`BindDbTransactionContext` + `EvaluateAccessDecision` + `CompileScopeFilter`), đồng bộ Break-Glass từ `M23` và 4 Domain Events thu hồi/bàn giao của `M14`.
+- [M20-SUPPRESSION-PRIVACY-GATE.md](contracts/M20-SUPPRESSION-PRIVACY-GATE.md) — Hợp đồng 4 cổng kiểm duyệt gửi tin thời gian thực (`EvaluateOutboundCompliance`), chuyển dữ liệu AI/Vendor (`EvaluateVendorAndAiTransfer`), đối soát sau Restore (`VerifyPostRestoreComplianceGate`), quyền tải tệp riêng tư (`EvaluateAssetDownloadPrivacyGate`) và 4 Domain Events của `M20`.
+- [M19-DURABLE-INGEST-OUTBOX.md](contracts/M19-DURABLE-INGEST-OUTBOX.md) — Hợp đồng 5 trụ cột Ingest bền vững (`IngestWebhookEvent`), Outbox gửi tin (`EnqueueOutboundIntent` + `DispatchOutboundIntent`), tải media Zero-Trust (`ExecuteSafeRemoteFetch`), Replay an toàn (`ReplayConnectionEvents`), 5 Domain Events phát hành và 8 sự kiện tiêu thụ của `M19`.
 
 ---
 
