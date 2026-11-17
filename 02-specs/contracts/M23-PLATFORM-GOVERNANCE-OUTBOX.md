@@ -4,7 +4,11 @@
 - **Provider Owner:** `M23` (Quản trị Hệ thống, Bảo mật Vận hành & Nền tảng Cấu hình — `[PROPOSED]`)
 - **Consumers:** Toàn bộ `M01–M24` (đặc biệt `M02`, `M03`, `M04`, `M07`, `M08`, `M09`, `M10`, `M11`, `M13`, `M14`, `M15`, `M16`, `M17`, `M18`, `M19`, `M20`, `M21`, `M22`, `M24`, `Download Gateway SEC03`)
 - **Baseline & ADRs liên quan:** [CRM_MASTER_BRD_SRS_HOP_NHAT.md](../../00-master/CRM_MASTER_BRD_SRS_HOP_NHAT.md) (`v1.9`, `SHA-256: b6a3279f328e96e1e97d845e209be7a326516a0dba5e3a033d88e1f2162e421c`; Mục `5.1`, `5.13 L2783/2787`, `5.18 L2885`, `6.1`, `6.2`, `7.2–7.5`, `NFR05–12`, `SEC03`, `SEC06`, `CR05`, `U03`, `U21`), [INVARIANTS.md](../../01-architecture/INVARIANTS.md) (`INV-06`, `INV-13`, `INV-14`, `INV-15`, `INV-22..25`), [ADR-002](../../01-architecture/decisions/ADR-002-ORG-ISOLATION-RLS-AND-SCOPE-FILTER.md), [ADR-003](../../01-architecture/decisions/ADR-003-PERMISSION-VERSION-CACHE-AND-MODE-GOVERNANCE.md), [ADR-004](../../01-architecture/decisions/ADR-004-SHARED-PLATFORM-TABLES-AND-BASE-SCHEMA.md), [ADR-005](../../01-architecture/decisions/ADR-005-DUAL-OUTBOX-3LANE-ISOLATION-AND-VAULT.md), [ADR-006](../../01-architecture/decisions/ADR-006-DOWNLOAD-GATEWAY-REMOTE-FETCH-AND-AI-GATEWAY.md), [ADR-007](../../01-architecture/decisions/ADR-007-PRIVACY-CANONICAL-HASH-LEGAL-HOLD-AND-DR-FENCE.md), [ADR-009](../../01-architecture/decisions/ADR-009-M16-WORK-PROJECTS-TASK-CORE-BOUNDARIES.md), [M23-SYSTEM-ADMIN-SECURITY-OPS.md](../modules/M23-SYSTEM-ADMIN-SECURITY-OPS.md)
-- **Trạng thái:** `Reviewed (Wave 1.5 Foundation Hardening — CR-20261116-WAVE1-5-HARDENING Applied & Verified; Documentation-Only)`
+- **Trạng thái:** `Reviewed (Wave 1.5 Foundation Hardening — CR-20261116-WAVE1-5-HARDENING Applied & Verified; CR-20261116-SKILL-TEMPLATE-ALIGN Applied; Documentation-Only)`
+- **Approved_Scope:** `Wave 1.5 Platform Governance, Internal Outbox, Approvals, Calendars & Asset Gateway Public Contract`
+- **Approved_By:** `Chủ dự án`
+- **Decision_Ref:** `CR-20261116-SKILL-TEMPLATE-ALIGN`
+- **Approved_At:** `2026-11-16`
 - **Chính sách Breaking Change:** Additive-only cho trường tùy chọn mới; mọi thay đổi cấu trúc bắt buộc của `Input`/`Output`, tập enum `lane`/`asset_domain`/`state`, hoặc Event Envelope `schema_version = "1.0"` bắt buộc giữ tương thích ngược (upcaster/dual-publish) cho hàng đợi `Internal_Outbox_Events` đang tồn đọng và cập nhật đồng thời toàn bộ Wave 1–5 Consumers (`M14`, `M16`, `M19`, `M20`, `M24`).
 
 ---
@@ -63,6 +67,42 @@
     "contract_version": "1.0",
     "correlation_id": "uuid",
     "enqueued_at": "timestamptz (UTC)"
+  }
+}
+```
+
+**Ví dụ (`Example`) `PublishInternalOutboxEventInput` & `PublishInternalOutboxEventOutput`:**
+
+```json
+{
+  "ExamplePublishInternalOutboxEventInput": {
+    "tenant_id": "22222222-2222-4222-8222-222222222222",
+    "workspace_id": "33333333-3333-4333-8333-333333333333",
+    "lane": "STANDARD_INTERACTIVE",
+    "aggregate_type": "TASK",
+    "aggregate_id": "dddddddd-dddd-4ddd-8ddd-dddddddddddd",
+    "aggregate_version": 2,
+    "event_type": "M16.TaskCompleted",
+    "envelope_schema_version": "1.0",
+    "contract_version": "1.0",
+    "payload_json": {
+      "task_id": "dddddddd-dddd-4ddd-8ddd-dddddddddddd",
+      "status": "DONE"
+    },
+    "idempotency_key": "m16-task-done-v2-dddddddd",
+    "correlation_id": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee",
+    "causation_id": null,
+    "available_at": "2026-11-16T10:05:00Z"
+  },
+  "ExamplePublishInternalOutboxEventOutput": {
+    "outbox_event_id": "ffffffff-ffff-4fff-8fff-ffffffffffff",
+    "lane": "STANDARD_INTERACTIVE",
+    "status": "PENDING",
+    "idempotent_replay": false,
+    "envelope_schema_version": "1.0",
+    "contract_version": "1.0",
+    "correlation_id": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee",
+    "enqueued_at": "2026-11-16T10:05:00Z"
   }
 }
 ```
@@ -285,7 +325,10 @@
   "occurred_at": "timestamptz (UTC)",
   "correlation_id": "uuid",
   "causation_id": "uuid | null",
-  "payload": {}
+  "payload": {
+    "actor_id": "uuid",
+    "detail_note": "Object field-map cụ thể theo từng dòng Sự kiện §3.2"
+  }
 }
 ```
 

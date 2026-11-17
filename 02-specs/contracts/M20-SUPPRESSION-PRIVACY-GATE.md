@@ -4,7 +4,11 @@
 - **Provider Owner:** `M20` (Consent, Mục đích Xử lý, Suppression, Privacy Requests, Legal Hold, Retention & AI Gateway)
 - **Consumers:** `M19` (Outbound Dispatch), `M01` (Merge Consent Guard), `M02` (Lead/Import), `M03` (Inbox Compose), `M04` (Journey Dispatch), `M06` (AI Co-Pilot), `M08`/`M09` (Legal Hold Lock), `M11`/`M12` (Ticket vs Survey/Feedback), `M14` (Legal Hold ACL, PITR #6 Reconciliation & Download Gateway `SEC03`), `M16`/`M18`/`M21`/`M22` (Erasure, `Legal_Hold` & Reporting/HR Gate), `M23` (`M23-F07` Export/Assets & `M23-F12` Restore Drill), `M24` (`M24-F05/F06/F08` Notifications, Cache & Async Export)
 - **Baseline & ADRs liên quan:** [CRM_MASTER_BRD_SRS_HOP_NHAT.md](../../00-master/CRM_MASTER_BRD_SRS_HOP_NHAT.md) (`2.5 L268 CONTRACT-L0268`, `3.5.3 FR13`, `5.9`, `5.18`, `6.3 L3132–3174`, `6.4 L3178`, `6.8 L3257`, `7.3 L3294`, `Phụ lục E.3 L4600 CR12`, `SEC03`, `SEC05`, `SEC-U05`, `U15`, `U21`, `U22`, `INT17`, `INT26`, `INT28`, `OC03`, `OC17`, `OC19`, `OC20`, `RV16`, `RV17`, `CX-U15`, `CX-U20`), [ADR-002](../../01-architecture/decisions/ADR-002-ORG-ISOLATION-RLS-AND-SCOPE-FILTER.md), [ADR-004](../../01-architecture/decisions/ADR-004-SHARED-PLATFORM-TABLES-AND-BASE-SCHEMA.md), [ADR-006](../../01-architecture/decisions/ADR-006-DOWNLOAD-GATEWAY-REMOTE-FETCH-AND-AI-GATEWAY.md), [ADR-007](../../01-architecture/decisions/ADR-007-PRIVACY-CANONICAL-HASH-LEGAL-HOLD-AND-DR-FENCE.md), [ADR-008](../../01-architecture/decisions/ADR-008-OMNICHANNEL-CONTRACTS-RECEIPTS-AND-CROSS-EVENTS.md)
-- **Trạng thái:** `Reviewed (CR-20261116-WAVE1-5-HARDENING Applied; CR-20261116-WAVE1-REVIEW-FIXES Applied)` *(đồng bộ hậu `CR-20261116-WAVE1-RECONCILIATION` theo mã đề xuất `CR-20261116-WAVE1-5-HARDENING` và `CR-20261116-WAVE1-REVIEW-FIXES`)*
+- **Trạng thái:** `Reviewed (CR-20261116-WAVE1-5-HARDENING Applied; CR-20261116-WAVE1-REVIEW-FIXES Applied; CR-20261116-SKILL-TEMPLATE-ALIGN Applied)` *(đồng bộ hậu `CR-20261116-WAVE1-RECONCILIATION` theo mã đề xuất `CR-20261116-WAVE1-5-HARDENING` và `CR-20261116-WAVE1-REVIEW-FIXES`)*
+- **Approved_Scope:** `Wave 1/1.5 Privacy, Suppression, AI Gateway & DR Gate Public Contract`
+- **Approved_By:** `Chủ dự án`
+- **Decision_Ref:** `CR-20261116-SKILL-TEMPLATE-ALIGN`
+- **Approved_At:** `2026-11-16`
 - **Chính sách Breaking Change:** Thay đổi rule chặn gửi hoặc schema chuyển AI/Restore/Download Gate bắt buộc giữ chế độ Fail-Closed trong `ADR-006`/`ADR-007` và cập nhật đồng thời `M19`, `M14`, `M16`, `M06`, `M23`, `M24`.
 
 ---
@@ -64,6 +68,44 @@
     "consent_state_version": "integer | null",
     "evaluated_at": "timestamptz (UTC)",
     "audit_ref": "uuid (NN)"
+  }
+}
+```
+
+**Ví dụ (`Example`) `EvaluateOutboundComplianceInput` & `OutboundComplianceDecision`:**
+
+```json
+{
+  "ExampleEvaluateOutboundComplianceInput": {
+    "tenant_id": "22222222-2222-4222-8222-222222222222",
+    "workspace_id": "33333333-3333-4333-8333-333333333333",
+    "actor_id": "11111111-1111-4111-8111-111111111111",
+    "actor_type": "SERVICE_PRINCIPAL",
+    "check_stage": "DISPATCH_AUTHORITATIVE",
+    "channel": "EMAIL",
+    "purpose_code": "MARKETING_NEWSLETTER",
+    "message_category": "MARKETING_PROMO",
+    "contact_id": "88888888-8888-4888-8888-888888888888",
+    "endpoint_lookup_hash": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+    "hmac_key_version": "kv-2026-11-active",
+    "endpoint_hashes_by_version": [
+      {
+        "hmac_key_version": "kv-2026-11-active",
+        "hash": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+      }
+    ],
+    "sender_profile_id": "99999999-9999-4999-8999-999999999999",
+    "connection_id": "77777777-7777-4777-8777-777777777777",
+    "correlation_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa"
+  },
+  "ExampleOutboundComplianceDecision": {
+    "decision": "BLOCK",
+    "block_reason_code": "OUTBOUND_SUPPRESSED_CONSENT_REVOKED",
+    "suppression_id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
+    "matched_hmac_key_version": "kv-2026-11-active",
+    "consent_state_version": 3,
+    "evaluated_at": "2026-11-16T10:00:00Z",
+    "audit_ref": "cccccccc-cccc-4ccc-8ccc-cccccccccccc"
   }
 }
 ```
@@ -216,6 +258,26 @@
 ### 3.1. Envelope Chuẩn Mọi Sự kiện `M20` (`schema_version = "1.1"`)
 
 Dùng chung cấu trúc chuẩn (`event_id`, `event_type`, `aggregate_type`, `aggregate_id`, `aggregate_version`, `schema_version`, `tenant_id`, `workspace_id` [`uuid | null`, `NULL` khi sự kiện phạm vi toàn Tenant như `SubjectErasureExecuted` / `LegalHoldChanged Nhóm B-Governance-Sensitive`], `occurred_at`, `correlation_id`, `causation_id`, `payload`).
+
+```json
+{
+  "event_id": "uuid (NN)",
+  "event_type": "M20.EndpointSuppressed | M20.SubjectErasureExecuted | M20.LegalHoldChanged | M20.DataIncidentEscalated",
+  "aggregate_type": "ENDPOINT_SUPPRESSION | PRIVACY_REQUEST | LEGAL_HOLD | DATA_INCIDENT",
+  "aggregate_id": "uuid (NN)",
+  "aggregate_version": "integer (bigint >= 1)",
+  "schema_version": "1.1",
+  "tenant_id": "uuid (NN)",
+  "workspace_id": "uuid | null",
+  "occurred_at": "timestamptz (UTC NN)",
+  "correlation_id": "uuid (NN)",
+  "causation_id": "uuid | null",
+  "payload": {
+    "scope_tenant_wide": "boolean",
+    "detail_note": "Object field-map cụ thể theo từng dòng Sự kiện §3.2"
+  }
+}
+```
 
 ### 3.2. Danh mục Sự kiện Phát hành (`Published Events`)
 

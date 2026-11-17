@@ -4,12 +4,13 @@ Dùng khi tổng hợp nhiều module đã bóc tách thành một lát cắt b�
 
 ---
 
-## Pha 1 — Kiểm tra điều kiện tiên quyết
+## Pha 1 — Kiểm tra điều kiện tiên quyết & Cổng Ngữ cảnh Protocol v2
 
-1. Đọc [ROADMAP.md](../../../../03-planning/ROADMAP.md), [INVARIANTS.md](../../../../01-architecture/INVARIANTS.md), [INDEX.md](../../../../01-architecture/INDEX.md) và [SL01-INTERNAL-WORK.md](../../../../02-specs/slices/SL01-INTERNAL-WORK.md) để nắm cấu trúc chuẩn.
-2. Kiểm tra các module thuộc slice (theo bảng tại [02-specs/README.md](../../../../02-specs/README.md)):
+1. Tuân thủ [AGENTS.md](../../../../AGENTS.md) Mục 4 (`Protocol v2`): đọc [active-task.json](../../../../03-planning/agent/active-task.json), phần Sticky đầu [PROGRESS.md](../../../../03-planning/agent/PROGRESS.md), [ROADMAP.md](../../../../03-planning/ROADMAP.md), [INVARIANTS.md](../../../../01-architecture/INVARIANTS.md), [INDEX.md](../../../../01-architecture/INDEX.md), [CONTRACTS-REGISTRY.md](../../../../02-specs/CONTRACTS-REGISTRY.md) và [SL01-INTERNAL-WORK.md](../../../../02-specs/slices/SL01-INTERNAL-WORK.md).
+2. Chạy `python 05-tools/build_module_context.py --module <Mxx> --out "<ArtifactDir>/scratch/context-<Mxx>.md" --check-tokens`, đọc gói và chạy `--verify-packet` cho **từng module thuộc phạm vi slice** trước khi soạn/cập nhật đặc tả slice (Python trích xuất không gọi LLM nhưng đọc gói vẫn tốn token; telemetry mặc định `UNKNOWN` nếu không gắn `--transcript` của đúng phiên hiện tại).
+3. Kiểm tra các module thuộc slice (theo bảng tại [02-specs/README.md](../../../../02-specs/README.md)):
    - Nếu module chính chưa có spec trong `02-specs/modules/`, ghi rõ phạm vi slice chỉ đóng băng phần đã có spec hoặc đề xuất tách module trước.
-3. Đọc các public contract liên quan trong `02-specs/contracts/` (kể cả `C14`, `C16`, `C19`, `C20`, `C23`, `C24`) và các ADR tương ứng trong `01-architecture/decisions/`.
+4. Đọc đầy đủ các public contract liên quan trong `02-specs/contracts/` (kể cả `C14`, `C16`, `C19`, `C20`, `C23`, `C24` — các ô `...` trong registry phải đọc tiếp file nguồn) và các ADR tương ứng trong `01-architecture/decisions/`.
 
 ---
 

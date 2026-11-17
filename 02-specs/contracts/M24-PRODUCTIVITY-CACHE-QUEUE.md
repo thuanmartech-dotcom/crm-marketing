@@ -4,7 +4,11 @@
 - **Provider Owner:** `M24` (Lớp Tăng Hiệu năng Hệ thống & Hiệu suất Người dùng — `[PROPOSED]`)
 - **Consumers:** Toàn bộ `M01–M23` (đặc biệt `M01`, `M02`, `M03`, `M04`, `M06`, `M11`, `M14`, `M16`, `M18`, `M19`, `M20`, `M21`, `M22`, `M23`)
 - **Baseline & ADRs liên quan:** [CRM_MASTER_BRD_SRS_HOP_NHAT.md](../../00-master/CRM_MASTER_BRD_SRS_HOP_NHAT.md) (`v1.9`, `SHA-256: b6a3279f328e96e1e97d845e209be7a326516a0dba5e3a033d88e1f2162e421c`; Mục `3.3`, `3.10`, `3.14`, `6.1`, `6.2`, `6.4`, `6.6`, `6.8`, `7.1 NFR01–12`, `7.2`, `7.4`, `7.6 ONFR01–04`, `7.7`, `7.8 P-NFR06`, `U24`, `U21`, `INT23`, `INT26`, `CEO-U18`), [INVARIANTS.md](../../01-architecture/INVARIANTS.md) (`INV-02`, `INV-03`, `INV-04`, `INV-05`, `INV-06`, `INV-09`, `INV-23`, `INV-24`, `INV-25`), [ADR-002](../../01-architecture/decisions/ADR-002-ORG-ISOLATION-RLS-AND-SCOPE-FILTER.md), [ADR-003](../../01-architecture/decisions/ADR-003-PERMISSION-VERSION-CACHE-AND-MODE-GOVERNANCE.md), [ADR-004](../../01-architecture/decisions/ADR-004-SHARED-PLATFORM-TABLES-AND-BASE-SCHEMA.md), [ADR-005](../../01-architecture/decisions/ADR-005-DUAL-OUTBOX-3LANE-ISOLATION-AND-VAULT.md), [ADR-006](../../01-architecture/decisions/ADR-006-DOWNLOAD-GATEWAY-REMOTE-FETCH-AND-AI-GATEWAY.md), [ADR-007](../../01-architecture/decisions/ADR-007-PRIVACY-CANONICAL-HASH-LEGAL-HOLD-AND-DR-FENCE.md), [M24-PERFORMANCE-AND-PRODUCTIVITY.md](../modules/M24-PERFORMANCE-AND-PRODUCTIVITY.md)
-- **Trạng thái:** `Reviewed (Wave 1.5 Foundation Hardening — CR-20261116-WAVE1-5-HARDENING Applied & Verified; Documentation-Only)`
+- **Trạng thái:** `Reviewed (Wave 1.5 Foundation Hardening — CR-20261116-WAVE1-5-HARDENING Applied & Verified; CR-20261116-SKILL-TEMPLATE-ALIGN Applied; Documentation-Only)`
+- **Approved_Scope:** `Wave 1.5 Productivity, Notification Dedup, Permission Cache & 3-Lane Queue Public Contract`
+- **Approved_By:** `Chủ dự án`
+- **Decision_Ref:** `CR-20261116-SKILL-TEMPLATE-ALIGN`
+- **Approved_At:** `2026-11-16`
 - **Chính sách Breaking Change:** Additive-only cho trường mới tùy chọn; mọi thay đổi cấu trúc bắt buộc của `Input`/`Output`, enum `lane_code`, `cache_status`, hoặc Event Envelope `schema_version = "1.0"` bắt buộc cập nhật đồng bộ `M14`, `M16`, `M18`, `M19`, `M20`, `M23` và giữ tương thích ngược cho backlog `M23-F12.Internal_Outbox_Events` & `Internal_Notifications`.
 
 ---
@@ -79,6 +83,58 @@
     "idempotent_replay": "boolean",
     "processed_at": "timestamptz (UTC)",
     "correlation_id": "uuid",
+    "schema_version": "1.0"
+  }
+}
+```
+
+**Ví dụ (`Example`) `ExecuteDryRunAndCommitBulkCommandInput` & `Output`:**
+
+```json
+{
+  "ExampleExecuteDryRunAndCommitBulkCommandInput": {
+    "tenant_id": "22222222-2222-4222-8222-222222222222",
+    "workspace_id": "33333333-3333-4333-8333-333333333333",
+    "actor_id": "11111111-1111-4111-8111-111111111111",
+    "expected_permission_version": 42,
+    "mode": "COMMIT",
+    "dry_run_batch_id": "99999999-1111-4111-8111-111111111111",
+    "domain_module": "M16",
+    "command_type": "ASSIGN_OWNER",
+    "items": [
+      {
+        "resource_type": "TASK",
+        "resource_id": "dddddddd-dddd-4ddd-8ddd-dddddddddddd",
+        "expected_row_version": 3
+      }
+    ],
+    "command_params": {
+      "target_owner_id": "aaaaaaaa-1111-4111-8111-111111111111",
+      "tag_codes": [],
+      "new_due_at": null,
+      "reason": "Phan cong lai dau viec tuan 46"
+    },
+    "idempotency_key": "bbbbbbbb-1111-4111-8111-111111111111",
+    "correlation_id": "cccccccc-1111-4111-8111-111111111111"
+  },
+  "ExampleExecuteDryRunAndCommitBulkCommandOutput": {
+    "batch_id": "99999999-1111-4111-8111-111111111111",
+    "mode": "COMMIT",
+    "status": "COMPLETED",
+    "total_items": 1,
+    "eligible_or_succeeded_count": 1,
+    "blocked_or_conflict_count": 0,
+    "item_results": [
+      {
+        "resource_id": "dddddddd-dddd-4ddd-8ddd-dddddddddddd",
+        "item_status": "SUCCEEDED",
+        "error_code": null
+      }
+    ],
+    "audit_log_id": "eeeeeeee-1111-4111-8111-111111111111",
+    "idempotent_replay": false,
+    "processed_at": "2026-11-16T10:10:00Z",
+    "correlation_id": "cccccccc-1111-4111-8111-111111111111",
     "schema_version": "1.0"
   }
 }
@@ -201,7 +257,11 @@
   "occurred_at": "timestamptz (UTC)",
   "correlation_id": "uuid",
   "causation_id": "uuid | null",
-  "payload": {}
+  "payload": {
+    "batch_id": "uuid | null",
+    "lane_code": "string | null",
+    "detail_note": "Object field-map cụ thể theo từng dòng Sự kiện §3.2"
+  }
 }
 ```
 

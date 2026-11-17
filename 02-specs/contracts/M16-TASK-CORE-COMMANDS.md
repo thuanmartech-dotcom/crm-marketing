@@ -4,7 +4,11 @@
 - **Provider Owner:** `M16` (Công việc, Dự án, Task Core & Nghiệm thu Kỹ thuật)
 - **Consumers:** `M02`, `M03`, `M04`, `M06`, `M07`, `M08`, `M09`, `M10`, `M11`, `M12`, `M13`, `M14` (`M14-F06/F08`), `M15`, `M17`, `M18`, `M20`, `M21`, `M22`, `M23-F04/F12`, `M24` (`M24-F05/F06`)
 - **Baseline & ADRs liên quan:** [CRM_MASTER_BRD_SRS_HOP_NHAT.md](../../00-master/CRM_MASTER_BRD_SRS_HOP_NHAT.md) (`3.6.2 FR15`, `3.10.1 FR25`, `3.10.3 FR27`, `3.13.3–3.13.5`, `3.14 W-F01–14 & BR-W01–10`, `3.15 BR-P17 & M21-F12`, `4.6 UC06`, `4.8 UC08`, `4.12 UC12`, `4.23 UC-W01–10`, `4.24 UC-P09`, `5.1`, `5.13`, `5.18`, `5.20`, `6.6`, `7.4`, `7.7`, `8.5`, `9.12 CEO-U03..05/15/17/19/20`, `9.16 W-T01–40`, `A.7 W-O01–07`, `M16-F01–07`, `M16-AC01–04`), [M16-WORK-PROJECTS-TASK-CORE.md](../modules/M16-WORK-PROJECTS-TASK-CORE.md), [CR-20261116-WAVE1-5-HARDENING.md](../changes/archive/CR-20261116-WAVE1-5-HARDENING.md), [ADR-002](../../01-architecture/decisions/ADR-002-ORG-ISOLATION-RLS-AND-SCOPE-FILTER.md), [ADR-003](../../01-architecture/decisions/ADR-003-PERMISSION-VERSION-CACHE-AND-MODE-GOVERNANCE.md), [ADR-004](../../01-architecture/decisions/ADR-004-SHARED-PLATFORM-TABLES-AND-BASE-SCHEMA.md), [ADR-005](../../01-architecture/decisions/ADR-005-DUAL-OUTBOX-3LANE-ISOLATION-AND-VAULT.md), [ADR-006](../../01-architecture/decisions/ADR-006-DOWNLOAD-GATEWAY-REMOTE-FETCH-AND-AI-GATEWAY.md), [ADR-007](../../01-architecture/decisions/ADR-007-PRIVACY-CANONICAL-HASH-LEGAL-HOLD-AND-DR-FENCE.md), [ADR-009](../../01-architecture/decisions/ADR-009-M16-WORK-PROJECTS-TASK-CORE-BOUNDARIES.md), [M14-PRINCIPAL-ACCESS-DECISION.md](M14-PRINCIPAL-ACCESS-DECISION.md), [M20-SUPPRESSION-PRIVACY-GATE.md](M20-SUPPRESSION-PRIVACY-GATE.md), [M19-DURABLE-INGEST-OUTBOX.md](M19-DURABLE-INGEST-OUTBOX.md), [M23-PLATFORM-GOVERNANCE-OUTBOX.md](M23-PLATFORM-GOVERNANCE-OUTBOX.md)
-- **Trạng thái:** `Reviewed (Wave 1 — M16 Contract Baseline v1.0; CR-20261116-WAVE1-5-HARDENING Applied; CR-20261116-WAVE1-REVIEW-FIXES Applied & Verified)`
+- **Trạng thái:** `Reviewed (Wave 1 — M16 Contract Baseline v1.0; CR-20261116-WAVE1-5-HARDENING Applied; CR-20261116-WAVE1-REVIEW-FIXES Applied & Verified; CR-20261116-SKILL-TEMPLATE-ALIGN Applied)`
+- **Approved_Scope:** `Wave 1/1.5 Task Core & Delivery Acceptance Public Contract`
+- **Approved_By:** `Chủ dự án`
+- **Decision_Ref:** `CR-20261116-SKILL-TEMPLATE-ALIGN`
+- **Approved_At:** `2026-11-16`
 - **Chính sách Breaking Change:** Additive-only cho trường mới tùy chọn; mọi thay đổi cấu trúc bắt buộc của `Input`/`Output`, tập enum `work_type`/`typed_links`/`lifecycle_status`, hoặc Event Envelope `schema_version = "1.0"` (gồm đủ `11` Domain Events) bắt buộc giữ tương thích ngược (upcaster/dual-publish) cho hàng đợi `M23-F12.Internal_Outbox_Events` & backlog đồng bộ PMS `M19` đang tồn đọng, và cập nhật đồng bộ `M14`, `M20`, `M08`, `M16`, `M23`, `M24` cùng toàn bộ Consumers liên quan.
 
 ---
@@ -533,7 +537,12 @@
   "occurred_at": "timestamptz (UTC)",
   "correlation_id": "uuid",
   "causation_id": "uuid | null",
-  "payload": {}
+  "payload": {
+    "task_id": "uuid | null",
+    "deliverable_id": "uuid | null",
+    "status": "string",
+    "detail_note": "Object field-map cụ thể theo từng dòng Sự kiện §3.2"
+  }
 }
 ```
 

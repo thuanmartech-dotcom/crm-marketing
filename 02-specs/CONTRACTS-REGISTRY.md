@@ -1,6 +1,6 @@
 # Sổ Tra cứu Bề mặt Hợp đồng & Thực thể Toàn Hệ thống (`CONTRACTS-REGISTRY`)
 
-<!-- source-sha256: 5ced2701b311e532d068052dbd2cd70a56263da1fd2ed3dec9ee4e31ccb525d0 -->
+<!-- source-sha256: 9a3cfafae9968b8c2377cd9bd411b46282ca70a6a5ef346fcd54ad4d65164a51 -->
 > **Tệp tự sinh bởi [build_module_context.py](../05-tools/build_module_context.py) — không sửa tay trực tiếp.**  
 > **Mục đích:** Chỉ mục tóm tắt Command, Event, Bảng SSoT, Enum và ADR; kích thước thay đổi theo nguồn. Các ô có `...` phải đọc tiếp tại file nguồn; không thay thế contract/ADR đầy đủ cho các phiên Wave 2–6 mà không cần đọc lại toàn văn `~944 KB` file `modules/` cũ. Khi cần sửa ngược (*Backward Drift*), cập nhật additive vào `contracts/*.md`, ghi `[PENDING-BACKSYNC]` vào [PROGRESS.md](../03-planning/agent/PROGRESS.md) và chạy lại `--build-registry`.
 
@@ -24,22 +24,22 @@
 | ↳ |  | RecordClientAcceptanceInput / RecordClientAcceptanceOutput / M16-F05 | `RecordClientAcceptanceInput`, `RecordClientAcceptanceOutput` |
 | ↳ |  | ListOpenWorkForPrincipalInput / ListOpenWorkForPrincipalOutput / M14-F06 | `ListOpenWorkForPrincipalInput`, `ListOpenWorkForPrincipalOutput` |
 | ↳ |  | TransferWorkOwnershipInput / TransferWorkOwnershipOutput / M14-F06 | `TransferWorkOwnershipInput`, `TransferWorkOwnershipOutput` |
-| [M19-DURABLE-INGEST-OUTBOX](contracts/M19-DURABLE-INGEST-OUTBOX.md) | `1.2` | IngestWebhookEventInput / InboundIngestAck | `IngestWebhookEventInput`, `InboundIngestAck` |
+| [M19-DURABLE-INGEST-OUTBOX](contracts/M19-DURABLE-INGEST-OUTBOX.md) | `1.2` | IngestWebhookEventInput / InboundIngestAck | `IngestWebhookEventInput`, `InboundIngestAck`, `ExampleIngestWebhookEventInput`, `ExampleInboundIngestAck` |
 | ↳ |  | EnqueueOutboundIntentInput / EnqueueOutboundIntentOutput | `EnqueueOutboundIntentInput`, `EnqueueOutboundIntentOutput` |
 | ↳ |  | DispatchOutboundIntentInput / OutboundDispatchResult / C19 | `DispatchOutboundIntentInput`, `OutboundDispatchResult` |
 | ↳ |  | ExecuteSafeRemoteFetchInput / RemoteFetchResult / SEC04 | `ExecuteSafeRemoteFetchInput`, `RemoteFetchResult` |
 | ↳ |  | ReplayConnectionEventsInput / ReplayConnectionEventsOutput / CONTRACT-L2845 | `ReplayConnectionEventsInput`, `ReplayConnectionEventsOutput` |
 | ↳ |  | ListOpenIntentsForPrincipalInput / ListOpenIntentsForPrincipalOutput / M14-F06 | `ListOpenIntentsForPrincipalInput`, `ListOpenIntentsForPrincipalOutput` |
-| [M20-SUPPRESSION-PRIVACY-GATE](contracts/M20-SUPPRESSION-PRIVACY-GATE.md) | `1.1` | EvaluateOutboundComplianceInput / OutboundComplianceDecision | `EvaluateOutboundComplianceInput`, `OutboundComplianceDecision` |
+| [M20-SUPPRESSION-PRIVACY-GATE](contracts/M20-SUPPRESSION-PRIVACY-GATE.md) | `1.1` | EvaluateOutboundComplianceInput / OutboundComplianceDecision | `EvaluateOutboundComplianceInput`, `OutboundComplianceDecision`, `ExampleEvaluateOutboundComplianceInput`, `ExampleOutboundComp`... |
 | ↳ |  | EvaluateVendorAndAiTransferInput / VendorTransferDecision / U22 | `EvaluateVendorAndAiTransferInput`, `VendorTransferDecision` |
 | ↳ |  | VerifyPostRestoreComplianceGateInput / PostRestoreComplianceGateResult / INT26 | `VerifyPostRestoreComplianceGateInput`, `PostRestoreComplianceGateResult` |
 | ↳ |  | EvaluateAssetDownloadPrivacyGateInput / AssetPrivacyGateDecision / SEC03 | `EvaluateAssetDownloadPrivacyGateInput`, `AssetPrivacyGateDecision` |
-| [M23-PLATFORM-GOVERNANCE-OUTBOX](contracts/M23-PLATFORM-GOVERNANCE-OUTBOX.md) | `1.0` | PublishInternalOutboxEventInput / PublishInternalOutboxEventOutput / M23-F12 | `PublishInternalOutboxEventInput`, `PublishInternalOutboxEventOutput` |
+| [M23-PLATFORM-GOVERNANCE-OUTBOX](contracts/M23-PLATFORM-GOVERNANCE-OUTBOX.md) | `1.0` | PublishInternalOutboxEventInput / PublishInternalOutboxEventOutput / M23-F12 | `PublishInternalOutboxEventInput`, `PublishInternalOutboxEventOutput`, `ExamplePublishInternalOutboxEventInput`, `ExamplePublis`... |
 | ↳ |  | EvaluateApprovalMatrix / RecordApprovalDecision / M23-F04 | `EvaluateApprovalMatrixInput`, `EvaluateApprovalMatrixOutput`, `RecordApprovalDecisionInput`, `RecordApprovalDecisionOutput` |
 | ↳ |  | ComputeBusinessCalendarShiftInput / ComputeBusinessCalendarShiftOutput / M23-F10 | `ComputeBusinessCalendarShiftInput`, `ComputeBusinessCalendarShiftOutput` |
 | ↳ |  | RegisterAssetAndDownloadGateway / M23-F07 / ENTITY-L2783 | `RegisterAssetVersionInput`, `RegisterAssetVersionOutput`, `DownloadGatewayStep3Input`, `DownloadGatewayStep3Output` |
 | ↳ |  | LookupPolicyVersionInput / LookupPolicyVersionOutput / M23-F09 | `LookupPolicyVersionInput`, `LookupPolicyVersionOutput` |
-| [M24-PRODUCTIVITY-CACHE-QUEUE](contracts/M24-PRODUCTIVITY-CACHE-QUEUE.md) | `1.0` | ExecuteDryRunAndCommitBulkCommandInput / ExecuteDryRunAndCommitBulkCommandOutput / M24-F03 | `ExecuteDryRunAndCommitBulkCommandInput`, `ExecuteDryRunAndCommitBulkCommandOutput` |
+| [M24-PRODUCTIVITY-CACHE-QUEUE](contracts/M24-PRODUCTIVITY-CACHE-QUEUE.md) | `1.0` | ExecuteDryRunAndCommitBulkCommandInput / ExecuteDryRunAndCommitBulkCommandOutput / M24-F03 | `ExecuteDryRunAndCommitBulkCommandInput`, `ExecuteDryRunAndCommitBulkCommandOutput`, `ExampleExecuteDryRunAndCommitBulkCommandI`... |
 | ↳ |  | EnqueueInternalNotificationDispatchInput / EnqueueInternalNotificationDispatchOutput /... | `EnqueueInternalNotificationDispatchInput`, `EnqueueInternalNotificationDispatchOutput` |
 | ↳ |  | QueryOrInvalidatePermissionCacheInput / QueryOrInvalidatePermissionCacheOutput / M24-F06 | `QueryOrInvalidatePermissionCacheInput`, `QueryOrInvalidatePermissionCacheOutput` |
 | ↳ |  | EnqueueQueueLaneTaskInput / EnqueueQueueLaneTaskOutput / M24-F07 | `EnqueueQueueLaneTaskInput`, `EnqueueQueueLaneTaskOutput` |

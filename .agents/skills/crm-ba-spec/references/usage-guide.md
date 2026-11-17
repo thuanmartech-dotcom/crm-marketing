@@ -9,8 +9,10 @@ Tài liệu này hướng dẫn cách gọi và phối hợp với Agent khi dù
 Skill được phát hiện qua `.agents/skills/crm-ba-spec/SKILL.md`. Bạn chỉ cần nhắn theo ngữ cảnh hoặc gọi thẳng tên skill:
 
 ### A. Tách mới / Hoàn thiện / Bảo trì một Module (`M01–M24`)
+- **Bước chuẩn bị Wave 2–6 (Kế hoạch 2 Cấp):**
+  > `Dùng skill crm-ba-spec lập Kế hoạch tổng Wave 2 (03-planning/waves/WAVE-2-PLAN.md theo WAVE-PLAN.md) và Kế hoạch hoàn thành module đầu tiên M01 (03-planning/modules/M01-COMPLETION-PLAN.md theo MODULE-COMPLETION-PLAN.md), không thực thi soạn spec vội.`
 - **Cú pháp tách mới (`M01–M20`, gồm hoàn thiện `M18`):**
-  > `Dùng skill crm-ba-spec tách đặc tả module M01 (Hồ sơ khách hàng, doanh nghiệp, định danh và hợp nhất).`
+  > `Dùng skill crm-ba-spec tách đặc tả module M01 theo 03-planning/modules/M01-COMPLETION-PLAN.md (liên tục xử lý việc được phép, gặp quyết định chặn thì ghi Blocking Register và dừng hỏi tôi chốt).`
 - **Muốn Agent hỏi kỹ từng quyết định kiến trúc/edge-case trước khi viết:**
   > `Dùng skill crm-ba-spec tách module M02. Áp dụng /grill-me ở Pha 2 để hỏi tôi chốt hết state machine và ranh giới với M01, M07 trước khi tạo file.`
 - **Muốn tách riêng phần Contract liên module hoặc mở rộng additive contract Wave trước (`Backward Contract Drift`):**
@@ -51,11 +53,11 @@ Skill được phát hiện qua `.agents/skills/crm-ba-spec/SKILL.md`. Bạn ch�
 
 ## 2. Điều gì diễn ra trong 1 phiên bóc tách Module chuẩn?
 
-Mỗi **1 phiên sạch** chỉ phụ trách **1 module** (riêng module lớn như `M03` tách 2 phiên theo pha; áp dụng phanh `Đèn Vàng ~170k` / `Đèn Đỏ ~210k` tokens). Khi bạn gọi Agent tách một module (ví dụ `M01`), Agent sẽ chạy đúng **4 pha**:
+Mỗi **1 phiên sạch** chỉ phụ trách **1 module** (riêng module lớn như `M03` tách 2 phiên theo pha; tuân thủ **Protocol v2** tại [AGENTS.md](../../../../AGENTS.md) Mục 4 — phanh `Đèn Vàng 170k` / `Đèn Đỏ 210k` chỉ áp dụng khi telemetry được gắn tường minh đúng transcript của phiên hiện tại, mặc định là `UNKNOWN`). Khi bạn gọi Agent tách một module (ví dụ `M01`), Agent sẽ chạy đúng **4 pha**:
 
-1. **Pha 0 + Pha 1 — Thu thập ngữ cảnh tối giản (`0` token thừa):**
-   - Agent chạy `python 05-tools/build_module_context.py --module M01 --out "<ArtifactDir>/scratch/context-M01.md" --check-tokens`.
-   - Đọc bộ lõi (`INVARIANTS.md`, `INDEX.md`, [CONTRACTS-REGISTRY.md](../../../../02-specs/CONTRACTS-REGISTRY.md)), gói `context-M01.md`, các Contract liên quan và đúng dải dòng tương ứng trong `CRM_MASTER_BRD_SRS_HOP_NHAT.md` (`v1.9`).
+1. **Pha 0 + Pha 1 — Nạp & Xác minh Ngữ cảnh có Chọn lọc (`Protocol v2`):**
+   - Agent đọc manifest `active-task.json`, phần Sticky đầu `PROGRESS.md`, `INVARIANTS.md`, `INDEX.md`, [CONTRACTS-REGISTRY.md](../../../../02-specs/CONTRACTS-REGISTRY.md), rồi chạy `python 05-tools/build_module_context.py --module M01 --out "<ArtifactDir>/scratch/context-M01.md" --check-tokens` *(thay `<ArtifactDir>` bằng đường dẫn thực ngoài kho; Python trích xuất không gọi LLM nhưng việc đọc gói kết quả vẫn tốn token)*.
+   - Đọc gói `context-M01.md`, các Contract & ADR liên quan đầy đủ (mọi ô có `...` trong registry phải đọc tiếp file nguồn), đúng dải dòng tương ứng trong `CRM_MASTER_BRD_SRS_HOP_NHAT.md` (`v1.9`), và chạy `--verify-packet` xác minh gói trước khi sang Pha 3.
 2. **Pha 2 — Cổng hỏi ngược 2 tầng (tương tác linh hoạt theo công cụ hỏi hiện có hoặc trực tiếp trong chat):**
    - Agent **không tự bịa** các quyết định ranh giới hay rule thiếu.
    - Với **Tầng 1 (Blocking)** — Agent dùng công cụ hỏi tương tác (như `ask_question`) hoặc hỏi trực tiếp bằng văn bản có phương án `(Recommended)` cho từng quyết định chặn, ví dụ:
@@ -68,7 +70,7 @@ Mỗi **1 phiên sạch** chỉ phụ trách **1 module** (riêng module lớn n
    - Mọi hành vi viết theo câu điều kiện **EARS** (`Khi ...`, `Nếu ...`, `Trong khi ... phải ...`) và gắn nhãn `[MASTER]` / `[PROPOSED]` / `[OPEN-GAP]` (đề xuất được duyệt giữ nguyên `[PROPOSED]` kèm `decision_ref`, không đổi thành `[MASTER]`).
    - Nếu phát sinh command/event public gửi sang module khác (ví dụ `ContactMerged` gửi cho `M02`, `M03`, `M08`), Agent tách riêng ra `02-specs/contracts/M01-CONTACT-MERGED.md` theo `CONTRACT.md` (có JSON field schema và ví dụ JSON payload). Nếu cần bổ sung ngược vào Contract Wave trước đã `Reviewed`/`Ready`, đi qua `CR-*` nhẹ và ghi `[PENDING-BACKSYNC]` vào `PROGRESS.md`.
 4. **Pha 4 — Fresh-Context Review (File-Backed) & Cổng kiểm chứng Toàn kho (`SKILL.md` Mục 4):**
-   - Kiểm tra độ phủ ID và `session_token_telemetry` (`GREEN <170k` / `YELLOW 170k–210k` / `RED >210k`), cập nhật `CONTRACTS-REGISTRY.md`, `02-specs/README.md` và `03-planning/agent/PROGRESS.md`.
+   - Kiểm tra độ phủ ID và đối soát ngữ nghĩa thủ công (`session_token_telemetry` mặc định `UNKNOWN` nếu không truyền `--transcript <path>` của đúng phiên hiện tại; `UNKNOWN` không đồng nghĩa `GREEN`), cập nhật `CONTRACTS-REGISTRY.md`, `02-specs/README.md` và `03-planning/agent/PROGRESS.md` (kèm đường dẫn gói, kết quả `--verify-packet` và quyết định `W1`).
    - Cuối phiên bắt buộc chạy đủ bộ kiểm chứng toàn kho ở Mục 4 `SKILL.md` (không thay bằng `--file`) và chỉ báo `Not Run` cho test ứng dụng.
 
 ---
@@ -78,8 +80,11 @@ Mỗi **1 phiên sạch** chỉ phụ trách **1 module** (riêng module lớn n
 Chạy tại `d:\AI Agent\CRM`:
 
 ```powershell
-# Tái sinh Bảng tra cứu liên module & trích xuất gói ngữ cảnh gọn cho M01 + kiểm tra mức token phiên
+# Tái sinh Bảng tra cứu liên module & trích xuất gói ngữ cảnh gọn cho M01 (có thể thêm --transcript <path-phien-hien-tai>)
 python 05-tools/build_module_context.py --build-registry --module M01 --out "<ArtifactDir>/scratch/context-M01.md" --check-tokens
+
+# Xác minh gói ngữ cảnh và nguồn trước khi soạn đặc tả (Protocol v2)
+python 05-tools/build_module_context.py --verify-packet "<ArtifactDir>/scratch/context-M01.md"
 
 # Kiểm tra toàn bộ 02-specs/ (modules, contracts, changes, registry) và xuất báo cáo độ phủ ID
 python 05-tools/verify_module_spec.py
@@ -107,5 +112,5 @@ Kết quả chi tiết (gồm danh sách ID còn thiếu của từng module so 
 | Muốn chốt nâng trạng thái một module từ `Draft` → `Reviewed` hoặc `Ready` | Nhắn: *"Chốt `M01` lên `Reviewed` (hoặc `Ready` cho `SL02`) sau khi tôi xác nhận các `[PROPOSED]` và đối soát các `[OPEN-GAP]`."* Agent sẽ ghi nhận `Approved_Scope`, `Approved_By`, `Decision_Ref` trong Manifest (vẫn giữ `[PROPOSED]` kèm `decision_ref` và vẫn trong giai đoạn `Documentation-Only`). |
 | Gửi trả lời Stakeholder cho các `[OPEN-GAP]` ở tài liệu đã `Reviewed`/`Ready` | Dùng chế độ `review-change`: Agent tự kiểm tra `Status` file; nếu đã `Reviewed`/`Ready` sẽ mở `CR-*` (ghi nhận luôn phê duyệt nếu bạn đã chốt đúng phạm vi), áp dụng sửa đổi và chỉ đóng GAP sau khi toàn bộ tài liệu liên quan đạt kiểm chứng. |
 | Muốn sửa một phần trong `M21`, `M22`, `SL01` đã ổn định | Gọi chế độ `review-change` để đi qua `02-specs/changes/CR-*.md` thay vì sửa chéo không dấu vết. |
-| Phiên gần chạm ngưỡng `~170k–210k` tokens hoặc chuẩn bị sang module mới | Yêu cầu Agent ghi `Handoff` vào `PROGRESS.md` và mở cuộc trò chuyện mới sạch (1 module / 1 phiên). |
+| Telemetry phiên hiện tại chạm ngưỡng `YELLOW/RED` (`~170k–210k` tokens qua `--transcript` của đúng phiên) hoặc chuẩn bị sang module mới | Yêu cầu Agent ghi `Handoff` vào `PROGRESS.md` và mở cuộc trò chuyện mới sạch (1 module / 1 phiên; không dựa vào telemetry của phiên khác khi đang `UNKNOWN`). |
 | Muốn kiểm tra nghiêm ngặt cả file mở rộng (`M18`, `M23`, `M24`) theo đủ 6 mục `MODULE-SPEC.md` | Chạy `python 05-tools/verify_module_spec.py --strict-all`. |

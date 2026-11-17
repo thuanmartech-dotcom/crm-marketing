@@ -4,7 +4,11 @@
 - **Provider Owner:** `M19` (**Chỉ cho Tích hợp Kênh ngoài, PMS `UC-W10`, POS `API_READ`, ERP/Payment/HRM Devices** — không dùng cho Internal Domain Outbox `M23-F12` theo `ADR-005`)
 - **Consumers:** `M01`, `M02`, `M03`, `M04`, `M09`, `M11`, `M12`, `M13`, `M14` (`M14-F06` Offboarding), `M16` (`PMS sync UC-W10`), `M18`, `M20`, `M21` (`API_READ`), `M22` (`M22-F10` thiết bị chấm công & `M22-F28` ngân hàng chi lương), `M23` (`M23-F08` Security/Ops Alerts, `M23-F12` Platform Health/DR)
 - **Baseline & ADRs liên quan:** [CRM_MASTER_BRD_SRS_HOP_NHAT.md](../../00-master/CRM_MASTER_BRD_SRS_HOP_NHAT.md) (`2.4–2.7`, `3.12.5`, `3.12.11–12`, `4.23 UC-W10`, `5.16 L2816–2829`, `5.17 L2845–2848`, `5.18 L2893/2897`, `7.6 ONFR01–06`, `9.16 W-T32/33`, `Phụ lục E CR11/CR12`, `Phụ lục G L4713`, `OC01`, `OC05`, `OC06`, `OC07`, `OC08`, `OC14`, `OC19`, `INT15`, `INT25`, `SEC-U01`, `SEC-U02`, `SEC-U04`, `H-NFR08`), [ADR-002](../../01-architecture/decisions/ADR-002-ORG-ISOLATION-RLS-AND-SCOPE-FILTER.md), [ADR-004](../../01-architecture/decisions/ADR-004-SHARED-PLATFORM-TABLES-AND-BASE-SCHEMA.md), [ADR-005](../../01-architecture/decisions/ADR-005-DUAL-OUTBOX-3LANE-ISOLATION-AND-VAULT.md), [ADR-006](../../01-architecture/decisions/ADR-006-DOWNLOAD-GATEWAY-REMOTE-FETCH-AND-AI-GATEWAY.md), [ADR-007](../../01-architecture/decisions/ADR-007-PRIVACY-CANONICAL-HASH-LEGAL-HOLD-AND-DR-FENCE.md), [ADR-008](../../01-architecture/decisions/ADR-008-OMNICHANNEL-CONTRACTS-RECEIPTS-AND-CROSS-EVENTS.md), [ADR-009](../../01-architecture/decisions/ADR-009-M16-WORK-PROJECTS-TASK-CORE-BOUNDARIES.md), [M14-PRINCIPAL-ACCESS-DECISION.md](M14-PRINCIPAL-ACCESS-DECISION.md), [M16-TASK-CORE-COMMANDS.md](M16-TASK-CORE-COMMANDS.md), [M20-SUPPRESSION-PRIVACY-GATE.md](M20-SUPPRESSION-PRIVACY-GATE.md)
-- **Trạng thái:** `Reviewed (CR-20261116-WAVE1-RECONCILIATION Applied; CR-20261116-WAVE1-5-HARDENING Applied; CR-20261116-WAVE1-REVIEW-FIXES Applied)`
+- **Trạng thái:** `Reviewed (CR-20261116-WAVE1-RECONCILIATION Applied; CR-20261116-WAVE1-5-HARDENING Applied; CR-20261116-WAVE1-REVIEW-FIXES Applied; CR-20261116-SKILL-TEMPLATE-ALIGN Applied)`
+- **Approved_Scope:** `Wave 1/1.5 External Durable Ingest & Outbox Dispatch Public Contract`
+- **Approved_By:** `Chủ dự án`
+- **Decision_Ref:** `CR-20261116-SKILL-TEMPLATE-ALIGN`
+- **Approved_At:** `2026-11-16`
 - **Chính sách Breaking Change:** Mọi thay đổi schema payload hoặc tập `channel`/`provider` phải giữ tương thích ngược cho `Inbound_Events` / `Outbound_Intents` đang tồn đọng (`replay_compatible = true`) và cập nhật đồng thời `M03`, `M14`, `M16`, `M20`, `M21`.
 
 ---
@@ -59,6 +63,37 @@
     "quarantined_event_id": "uuid | null",
     "connection_id": "uuid",
     "correlation_id": "uuid"
+  }
+}
+```
+
+**Ví dụ (`Example`) `IngestWebhookEventInput` & `InboundIngestAck`:**
+
+```json
+{
+  "ExampleIngestWebhookEventInput": {
+    "provider": "ZALO_OA",
+    "provider_namespace": "oa_99887766",
+    "webhook_endpoint_token": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2",
+    "signature_headers": {
+      "x-event-source": "adapter_verifier_pending_poc"
+    },
+    "raw_body_ref": "vault://inbound-raw/2026/11/16/evt-1001.enc",
+    "event_key": "zalo:msg:evt_1001",
+    "event_type": "INBOUND_MESSAGE",
+    "occurred_at": "2026-11-16T09:30:00Z",
+    "received_at": "2026-11-16T09:30:01Z",
+    "source_mode": "LIVE",
+    "correlation_id": "55555555-5555-4555-8555-555555555555"
+  },
+  "ExampleInboundIngestAck": {
+    "accepted": true,
+    "http_status": 200,
+    "ingest_status": "PERSISTED_DURABLE",
+    "inbound_event_id": "66666666-6666-4666-8666-666666666666",
+    "quarantined_event_id": null,
+    "connection_id": "77777777-7777-4777-8777-777777777777",
+    "correlation_id": "55555555-5555-4555-8555-555555555555"
   }
 }
 ```
@@ -344,6 +379,27 @@
 ### 3.1. Envelope Chuẩn Mọi Sự kiện `M19` (`schema_version = "1.2"`)
 
 Dùng cấu trúc Envelope thống nhất (`event_id`, `event_type`, `aggregate_type`, `aggregate_id`, `aggregate_version`, `schema_version`, `tenant_id`, `workspace_id`, `occurred_at`, `correlation_id`, `causation_id`, `payload`).
+
+```json
+{
+  "event_id": "uuid (NN)",
+  "event_type": "M19.InboundEventPersisted | M19.OutboundDispatchResulted | M19.MessageReceiptUpdated | M19.ConnectionHealthChanged | M19.SyncCoverageGapReported",
+  "aggregate_type": "INBOUND_EVENT | OUTBOUND_INTENT | MESSAGE_STATUS_EVENT | CHANNEL_CONNECTION | SYNC_RUN",
+  "aggregate_id": "uuid (NN)",
+  "aggregate_version": "integer (bigint >= 1)",
+  "schema_version": "1.2",
+  "tenant_id": "uuid (NN)",
+  "workspace_id": "uuid (NN)",
+  "occurred_at": "timestamptz (UTC NN)",
+  "correlation_id": "uuid (NN)",
+  "causation_id": "uuid | null",
+  "payload": {
+    "connection_id": "uuid",
+    "provider": "string",
+    "detail_note": "Object field-map cụ thể theo từng dòng Sự kiện §3.2"
+  }
+}
+```
 
 ### 3.2. Danh mục Sự kiện Phát hành (`Published Events`)
 

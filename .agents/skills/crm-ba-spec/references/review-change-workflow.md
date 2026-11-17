@@ -8,14 +8,15 @@ Kết hợp 2 tinh hoa:
 
 ## Luồng A — Rà soát Chéo (`Analyze Audit`)
 
-1. Xác định phạm vi rà soát (ví dụ: cặp module giao thoa `M02–M07–M08`, cụm tài chính `M09–M10–M17`, hoặc toàn bộ `02-specs/modules/`).
-2. Chạy script kiểm chứng tự động trước để lấy danh sách lỗi máy móc & độ phủ ID:
+1. Xác định phạm vi rà soát (ví dụ: cặp module giao thoa `M02–M07–M08`, cụm tài chính `M09–M10–M17`, hoặc toàn bộ `02-specs/modules/`) và thực hiện cổng nạp ngữ cảnh **Protocol v2** ([AGENTS.md](../../../../AGENTS.md) Mục 4): đọc manifest, Sticky đầu `PROGRESS.md`, `INVARIANTS.md`, `INDEX.md`, `CONTRACTS-REGISTRY.md`, rồi chạy `build_module_context.py --module <Mxx> --out "<ArtifactDir>/scratch/context-<Mxx>.md" --check-tokens` + đọc gói/hợp đồng/ADR đầy đủ + `--verify-packet` cho module đại diện và các module bị ảnh hưởng.
+2. Chạy script kiểm chứng tự động trước để lấy danh sách lỗi cấu trúc, mẫu hồi quy khai báo & độ phủ ID *(lưu ý: script không kiểm chứng đầy đủ ngữ nghĩa nên vẫn bắt buộc rà thủ công ở bước 3–4)*:
    ```powershell
    python 05-tools/verify_module_spec.py
    ```
-3. *(Khuyến nghị từ ECC & Giao thức Tiết kiệm Token)* Kiểm tra `session_token_telemetry`: nếu phiên đang `GREEN (<170k)`, dùng 1 subagent `research` **context sạch (read-only)** đọc độc lập các file spec vừa viết + [CONTRACTS-REGISTRY.md](../../../../02-specs/CONTRACTS-REGISTRY.md) + `contracts/*.md` liên quan + [INVARIANTS.md](../../../../01-architecture/INVARIANTS.md).
+3. *(Khuyến nghị từ ECC & Giao thức Protocol v2)* `session_token_telemetry` mặc định là **`UNKNOWN`** nếu không truyền `--transcript <duong-dan>` của đúng phiên hiện tại (không tự chọn transcript gần nhất; `UNKNOWN` không đồng nghĩa `GREEN` và không dừng/compact/mở chat từ số liệu phiên khác):
+   - Khi telemetry gắn đúng phiên hiện tại báo `GREEN (<170k)` (hoặc khi `UNKNOWN` trong phiên mới còn gọn và cần rà độc lập), dùng 1 subagent `research` **context sạch (read-only)** đọc độc lập các file spec vừa viết + [CONTRACTS-REGISTRY.md](../../../../02-specs/CONTRACTS-REGISTRY.md) + `contracts/*.md` đầy đủ liên quan + [INVARIANTS.md](../../../../01-architecture/INVARIANTS.md).
    - **Bắt buộc File-Backed Output:** Subagent ghi toàn bộ báo cáo chi tiết (`[File:Line]`, trích dẫn sửa đề xuất) vào `<ArtifactDir>/scratch/reaudit-<pham-vi>.md` (**ngoài kho `d:\AI Agent\CRM`**), và chỉ gửi về Coordinator qua `send_message` bản tóm tắt **`< 1.500` ký tự** (Verdict + counts `CRITICAL/HIGH/MEDIUM/INFO` + top blockers + đường dẫn file).
-   - Nếu phiên đang `YELLOW (170k–210k)` hoặc `RED (>210k)`, không phóng subagent chạy lâu trong phiên đó; bàn giao sang phiên mới sạch để chạy Re-Audit.
+   - Nếu telemetry của đúng phiên hiện tại báo `YELLOW (170k–210k)` hoặc `RED (>210k)`, không phóng subagent chạy lâu trong phiên đó; bàn giao sang phiên mới sạch để chạy Re-Audit.
 4. Đọc đối chiếu thủ công **8 điểm nóng** (5 lõi + 3 bẫy phân tán/trạng thái từ bài học Wave 1):
    - **Data Ownership & `ADR-004` / `ADR-005` Conflict:** Hai module có cùng tự nhận là nguồn ghi cho 1 entity không? Bảng `Nhóm C Append-Only` có lỡ gắn `updated_at/updated_by/row_version/archived_at` trái `ADR-004` không? Có nhầm lẫn giữa `M19` (tích hợp ngoài) với `M23-F12` (Outbox nội bộ) trái `ADR-005` không?
    - **Contract Mismatch & Traceability:** Producer công bố event/schema A nhưng Consumer ở module khác kỳ vọng field B? Chuỗi `Nguồn → Chức năng (Mxx-Fyy) → Rule/State → Contract → Ca kiểm thử` có đứt gãy hoặc thiếu nhánh từ chối/kết quả quan sát được không?

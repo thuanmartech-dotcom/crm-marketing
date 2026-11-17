@@ -39,6 +39,7 @@ Xác định đúng chế độ và **chỉ đọc playbook tương ứng** tron
 Ngoài ra:
 - Đối chiếu nhanh mẫu câu EARS và checklist 7 điểm chung tại [references/ears-and-checklists.md](references/ears-and-checklists.md) khi viết mục hành vi.
 - Đọc **1 Cụm Chính tương ứng** cộng thêm **các Cụm Liên miền được kích hoạt** (theo Bảng Kích hoạt Liên miền) trong [references/domain-lenses.md](references/domain-lenses.md) để hỏi xoáy bẫy đặc thù cho từng module thuộc `M01–M24`.
+- Từ **Wave 2–6**, áp dụng **Mô hình Kế hoạch 2 Cấp** ([WAVE-PLAN.md](../../../03-planning/templates/WAVE-PLAN.md) tại `03-planning/waves/WAVE-x-PLAN.md` và [MODULE-COMPLETION-PLAN.md](../../../03-planning/templates/MODULE-COMPLETION-PLAN.md) tại `03-planning/modules/Mxx-COMPLETION-PLAN.md`): liên tục xử lý mọi việc đã được phép trong phạm vi rõ ràng, nhưng **tuyệt đối không tự chốt nghiệp vụ** để đóng module cho đủ kế hoạch; khi gặp điểm chặn thật từ Chủ dự án hoặc phụ thuộc chưa chốt, dừng đúng nhánh đó, ghi rõ người trả lời & điều kiện tiếp tục vào `Blocking Register` và giữ nguyên giai đoạn `Documentation-Only`.
 - Xem ví dụ lệnh gọi và quy trình tương tác chi tiết cho người dùng tại [references/usage-guide.md](references/usage-guide.md).
 
 ---
@@ -54,15 +55,19 @@ Khi người dùng yêu cầu chạy song song nhiều module (ví dụ theo Só
 
 ---
 
-## 3B. Kỷ luật Tiết kiệm Token, Ngưỡng Phanh 2 Mức Đèn & Khóa Liên kết Chéo
+## 3B. Kỷ luật Ngữ cảnh Protocol v2, Telemetry & Khóa Liên kết Chéo
 
 1. **1 Module / 1 Phiên sạch:** Không chạy xuyên nhiều module trong cùng 1 hội thoại (module lớn như `M03` tách 2 phiên theo pha).
-2. **Nạp ngữ cảnh 3 tầng (không đọc nguyên file `modules/` cũ):**
-   - Đọc tối thiểu theo `read_first` trong [active-task.json](../../../03-planning/agent/active-task.json) (lõi + [CONTRACTS-REGISTRY.md](../../../02-specs/CONTRACTS-REGISTRY.md)).
-   - Chạy `python 05-tools/build_module_context.py --module <Mxx> --out "<ArtifactDir>/scratch/context-<Mxx>.md"` để lấy gói trích xuất 4 lớp & 2 chiều (`0` token LLM), rồi chỉ đọc đúng `contracts/*.md`, `ADR-*` và dải dòng `Master v1.9` được chỉ định (qua công cụ đọc theo khoảng dòng hiện có như `read_file(StartLine, EndLine)`).
-3. **Ngưỡng phanh 2 mức đèn (tự đo từ `session_token_telemetry`):**
-   - **Đèn Vàng (`170.000–210.000` tokens):** Cấm phóng Subagent chạy lâu (`> 3 phút`) để tránh hết hạn Prompt Cache khi nhận kết quả; tự hoàn tất phần việc còn lại trong phiên.
-   - **Đèn Đỏ (`> 210.000` tokens):** Dừng mở rộng ngay, lưu file xuống đĩa, ghi bàn giao ngắn vào [PROGRESS.md](../../../03-planning/agent/PROGRESS.md) và mở phiên mới sạch (hoặc `/compact`).
+2. **Nạp & Kiểm chứng Ngữ cảnh (Protocol v2 — theo [AGENTS.md](../../../AGENTS.md) Mục 4):**
+   - Đọc tối thiểu [active-task.json](../../../03-planning/agent/active-task.json), phần Sticky đầu [PROGRESS.md](../../../03-planning/agent/PROGRESS.md), [INVARIANTS.md](../../../01-architecture/INVARIANTS.md), [INDEX.md](../../../01-architecture/INDEX.md) và [CONTRACTS-REGISTRY.md](../../../02-specs/CONTRACTS-REGISTRY.md).
+   - Chạy `python 05-tools/build_module_context.py --module <Mxx> --out "<ArtifactDir>/scratch/context-<Mxx>.md" --check-tokens` (thay `<ArtifactDir>` bằng đường dẫn thực ngoài kho; với slice chạy cho từng module thuộc phạm vi, với review workflow/checker chọn module đại diện và các module bị ảnh hưởng). Script Python trích xuất không gọi LLM, **nhưng việc đọc gói kết quả vẫn tốn token**.
+   - Đọc gói vừa trích xuất, đúng `contracts/*.md`, `ADR-*` và dải dòng `Master v1.9` được chỉ định (qua `read_file` theo khoảng dòng; các ô tóm tắt có `...` trong `CONTRACTS-REGISTRY.md` bắt buộc phải đọc tiếp file nguồn).
+   - Trước khi soạn spec, chạy `python 05-tools/build_module_context.py --verify-packet "<ArtifactDir>/scratch/context-<Mxx>.md"`. Nếu nguồn hoặc gói thay đổi phải tạo lại và đọc delta; `.receipt.json` chứng minh phiên bản nguồn/gói, không chứng minh agent đã đọc hoặc hiểu.
+3. **Telemetry Phiên & Ngưỡng Phanh 2 Mức Đèn (`Protocol v2`):**
+   - `session_token_telemetry` mặc định là **`UNKNOWN`**; chỉ truyền `--transcript <duong-dan>` khi đã xác định đúng transcript của **phiên hiện tại** (tuyệt đối không tự chọn transcript gần nhất). **`UNKNOWN` không đồng nghĩa `GREEN`**; không dừng/compact/mở chat từ số liệu của phiên khác.
+   - Chỉ khi telemetry gắn đúng phiên hiện tại báo vượt ngưỡng mới kích hoạt phanh:
+     - **Đèn Vàng (`170.000–210.000` tokens):** Cấm phóng Subagent chạy lâu (`> 3 phút`) để tránh hết hạn Prompt Cache khi nhận kết quả; tự hoàn tất phần việc còn lại trong phiên.
+     - **Đèn Đỏ (`> 210.000` tokens):** Dừng mở rộng ngay, lưu file xuống đĩa, ghi bàn giao ngắn vào [PROGRESS.md](../../../03-planning/agent/PROGRESS.md) và mở phiên mới sạch (hoặc `/compact`).
 4. **File-Backed Subagent Handoff & Phân tầng Model:**
    - Mọi Subagent (`Re-Auditor` / `Researcher` / `Worker`) ghi báo cáo chi tiết vào `<ArtifactDir>/scratch/` (**ngoài kho `d:\AI Agent\CRM`** để không ảnh hưởng `verify_delivery_plan.py`), và chỉ gửi tóm tắt **`< 1.500` ký tự** + đường dẫn file qua cơ chế nhắn tin giữa các agent (hoặc trả về trực tiếp cho Coordinator).
    - Khuyến nghị dùng model nhẹ/nhanh cho đọc quét/kiểm bảng cơ học; dùng model mạnh cho `Pha 2` hỏi chặn, `Pha 3` thiết kế & `Fresh-Context Re-Audit`.

@@ -4,7 +4,11 @@
 - **Provider Owner:** `M14` (Tổ chức, Thành viên, Quyền & Bàn giao)
 - **Consumers:** Toàn bộ domain `M01–M24`, `Download Gateway` (`SEC03`), `Worker Jobs` (`M19`, `M24-F08`), `BI/Search` (`M18`, `M24-F06`), `AI Retrieval` (`M06`, `M20-F07`)
 - **Baseline & ADRs liên quan:** [CRM_MASTER_BRD_SRS_HOP_NHAT.md](../../00-master/CRM_MASTER_BRD_SRS_HOP_NHAT.md) (`5.1`, `5.14`, `6.1`, `6.2`, `SEC03`, `SEC06`, `U16`, `U17`, `CEO-U10`, `CEO-U17`, `CEO-U18`, `CX-U01`, `INT23`, `INT29`, `RV10`, `RV15`, `OC20`), [ADR-002](../../01-architecture/decisions/ADR-002-ORG-ISOLATION-RLS-AND-SCOPE-FILTER.md), [ADR-003](../../01-architecture/decisions/ADR-003-PERMISSION-VERSION-CACHE-AND-MODE-GOVERNANCE.md), [ADR-004](../../01-architecture/decisions/ADR-004-SHARED-PLATFORM-TABLES-AND-BASE-SCHEMA.md), [ADR-006](../../01-architecture/decisions/ADR-006-DOWNLOAD-GATEWAY-REMOTE-FETCH-AND-AI-GATEWAY.md), [ADR-007](../../01-architecture/decisions/ADR-007-PRIVACY-CANONICAL-HASH-LEGAL-HOLD-AND-DR-FENCE.md), [ADR-008](../../01-architecture/decisions/ADR-008-OMNICHANNEL-CONTRACTS-RECEIPTS-AND-CROSS-EVENTS.md), [ADR-009](../../01-architecture/decisions/ADR-009-M16-WORK-PROJECTS-TASK-CORE-BOUNDARIES.md)
-- **Trạng thái:** `Reviewed (CR-20261116-WAVE1-RECONCILIATION; CR-20261116-M16-ALIGNMENT; CR-20261116-WAVE1-5-HARDENING Applied)`
+- **Trạng thái:** `Reviewed (CR-20261116-WAVE1-RECONCILIATION; CR-20261116-M16-ALIGNMENT; CR-20261116-WAVE1-5-HARDENING Applied; CR-20261116-SKILL-TEMPLATE-ALIGN Applied)`
+- **Approved_Scope:** `Wave 1/1.5 Runtime Access & Scope Compiler Public Contract (M14 <-> M01-M24)`
+- **Approved_By:** `Chủ dự án`
+- **Decision_Ref:** `CR-20261116-SKILL-TEMPLATE-ALIGN`
+- **Approved_At:** `2026-11-16`
 - **Chính sách Breaking Change:** Additive-only cho trường mới không bắt buộc; đổi cấu trúc `Output` hoặc mở rộng tập `resource_type`/`action` bắt buộc cập nhật đồng thời `ADR-002`/`ADR-003`/`ADR-008`/`ADR-009`, Change Proposal liên quan ([CR-20261116-M16-ALIGNMENT.md](../changes/archive/CR-20261116-M16-ALIGNMENT.md), `CR-20261116-WAVE1-5-HARDENING`) và Consumer liên quan (`INDEX.md`).
 
 ---
@@ -173,6 +177,47 @@
       "break_glass_grant_id": "uuid | null",
       "matched_policy_source": "string"
     }
+  }
+}
+```
+
+**Ví dụ (`Example`) `AccessDecisionOutput` & `CompileScopeFilterInput`:**
+
+```json
+{
+  "ExampleAccessDecisionOutput": {
+    "decision": "ALLOW",
+    "http_status_recommendation": 200,
+    "internal_reason_code": "ALLOW_DIRECT_ROLE",
+    "effective_permission_version": 42,
+    "acting_mode": "DIRECT",
+    "field_policy": {
+      "allowed_fields": ["id", "name", "stage"],
+      "masked_fields": ["phone_masked"],
+      "forbidden_fields": ["salary_base"]
+    },
+    "audit_context": {
+      "delegated_from_id": null,
+      "break_glass_grant_id": null,
+      "matched_policy_source": "Role_Bindings:SALES_REP"
+    }
+  },
+  "ExampleCompileScopeFilterInput": {
+    "principal_id": "11111111-1111-4111-8111-111111111111",
+    "principal_type": "USER",
+    "tenant_id": "22222222-2222-4222-8222-222222222222",
+    "workspace_id": "33333333-3333-4333-8333-333333333333",
+    "workspace_type": "AGENCY",
+    "execution_mode": "INTERACTIVE_READ",
+    "expected_permission_version": 42,
+    "branch_id": null,
+    "legal_entity_id": null,
+    "resource_type": "TASK",
+    "action": "READ",
+    "requested_relation_or_action": "READ_TASK_LIST",
+    "delivery_channel": null,
+    "include_legal_hold_records": true,
+    "correlation_id": "44444444-4444-4444-8444-444444444444"
   }
 }
 ```
@@ -534,7 +579,11 @@ Nhằm bảo toàn đủ chi tiết bàn giao khi Offboarding/Transfer mà khôn
   "occurred_at": "timestamptz (UTC)",
   "correlation_id": "uuid",
   "causation_id": "uuid | null",
-  "payload": {}
+  "payload": {
+    "principal_id": "uuid (NN)",
+    "permission_version": "integer | null",
+    "detail_note": "Object field-map cụ thể theo từng dòng Sự kiện §3.2"
+  }
 }
 ```
 

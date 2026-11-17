@@ -9,7 +9,13 @@
 | Hạng mục | Giá trị Chuẩn hóa (`Wave 1.5`) |
 |---|---|
 | **Slice ID & Tên** | `SL01` — Giao việc nội bộ, nhận việc và duyệt kết quả (`Internal Work Pilot`) |
-| **Truy vết Master v1.9** | [CRM_MASTER_BRD_SRS_HOP_NHAT.md](../../00-master/CRM_MASTER_BRD_SRS_HOP_NHAT.md): `FR25` (`M16`), `3.14` (`W-F01–14`), `UC-W01/02/03/05/08` (`4.23`), Schema/API (`5.20`), Phân quyền (`6.6`), Hiệu năng (`7.7`), Test Catalog (`W-T01–40` tại `9.16`) & Baseline SHA-256 ở [03-planning/README.md](../../03-planning/README.md) |
+| **Baseline** | [CRM_MASTER_BRD_SRS_HOP_NHAT.md](../../00-master/CRM_MASTER_BRD_SRS_HOP_NHAT.md) (`v1.9`, `SHA-256: b6a3279f328e96e1e97d845e209be7a326516a0dba5e3a033d88e1f2162e421c`) |
+| **Status** | `Reviewed` |
+| **Approved_Scope** | `Wave 1.5 Internal Work Pilot (SL01 Task Core Text-Only Subset)` |
+| **Approved_By** | `Chủ dự án` |
+| **Decision_Ref** | `CR-20261116-SKILL-TEMPLATE-ALIGN` |
+| **Approved_At** | `2026-11-16` |
+| **Truy vết Master v1.9** | `FR25` (`M16`), `3.14` (`W-F01–14`), `UC-W01/02/03/05/08` (`4.23`), Schema/API (`5.20`), Phân quyền (`6.6`), Hiệu năng (`7.7`), Test Catalog (`W-T01–40` tại `9.16`) & Baseline SHA-256 ở [03-planning/README.md](../../03-planning/README.md) |
 | **Module Owner** | [M16-WORK-PROJECTS-TASK-CORE.md](../modules/M16-WORK-PROJECTS-TASK-CORE.md) (Task Core, Assignment, Queue, Submission, Review) |
 | **Dependencies & ADRs** | [M14-ORG-ACCESS-DELEGATION.md](../modules/M14-ORG-ACCESS-DELEGATION.md) ([C14](../contracts/M14-PRINCIPAL-ACCESS-DECISION.md)), [M20-PRIVACY-CONSENT-RETENTION.md](../modules/M20-PRIVACY-CONSENT-RETENTION.md) ([C20](../contracts/M20-SUPPRESSION-PRIVACY-GATE.md)), [M23-SYSTEM-ADMIN-SECURITY-OPS.md](../modules/M23-SYSTEM-ADMIN-SECURITY-OPS.md) ([C23](../contracts/M23-PLATFORM-GOVERNANCE-OUTBOX.md)), [M24-PERFORMANCE-AND-PRODUCTIVITY.md](../modules/M24-PERFORMANCE-AND-PRODUCTIVITY.md) ([C24](../contracts/M24-PRODUCTIVITY-CACHE-QUEUE.md)), [ADR-002..009](../../01-architecture/INDEX.md) |
 | **Capability Flags** | `SL01_INTERNAL_WORK = ON` (Pilot); `PROJECT/DELIVERABLE/ACCEPTANCE = OFF`, `M01–M15 CRM Links = OFF`, `M19 External Adapter = OFF`, `M18 BI Write-back = Read-Only Projection Only` |
