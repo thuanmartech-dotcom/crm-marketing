@@ -1,12 +1,12 @@
 {
-  "run_at": "2026-11-17T02:05:18.282680+00:00",
+  "run_at": "2026-11-17T02:59:38.842901+00:00",
   "kind": "spec-analyze-and-traceability validation only",
   "baseline_sha256": "b6a3279f328e96e1e97d845e209be7a326516a0dba5e3a033d88e1f2162e421c",
   "all_passed": true,
   "modules_checked": 9,
   "slices_checked": 3,
   "contracts_checked": 6,
-  "changes_checked": 5,
+  "changes_checked": 6,
   "skills_checked": 8,
   "registry_checked": 1,
   "partial_trace_warnings": {},
@@ -43,6 +43,7 @@
       "missing_ids_sample": [],
       "unregistered_open_gaps": [],
       "unknown_cross_module_refs": [],
+      "inv27_erasure_issues": [],
       "passed": true
     },
     {
@@ -73,6 +74,7 @@
       "missing_ids_sample": [],
       "unregistered_open_gaps": [],
       "unknown_cross_module_refs": [],
+      "inv27_erasure_issues": [],
       "passed": true
     },
     {
@@ -126,6 +128,7 @@
       "missing_ids_sample": [],
       "unregistered_open_gaps": [],
       "unknown_cross_module_refs": [],
+      "inv27_erasure_issues": [],
       "passed": true
     },
     {
@@ -156,6 +159,7 @@
       "missing_ids_sample": [],
       "unregistered_open_gaps": [],
       "unknown_cross_module_refs": [],
+      "inv27_erasure_issues": [],
       "passed": true
     },
     {
@@ -186,6 +190,7 @@
       "missing_ids_sample": [],
       "unregistered_open_gaps": [],
       "unknown_cross_module_refs": [],
+      "inv27_erasure_issues": [],
       "passed": true
     },
     {
@@ -233,6 +238,7 @@
       "missing_ids_sample": [],
       "unregistered_open_gaps": [],
       "unknown_cross_module_refs": [],
+      "inv27_erasure_issues": [],
       "passed": true
     },
     {
@@ -294,6 +300,7 @@
       "missing_ids_sample": [],
       "unregistered_open_gaps": [],
       "unknown_cross_module_refs": [],
+      "inv27_erasure_issues": [],
       "passed": true
     },
     {
@@ -324,6 +331,7 @@
       "missing_ids_sample": [],
       "unregistered_open_gaps": [],
       "unknown_cross_module_refs": [],
+      "inv27_erasure_issues": [],
       "passed": true
     },
     {
@@ -354,6 +362,7 @@
       "missing_ids_sample": [],
       "unregistered_open_gaps": [],
       "unknown_cross_module_refs": [],
+      "inv27_erasure_issues": [],
       "passed": true
     }
   ],
@@ -370,6 +379,7 @@
       "missing_approval_fields": [],
       "has_valid_test_matrix": true,
       "unregistered_open_gaps": [],
+      "inv27_erasure_issues": [],
       "passed": true
     },
     {
@@ -384,6 +394,7 @@
       "missing_approval_fields": [],
       "has_valid_test_matrix": false,
       "unregistered_open_gaps": [],
+      "inv27_erasure_issues": [],
       "passed": true
     },
     {
@@ -398,6 +409,7 @@
       "missing_approval_fields": [],
       "has_valid_test_matrix": false,
       "unregistered_open_gaps": [],
+      "inv27_erasure_issues": [],
       "passed": true
     }
   ],
@@ -419,6 +431,7 @@
       "has_event_envelope_fields": true,
       "missing_envelope_fields": [],
       "unregistered_open_gaps": [],
+      "inv27_erasure_issues": [],
       "passed": true
     },
     {
@@ -438,6 +451,7 @@
       "has_event_envelope_fields": true,
       "missing_envelope_fields": [],
       "unregistered_open_gaps": [],
+      "inv27_erasure_issues": [],
       "passed": true
     },
     {
@@ -457,6 +471,7 @@
       "has_event_envelope_fields": true,
       "missing_envelope_fields": [],
       "unregistered_open_gaps": [],
+      "inv27_erasure_issues": [],
       "passed": true
     },
     {
@@ -476,6 +491,7 @@
       "has_event_envelope_fields": true,
       "missing_envelope_fields": [],
       "unregistered_open_gaps": [],
+      "inv27_erasure_issues": [],
       "passed": true
     },
     {
@@ -495,6 +511,7 @@
       "has_event_envelope_fields": true,
       "missing_envelope_fields": [],
       "unregistered_open_gaps": [],
+      "inv27_erasure_issues": [],
       "passed": true
     },
     {
@@ -514,6 +531,7 @@
       "has_event_envelope_fields": true,
       "missing_envelope_fields": [],
       "unregistered_open_gaps": [],
+      "inv27_erasure_issues": [],
       "passed": true
     }
   ],
@@ -548,6 +566,13 @@
     },
     {
       "file": "02-specs\\changes\\archive\\CR-20261116-WAVE1-REVIEW-FIXES.md",
+      "fences_balanced": true,
+      "bad_links": [],
+      "no_fake_pass": true,
+      "passed": true
+    },
+    {
+      "file": "02-specs\\changes\\archive\\CR-20261117-M23-ERASURE-ALIGNMENT.md",
       "fences_balanced": true,
       "bad_links": [],
       "no_fake_pass": true,

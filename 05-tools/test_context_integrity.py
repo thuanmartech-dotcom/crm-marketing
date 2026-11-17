@@ -54,6 +54,62 @@ class ContextIntegrityTests(unittest.TestCase):
         count = int(re.search(r'Unnumbered rules liên quan \((\d+)\)', packet)[1])
         self.assertEqual(count, len(re.findall(r'  - `UNNUMBERED-', packet)))
 
+    def test_wave_guard_inv27_aligned_repo_passes(self):
+        self.assertEqual(ci.wave_guard_issues(), [])
+
+    def test_inv27_mutated_m23_and_is_null_gate_caught_without_false_positives(self):
+        original_read_text = Path.read_text
+
+        def mutated_m23_single_shot(p, *a, **kw):
+            text = original_read_text(p, *a, **kw)
+            if p.name == 'M23-SYSTEM-ADMIN-SECURITY-OPS.md':
+                lines = [
+                    '   - `privacy_erasure_system_role` (chỉ scrub 1 lần `M16.Task_Submissions.privacy_redacted_at` ngoài `Legal_Hold` theo `ADR-004`).'
+                    if '**`privacy_erasure_system_role`**' in ln
+                    else ln
+                    for ln in text.splitlines()
+                ]
+                return '\n'.join(lines) + '\n'
+            return text
+
+        with patch.object(Path, 'read_text', mutated_m23_single_shot):
+            issues = ci.wave_guard_issues()
+        self.assertTrue(any('M23-SYSTEM-ADMIN-SECURITY-OPS.md' in s and 'single-shot PII scrub' in s for s in issues), issues)
+        self.assertTrue(any('M23-SYSTEM-ADMIN-SECURITY-OPS.md' in s and 'redacted_deletion_ledger_ids' in s for s in issues), issues)
+
+        def mutated_m16_is_null(p, *a, **kw):
+            text = original_read_text(p, *a, **kw)
+            if p.name == 'M16-WORK-PROJECTS-TASK-CORE.md':
+                return text.replace(
+                    'cardinality(active_legal_hold_ids) = 0 AND NOT (redacted_deletion_ledger_ids @> ARRAY[$deletion_ledger_id]::uuid[])',
+                    'cardinality(active_legal_hold_ids) = 0 AND privacy_redacted_at IS NULL',
+                )
+            return text
+
+        with patch.object(Path, 'read_text', mutated_m16_is_null):
+            issues_null = ci.wave_guard_issues()
+        self.assertTrue(any('M16-WORK-PROJECTS-TASK-CORE.md' in s and 'privacy_redacted_at IS NULL gate' in s for s in issues_null), issues_null)
+
+        # Valid prohibitions, deprecated replaced-design notes, and CR history quotes must pass.
+        self.assertEqual(
+            ci.find_inv27_erasure_issues('Cấm dùng khóa một lần `privacy_redacted_at IS NULL` trên `Task_Submissions`.', '02-specs/modules/M23-SYSTEM-ADMIN-SECURITY-OPS.md'),
+            [],
+        )
+        self.assertEqual(
+            ci.find_inv27_erasure_issues("Thiết kế cũ 'chỉ scrub 1 lần' (1-time scrub) đã bị loại bỏ.", '02-specs/modules/M23-SYSTEM-ADMIN-SECURITY-OPS.md'),
+            [],
+        )
+        self.assertEqual(
+            ci.find_inv27_erasure_issues("Mô tả lỗi gốc trước khi sửa: chỉ scrub 1 lần `M16.Task_Submissions`.", '02-specs/changes/CR-20261117-TEST.md'),
+            [],
+        )
+        # Mixed clause: prior negation does NOT exempt an independent disallowed clause.
+        mixed = ci.find_inv27_erasure_issues(
+            'Cấm admin tự xóa; `privacy_erasure_system_role` chỉ scrub 1 lần `M16.Task_Submissions`.',
+            '02-specs/modules/M23-SYSTEM-ADMIN-SECURITY-OPS.md',
+        )
+        self.assertTrue(len(mixed) >= 1, mixed)
+
 
 if __name__ == '__main__':
     unittest.main()

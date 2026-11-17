@@ -374,6 +374,77 @@ Tóm tắt ngắn.
         self.assertFalse(res2['passed'])
         self.assertIn('Approved_Scope', res2['missing_approval_fields'])
 
+    def test_inv27_erasure_regression_checks_and_exemptions(self) -> None:
+        # 1. Single-shot scrub phrasing in module fixture fails inv27_erasure_issues.
+        bad_single_shot = _valid_module_text(self.baseline_sha).replace(
+            'Read-only snapshot; không phát side effect ghi.',
+            '`privacy_erasure_system_role` chỉ scrub 1 lần `M16.Task_Submissions.privacy_redacted_at`.',
+        )
+        res_single = self._run_module_fixture(bad_single_shot)
+        self.assertFalse(res_single['passed'])
+        self.assertTrue(res_single['inv27_erasure_issues'], res_single)
+
+        # 2. Compound WHERE ... privacy_redacted_at IS NULL in module & contract fails.
+        bad_mod_null = _valid_module_text(self.baseline_sha).replace(
+            'Read-only snapshot; không phát side effect ghi.',
+            'Cập nhật `Task_Submissions` `WHERE cardinality(active_legal_hold_ids) = 0 AND privacy_redacted_at IS NULL`.',
+        )
+        res_mod_null = self._run_module_fixture(bad_mod_null)
+        self.assertFalse(res_mod_null['passed'])
+        self.assertTrue(res_mod_null['inv27_erasure_issues'], res_mod_null)
+
+        bad_con_null = _valid_contract_text().replace(
+            'Không đưa PII vào technical error logs; mọi lệnh có `correlation_id`.',
+            'Áp dụng 1-time scrub khi `privacy_redacted_at IS NULL`.',
+        )
+        res_con_null = self._run_contract_fixture(bad_con_null)
+        self.assertFalse(res_con_null['passed'])
+        self.assertTrue(res_con_null['inv27_erasure_issues'], res_con_null)
+
+        # 3. Valid prohibition and historical replaced-design phrase in active module pass.
+        good_prohibition = _valid_module_text(self.baseline_sha).replace(
+            'Read-only snapshot; không phát side effect ghi.',
+            '**Cấm dùng** khóa một lần `privacy_redacted_at IS NULL`; thiết kế cũ \'chỉ scrub 1 lần\' đã bị thay thế.',
+        )
+        res_good = self._run_module_fixture(good_prohibition)
+        self.assertTrue(res_good['passed'], res_good)
+        self.assertEqual(res_good['inv27_erasure_issues'], [])
+
+        # 4. Mixed clause does NOT get exempted by an earlier unrelated negation.
+        mixed_clause = _valid_module_text(self.baseline_sha).replace(
+            'Read-only snapshot; không phát side effect ghi.',
+            'Cấm admin tự xóa; `privacy_erasure_system_role` chỉ scrub 1 lần `M16.Task_Submissions`.',
+        )
+        res_mixed = self._run_module_fixture(mixed_clause)
+        self.assertFalse(res_mixed['passed'])
+        self.assertTrue(res_mixed['inv27_erasure_issues'], res_mixed)
+
+        # 5. Sandbox-mutated M23 restoring historical bug fails check_module_file on inv27_erasure_issues.
+        m23_real = (vms.SPECS / 'modules' / 'M23-SYSTEM-ADMIN-SECURITY-OPS.md').read_text(encoding='utf-8')
+        m23_mutated_lines = [
+            '   - `privacy_erasure_system_role` (chỉ scrub 1 lần `M16.Task_Submissions.privacy_redacted_at` ngoài `Legal_Hold` theo `ADR-004`).'
+            if '**`privacy_erasure_system_role`**' in ln
+            else ln
+            for ln in m23_real.splitlines()
+        ]
+        m23_mutated = '\n'.join(m23_mutated_lines) + '\n'
+        with tempfile.TemporaryDirectory() as td:
+            m23_sandbox = Path(td) / 'M23-SYSTEM-ADMIN-SECURITY-OPS.md'
+            m23_sandbox.write_text(m23_mutated, encoding='utf-8')
+            owned_map = vms.load_owned_ids_by_module()
+            req_funcs = vms.load_required_functions_by_module()
+            res_m23_bad = vms.check_module_file(
+                m23_sandbox,
+                self.baseline_sha,
+                owned_map,
+                known_surface=self.real_surface,
+                required_funcs_map=req_funcs,
+                registered_gaps=self.real_gaps,
+                root=Path(td),
+            )
+            self.assertFalse(res_m23_bad['passed'])
+            self.assertTrue(res_m23_bad['inv27_erasure_issues'], res_m23_bad)
+
     def test_aligned_wave1_wave15_repo_files_pass(self) -> None:
         owned_map = vms.load_owned_ids_by_module()
         req_funcs = vms.load_required_functions_by_module()

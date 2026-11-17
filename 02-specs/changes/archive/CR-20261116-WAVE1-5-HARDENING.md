@@ -51,3 +51,10 @@
 - [x] Vá sạch lỗi liên module trên `M14/C14`, `M20/C20`, `M19/C19`, `M16/C16`, `SL01`.
 - [x] Đồng bộ `GAPS.md`, `02-specs/README.md`, `DECOMPOSITION-PLAN.md`, `PROGRESS.md`, `active-task.json` và bật kiểm chuẩn mặc định cho `M23`/`M24`/`SL01` trong `verify_module_spec.py`.
 - [x] Thực thi Fresh-Context Re-Audit độc lập (gồm 2 lượt đối soát & vá sạch `CRITICAL`/`HIGH`/`MEDIUM`), chạy đủ `4` script `05-tools/*.py` và lưu trữ CR này vào `02-specs/changes/archive/`.
+
+---
+
+## Ghi chú đính chính lịch sử (giữ nguyên nguyên văn lịch sử CR phía trên)
+
+- **Bối cảnh:** Mục 1 phía trên lưu nguyên văn mô tả tại thời điểm Wave 1.5 (`2026-11-16`) trước đợt vá `W1-01` và trước đồng bộ `M23`.
+- **Đính chính hiện hành:** Khóa một lần `privacy_redacted_at IS NULL` và cụm `"chỉ scrub 1 lần"` cho `privacy_erasure_system_role` đã bị bãi bỏ bởi [CR-20261116-WAVE1-REVIEW-FIXES.md](CR-20261116-WAVE1-REVIEW-FIXES.md) (`INV-27`, `ADR-004`, `M16/C16`, `M20/C20`) và đã được đồng bộ dứt điểm vào `M23` qua [CR-20261117-M23-ERASURE-ALIGNMENT.md](CR-20261117-M23-ERASURE-ALIGNMENT.md). Không sử dụng mô tả cũ ở Mục 1 làm quy chuẩn hiện hành.

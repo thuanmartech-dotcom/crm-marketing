@@ -1,6 +1,6 @@
 # Sổ Tra cứu Bề mặt Hợp đồng & Thực thể Toàn Hệ thống (`CONTRACTS-REGISTRY`)
 
-<!-- source-sha256: 9a3cfafae9968b8c2377cd9bd411b46282ca70a6a5ef346fcd54ad4d65164a51 -->
+<!-- source-sha256: 3f303c66caf74905b9e7e862806e23bf3c6dae0502a5553230f96af33059e666 -->
 > **Tệp tự sinh bởi [build_module_context.py](../05-tools/build_module_context.py) — không sửa tay trực tiếp.**  
 > **Mục đích:** Chỉ mục tóm tắt Command, Event, Bảng SSoT, Enum và ADR; kích thước thay đổi theo nguồn. Các ô có `...` phải đọc tiếp tại file nguồn; không thay thế contract/ADR đầy đủ cho các phiên Wave 2–6 mà không cần đọc lại toàn văn `~944 KB` file `modules/` cũ. Khi cần sửa ngược (*Backward Drift*), cập nhật additive vào `contracts/*.md`, ghi `[PENDING-BACKSYNC]` vào [PROGRESS.md](../03-planning/agent/PROGRESS.md) và chạy lại `--build-registry`.
 

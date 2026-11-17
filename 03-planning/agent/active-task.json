@@ -1,7 +1,7 @@
 {
-  "task_id": "CRM-SPECS-SYNC-20261116",
-  "status": "Wave 1 & Wave 1.5 Reviewed + Wave 1 Review Fixes Applied (CR-20261116-WAVE1-REVIEW-FIXES Applied & Archived; ADR-002..009; M14/C14, M20/C20, M19/C19, M16/C16, M23/C23, M24/C24 & SL01 Reviewed; --strict-all enabled for M23/M24/SL01); ready for Wave 2 (M01) while keeping implementation blocked on open policy GAPs; application not implemented",
-  "spec_review_status": "Reviewed (Wave 1 & Wave 1.5; W1-01..W1-05 resolved)",
+  "task_id": "CRM-SPECS-SYNC-20261117",
+  "status": "Wave 1 & Wave 1.5 Reviewed + M23 Erasure Alignment Closed (CR-20261116-WAVE1-REVIEW-FIXES & CR-20261117-M23-ERASURE-ALIGNMENT Applied & Archived; GAP-M16-07 open Fail-Closed for concurrent Task_Submissions erasure before DDL/code; ADR-002..009; M14/C14, M20/C20, M19/C19, M16/C16, M23/C23, M24/C24 & SL01 Reviewed; --strict-all & INV-27 regression guard enabled); ready for Wave 2 (M01 -> M03 -> M02 -> M13) while keeping implementation blocked on open policy/concurrency GAPs; application not implemented",
+  "spec_review_status": "Reviewed (Wave 1 & Wave 1.5; W1-01..W1-05 & M23 sync resolved; GAP-M16-07 concurrent erasure tracked Fail-Closed before DDL/code)",
   "implementation_readiness": "Blocked_By_Open_Policy_Gaps (O01..08, W-O01..07, GAP-* Fail-Closed until stakeholder sign-off; application tests Not Run)",
   "wave1_specs": {
     "M14": "Reviewed",
@@ -62,12 +62,13 @@
   "gate_state": "Inventory & cross-document semantic structural validation only; application tests Not Run",
   "sticky_wave_guards": {
     "INV-26": "Async workers releasing DB locks MUST enforce 3-phase lease_token CAS fencing + shared 8-branch Reaper table (ADR-005, M19/C19)",
-    "INV-27": "Immutable tables permitting PII scrub MUST use per-erasure redacted_deletion_ledger_ids[] + dual hash (content_sha256 vs redacted_content_sha256), never single-shot IS NULL (ADR-004, M16/C16, M20/C20)",
+    "INV-27": "Immutable tables permitting PII scrub MUST use per-erasure redacted_deletion_ledger_ids[] + dual hash (content_sha256 vs redacted_content_sha256), never single-shot IS NULL (ADR-004, ADR-005, M16/C16, M20/C20, M23; regression guard active in 05-tools/; concurrent distinct-ledger update safety tracked Fail-Closed in GAP-M16-07 before DDL/code)",
     "INV-28": "Keep valid 200 OK flows separate from 409 conflict test cases (W-T15) and verify cross-doc manifest sync via verify_module_spec.py",
     "context_loader": "Run python 05-tools/build_module_context.py --module <Mxx> --out <ArtifactDir>/scratch/context-<Mxx>.md --check-tokens at Pha 0; Wave 1 guards auto-injected"
   },
   "next_actions": [
-    "Begin Wave 2 Module 5: M01 (CDP & Ho so Khach hang 360) per ../DECOMPOSITION-PLAN.md (Wave 2..6: M01, M03, M02, M13 -> M07..M18 -> slices SL00, SL02..SL07)",
+    "Prepare Wave 2 plan cleanly for scope M01 -> M03 -> M02 -> M13 per ../DECOMPOSITION-PLAN.md (do NOT import sandbox S1 fake blockers BLK-W2-*, M11/M12, or M08/M15 into real Wave 2)",
+    "Begin Wave 2 Module 5: M01 (CDP & Ho so Khach hang 360); promote M01 questions to official blockers only after verifying missing decisions in Master v1.9/GAPS/Contracts; classify pilot/PoC live gates separately from Pha 3 spec & mock tests",
     "Keep O01..08, W-O01..07, GAP-* Fail-Closed until stakeholder sign-off (HR-A H-O*, M21 P-O*, GAP-15..18, GAP-M14/16/19/20-*)",
     "Keep payroll HR-C and bank capability gated; Documentation-Only phase (no application code or pass verification claimed)"
   ],

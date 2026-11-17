@@ -11,7 +11,7 @@ from datetime import datetime, timezone
 
 sys.stdout.reconfigure(encoding='utf-8')
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from context_integrity import context_issues, wave_guard_issues  # noqa: E402
+from context_integrity import context_issues, find_inv27_erasure_issues, wave_guard_issues  # noqa: E402
 from build_module_context import check_session_tokens  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -462,21 +462,8 @@ def check_cross_doc_consistency(baseline_sha: str) -> dict:
                     if row_match and ('Reviewed' not in row_match.group(0)):
                         issues.append(f'02-specs/README.md row for {key} does not report Reviewed')
 
-    m16_path = SPECS / 'modules' / 'M16-WORK-PROJECTS-TASK-CORE.md'
-    adr004_path = ROOT / '01-architecture' / 'decisions' / 'ADR-004-SHARED-PLATFORM-TABLES-AND-BASE-SCHEMA.md'
-    for p in (m16_path, adr004_path):
-        if p.exists():
-            txt = p.read_text(encoding='utf-8')
-            if 'WHERE privacy_redacted_at IS NULL' in txt or 'CHECK / WHERE privacy_redacted_at IS NULL' in txt:
-                issues.append(f'{p.relative_to(ROOT)} still contains single-shot privacy_redacted_at IS NULL lock (W1-01)')
-            if 'redacted_deletion_ledger_ids' not in txt or 'redacted_content_sha256' not in txt:
-                issues.append(f'{p.relative_to(ROOT)} missing multi-subject redaction tracking fields (W1-01)')
-    for folder in (SPECS / 'modules', SPECS / 'contracts', SPECS / 'slices'):
-        if folder.exists():
-            for p in folder.glob('*.md'):
-                txt = p.read_text(encoding='utf-8')
-                if re.search(r'(?:WHERE|CHECK(?:\s*/\s*WHERE)?)\s+privacy_redacted_at\s+IS\s+NULL', txt, re.I):
-                    issues.append(f'{p.relative_to(ROOT)} uses forbidden single-shot privacy_redacted_at IS NULL lock (INV-27 / W1-01)')
+    # INV-27 / W1-01 single-shot erasure checks and cross-doc privacy_erasure_system_role
+    # alignment are enforced in wave_guard_issues() (`context_integrity.py`).
 
     m19_path = SPECS / 'modules' / 'M19-INTEGRATION-ADAPTERS-OUTBOX.md'
     c19_path = SPECS / 'contracts' / 'M19-DURABLE-INGEST-OUTBOX.md'
@@ -769,8 +756,16 @@ def check_module_file(
     reg_gaps = registered_gaps if registered_gaps is not None else load_registered_gap_ids()
     unregistered_open_gaps = find_unregistered_open_gaps(clean_text, reg_gaps)
     unknown_cross_refs = find_unknown_cross_module_refs(mod_id, clean_text, known_surface or {})
+    inv27_issues = find_inv27_erasure_issues(clean_text, _display_path(path, root))
 
-    passed = fences_ok and (not bad_links) and no_fake_pass and (not missing_sections) and (not unregistered_open_gaps)
+    passed = (
+        fences_ok
+        and (not bad_links)
+        and no_fake_pass
+        and (not missing_sections)
+        and (not unregistered_open_gaps)
+        and (not inv27_issues)
+    )
     if not is_legacy:
         passed = (
             passed
@@ -823,6 +818,7 @@ def check_module_file(
         'missing_ids_sample': missing_ids[:25],
         'unregistered_open_gaps': unregistered_open_gaps,
         'unknown_cross_module_refs': unknown_cross_refs,
+        'inv27_erasure_issues': inv27_issues,
         'passed': passed,
     }
 
@@ -869,8 +865,16 @@ def check_slice_file(
 
     reg_gaps = registered_gaps if registered_gaps is not None else load_registered_gap_ids()
     unregistered_open_gaps = find_unregistered_open_gaps(clean_text, reg_gaps)
+    inv27_issues = find_inv27_erasure_issues(clean_text, _display_path(path, root))
 
-    passed = fences_ok and (not bad_links) and no_fake_pass and (not missing_sections) and (not unregistered_open_gaps)
+    passed = (
+        fences_ok
+        and (not bad_links)
+        and no_fake_pass
+        and (not missing_sections)
+        and (not unregistered_open_gaps)
+        and (not inv27_issues)
+    )
     if not is_legacy:
         passed = (
             passed
@@ -891,6 +895,7 @@ def check_slice_file(
         'missing_approval_fields': manifest_info['missing_approval_fields'],
         'has_valid_test_matrix': has_valid_test_matrix,
         'unregistered_open_gaps': unregistered_open_gaps,
+        'inv27_erasure_issues': inv27_issues,
         'passed': passed,
     }
 
@@ -1054,6 +1059,7 @@ def check_contract_file(
 
     reg_gaps = registered_gaps if registered_gaps is not None else load_registered_gap_ids()
     unregistered_open_gaps = find_unregistered_open_gaps(clean_text, reg_gaps)
+    inv27_issues = find_inv27_erasure_issues(clean_text, _display_path(path, root))
 
     passed = (
         fences_ok
@@ -1067,6 +1073,7 @@ def check_contract_file(
         and has_matching_example
         and has_event_envelope_fields
         and (not unregistered_open_gaps)
+        and (not inv27_issues)
     )
     return {
         'file': _display_path(path, root),
@@ -1085,6 +1092,7 @@ def check_contract_file(
         'has_event_envelope_fields': has_event_envelope_fields,
         'missing_envelope_fields': missing_envelope_fields,
         'unregistered_open_gaps': unregistered_open_gaps,
+        'inv27_erasure_issues': inv27_issues,
         'passed': passed,
     }
 
